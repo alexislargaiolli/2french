@@ -20,5 +20,8 @@ module.exports = {
   models: {
    connection: 'mongo'
   }
-
+	,
+	log: {
+     level: "info"
+   }
 };
