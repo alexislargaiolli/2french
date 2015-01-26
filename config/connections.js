@@ -62,7 +62,7 @@ module.exports.connections = {
     host: process.env.DB_HOST || 'localhost',
     port: process.env.DB_PORT || 27017,
     user: process.env.DB_USER,
-    password: process.env.DB_PORT,
+    password: process.env.DB_PASS,
     database: process.env.DB_NAME || '2french'
   },
 
