@@ -65,13 +65,13 @@ module.exports.connections = {
     database: '2french'
   },
 
-  prodMongo: {
+  mongo: {
     adapter: 'sails-mongo',
-    host: 'heroku_app33375917:9i0m5ja7i41afo08kma1978mvp@ds033390.mongolab.com',
-    port: 33390,
-    //user: 'username',
-    //password: 'password',
-    database: 'heroku_app33375917'
+    host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT || 27017,
+    user: process.env.DB_USER,
+    password: process.env.DB_PORT,
+    database: process.env.DB_NAME || '2french'
   },
 
   /***************************************************************************
