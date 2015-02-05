@@ -53,6 +53,10 @@ var AuthController = {
     });
   },
 
+  loggedin: function (req, res) {
+     res.send(req.user ? req.user : '0');
+  },
+
   /**
    * Log out a user and return them to the homepage
    *
@@ -147,7 +151,7 @@ var AuthController = {
           res.redirect('back');
           break;
         default:
-          res.redirect('/login');
+          res.send('/400');
       }
     }
 
@@ -163,7 +167,7 @@ var AuthController = {
 
         // Upon successful login, send the user to the homepage were req.user
         // will available.
-        res.redirect('/');
+        res.send(200);
       });
     });
   },
