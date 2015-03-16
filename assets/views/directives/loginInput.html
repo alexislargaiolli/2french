@@ -1,0 +1,16 @@
+<form id="loginForm" name="formLogin" role="form" class="navbar-form navbar-right" ng-if="currentUser == null" ng-controller="LoginCtrl" >
+	<div class="form-group btn-wrapper">
+		<i class="fa fa-user"></i>
+		<input id="input-email" ng-model="credential.email" type="text" name="username" placeholder="Username" ng-required="true" class="form-control">
+		<span class="error" ng-show="formLogin.username.$error.required"></span>
+		
+		<input ng-model="credential.pwd" type="password" name="password" placeholder="password" ng-required="true" class="form-control">
+		<span class="error" ng-show="formLogin.password.$error.required"></span>
+				
+	</div>
+	<button id="login-btn" ng-click="login()" type="submit" class="btn"><i class="fa fa-unlock-alt"></i></button>
+	<div class="alert alert-danger" role="alert" ng-show="message">{{message}}</div>
+	
+	<button id="register-btn" ng-if="currentUser == null" type="button" ui-sref="register" class="btn btn-default orange-btn" ui-sref-active="active">{{'header.register' | translate}}</button>
+	
+</form>

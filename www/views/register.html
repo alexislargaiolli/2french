@@ -1,0 +1,36 @@
+<div class="page-header">
+  <h1>Inscription</h1>
+</div>
+<div class="row">
+	<div class="col-md-12 margin-10" ng-if="registerType == 0">
+		<button ng-click="setStudent()" type="button" class="btn btn-default">{{'register.teacher' | translate}}</button>
+	</div>
+	<div class="col-md-12 margin-10" ng-if="registerType == 0">
+		<button ng-click="setTeacher()" type="button" class="btn btn-default">{{'register.student' | translate}}</button>
+	</div>
+</div>
+
+<form name="formTeacher" role="form" ng-if="registerType != 0">
+	<legend ng-if="registerType == 1">Teacher</legend>
+	<legend ng-if="registerType == 2">Student</legend>
+
+	<div class="form-group">
+		<label for="username">Username</label>
+		<input ng-model="user.username" type="text" name="username" class="form-control" placeholder="Pseudo" ng-required="true">
+		<span class="error" ng-show="formTeacher.username.$error.required">
+	</div>
+	<div class="form-group">
+		<label for="email">Email</label>
+		<input ng-model="user.email" type="email" name="email" class="form-control" placeholder="Adresse email" ng-required="true">
+		<span class="error" ng-show="formTeacher.email.$error.email">
+	</div>
+	<div class="form-group">
+		<label for="password">Password</label>
+		<input ng-model="user.password" type="password" name="password" class="form-control" placeholder="Password" ng-required="true">
+		<span class="error" ng-show="formTeacher.password.$error.required">
+	</div>	
+	<div class="col-md-12 margin-10" ng-show="message">
+		<div class="alert alert-danger" role="alert">{{message}}</div>
+	</div>	
+	<button ng-click="submit()" type="submit" class="btn btn-primary center-block" ng-disabled="!formTeacher.$valid">Submit</button>
+</form>

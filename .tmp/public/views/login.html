@@ -1,1 +1,20 @@
-<p>This is the login view.</p> <form role="form" action="/auth/local" method="post"> <input type="text" name="identifier" placeholder="Username or Email"> <input type="password" name="password" placeholder="Password"> <button type="submit">Sign in</button> </form>
+<div class="page-header">
+  <h1>Login</h1>
+</div>
+
+<form name="formLogin" role="form">
+	
+	<div class="input-group form-group">
+	  <span class="input-group-addon" id="basic-addon1">Email</span>
+	  <input ng-model="credential.email" type="text" name="username" class="form-control" placeholder="Username" aria-describedby="basic-addon1"  ng-required="true">
+	  <span class="error" ng-show="formLogin.username.$error.required">
+	</div>
+
+	<div class="input-group form-group">
+		<span class="input-group-addon" id="basic-addon1">Passord</span>
+		<input ng-model="credential.pwd" type="password" name="password" class="form-control" placeholder="password" aria-describedby="basic-addon1"  ng-required="true">
+		<span class="error" ng-show="formLogin.password.$error.required">
+	</div>
+	<div class="alert alert-danger" role="alert" ng-show="message">{{message}}</div>
+	<button class="btn btn-primary center-block" ng-click="login()" type="submit" ng-disabled="!formLogin.$valid">Login</button>
+</form>

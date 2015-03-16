@@ -35,6 +35,8 @@ module.exports = function serverError (data, options) {
     data = undefined;
   }
 
+
+  return res.jsonx(data);
   // If the user-agent wants JSON, always respond with JSON
   if (req.wantsJSON) {
     return res.jsonx(data);

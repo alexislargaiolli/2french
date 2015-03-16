@@ -22,11 +22,15 @@ var validator = require('validator');
  * @param {Object}   res
  * @param {Function} next
  */
-exports.register = function (req, res, next) {
-  var email    = req.param('email')
-    , username = req.param('username')
-    , password = req.param('password');
-
+exports.register = function(req, res, next) {
+  var email = req.param('email'),
+    username = req.param('username'),
+    password = req.param('password'),
+    teacher = req.param('teacher'),
+    role = 'student';
+  if (teacher !== null && teacher == 1) {
+    role = 'teacher';
+  }
   if (!email) {
     req.flash('error', 'Error.Passport.Email.Missing');
     return next(new Error('No email was entered.'));
@@ -42,40 +46,67 @@ exports.register = function (req, res, next) {
     return next(new Error('No password was entered.'));
   }
 
-  User.create({
-    username : username
-  , email    : email
-  }, function (err, user) {
-    if (err) {
-      if (err.code === 'E_VALIDATION') {
-        if (err.invalidAttributes.email) {
-          req.flash('error', 'Error.Passport.Email.Exists');
-        } else {
-          req.flash('error', 'Error.Passport.User.Exists');
-        }
+  User.findOne({
+      username: username
+    },
+    function(err, user) {
+      if (user) {
+         req.flash('error', 'Error.Passport.User.Exists');
+        return next(new Error('Error.Passport.User.Exists'));
+      } else {
+        User.findOne({
+            email: email
+          },
+
+          function(err, user) {
+            if (user) {
+               req.flash('error', 'Error.Passport.Email.Exists');
+              return next(new Error('Error.Passport.Email.Exists'));
+            } else {
+              User.create({
+                username: username,
+                email: email,
+                role: role
+              }, function(err, user) {
+                if (err) {
+                  if (err.code === 'E_VALIDATION') {
+                    sails.log.error('register');
+                    if (err.invalidAttributes.email) {
+                      req.flash('error', 'Error.Passport.Email.Exists');
+                    } else {
+                      sails.log.info('sdgfdgfdgdfg___________________');
+                      req.flash('error', 'Error.Passport.User.Exists');
+                    }
+                  }
+
+                  return next(err);
+                }
+
+                Passport.create({
+                  protocol: 'local',
+                  password: password,
+                  user: user.id
+                }, function(err, passport) {
+                  if (err) {
+                    if (err.code === 'E_VALIDATION') {
+                      req.flash('error', 'Error.Passport.Password.Invalid');
+                    }
+
+                    return user.destroy(function(destroyErr) {
+                      next(destroyErr || err);
+                    });
+                  }
+
+                  next(null, user);
+                });
+              });
+            }
+          });
+
       }
-
-      return next(err);
-    }
-
-    Passport.create({
-      protocol : 'local'
-    , password : password
-    , user     : user.id
-    }, function (err, passport) {
-      if (err) {
-        if (err.code === 'E_VALIDATION') {
-          req.flash('error', 'Error.Passport.Password.Invalid');
-        }
-
-        return user.destroy(function (destroyErr) {
-          next(destroyErr || err);
-        });
-      }
-
-      next(null, user);
     });
-  });
+
+
 };
 
 /**
@@ -89,28 +120,27 @@ exports.register = function (req, res, next) {
  * @param {Object}   res
  * @param {Function} next
  */
-exports.connect = function (req, res, next) {
-  var user     = req.user
-    , password = req.param('password');
+exports.connect = function(req, res, next) {
+  var user = req.user,
+    password = req.param('password');
 
   Passport.findOne({
-    protocol : 'local'
-  , user     : user.id
-  }, function (err, passport) {
+    protocol: 'local',
+    user: user.id
+  }, function(err, passport) {
     if (err) {
       return next(err);
     }
 
     if (!passport) {
       Passport.create({
-        protocol : 'local'
-      , password : password
-      , user     : user.id
-      }, function (err, passport) {
+        protocol: 'local',
+        password: password,
+        user: user.id
+      }, function(err, passport) {
         next(err, user);
       });
-    }
-    else {
+    } else {
       next(null, user);
     }
   });
@@ -128,18 +158,17 @@ exports.connect = function (req, res, next) {
  * @param {string}   password
  * @param {Function} next
  */
-exports.login = function (req, identifier, password, next) {
-  var isEmail = validator.isEmail(identifier)
-    , query   = {};
+exports.login = function(req, identifier, password, next) {
+  var isEmail = validator.isEmail(identifier),
+    query = {};
 
   if (isEmail) {
     query.email = identifier;
-  }
-  else {
+  } else {
     query.username = identifier;
   }
 
-  User.findOne(query, function (err, user) {
+  User.findOne(query, function(err, user) {
     if (err) {
       return next(err);
     }
@@ -155,11 +184,11 @@ exports.login = function (req, identifier, password, next) {
     }
 
     Passport.findOne({
-      protocol : 'local'
-    , user     : user.id
-    }, function (err, passport) {
+      protocol: 'local',
+      user: user.id
+    }, function(err, passport) {
       if (passport) {
-        passport.validatePassword(password, function (err, res) {
+        passport.validatePassword(password, function(err, res) {
           if (err) {
             return next(err);
           }
@@ -171,8 +200,7 @@ exports.login = function (req, identifier, password, next) {
             return next(null, user);
           }
         });
-      }
-      else {
+      } else {
         req.flash('error', 'Error.Passport.Password.NotSet');
         return next(null, false);
       }

@@ -1,0 +1,1 @@
+var tooFrenchServices = angular.module('tooFrenchApp');
