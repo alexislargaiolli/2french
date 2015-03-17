@@ -30,7 +30,7 @@
     "validator": "^3.34.0"
   },
   "scripts": {
-    "start": "sails lift",
+    "start": "node app.js",
     "postinstall": "bower install && grunt build",
     "debug": "node debug app.js"
   },
