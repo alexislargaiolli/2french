@@ -11,11 +11,15 @@
     "angular-resource": "^1.4.0",
     "angular-route": "^1.4.0",
     "angular-sanitize": "^1.4.0",
-    "angular-touch": "^1.4.0"
+    "angular-touch": "^1.4.0",
+    "components-font-awesome": "~4.3.0",
+    "angular-ui-router": "~0.2.13",
+    "angular-translate": "~2.6.1",
+    "angular-translate-loader-static-files": "~2.6.1"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.0",
     "angular-scenario": "~1.4.0"
   },
-  "appPath": "www/"
+  "appPath": "assets"
 }
