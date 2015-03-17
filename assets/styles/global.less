@@ -57,7 +57,32 @@ body{
 
 #searchBar{
 	background-color:@light-blue;
-	height:50px;
+	height:60px;
+	padding: 13px;
+	.container{
+		text-align: center;
+		input{
+			color:@light-blue;
+		}
+		input::-webkit-input-placeholder{
+			color:@light-blue;	
+		}
+		input:-moz-placeholder{
+			color:@light-blue;	
+		}
+		input::-moz-placeholder{
+			color:@light-blue;	
+		}
+	}
+	#search-btn{
+		background: none;
+		border:1px solid @light-blue;
+		font-size: 20px;
+		color: #fff;
+	}
+	#search-btn:hover{
+		border:1px solid #fff;
+	}
 }
 
 
@@ -270,7 +295,7 @@ body{
 }
 
 .text-shadow{
-
+	
 }
 
 .no-box-shadow{
