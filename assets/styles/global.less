@@ -99,8 +99,8 @@ body{
 /* HOME */
 #home-header{
 	background-color: #0a0a0a;
-	#map{
-
+	img{
+		width:100%;
 	}	
 }
 #home-subheader{
@@ -270,7 +270,60 @@ body{
 
 
 
+/* PROFILE */
+
+#profile-container{
+	background-color: #fff;
+	#profile-right{
+		padding:20px;
+		#profile-header{			
+			#motivation-panel{
+				padding:10px;
+				border:1px solid #ddd;
+				background-color: #eee;
+				h4{
+					display: inline-block;
+				}
+				.editable-textarea{
+					width:100%;
+					.editable-controls{
+						width:100%;
+						textarea{
+							resize: none;
+						}
+					}
+					.editable-buttons{
+						display: block;
+						text-align: center;
+						padding: 10px;
+					}
+				}
+			}
+			#profilePhoto{
+				width: 150px;
+				padding: 5px;
+				text-align: center;
+				i{
+					font-size: 100px;
+				}
+			}
+		}
+	}
+
+	.angular-google-map-container { height: 400px; }
+}
+
+
+
+
+
 /* UTILS */
+
+.bordered-block{
+	display:block;
+	border:5px solid #ddd;
+	padding:10px;
+}
 
 .white-block{
 	background-color:#fff;
@@ -365,6 +418,10 @@ body{
 	border:none;
 	background:@green;	
 	.no-box-shadow;
+}
+
+.center{
+	text-align:center;
 }
 
 .p-5{

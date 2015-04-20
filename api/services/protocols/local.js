@@ -27,6 +27,8 @@ exports.register = function(req, res, next) {
     username = req.param('username'),
     password = req.param('password'),
     teacher = req.param('teacher'),
+    firstname = req.param('firstname'),
+    city = req.param('city'),
     role = 'student';
   if (teacher !== null && teacher == 1) {
     role = 'teacher';
@@ -51,16 +53,15 @@ exports.register = function(req, res, next) {
     },
     function(err, user) {
       if (user) {
-         req.flash('error', 'Error.Passport.User.Exists');
+        req.flash('error', 'Error.Passport.User.Exists');
         return next(new Error('Error.Passport.User.Exists'));
       } else {
         User.findOne({
             email: email
           },
-
           function(err, user) {
             if (user) {
-               req.flash('error', 'Error.Passport.Email.Exists');
+              req.flash('error', 'Error.Passport.Email.Exists');
               return next(new Error('Error.Passport.Email.Exists'));
             } else {
               User.create({
@@ -82,23 +83,36 @@ exports.register = function(req, res, next) {
                   return next(err);
                 }
 
-                Passport.create({
-                  protocol: 'local',
-                  password: password,
-                  user: user.id
-                }, function(err, passport) {
-                  if (err) {
-                    if (err.code === 'E_VALIDATION') {
-                      req.flash('error', 'Error.Passport.Password.Invalid');
-                    }
+                sails.models.profile.create({
+                  "owner": user.id,
+                  "firstname": firstname,
+                  "city": city
+                }).exec(function(err, profile) {
+                  sails.models.user.update({
+                    "email": user.email
+                  }, {
+                    "profile": profile.id
+                  }).exec(function(err, u) {
+                    Passport.create({
+                      protocol: 'local',
+                      password: password,
+                      user: user.id
+                    }, function(err, passport) {
+                      if (err) {
+                        if (err.code === 'E_VALIDATION') {
+                          req.flash('error', 'Error.Passport.Password.Invalid');
+                        }
 
-                    return user.destroy(function(destroyErr) {
-                      next(destroyErr || err);
+                        return user.destroy(function(destroyErr) {
+                          next(destroyErr || err);
+                        });
+                      }
+                      next(null, user);
                     });
-                  }
-
-                  next(null, user);
+                  });
                 });
+
+
               });
             }
           });

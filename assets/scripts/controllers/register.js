@@ -7,34 +7,40 @@
  * # LoginCtrl
  * Controller of the tooFrenchApp
  */
-var tooFrenchControllers = angular.module('tooFrenchApp');
-tooFrenchControllers.controller('RegisterCtrl', ['$scope', '$state', 'AuthService', function($scope, $state, authService) {
-	$scope.registerType = 2;
-	$scope.user = {};
-	$scope.emailConfirmation;
-	$scope.message = null;
-
-	$scope.setStudent = function() {
-		$scope.registerType = 1;
-	};
-
-	$scope.setTeacher = function() {
+var tooFrenchControllers = angular.module('tooFrenchCtrl');
+tooFrenchControllers.controller('RegisterCtrl', ['$scope', '$state', 'AuthService',
+	function($scope, $state, authService) {
 		$scope.registerType = 2;
-	};
+		$scope.user = {};
+		$scope.emailConfirmation;
+		$scope.message = null;
 
-	$scope.submit = function() {
-		if ($scope.formRegister.$valid) {
-			var teacher = $scope.registerType == 1 ? 1 : 0;
-			authService.register($scope.user.username, $scope.user.email, $scope.user.password, teacher).then(function(user) {
-				$scope.setCurrentUser(user);
-				$state.go('home');
-			}, function(message) {
-				$scope.message = message;
-			});
-		}
-	};
+		$scope.optionsLocation = {
+			types: ['(cities)']
+		};
 
-}]);
+		$scope.setStudent = function() {
+			$scope.registerType = 1;
+		};
+
+		$scope.setTeacher = function() {
+			$scope.registerType = 2;
+		};
+
+		$scope.submit = function() {
+			if ($scope.formRegister.$valid) {
+				var teacher = $scope.registerType == 1 ? 1 : 0;
+				authService.register($scope.user.username, $scope.user.email, $scope.user.password, teacher, $scope.user.firstname, $scope.user.city).then(function(user) {
+					$scope.setCurrentUser(user);
+					$state.go('home');
+				}, function(message) {
+					$scope.message = message;
+				});
+			}
+		};
+
+	}
+]);
 
 tooFrenchControllers.directive('match', function($parse) {
 	return {
@@ -54,26 +60,22 @@ tooFrenchControllers.directive('classValid', function($parse) {
 		link: function(scope, elem, attrs, ctrl) {
 			scope.$watch(function() {
 				var elt = $parse(attrs.classValid)(scope);
-				if(elt.$pristine){
+				if (elt.$pristine) {
 					return 0;
-				}
-				else {
+				} else {
 					return elt.$valid ? 1 : -1;
 				}
 			}, function(currentValue) {
-				if(currentValue === 1){
+				if (currentValue === 1) {
 					elem.addClass('has-success');
 					elem.removeClass('has-error');
-				}
-				else if(currentValue === -1){
+				} else if (currentValue === -1) {
 					elem.addClass('has-error');
 					elem.removeClass('has-success');
-				}
-				else{
-					elem.removeClass('has-success');	
+				} else {
+					elem.removeClass('has-success');
 					elem.removeClass('has-error');
 				}
-				console.log(currentValue);
 			});
 		}
 	};

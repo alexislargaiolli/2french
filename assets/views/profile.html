@@ -1,3 +1,198 @@
-<div class="container">
+<div id="profile-container">
+	<div class="container">
+		<div class="row">
+			<div id="profile-left" class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+				<button ng-click="save()" type="button" class="btn btn-default">button</button ng-click="save()">
+			</div>
+			<div id="profile-right" class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+				<div id="profile-header" class="bordered-block">
+					<div class="row">
+						<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+							<div id="profilePhoto" class="thumbnail">
+								<img ng-if="profile.photo === null">
+								<i class="fa fa-user" ng-if="profile.photo !== null"></i>
+								<div class="caption">
+									
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+							<h3></h3>
 
+
+							<div>
+															
+							</div>
+							<div ng-show="{{!editable}}">
+								Niveau {{profile.levelFrom}} à {{profile.levelTo}}
+							</div>
+							<div ng-show="{{editable}}">
+								<span>Niveau </span>
+								<ui-select ng-model="profile.levelFrom"
+							             theme="bootstrap"
+							             ng-disabled="disabled"
+							             reset-search-input="false"
+							             style="width: 60px;display:inline-block;">
+							    <ui-select-match placeholder="Enter an address...">{{$select.selected.name[$parent.lg]}}</ui-select-match>
+							    <ui-select-choices repeat="level in formationLevels">
+							      <div ng-bind-html="level.name[$parent.lg] | highlight: $select.search"></div>
+							    </ui-select-choices>
+							  </ui-select>
+							  <span> à </span>
+							  <ui-select ng-model="profile.levelTo"
+							             theme="bootstrap"
+							             ng-disabled="disabled"
+							             reset-search-input="false"
+							             style="width: 60px;display:inline-block;">
+							    <ui-select-match placeholder="Enter an address...">{{$select.selected.name[$parent.lg]}}</ui-select-match>
+							    <ui-select-choices repeat="level in formationLevels">
+							      <div ng-bind-html="level.name[$parent.lg] | highlight: $select.search"></div>
+							    </ui-select-choices>
+							  </ui-select>
+							</div>
+							<span ng-show="!editCity">
+								{{profile.city.address_components[0].long_name}} ({{profile.city.address_components[3].long_name}})
+							</span>
+							<span ng-show="{{editable}}">
+								<input type="text" g-places-autocomplete ng-model="profile.city" options="optionsCity" ng-show="editCity" force-selection="true" />
+								<button type="button" class="btn btn-primary" ng-model="editCity" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
+									<i class="fa fa-pencil"></i>
+								</button>
+							</span>
+
+
+
+							<ui-select multiple ng-model="profile.formations" theme="bootstrap" style="width: 100%;" ng-show="{{editable}}">
+								<ui-select-match placeholder="Select person...">{{$item.name[$parent.lg]}}</ui-select-match>
+								<ui-select-choices repeat="formation in formations">
+									<div ng-bind-html="formation.name[$parent.lg] | highlight: $select.search"></div>
+									<small>
+										{{formation.description[$parent.lg]}}
+									</small>
+								</ui-select-choices>
+							</ui-select>
+						</div>
+					</div>
+
+
+
+
+
+
+					<div id="motivation-panel">
+						<div><h4>Expérience & Motivations</h4>
+							<span ng-show="{{editable}}">
+								<button class="btn btn-default btn-sm" ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible">
+								<i class="fa fa-pencil-square-o"></i>
+								</button>
+							</span>
+						</div>
+						<p editable-textarea="profile.motivation[$parent.lg]" e-form="textBtnForm" e-rows="7" e-style="width:100%">
+							{{ profile.motivation[$parent.lg] || 'empty' }}
+						</p>
+					</div>
+				</div>
+				
+
+
+
+				<h3>Formations proposées</h3>
+				<hr/>
+				<label>Prix d'une heure de cours : <a href="#" editable-number="profile.hourRate" e-min="0">{{ profile.hourRate || 'NaN' }}</a>€</label>
+				<hr/>				
+				<div ng-repeat="formula in profile.formulas">
+					<hr/>
+					<h4>{{formula.name[$parent.lg]}}</h4>
+					<p>{{formula.description[$parent.lg]}}</p>
+				</div>
+				<div style="text-align:center;" ng-show="{{editable}}">
+					<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#dlgAddFormula">
+						<i class="fa fa-plus"></i> Formule
+					</button>
+				</div>
+				<hr/>
+				<div class="modal fade" id="dlgAddFormula" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-show="{{editable}}">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<form name="formAddFormula">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title" id="myModalLabel">Nouvelle formule</h4>
+								</div>
+								<div class="modal-body">
+									<div class="form-group">
+										<label for="formulaName">Nom</label>
+										<input type="text" ng-model="formulaToAdd.name[$parent.lg]" class="form-control" id="formulaName" placeholder="Nom de la formule" ng-required="true">
+									</div>
+									<div class="form-group">
+										<label for="formulaDesc">Description</label>
+										<textarea id="formulaDesc" ng-model="formulaToAdd.description[$parent.lg]" placeholder="Description de la formule" class="form-control" rows="3" ng-required="true"></textarea>
+									</div>
+									<div class="form-group">
+										<label for="formulaPrice">Prix</label>
+										<input type="number" ng-model="formulaToAdd.price" min="0" class="form-control" id="formulaPrice" placeholder="Prix de la formule" ng-required="true">
+									</div>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+									<button type="submit" ng-click="addFormula();" class="btn btn-primary" data-dismiss="modal" ng-disabled="formAddFormula.$invalid">Ajouter la formule</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+				
+				<div class="bordered-block">
+					<h4 style="display:inline-block;">Hébergement</h4>
+					<div style="display:inline-block;">
+						Proposer un hebergement : <input type="checkbox" ng-model="profile.activeAccomodation">
+					</div>
+					<div ng-show="profile.activeAccomodation == true">
+						<hr/>
+						<div>
+							<h5>Equipements</h5>
+							<ui-select multiple ng-model="profile.equipments" theme="bootstrap" style="width: 800px;">
+							<ui-select-match placeholder="Select equipments...">{{$item.name[$parent.lg]}}</ui-select-match>
+							<ui-select-choices repeat="equipment in equipments">
+							<div ng-bind-html="equipment.name[$parent.lg] | highlight: $select.search"></div>
+							</ui-select-choices>
+							</ui-select>
+							
+							<h5>Service</h5>
+							<ui-select multiple ng-model="profile.services" theme="bootstrap" style="width: 800px;">
+							<ui-select-match placeholder="Select equipments...">{{$item.name[$parent.lg]}}</ui-select-match>
+							<ui-select-choices repeat="service in services">
+							<div ng-bind-html="service.name[$parent.lg] | highlight: $select.search"></div>
+							</ui-select-choices>
+							</ui-select>
+						</div>
+						<hr/>
+						<span ng-show="!editLocation">
+							{{profile.location.address_components[0].long_name}} ({{profile.location.address_components[3].long_name}})
+						</span>
+						<span>
+							<input type="text" g-places-autocomplete options="optionsLocation" ng-model="profile.location" ng-show="editLocation" />
+							<button type="button" class="btn btn-primary" ng-model="editLocation" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false" ng-click="updateLocation()">
+							<i class="fa fa-pencil"></i>
+							</button>
+						</span>
+						<div>
+							<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+							<ui-gmap-markers models="map.markers"
+							doCluster="true"
+							coords="'self'"
+							icon="'icon'"
+							click="'onclicked'"
+							options="'options'"
+							idkey='id'
+							clusterOptions='map.clusterOptions'
+							control='markerControl.getChildMarkers().get(id)'>
+							</ui-gmap-markers>
+							</ui-gmap-google-map>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

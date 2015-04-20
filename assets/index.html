@@ -10,10 +10,18 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
+    <link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
+    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
+    <link rel="stylesheet" href="bower_components/angular-dialog-service/dist/dialogs.min.css" />
+    <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css">
+    <link rel="stylesheet" href="bower_components/ng-img-crop/compile/unminified/ng-img-crop.css">
+    
+    
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/global.css">
+    <link rel="stylesheet" href="styles/uploader.css">
     <!-- endbuild -->
   </head>
   <body ng-app="tooFrenchApp" ng-controller="ApplicationController">
@@ -44,8 +52,8 @@
             <li>
               <a ui-sref="forum" class="basic-link" ui-sref-active="active">{{'header.forum' | translate}}</a>
             </li>
-            <li class="dropdown" ng-controller="TranslateController">
-              <a id="current-language" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="images/languages/{{currentLanguage()}}.png" /><span class="caret"></span></a>
+            <li class="dropdown" ng-controller="TranslateCtrl">
+              <a id="current-language" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="images/languages/{{$parent.locale}}.png" /><span class="caret"></span></a>
               <ul id="language-dropdown" class="dropdown-menu" role="menu">
                 <li><a ng-click="changeLanguage('frFR')"><img src="images/languages/frFR.png" /></a></li>
                 <li><a ng-click="changeLanguage('enUS')"><img src="images/languages/enUS.png" /></a></li>
@@ -58,7 +66,7 @@
             <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{currentUser.username}} <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
-                <li><a ui-sref="profile">Profile</a></li>
+                <li><a ui-sref="myprofile">Profile</a></li>
                 <li><a ng-click="logout()">Logout</a></li>
               </ul>
             </li>
@@ -107,8 +115,13 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/cloudinary_js/js/jquery.cloudinary.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+    
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-translate/angular-translate.js"></script>
+    <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-resource/angular-resource.js"></script>
@@ -116,20 +129,63 @@
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-    <script src="bower_components/angular-translate/angular-translate.js"></script>
-    <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+    <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+    <script src="bower_components/lodash/dist/lodash.js"></script>
+    <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+    <script src="bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
+    <script src="bower_components/angular-ui-select/dist/select.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-dialog-service/dist/dialogs.min.js"></script>
+
+
+    <script src="bower_components/ng-img-crop/compile/unminified/ng-img-crop.js"></script>
+    <script src="bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script>
+    <script src="bower_components/cloudinary_ng/js/angular.cloudinary.js"></script>    
+    <script src="bower_components/ng-file-upload/angular-file-upload.min.js"></script> 
+        
+        
     <!-- endbower -->
     <!-- endbuild -->
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/app.js"></script>
-    <script src="scripts/controllers/main.js"></script>
-    <script src="scripts/controllers/about.js"></script>
+    <!-- Cloudinay config -->
+    <script src="scripts/cloudinary.config.js"></script>    
+    
+    <!-- Controllers -->
     <script src="scripts/controllers/login.js"></script>
     <script src="scripts/controllers/admin.js"></script>
+    <script src="scripts/controllers/admin/users.js"></script>
+    <script src="scripts/controllers/admin/formations.js"></script>
+    <script src="scripts/controllers/admin/equipments.js"></script>
+    <script src="scripts/controllers/admin/extras.js"></script>
     <script src="scripts/controllers/register.js"></script>
     <script src="scripts/controllers/translate.js"></script>
+    <script src="scripts/controllers/profile.js"></script>
+    <script src="scripts/controllers/myprofile.js"></script>
+    <script src="scripts/controllers/uploadPhoto.js"></script>
+    <script src="scripts/controllers/temp/uploader.js"></script>
+
+
+
+    <!-- Services -->
     <script src="scripts/services/auth.js"></script>
+    <script src="scripts/services/profile.js"></script>
+    <script src="scripts/services/formation.js"></script>
+    <script src="scripts/services/formationlevel.js"></script>
+    <script src="scripts/services/equipment.js"></script>
+    <script src="scripts/services/extra.js"></script>
+    <script src="scripts/services/service.js"></script>
+    <script src="scripts/services/users.js"></script>    
+
+
+
+    
+    <!-- Directives -->
     <script src="scripts/directives/login.js"></script>
+    <script src="scripts/directives/uploader.js"></script>
+    
+    
+
     <!-- endbuild -->
   </body>
 </html>

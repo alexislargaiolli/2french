@@ -7,24 +7,7 @@
  * # auth
  * Service in the tooFrenchApp.
  */
-var tooFrenchServices = angular.module('tooFrenchApp');
-
-
-tooFrenchServices.constant('AUTH_EVENTS', {
-  loginSuccess: 'auth-login-success',
-  loginFailed: 'auth-login-failed',
-  logoutSuccess: 'auth-logout-success',
-  sessionTimeout: 'auth-session-timeout',
-  notAuthenticated: 'auth-not-authenticated',
-  notAuthorized: 'auth-not-authorized'
-});
-
-tooFrenchServices.constant('USER_ROLES', {
-  all: '*',
-  admin: 'admin',
-  teacher: 'teacher',
-  student: 'student'
-});
+var tooFrenchServices = angular.module('tooFrenchService');
 
 tooFrenchServices.factory('AuthService', ['$http', '$q', 'Session' , function($http, $q, Session){
 	return {
@@ -33,7 +16,7 @@ tooFrenchServices.factory('AuthService', ['$http', '$q', 'Session' , function($h
 				// Make an AJAX call to check if the user is logged in
 				$http.get('/loggedin').success(function(data) {
 					if(data != 0 && data.user !== null){
-						Session.create(data.user.id, data.user.id, data.user.role);
+						Session.create(data.user.id, data.user.id, data.user, data.user.role);
 						deferred.resolve(data.user);
 					}
 					else{
@@ -46,7 +29,7 @@ tooFrenchServices.factory('AuthService', ['$http', '$q', 'Session' , function($h
 				var deferred = $q.defer();
 				$http.post('/auth/local', {identifier : credential.email, password : credential.pwd}).success(function(data, status, headers, config) {
 				    if(data.status == 2){
-				    	Session.create(data.user.id, data.user.id, data.user.role);
+				    	Session.create(data.user.id, data.user.id, data.user, data.user.role);
 				    	deferred.resolve(data.user);
 				    }
 				    else{
@@ -83,7 +66,7 @@ tooFrenchServices.factory('AuthService', ['$http', '$q', 'Session' , function($h
 			},
 
 			isAuthenticated: function () {
-			    return !!Session.userId;
+				return !!Session.userId;								
       		},
 
 			isAuthorized: function(authorizedRoles) {
@@ -93,11 +76,11 @@ tooFrenchServices.factory('AuthService', ['$http', '$q', 'Session' , function($h
 			    return (this.isAuthenticated() && authorizedRoles.indexOf(Session.userRole) !== -1);
 			},
 
-			register: function(username, email, password, teacher){
+			register: function(username, email, password, teacher, firstname, city){
 				var deferred = $q.defer();
-				$http.post('/auth/local/register', {username : username, email : email, password : password, teacher : teacher}).success(function(data, status, headers, config) {				   
+				$http.post('/auth/local/register', {username : username, email : email, password : password, teacher : teacher, firstname : firstname, city : city}).success(function(data, status, headers, config) {				   
 			    	if(data.status == 2){
-			    		Session.create(data.user.id, data.user.id, data.user.role);
+			    		Session.create(data.user.id, data.user.id, data.user, data.user.role);
 			    		deferred.resolve(data.user);
 			    	}
 			    	else{
@@ -112,15 +95,18 @@ tooFrenchServices.factory('AuthService', ['$http', '$q', 'Session' , function($h
 		}
 }]);
 
-tooFrenchServices.service('Session', function () {
-  this.create = function (sessionId, userId, userRole) {
+tooFrenchServices.service('Session', function ($rootScope, AUTH_EVENTS) {
+  this.create = function (sessionId, userId, user, userRole) {
     this.id = sessionId;
     this.userId = userId;
+    this.user = user;
     this.userRole = userRole;
+    $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
   };
   this.destroy = function () {
     this.id = null;
     this.userId = null;
+    this.user = null;
     this.userRole = null;
   };
   return this;

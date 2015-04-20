@@ -30,6 +30,12 @@ module.exports.policies = {
 
   UserController : {
     '*' : [ 'passport', 'sessionAuth', 'admin']
+  },
+
+  ProfileController : {
+    create : [ 'passport', 'sessionAuth', 'admin'],
+    update : ['passport', 'sessionAuth', 'profileOwner'],
+    destroy : [ 'passport', 'sessionAuth', 'admin']
   }
 
   /***************************************************************************
