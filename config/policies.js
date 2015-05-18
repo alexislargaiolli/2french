@@ -36,6 +36,36 @@ module.exports.policies = {
     create : [ 'passport', 'sessionAuth', 'admin'],
     update : ['passport', 'sessionAuth', 'profileOwner'],
     destroy : [ 'passport', 'sessionAuth', 'admin']
+  },
+
+  EquipmentController : {
+    '*' : [ 'passport', 'sessionAuth', 'admin'],
+    find : []
+  },
+
+  ServiceController : {
+    '*' : [ 'passport', 'sessionAuth', 'admin'],
+    find : []
+  },
+
+  ExtraController : {
+    '*' : [ 'passport', 'sessionAuth', 'admin'],
+    find : []
+  },
+
+  FormationController : {
+    '*' : [ 'passport', 'sessionAuth', 'admin'],
+    find : []
+  },
+
+  FormationLevelController : {
+    '*' : [ 'passport', 'sessionAuth', 'admin'],
+    find : []
+  },
+
+  LocaleController : {
+    '*' : [ 'passport', 'sessionAuth', 'admin'],
+    find : []
   }
 
   /***************************************************************************

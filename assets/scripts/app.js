@@ -26,7 +26,8 @@ var tooFrenchApp = angular.module('tooFrenchApp', [
   'ui.bootstrap',
   'dialogs.main',
   'google.places',
-  'angularFileUpload'
+  'angularFileUpload',
+  'multipleDatePicker'
 ]);
 
 
@@ -215,12 +216,17 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
     .state('temp', {
       url: '/temp',
       templateUrl: 'views/temp.html',
-      controller: 'UploadPhotoCtrl',      
+      controller: 'UploadPhotoCtrl'    
     })
     .state('uploader', {
       url: '/uploader',
       templateUrl: 'views/temps/uploader.html',
-      controller: 'UploaderCtrl',      
+      controller: 'UploaderCtrl'     
+    })
+    .state('results', {
+      url: '/results/:city',
+      templateUrl: 'views/results.html',
+      controller: 'SearchCtrl'
     });
 
 
@@ -252,7 +258,7 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
 tooFrenchApp.run(['$rootScope', '$state', 'AUTH_EVENTS', 'AuthService', 'editableOptions',
   function($rootScope, $state, AUTH_EVENTS, AuthService, editableOptions) {
     editableOptions.theme = 'bs3';
-    AuthService.getUser().then(function() {
+    AuthService.getUser().then(function() {      
       $rootScope.$on('$stateChangeStart', function(event, next) {
         if (next.data) {
           if (next.data.auth === true) {
@@ -277,7 +283,7 @@ tooFrenchApp.run(['$rootScope', '$state', 'AUTH_EVENTS', 'AuthService', 'editabl
   }
 ]);
 
-var tooFrenchControllers = angular.module('tooFrenchCtrl', ['ngRoute', 'ui.router', 'xeditable', 'uiGmapgoogle-maps', 'pascalprecht.translate', 'tooFrenchService', 'angularFileUpload', 'ui.select','ui.bootstrap', 'dialogs.main', 'google.places', 'ngImgCrop']);
+var tooFrenchControllers = angular.module('tooFrenchCtrl', ['ngRoute', 'ui.router', 'xeditable', 'uiGmapgoogle-maps', 'pascalprecht.translate', 'tooFrenchService', 'angularFileUpload', 'ui.select','ui.bootstrap', 'dialogs.main', 'google.places', 'ngImgCrop', 'multipleDatePicker']);
 tooFrenchControllers.config(function(uiSelectConfig){
     //================================================
     // Angular ui components
@@ -296,6 +302,7 @@ tooFrenchControllers.controller('ApplicationController', ['$scope', 'USER_ROLES'
     $scope.isAuthorized = AuthService.isAuthorized;
     $scope.locale = $translate.preferredLanguage();
     $scope.lg = $translate.preferredLanguage().substring(0, 2);
+    //moment.lang('fr');
 
     $scope.setCurrentUser = function(user) {
       $scope.currentUser = user;
@@ -312,6 +319,7 @@ tooFrenchControllers.controller('ApplicationController', ['$scope', 'USER_ROLES'
     $scope.$on(LOCALE_EVENTS.localeChange, function(event, args) {
       $scope.lg = args.next.substring(0, 2);
       $scope.locale = args.next;
+      //moment.lang($scope.lg);
     });
 
     $scope.$on(AUTH_EVENTS.loginSuccess, function() {

@@ -272,18 +272,35 @@ body{
 
 /* PROFILE */
 
-#profile-container{
+#myprofile-container{
 	background-color: #fff;
 	#profile-right{
 		padding:20px;
-		#profile-header{			
+		hr{
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		#profile-header{		
+			.row{
+				margin:10px 10px 0 10px;				
+			}	
+			.row > div{
+				padding:0;
+			}		
+			#btns-wrapper{
+				float:right;
+			}
+			#btns-wrapper > button{
+				width:100px;
+			}
+			#btns-wrapper > button:before{
+				padding-right:5px;
+			}
 			#motivation-panel{
 				padding:10px;
 				border:1px solid #ddd;
 				background-color: #eee;
-				h4{
-					display: inline-block;
-				}
+				margin: 0 10px 10px 10px;				
 				.editable-textarea{
 					width:100%;
 					.editable-controls{
@@ -311,18 +328,156 @@ body{
 	}
 
 	.angular-google-map-container { height: 400px; }
+
+	.accomodationCarousel{
+		.carousel-control.right, .carousel-control.left{
+			background: none;
+			color:#222;
+		}
+	}
+
+	#accomodationAdressInput{
+		width:90%;
+		display: inline-block;
+	}
 }
 
 
+#profile-container{
+	#profile-right{
+		padding:20px;
+		
+		#profile-header{
+			.row{
+				margin:10px 10px 0 10px;				
+			}	
+			.row > div{
+				padding:0;
+			}		
+			#btns-wrapper{
+				float:right;
+			}
+			#btns-wrapper > button{
+				width:100px;
+			}
+			#btns-wrapper > button:before{
+				padding-right:5px;
+			}
+			#motivation-panel{
+				padding:10px;
+				border:1px solid #ddd;
+				background-color: #eee;		
+				margin: 0 10px 10px 10px;		
+			}
+			#profilePhoto{
+				width: 150px;
+				padding: 8px 8px 25px 8px;
+				text-align: center;
+				border-radius:0;
+				i{
+					font-size: 100px;
+				}
+				-moz-box-shadow: 0px 0px 3px 0px #656565;
+				-webkit-box-shadow: 0px 0px 3px 0px #656565;
+				-o-box-shadow: 0px 0px 3px 0px #656565;
+				box-shadow: 0px 0px 3px 0px #656565;
+				filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=NaN, Strength=3);
+			}
+			#userName{
+				margin-top: 0;
+				margin-bottom: 0;
+				color:@light-blue;
+				font-weight: bold;
+			}
+			.optionList{
+				font-size:12px;
+			}
+			.optionList > div:before{
+				padding-right:5px;
+			}
+		}
+		h4{
+			font-weight:bold;
+			font-size:17px;
+		}
+		h5{
+			font-weight:bold;
+			margin-top: 0;
+		}
+		#level{
+			font-size: 15px;
+			font-weight: bold;
+			color: @dark-gray;
+		}
+		#address{
+			color:@gray;
+		}
+		.blackTitle{
+
+		}
+		#hourRateLabel{
+			color:@light-blue;
+		}
+		#hourRate{
+			color:@gray;
+		}
+		.formulaTitle{
+			color:@light-blue;	
+		}
+		.formuleBtns .btn{
+			width: 120px;
+			padding: 5px;
+			font-weight:bold;
+		}
+		.angular-google-map-container { height: 400px; }
+		.accomodationCarousel{
+			.carousel-control.right, .carousel-control.left{
+				background: none;
+				color:#222;
+			}
+		}
+	}
+}
 
 
+/* Search results */
+
+#search-results{
+	.info-wrapper{
+		display:inline-block;
+		padding-left:10px;
+		h4{
+			font-size: 14px;
+			margin: 0;
+			font-weight: bold;
+		}
+	}	
+	.photo{
+		width:80px;
+		float:left;
+		border:1px solid @gray;
+	}
+	.firstname{
+		color:@light-blue;
+		font-weight: bold;
+	}
+	.formations{
+	}
+	.extras li{
+		margin-right:10px;
+	}
+}
+
+
+hr{
+	border-top: 1px solid @very-light-gray;
+}
 
 /* UTILS */
 
 .bordered-block{
 	display:block;
 	border:5px solid #ddd;
-	padding:10px;
 }
 
 .white-block{
@@ -420,8 +575,28 @@ body{
 	.no-box-shadow;
 }
 
+.green2-btn{
+	background: @green;
+	border:1px solid #4dcc03;
+	color:#fff;
+}
+
+.green2-btn:hover{
+	background: lighten(@green, 20%);
+	border:1px solid #4dcc03;
+	color:#fff;
+}
+
 .center{
 	text-align:center;
+}
+
+.inline{
+	display:inline-block;
+}
+
+.p-0{
+	padding:0;
 }
 
 .p-5{

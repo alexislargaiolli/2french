@@ -15,7 +15,8 @@
     <link rel="stylesheet" href="bower_components/angular-dialog-service/dist/dialogs.min.css" />
     <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css">
     <link rel="stylesheet" href="bower_components/ng-img-crop/compile/unminified/ng-img-crop.css">
-    
+    <link rel="stylesheet" href="bower_components/multiple-date-picker/dist/multiple-date-picker.css">
+
     
     <!-- endbower -->
     <!-- endbuild -->
@@ -53,7 +54,7 @@
               <a ui-sref="forum" class="basic-link" ui-sref-active="active">{{'header.forum' | translate}}</a>
             </li>
             <li class="dropdown" ng-controller="TranslateCtrl">
-              <a id="current-language" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img src="images/languages/{{$parent.locale}}.png" /><span class="caret"></span></a>
+              <a id="current-language" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img ng-src="images/languages/{{$parent.locale}}.png" /><span class="caret"></span></a>
               <ul id="language-dropdown" class="dropdown-menu" role="menu">
                 <li><a ng-click="changeLanguage('frFR')"><img src="images/languages/frFR.png" /></a></li>
                 <li><a ng-click="changeLanguage('enUS')"><img src="images/languages/enUS.png" /></a></li>
@@ -73,20 +74,26 @@
           </ul>
         </div>
       </div>
-      <div id="searchBar">
-        <div class="container">
-          <form class="form-inline">
-            <div class="form-group">
-              <input type="text" class="form-control" placeholder="Pays">
+      <div id="searchBar" ng-controller="SearchBarCtrl">
+            <form class="form-inline" style="max-width:500px;margin:0 auto;">
+            <div class="row">
+              <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                <div class="form-group">
+                  <input type="text" class="form-control" placeholder="Pays">
+                </div>                
+              </div>
+              <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                <div class="form-group">
+                <input type="text" class="form-control" g-places-autocomplete ng-model="city" placeholder="Ville" options="optionsCity" force-selection="true" />
+                </div>                
+              </div>
+              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                <div class="form-group">
+                    <button id="search-btn" ng-click="search();" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                </div>                
+              </div>
             </div>
-            <div class="form-group">              
-              <input type="text" class="form-control" placeholder="Ville">
-            </div>
-            <div class="form-group">
-                <button id="search-btn" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-            </div>            
-          </form>
-        </div>
+            </form>
       </div>
     </nav>
     
@@ -130,7 +137,7 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
-    <script src="bower_components/lodash/dist/lodash.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
     <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
     <script src="bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
     <script src="bower_components/angular-ui-select/dist/select.js"></script>
@@ -142,6 +149,10 @@
     <script src="bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script>
     <script src="bower_components/cloudinary_ng/js/angular.cloudinary.js"></script>    
     <script src="bower_components/ng-file-upload/angular-file-upload.min.js"></script> 
+
+    <script src="bower_components/moment/moment.js"></script> 
+    <script src="bower_components/moment/locale/fr.js"></script> 
+    <script src="bower_components/multiple-date-picker/dist/multipleDatePicker.min.js"></script> 
         
         
     <!-- endbower -->
@@ -163,6 +174,8 @@
     <script src="scripts/controllers/profile.js"></script>
     <script src="scripts/controllers/myprofile.js"></script>
     <script src="scripts/controllers/uploadPhoto.js"></script>
+    <script src="scripts/controllers/search.js"></script>
+    <script src="scripts/controllers/searchBar.js"></script>
     <script src="scripts/controllers/temp/uploader.js"></script>
 
 
@@ -181,6 +194,7 @@
 
     
     <!-- Directives -->
+    <script src="scripts/directives/directives.js"></script>
     <script src="scripts/directives/login.js"></script>
     <script src="scripts/directives/uploader.js"></script>
     

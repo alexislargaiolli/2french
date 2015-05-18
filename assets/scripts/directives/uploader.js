@@ -13,8 +13,9 @@ tooFrench.directive('alexUploader', function() {
 		require: 'angularFileUpload',
 		templateUrl: 'scripts/directives/uploader.html',
 		scope: {
+			text: '@',
+			icon: '@',
 			uploadUrl: '@url',
-			outputUrl: '@',
 			onUploadFinished: '&'
 		},
 		controller: ['$scope', '$upload', '$timeout', function($scope, $upload, $timeout) {
@@ -40,7 +41,15 @@ tooFrench.directive('alexUploader', function() {
 				};
 				reader.readAsDataURL($scope.file);
 			};
-			angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
+
+
+			$timeout(function() {
+				var inputId = '#fileInput' + $scope.$id;
+				var elts = angular.element(inputId);
+				elts.on('change', handleFileSelect);
+			}, 500);
+
+			//elts.on('change', handleFileSelect);
 			$scope.upload = function() {
 				if ($scope.myCroppedImage) {
 					var blobBin = atob($scope.myCroppedImage.split(',')[1]);
@@ -64,9 +73,11 @@ tooFrench.directive('alexUploader', function() {
 							type: 'success',
 							msg: data.message
 						});
-						$scope.outputUrl = data.url;
-						console.log($scope.outputUrl);
-						$scope.onUploadFinished();
+						$timeout(function() {
+							$scope.onUploadFinished({
+								url: data.url
+							});
+						}, 2000);
 					}).error(function(data, status, headers, config) {
 						$scope.progressBarType = 'danger';
 						$scope.alerts.push({

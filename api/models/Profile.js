@@ -9,7 +9,7 @@ module.exports = {
 		owner: {
 			model: 'User'
 		},
-		firstname:{
+		firstname: {
 			type: 'string'
 		},
 		photo: {
@@ -18,10 +18,10 @@ module.exports = {
 		motivation: {
 			type: 'json'
 		},
-		levelFrom : {
+		levelFrom: {
 			model: 'FormationLevel'
 		},
-		levelTo : {
+		levelTo: {
 			model: 'FormationLevel'
 		},
 		hourRate: {
@@ -34,19 +34,9 @@ module.exports = {
 			collection: 'Extra'
 		},
 		formulas: {
-			name: {
-				type: 'json'
-			},
-			description: {
-				type: 'json'
-			},
-			price: {
-				value: {
-					type: 'integer'
-				}
-			}
+			type: 'json'
 		},
-		city:{
+		city: {
 			type: 'json'
 		},
 		activeAccomodation: 'boolean',
@@ -60,7 +50,10 @@ module.exports = {
 			type: 'json'
 		},
 		photos: {
-			type: 'string'			
+			type: 'json'
+		},
+		daySelected: {
+			type: 'json'
 		}
 	},
 	beforeCreate: function(values, next) {

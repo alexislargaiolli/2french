@@ -13,6 +13,7 @@ module.exports = {
 		},
 		description: {
 			type:'json'
-		}
+		},
+		icon: 'string'
 	}
 };

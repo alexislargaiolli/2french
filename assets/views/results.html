@@ -1,0 +1,33 @@
+<div class="container">
+	
+	<div id="search-results" class="row">
+		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+			
+		</div>
+		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+			<hr/>
+			<div class="row" ng-repeat="p in results">
+				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+					<img class="photo" ng-src="{{p.photo}}">
+					<div class="info-wrapper">
+						<span class="firstname">{{p.firstname}}</span>
+						<h4>Formation proposées</h4>
+						<ul class="formations">
+							<li ng-repeat="formation in p.formations">{{formation.name[$parent.lg]}}</li>
+						</ul>
+						<ul class="extras">
+							<li ng-repeat="extra in p.extras" class="{{extra.icon}}">{{extra.name[$parent.lg]}}</li>
+						</ul>
+					</div>
+				</div>
+				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+					<button type="button" class="calendar-btn btn btn-default blue-btn fa fa-calendar"></button>
+					<button type="button" class="fav-btn btn btn-default blue-btn fa fa-star">Favoris</button>
+					<button type="button" class="contact-btn btn btn-default green2-btn fa fa-envelope">Contacter</button>
+					<div class="hour-rate">{{p.hourRate}}</div>
+				</div>
+				<hr/>
+			</div>
+		</div>
+	</div>
+</div>

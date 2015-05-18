@@ -1,10 +1,8 @@
 var tooFrenchControllers = angular.module('tooFrenchCtrl');
-tooFrenchControllers.controller('UploaderCtrl', ['$scope', function($scope) {
-	
-	$scope.url;
+tooFrenchControllers.controller('UploaderCtrl', ['$scope', '$timeout', function($scope, $timeout) {
 
-	$scope.onUpload = function(){
-		console.log($scope.url);
+	$scope.image = null;
+	$scope.onUpload = function(url) {				
+		$scope.image = url;		
 	}
-
 }]);
