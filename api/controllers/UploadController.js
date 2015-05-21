@@ -7,6 +7,12 @@
 
 var AVATAR_DIR_NAME = "../../assets/images/avatars";
 var ACCOMODATION_DIR_NAME = "../../assets/images/accomodations";
+var cloudinary = require('cloudinary');
+cloudinary.config({ 
+  cloud_name: 'hmn3vaygs', 
+  api_key: '894785311872119', 
+  api_secret: '2CN3RQvepjyZuNrAFix344bfOPU' 
+});
 
 module.exports = {
 	uploadAvatar: function(req, res) {
@@ -18,6 +24,8 @@ module.exports = {
 
 		var uploadFile = req.file('file');
 
+		
+
 		uploadFile.upload({
 			dirname: AVATAR_DIR_NAME
 		}, function onUploadComplete(err, files) {
@@ -28,15 +36,20 @@ module.exports = {
 					message: sails.__('file.upload.error')
 				});
 			}
-			var filePath = files[0].fd;
-			var fileName = filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);
-			var fileUrl = "/images/avatars/" + fileName;
-			//	IF ERROR Return and send 500 error with error			
-			res.send(200, {
-				status: 200,
-				message: sails.__('file.upload.success'),
-				url : fileUrl
+
+			cloudinary.uploader.upload(files[0].fd, function(result) { 			 
+			  res.send(200, {
+					status: 200,
+					message: sails.__('file.upload.success'),
+					url : result.secure_url
+				});
 			});
+
+			/*var filePath = files[0].fd;
+			var fileName = filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);
+			var fileUrl = "/images/avatars/" + fileName;*/
+			//	IF ERROR Return and send 500 error with error			
+			
 		});
 	},
 
@@ -59,7 +72,16 @@ module.exports = {
 					message: sails.__('file.upload.error')
 				});
 			}
-			var filePath = files[0].fd;
+
+			cloudinary.uploader.upload(files[0].fd, function(result) { 			 
+			  res.send(200, {
+					status: 200,
+					message: sails.__('file.upload.success'),
+					url : result.secure_url
+				});
+			});
+
+			/*var filePath = files[0].fd;
 			var fileName = filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);
 			var fileUrl = "/images/accomodations/" + fileName;
 			//	IF ERROR Return and send 500 error with error			
@@ -67,7 +89,7 @@ module.exports = {
 				status: 200,
 				message: sails.__('file.upload.success'),
 				url : fileUrl
-			});
+			});*/
 		});
 	}
 };
