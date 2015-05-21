@@ -65,6 +65,6 @@
 		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui, consequuntur eaque aliquid nam esse sunt distinctio minus at neque id voluptatibus maxime dolor quisquam expedita, nobis, molestias deserunt excepturi ipsam. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem molestiae natus facere deserunt eligendi rerum architecto nemo eum nisi tempore cum, esse nesciunt, accusantium odio, vero labore ipsam, fugiat tempora.</p>
 		<h3>{{'home.concept.subtitle' | translate}}</h3>
 
-		<button id="register-btn" type="button" class="btn btn-default green-btn center-block" ui-sref="register">{{'home.concept.button' | translate}}</button>
+		<button id="register-btn" type="button" class="btn btn-default green-btn center-block" ui-sref="register" ng-if="currentUser == null">{{'home.concept.button' | translate}}</button>
 	</div>
 </div>

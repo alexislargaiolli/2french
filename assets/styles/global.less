@@ -1,4 +1,5 @@
 @light-blue: #04bfc6;
+@blue-title2: #0098be;
 @orange:#fe8d13;
 @dark-gray:#4e4e4e;
 @gray:#818181;
@@ -6,6 +7,10 @@
 @very-light-gray:#DDDDDD;
 @green:#00db05;
 @light-green:#00ff06;
+@red:#d20b0b;
+@police1:Arial, 'Helvetica Neue', Helvetica, sans-serif;;
+@police2:'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+
 
 /* INIT */
 
@@ -25,11 +30,15 @@ body{
 	color:@dark-gray;
 }
 
+#footer{
+	border-top: 1px solid #ddd;
+}
+
 #header{
 	background-color:#fff;
 	.basic-link{		
 		color:@dark-gray;
-		font-family: 'arial';
+		font-family: @police1;
 		font-size: 12px;
 		font-weight: bold;
 		background:none!important;
@@ -55,11 +64,17 @@ body{
 	}
 
 	#user-menu{
-		background: #F1F1F1;
-		border-left: 1px solid #aaa;
-		border-right: 1px solid #aaa;
+		background: #f6f6f6;
+		border-left: 1px solid #d7d7d7;
+		border-right: 1px solid #d7d7d7;
+		li>a>i:hover{
+			color:@blue-title2;
+		}
+		li>a>i{
+			color:#c1c1c1;
+		}
 		li .fa{
-			font-size:30px;
+			font-size:30px;			
 		}
 		li .fa.fa-envelope-o{
 			margin-top:-2px;
@@ -90,6 +105,9 @@ body{
 	background-color:@light-blue;
 	height:60px;
 	padding: 13px;
+	.row>div{
+		padding:0 4px;
+	}
 	.container{
 		text-align: center;
 		input{
@@ -112,9 +130,11 @@ body{
 		font-size:15px;
 		color: #04bfc6;
 		background: #E2FBFC;
+		border:none;
 	}
 	#search-text{
 		width:100%;
+		border:none;
 	}
 	#search-btn{
 		background: none;
@@ -316,7 +336,7 @@ body{
 /* PROFILE */
 
 #myprofile-container{
-	background-color: #fff;
+	
 	#profile-left{
 		padding:20px;
 	}
@@ -325,14 +345,21 @@ body{
 		hr{
 			margin-top: 10px;
 			margin-bottom: 10px;
+			border-color:#d7d7d7;
 		}
-		#profile-header{		
+		#profile-header{
+			background:#fff;		
 			.row{
 				margin:10px 10px 0 10px;				
 			}	
 			.row > div{
 				padding:0;
 			}		
+			#profile-title{
+				font-family: @police2;
+				color:@blue-title2;	
+				font-weight:bold;			
+			}
 			#btns-wrapper{
 				float:right;
 			}
@@ -342,10 +369,17 @@ body{
 			#btns-wrapper > button:before{
 				padding-right:5px;
 			}
+			#profile-lang-btn img{
+				float:left;
+				padding-right:5px;
+			}
+			#profile-save-btn{
+				margin-right:10px;
+			}
 			#motivation-panel{
 				padding:10px;
-				border:1px solid #ddd;
-				background-color: #eee;
+				border: 1px solid #e2e2e2;
+				background-color: #f7f7f7;
 				margin: 0 10px 10px 10px;				
 				.editable-textarea{
 					width:100%;
@@ -364,16 +398,38 @@ body{
 			}
 			#profilePhoto{
 				width: 150px;
-				padding: 5px;
+				padding: 8px 8px 7px 8px;
 				text-align: center;
 				i{
 					font-size: 100px;
 				}
+				#upload-btn-wrapper{
+					padding-top:7px;
+				}
+			}
+
+			#profile-pins{
+				position: absolute;
+				top: -10px;
+				left: 5px;
 			}
 		}
 	}
 
 	.angular-google-map-container { height: 400px; }
+	
+	#caroussel-wrapper{
+		min-height:200px;
+		#no-photo-accomodation{
+			text-align: center;
+			font-size:60px;
+			height:141px;
+		}	
+		#no-photo-accomodation i{
+			padding:50px;
+			color:#c1c1c1;
+		}
+	}
 
 	.accomodationCarousel{
 		.carousel-control.right, .carousel-control.left{
@@ -386,14 +442,36 @@ body{
 		width:90%;
 		display: inline-block;
 	}
-}
 
+	.edit-icon{
+		color: @green;	
+		padding:2px;	
+		border:1px solid transparent;
+	}	
+	.edit-icon:hover{
+		border:1px solid @green;
+		border-radius:2px;
+		cursor:pointer;
+	}
+
+	.edit-icon.red{
+		color:@red;
+	}
+	.edit-icon.red:hover{
+		border:1px solid @red;
+	}
+}
 
 #profile-container{
 	#profile-right{
 		padding:20px;
-		
+		hr{
+			margin-top: 10px;
+			margin-bottom: 10px;
+			border-color:#d7d7d7;
+		}
 		#profile-header{
+			background:#fff;
 			.row{
 				margin:10px 10px 0 10px;				
 			}	
@@ -411,29 +489,24 @@ body{
 			}
 			#motivation-panel{
 				padding:10px;
-				border:1px solid #ddd;
-				background-color: #eee;		
+				border: 1px solid #e2e2e2;
+				background-color: #f7f7f7;
 				margin: 0 10px 10px 10px;		
 			}
 			#profilePhoto{
 				width: 150px;
 				padding: 8px 8px 25px 8px;
 				text-align: center;
-				border-radius:0;
 				i{
 					font-size: 100px;
 				}
-				-moz-box-shadow: 0px 0px 3px 0px #656565;
-				-webkit-box-shadow: 0px 0px 3px 0px #656565;
-				-o-box-shadow: 0px 0px 3px 0px #656565;
-				box-shadow: 0px 0px 3px 0px #656565;
-				filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=NaN, Strength=3);
 			}
 			#userName{
 				margin-top: 0;
 				margin-bottom: 0;
-				color:@light-blue;
-				font-weight: bold;
+				font-family: @police2;
+				color:@blue-title2;	
+				font-weight:bold;
 			}
 			.optionList{
 				font-size:12px;
@@ -442,17 +515,8 @@ body{
 				padding-right:5px;
 			}
 		}
-		h4{
-			font-weight:bold;
-			font-size:17px;
-		}
-		h5{
-			font-weight:bold;
-			margin-top: 0;
-		}
 		#level{
 			font-size: 15px;
-			font-weight: bold;
 			color: @dark-gray;
 		}
 		#address{
@@ -467,9 +531,6 @@ body{
 		#hourRate{
 			color:@gray;
 		}
-		.formulaTitle{
-			color:@light-blue;	
-		}
 		.formuleBtns .btn{
 			width: 120px;
 			padding: 5px;
@@ -482,6 +543,11 @@ body{
 				color:#222;
 			}
 		}
+		#profile-pins{
+				position: absolute;
+				top: -10px;
+				left: 5px;
+			}
 	}
 }
 
@@ -521,9 +587,30 @@ hr{
 
 /* UTILS */
 
+.block-title1{
+	font-family: @police2;
+	font-size: 15px;
+	color:@dark-gray;
+}
+
+.block-title2{
+	font-family: @police2;
+	color:#000;
+}
+
+.blue-title{
+	font-family: @police1;
+	color:@blue-title2;
+}
+
 .bordered-block{
 	display:block;
-	border:5px solid #ddd;
+	border:5px solid #e8e8e8;
+	background: #fff;
+}
+
+.bordered-block>div{
+	border:1px solid #d7d7d7;
 }
 
 .white-block{
@@ -637,8 +724,16 @@ hr{
 	text-align:center;
 }
 
+.right{
+	text-align:right;
+}
+
 .inline{
 	display:inline-block;
+}
+
+.middle{
+	vertical-align: middle;
 }
 
 .p-0{
@@ -659,6 +754,30 @@ hr{
 
 .m-10{
 	margin:10px;
+}
+
+.mt-5{
+	margin-top:5px;
+}
+
+.mt-10{
+	margin-top:10px;
+}
+
+.mt-15{
+	margin-top:15px;
+}
+
+.mt-20{
+	margin-top:20px;
+}
+
+.mt-35{
+	margin-top:35px;
+}
+
+.mt-40{
+	margin-top:40px;
 }
 
 .vm-5{
@@ -699,4 +818,20 @@ hr{
 .hm-30{
 	margin-left:30px;
 	margin-right:30px;	
+}
+
+.f-14{
+	font-size:14px;
+}
+
+.f-15{
+	font-size:15px;
+}
+
+.f-16{
+	font-size:16px;
+}
+
+.f-25{
+	font-size:25px;
 }

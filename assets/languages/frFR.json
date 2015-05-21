@@ -28,5 +28,11 @@
   "register.mail.confirmation.error": "Les adresses mail ne correspondent pas",
   "register.password":"Mot de passe",
   "register.button" :"Enregistrer",
-  "myprofile.calendar" :"Calendrier"
+  "myprofile.language" :"Langue",
+  "myprofile.calendar" :"Calendrier",
+  "myprofile.experience" :"Expérience & Motivations",
+  "myprofile.level.from" :"Niveau",
+  "myprofile.level.to" :"à",
+  "myprofile.formations":"Formations proposées",
+  "myprofile.accomodation.address":"Saisissez l'adresse de l'hébergement"
 }

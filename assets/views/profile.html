@@ -6,49 +6,52 @@
 			</div>
 			<div id="profile-right" class="col-sm-9 col-md-9 col-lg-9">
 				<div id="profile-header" class="bordered-block">
-					<div class="row">
-						<div class="col-sm-3 col-md-3 col-lg-3">
-							<div id="profilePhoto" class="thumbnail">
-								<img ng-src="{{profile.photo}}" ng-show="profile.photo" />
-								<i class="fa fa-user" ng-show="!profile.photo"></i>
+					<div>
+						<div class="row">
+							<div class="col-sm-3 col-md-3 col-lg-3">
+								<div id="profilePhoto" class="thumbnail">
+									<img id="profile-pins" ng-src="/images/pins.png" ng-show="profile.photo" />
+									<img ng-src="{{profile.photo}}" ng-show="profile.photo" />
+									<i class="fa fa-user" ng-show="!profile.photo"></i>
+								</div>
+							</div>
+							<div class="col-sm-9 col-md-9 col-lg-9">
+								<div id="btns-wrapper">
+									<button type="button" class="btn btn-default blue-btn fa fa-star">Favoris</button>
+									<button type="button" class="btn btn-default green2-btn fa fa-envelope">Contacter</button>
+									<button type="button" class="btn btn-default green2-btn fa fa-chevron-right">Réserver</button>
+								</div>
+								<h3 id="userName" class="f-25">{{profile.firstname}}</h3>
+								<div id="level">
+									<span class="block-title2 f-16">{{'myprofile.level.from' | translate}} </span> {{ profile.levelFrom.name[$parent.lg] }} <span class="block-title2 f-16">{{'myprofile.level.to' | translate}} </span> {{ profile.levelTo.name[$parent.lg] }}
+								</div>
+								<span id="address">
+									{{profile.city.address_components[0].long_name}} ({{profile.city.address_components[3].long_name}})
+								</span>
+								<hr/>
+								<div class="row optionList">
+									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 {{f.icon}}" ng-repeat="f in profile.formations">{{f.name[$parent.lg]}}</div>
+								</div>
+								<div class="row optionList">
+									<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 {{e.icon}}" ng-repeat="e in profile.extras">{{e.name[$parent.lg]}}</div>
+								</div>
 							</div>
 						</div>
-						<div class="col-sm-9 col-md-9 col-lg-9">
-							<div id="btns-wrapper">
-								<button type="button" class="btn btn-default blue-btn fa fa-star">Favoris</button>
-								<button type="button" class="btn btn-default green2-btn fa fa-envelope">Contacter</button>
-								<button type="button" class="btn btn-default green2-btn fa fa-chevron-right">Réserver</button>
-							</div>
-							<h3 id="userName">{{profile.firstname}}</h3>
-							<div id="level">
-								Niveau {{ profile.levelFrom.name[$parent.lg] }} à {{ profile.levelTo.name[$parent.lg] }}
-							</div>
-							<span id="address">
-								{{profile.city.address_components[0].long_name}} ({{profile.city.address_components[3].long_name}})
-							</span>
-							<hr/>
-							<div class="row optionList">
-								<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 {{f.icon}}" ng-repeat="f in profile.formations">{{f.name[$parent.lg]}}</div>
-							</div>
-							<div class="row optionList">
-								<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 {{e.icon}}" ng-repeat="e in profile.extras">{{e.name[$parent.lg]}}</div>
-							</div>
+						<div id="motivation-panel">
+							<h4 class="block-title2 f-16"> {{'myprofile.experience' | translate}}</h4>
+							<p>
+								{{ profile.motivation[$parent.lg] || 'empty' }}
+							</p>
 						</div>
-					</div>
-					<div id="motivation-panel">
-						<h4>Expérience & Motivations</h4>
-						<p>
-							{{ profile.motivation[$parent.lg] || 'empty' }}
-						</p>
 					</div>
 				</div>
 				
-				<h4>Formations proposées</h4>
+				<h4 class="mt-35">Formations proposées</h4>
 				<hr/>
-				<label id="hourRateLabel">Prix d'une heure de cours : </label><span id="hourRate">{{ profile.hourRate || 'NaN' }}€</span>
+				<label id="hourRateLabel" class="blue-title f-14">Prix d'une heure de cours : </label><span id="hourRate">{{ profile.hourRate || 'NaN' }}€</span>
 				<div ng-repeat="formula in profile.formulas">
 					<hr/>
-					<h4 class="formulaTitle">{{formula.name[$parent.lg]}}</h4>
+					<h4 class="blue-title f-14">{{formula.name[$parent.lg]}}</h4>
 					<p>{{formula.description[$parent.lg]}}</p>
 					<div class="formuleBtns">
 						<button type="button" class="btn btn-default blue-btn">+ D'info</button>
@@ -58,47 +61,49 @@
 				</div>
 				<hr/>
 				
-				<div class="bordered-block" ng-show="profile.activeAccomodation == true">
-					<h4>Hébergement</h4>
-					<hr/>
-					<div class="row">
-						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-							<carousel class="accomodationCarousel" interval="5000" disable-animation="true">
+				<div class="mt-35" ng-show="profile.activeAccomodation == true">
+						<h4>Hébergement</h4>
+						<hr/>
+						<div class="row">
+							<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+								<div class="thumbnail">
+								<carousel class="accomodationCarousel" interval="5000" disable-animation="true">
 								<slide ng-repeat="photo in profile.photos">
-									<img ng-src="{{photo.url}}" style="margin:auto;" />									
+								<img ng-src="{{photo.url}}" style="margin:auto;" />
 								</slide>
-							</carousel>
-						</div>
-						<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-							<h5>Equipements</h5>
-							<div style="margin-bottom:30px;">
-								<span ng-repeat="e in profile.equipments">{{e.name[$parent.lg]}}<span ng-if="!$last"> - </span></span>
+								</carousel>
+								</div>
 							</div>
-							
-							<h5>Service</h5>
-							<div>
-								<span ng-repeat="s in profile.services">{{s.name[$parent.lg]}}<span ng-if="!$last"> - </span></span>
+							<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+								<h5>Equipements</h5>
+								<div style="margin-bottom:30px;">
+									<span ng-repeat="e in profile.equipments">{{e.name[$parent.lg]}}<span ng-if="!$last"> - </span></span>
+								</div>
+								
+								<h5>Service</h5>
+								<div>
+									<span ng-repeat="s in profile.services">{{s.name[$parent.lg]}}<span ng-if="!$last"> - </span></span>
+								</div>
 							</div>
+							<hr/>
 						</div>
 						<hr/>
-					</div>
-					<hr/>
-					<div>
-						<ui-gmap-google-map center='map.center' zoom='map.zoom'>
-						<ui-gmap-markers models="map.markers"
-						doCluster="true"
-						coords="'self'"
-						icon="'icon'"
-						click="'onclicked'"
-						options="'options'"
-						idkey='id'
-						clusterOptions='map.clusterOptions'
-						control='markerControl.getChildMarkers().get(id)'>
-						</ui-gmap-markers>
-						</ui-gmap-google-map>
+						<div>
+							<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+							<ui-gmap-markers models="map.markers"
+							doCluster="true"
+							coords="'self'"
+							icon="'icon'"
+							click="'onclicked'"
+							options="'options'"
+							idkey='id'
+							clusterOptions='map.clusterOptions'
+							control='markerControl.getChildMarkers().get(id)'>
+							</ui-gmap-markers>
+							</ui-gmap-google-map>
+						</div>
 					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 </div>

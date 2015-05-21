@@ -1,7 +1,10 @@
 var tooFrenchControllers = angular.module('tooFrenchCtrl');
-tooFrenchControllers.controller('MyProfileCtrl', ['$scope', 'Session', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Extra', 'Service', 'FormationLevel',
+tooFrenchControllers.controller('MyProfileCtrl', ['$scope', 'Session', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Extra', 'Service', 'FormationLevel', '$translate',
 
-	function($scope, Session, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Extra, Service, FormationLevel) {
+	function($scope, Session, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Extra, Service, FormationLevel, $translate) {
+		$scope.profileLocale = $translate.preferredLanguage();
+		$scope.profileLang = $translate.preferredLanguage().substring(0, 2);
+
 		$scope.editable = true;
 		$scope.editCity = false;
 		$scope.editLocation = false;
@@ -25,6 +28,11 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$scope', 'Session', 'uiGmapGo
 
 		$scope.optionsLocation = {
 			
+		};
+
+		$scope.changeProfileLanguage = function(lang){
+			$scope.profileLocale = lang;
+			$scope.profileLang = lang.substring(0, 2);
 		};
 
 		uiGmapGoogleMapApi.then(function(maps) {
@@ -97,8 +105,9 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$scope', 'Session', 'uiGmapGo
 			var lat = $scope.profile.city.geometry.location.k;
 			var lon = $scope.profile.city.geometry.location.D;
 			if ($scope.profile.location) {
-				lat = $scope.profile.location.geometry.location.k;
-				lon = $scope.profile.location.geometry.location.D;
+				lat = $scope.profile.location.geometry.location.F;
+				lon = $scope.profile.location.geometry.location.A;
+				console.log($scope.profile.location.geometry);
 			}
 			$scope.map = {
 				center: {
