@@ -12,10 +12,12 @@ var tooFrenchServices = angular.module('tooFrenchService');
 tooFrenchServices.factory('AuthService', ['$http', '$q', 'Session' , function($http, $q, Session){
 	return {
 			getUser: function() {
+				console.log('auth service getuser');
 				var deferred = $q.defer();
 				// Make an AJAX call to check if the user is logged in
 				$http.get('/loggedin').success(function(data) {
 					if(data != 0 && data.user !== null){
+						console.log(data);
 						Session.create(data.user.id, data.user.id, data.user, data.user.role);
 						deferred.resolve(data.user);
 					}
@@ -108,6 +110,7 @@ tooFrenchServices.service('Session', function ($rootScope, AUTH_EVENTS) {
     this.userId = null;
     this.user = null;
     this.userRole = null;
+    $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
   };
   return this;
 });

@@ -5,6 +5,7 @@
   "header.forum": "Forum",
   "header.register": "Inscription",
   "header.language" : "Language",
+  "search.dispo" : "Disponibilités",
   "home.learn.title" : "Apprendre",
   "home.teach.title" : "Enseigner",
   "home.teach.btn.info" : "d'infos",
@@ -26,5 +27,6 @@
   "register.mail.confirmation" : "Confirmation mail",
   "register.mail.confirmation.error": "Les adresses mail ne correspondent pas",
   "register.password":"Mot de passe",
-  "register.button" :"Enregistrer"
+  "register.button" :"Enregistrer",
+  "myprofile.calendar" :"Calendrier"
 }

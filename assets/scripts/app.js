@@ -169,65 +169,65 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
     })
 
     .state('admin', {
-      url: '/admin',
-      templateUrl: 'views/admin.html',
-      controller: 'AdminCtrl',
-      data: {
-        auth: true,
-        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor],
-      }
-    })
-    .state('admin.users', {
-      url: '/users',
-      templateUrl: 'views/admin/users.html',
-      controller: 'AdminUserCtrl',
-      data: {
-        auth: true,
-        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor],
-      }
-    })
-    .state('admin.formations', {
-      url: '/formations',
-      templateUrl: 'views/admin/formations.html',
-      controller: 'AdminFormationCtrl',
-      data: {
-        auth: true,
-        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor],
-      }
-    })
-    .state('admin.equipments', {
-      url: '/equipments',
-      templateUrl: 'views/admin/equipments.html',
-      controller: 'AdminEquipmentCtrl',
-      data: {
-        auth: true,
-        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor],
-      }
-    })
-    .state('admin.extras', {
-      url: '/extras',
-      templateUrl: 'views/admin/extras.html',
-      controller: 'AdminExtraCtrl',
-      data: {
-        auth: true,
-        authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor],
-      }
-    })
-    .state('temp', {
-      url: '/temp',
-      templateUrl: 'views/temp.html',
-      controller: 'UploadPhotoCtrl'    
-    })
-    .state('uploader', {
-      url: '/uploader',
-      templateUrl: 'views/temps/uploader.html',
-      controller: 'UploaderCtrl'     
-    })
-    .state('results', {
-      url: '/results/:city',
-      templateUrl: 'views/results.html',
-      controller: 'SearchCtrl'
-    });
+        url: '/admin',
+        templateUrl: 'views/admin.html',
+        controller: 'AdminCtrl',
+        data: {
+          auth: true,
+          authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor],
+        }
+      })
+      .state('admin.users', {
+        url: '/users',
+        templateUrl: 'views/admin/users.html',
+        controller: 'AdminUserCtrl',
+        data: {
+          auth: true,
+          authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor],
+        }
+      })
+      .state('admin.formations', {
+        url: '/formations',
+        templateUrl: 'views/admin/formations.html',
+        controller: 'AdminFormationCtrl',
+        data: {
+          auth: true,
+          authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor],
+        }
+      })
+      .state('admin.equipments', {
+        url: '/equipments',
+        templateUrl: 'views/admin/equipments.html',
+        controller: 'AdminEquipmentCtrl',
+        data: {
+          auth: true,
+          authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor],
+        }
+      })
+      .state('admin.extras', {
+        url: '/extras',
+        templateUrl: 'views/admin/extras.html',
+        controller: 'AdminExtraCtrl',
+        data: {
+          auth: true,
+          authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor],
+        }
+      })
+      .state('temp', {
+        url: '/temp',
+        templateUrl: 'views/temp.html',
+        controller: 'UploadPhotoCtrl'
+      })
+      .state('uploader', {
+        url: '/uploader',
+        templateUrl: 'views/temps/uploader.html',
+        controller: 'UploaderCtrl'
+      })
+      .state('results', {
+        url: '/results/:city',
+        templateUrl: 'views/results.html',
+        controller: 'SearchCtrl'
+      });
 
 
 
@@ -250,7 +250,7 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
       v: '3.17',
       libraries: 'weather,geometry,visualization'
     });
-   
+
   }
 ]);
 
@@ -258,16 +258,43 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
 tooFrenchApp.run(['$rootScope', '$state', 'AUTH_EVENTS', 'AuthService', 'editableOptions',
   function($rootScope, $state, AUTH_EVENTS, AuthService, editableOptions) {
     editableOptions.theme = 'bs3';
-    AuthService.getUser().then(function() {      
+    AuthService.getUser().then(function() {
       $rootScope.$on('$stateChangeStart', function(event, next) {
+        console.log("app state change");
         if (next.data) {
           if (next.data.auth === true) {
             if (!AuthService.isAuthenticated()) {
               event.preventDefault();
+              $state.go('login');
               $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
             } else if (next.data.authorizedRoles) {
               if (!AuthService.isAuthorized(next.data.authorizedRoles)) {
                 event.preventDefault();
+                $state.go('forbidden');
+                $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
+              }
+            }
+          }
+          if (next.data.auth === false) {
+            if (AuthService.isAuthenticated()) {
+              event.preventDefault();
+            }
+          }
+        }
+      });
+    }, function() {
+      $rootScope.$on('$stateChangeStart', function(event, next) {
+        console.log("app state change");
+        if (next.data) {
+          if (next.data.auth === true) {
+            if (!AuthService.isAuthenticated()) {
+              event.preventDefault();
+              $state.go('login');
+              $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+            } else if (next.data.authorizedRoles) {
+              if (!AuthService.isAuthorized(next.data.authorizedRoles)) {
+                event.preventDefault();
+                $state.go('forbidden');
                 $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
               }
             }
@@ -283,21 +310,22 @@ tooFrenchApp.run(['$rootScope', '$state', 'AUTH_EVENTS', 'AuthService', 'editabl
   }
 ]);
 
-var tooFrenchControllers = angular.module('tooFrenchCtrl', ['ngRoute', 'ui.router', 'xeditable', 'uiGmapgoogle-maps', 'pascalprecht.translate', 'tooFrenchService', 'angularFileUpload', 'ui.select','ui.bootstrap', 'dialogs.main', 'google.places', 'ngImgCrop', 'multipleDatePicker']);
-tooFrenchControllers.config(function(uiSelectConfig){
-    //================================================
-    // Angular ui components
-    //================================================
-    uiSelectConfig.theme = 'bootstrap';
+var tooFrenchControllers = angular.module('tooFrenchCtrl', ['ngRoute', 'ui.router', 'xeditable', 'uiGmapgoogle-maps', 'pascalprecht.translate', 'tooFrenchService', 'angularFileUpload', 'ui.select', 'ui.bootstrap', 'dialogs.main', 'google.places', 'ngImgCrop', 'multipleDatePicker']);
+tooFrenchControllers.config(function(uiSelectConfig) {
+  //================================================
+  // Angular ui components
+  //================================================
+  uiSelectConfig.theme = 'bootstrap';
 });
 
 angular.module('tooFrenchService', ['ngRoute', 'ngResource']);
 
 
-tooFrenchControllers.controller('ApplicationController', ['$scope', 'USER_ROLES', 'AUTH_EVENTS', 'LOCALE_EVENTS', 'AuthService', 'Session', '$translate',
+tooFrenchControllers.controller('ApplicationController', ['$scope', '$state', 'USER_ROLES', 'AUTH_EVENTS', 'LOCALE_EVENTS', 'AuthService', 'Session', '$translate', 'Profile',
 
-  function($scope, USER_ROLES, AUTH_EVENTS, LOCALE_EVENTS, AuthService, Session, $translate) {
+  function($scope, $state, USER_ROLES, AUTH_EVENTS, LOCALE_EVENTS, AuthService, Session, $translate, Profile) {
     $scope.currentUser = null;
+    $scope.currentProfile = null;
     $scope.userRoles = USER_ROLES;
     $scope.isAuthorized = AuthService.isAuthorized;
     $scope.locale = $translate.preferredLanguage();
@@ -323,7 +351,16 @@ tooFrenchControllers.controller('ApplicationController', ['$scope', 'USER_ROLES'
     });
 
     $scope.$on(AUTH_EVENTS.loginSuccess, function() {
+      $scope.currentProfile = Profile.get({
+        id: Session.user.profile
+      }, function() {
+        
+      });      
       $scope.setCurrentUser(Session.user);
+    });
+    $scope.$on(AUTH_EVENTS.logoutSuccess, function() {
+      console.log('logout success');
+      $state.go('home');
     });
     $scope.$on(AUTH_EVENTS.notAuthenticated, function() {
       console.log('not authenticated');
@@ -333,4 +370,3 @@ tooFrenchControllers.controller('ApplicationController', ['$scope', 'USER_ROLES'
     });
   }
 ]);
-

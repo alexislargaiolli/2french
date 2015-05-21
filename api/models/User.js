@@ -21,7 +21,7 @@ var User = {
 		},
 		profile: {
 			model: 'Profile'
-		}
+		}		
 	},
 
 	afterCreate: function(user, next) {

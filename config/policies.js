@@ -66,6 +66,11 @@ module.exports.policies = {
   LocaleController : {
     '*' : [ 'passport', 'sessionAuth', 'admin'],
     find : []
+  },
+
+  DiplomaController : {
+    '*' : [ 'passport', 'sessionAuth', 'admin'],
+    find : ['owner']
   }
 
   /***************************************************************************

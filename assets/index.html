@@ -63,9 +63,14 @@
           </ul>
           <login-input></login-input>
           
-          <ul class="nav navbar-nav navbar-right" ng-if="currentUser != null">
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{{currentUser.username}} <span class="caret"></span></a>
+          <ul id="user-menu" class="nav navbar-nav navbar-right" ng-if="currentUser != null">
+            <li><a href="#"><i class="fa fa-pencil-square-o"></i></a></li>
+            <li><a href="#"><i class="fa fa-envelope-o"></i></a></li>
+            <li id="user-menu-dropdown" class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                <img id="user-menu-photo" ng-src="{{currentProfile.photo}}" ng-show="currentProfile && currentProfile.photo" />
+                <i id="user-menu-photo-icon" class="fa fa-user" ng-show="!currentProfile || !currentProfile.photo"></i>
+                <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <li><a ui-sref="myprofile">Profile</a></li>
                 <li><a ng-click="logout()">Logout</a></li>
@@ -75,16 +80,23 @@
         </div>
       </div>
       <div id="searchBar" ng-controller="SearchBarCtrl">
-            <form class="form-inline" style="max-width:500px;margin:0 auto;">
-            <div class="row">
-              <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Pays">
-                </div>                
+            <form class="form-inline" style="max-width:700px;margin:0 auto;">
+            <div class="row">              
+              <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                  <div class="form-group">
+                      <div class="btn-group">
+                        <button id="search-calendar" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                            <span class="fa fa-calendar"></span> Disponibilités
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                          
+                        </ul>
+                      </div>
+                  </div>
               </div>
-              <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+              <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
                 <div class="form-group">
-                <input type="text" class="form-control" g-places-autocomplete ng-model="city" placeholder="Ville" options="optionsCity" force-selection="true" />
+                  <input id="search-text" type="text" class="form-control" g-places-autocomplete ng-model="city" placeholder="Ville" options="optionsCity" force-selection="true" />
                 </div>                
               </div>
               <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">

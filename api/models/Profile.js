@@ -54,7 +54,9 @@ module.exports = {
 		},
 		daySelected: {
 			type: 'json'
-		}
+		},
+		diplomaUploaded : 'boolean',
+		diplomaValidated : 'boolean'
 	},
 	beforeCreate: function(values, next) {
 		/*values.accommodation = {};

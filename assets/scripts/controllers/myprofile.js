@@ -53,14 +53,33 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$scope', 'Session', 'uiGmapGo
 				
 			});
 		}
+
+		$scope.createFormula = function(){
+			$scope.formulaToAdd = {};
+		}
+
 		$scope.addFormula = function() {
 			if (!$scope.profile.formulas) {
 				$scope.profile.formulas = new Array();
 			}
-			$scope.profile.formulas.push($scope.formulaToAdd);
+			var index = $scope.profile.formulas.indexOf($scope.formulaToAdd);
+			if(index == -1){
+				$scope.profile.formulas.push($scope.formulaToAdd);
+			}
+			
 			$scope.formulaToAdd = {};
 			$('#dlgAddFormula').modal('hide');
 		}
+
+		$scope.editFormula = function(formula){
+			$scope.formulaToAdd = formula;
+		}
+
+		$scope.deleteFormula = function(formula){
+			var index = $scope.profile.formulas.indexOf(formula);
+			$scope.profile.formulas.splice(index, 1);
+		}
+
 		$scope.addFormation = function() {
 			if (!$scope.profile.formations) {
 				$scope.profile.formations = new Array();
@@ -108,7 +127,14 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$scope', 'Session', 'uiGmapGo
 			if(!$scope.profile.daySelected){
 				$scope.profile.daySelected = [];
 			}
-			$scope.profile.daySelected.push(date.valueOf());
+			var index = $scope.profile.daySelected.indexOf(date.valueOf());
+			if( index == -1){ //If day is not already selected, day is added to selected days list
+				$scope.profile.daySelected.push(date.valueOf());	
+			}
+			else{ //Else remove the day from selected day list
+				$scope.profile.daySelected.splice(index, 1);	
+			}
+			
 		}
 	}
 ]);

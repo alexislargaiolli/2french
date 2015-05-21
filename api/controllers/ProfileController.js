@@ -7,8 +7,6 @@
 
 module.exports = {
 	findByCity : function(req, res){
-		sails.log.info(req.query['city']);
-		sails.log.info(req.param['city']);
 		Profile.find(			
 			{"city.address_components" : 
 				{ 

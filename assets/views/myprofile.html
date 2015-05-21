@@ -2,8 +2,11 @@
 	<div class="container">
 		<div class="row">
 			<div id="profile-left" class="col-sm-3 col-md-3 col-lg-3">
-				<div>
-				  <multiple-date-picker day-click="dayClick" days-selected="profile.daySelected"/>
+				<div class="panel panel-default">
+				  <div class="panel-heading">{{'myprofile.calendar' | translate}}</div>
+				  <div class="panel-body">
+				    	<multiple-date-picker day-click="dayClick" days-selected="profile.daySelected"/>
+				  </div>
 				</div>
 			</div>
 			<div id="profile-right" class="col-sm-9 col-md-9 col-lg-9">
@@ -89,12 +92,14 @@
 			<label>Prix d'une heure de cours : <a href="#" editable-number="profile.hourRate" e-min="0">{{ profile.hourRate || 'NaN' }}</a>€</label>
 			<div ng-repeat="formula in profile.formulas">
 				<hr/>
-				<h4>{{formula.name[$parent.lg]}}</h4>
+				<h4>{{formula.name[$parent.lg]}} <button type="button" class="btn btn-default" ng-click="editFormula(formula)" data-toggle="modal" data-target="#dlgAddFormula"><i class="fa fa-pencil"></i></button>
+				<button type="button" class="btn btn-default" ng-click="deleteFormula(formula)"><i class="fa fa-trash-o"></i></button>
+				</h4>
 				<p>{{formula.description[$parent.lg]}}</p>
 			</div>
 			<hr/>
 			<div style="text-align:center;" ng-show="{{editable}}">
-				<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#dlgAddFormula">
+				<button type="button" class="btn btn-primary btn-sm" ng-click="createFormula()" data-toggle="modal" data-target="#dlgAddFormula">
 				<i class="fa fa-plus"></i> Formule
 				</button>
 			</div>
@@ -139,69 +144,68 @@
 					<hr/>
 					<div class="row">
 						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-							    <carousel class="accomodationCarousel" interval="5000" disable-animation="true">
-							      <slide ng-repeat="photo in profile.photos">
-							        <img ng-src="{{photo.url}}" style="margin:auto;" />
-							        <div class="carousel-caption">
-										<button type="button" class="btn btn-danger" ng-click="deletePhoto({{$index}})"><i class="fa fa-trash"></i></button>
-							        </div>
-							      </slide>
-							    </carousel>
-							<div id="profilePhoto" class="thumbnail" ng-show="!profile.photos">								
+							<carousel class="accomodationCarousel" interval="5000" disable-animation="true">
+							<slide ng-repeat="photo in profile.photos">
+							<img ng-src="{{photo.url}}" style="margin:auto;" />
+							<div class="carousel-caption">
+								<button type="button" class="btn btn-danger" ng-click="deletePhoto({{$index}})"><i class="fa fa-trash"></i></button>
+							</div>
+							</slide>
+							</carousel>
+							<div id="profilePhoto" class="thumbnail" ng-show="!profile.photos">
 								<i class="fa fa-user" ></i>
 							</div>
 							<div class="center">
-								<alex-uploader id="test" text="Image" icon="fa fa-cloud-upload" url="upload/uploadAccomodationPhoto" on-upload-finished="onUploadAccomodation(url)"></alex-uploader>
-							</div>
-						</div>
-						<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-							<h5>Equipements</h5>
-							<ui-select multiple ng-model="profile.equipments" theme="bootstrap">
-							<ui-select-match placeholder="Select equipments...">{{$item.name[$parent.lg]}}</ui-select-match>
-							<ui-select-choices repeat="equipment in equipments">
-							<div ng-bind-html="equipment.name[$parent.lg] | highlight: $select.search"></div>
-							</ui-select-choices>
-							</ui-select>
-							
-							<h5>Service</h5>
-							<ui-select multiple ng-model="profile.services" theme="bootstrap">
-							<ui-select-match placeholder="Select equipments...">{{$item.name[$parent.lg]}}</ui-select-match>
-							<ui-select-choices repeat="service in services">
-							<div ng-bind-html="service.name[$parent.lg] | highlight: $select.search"></div>
-							</ui-select-choices>
-							</ui-select>
-
-							<h5>Adresse</h5>
-							<span ng-show="!editLocation">
-								{{profile.location.formatted_address}}
-							</span>		
-							<span>
-								<input type="text" id="accomodationAdressInput" class="form-control" g-places-autocomplete options="optionsLocation" force-selection="true" ng-model="profile.location" ng-show="editLocation" />
-								<button type="button" class="btn btn-primary btn-xs" ng-model="editLocation" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false" ng-click="updateLocation()">
-								<i class="fa fa-pencil"></i>
-								</button>
-							</span>
+							<alex-uploader id="test" text="Image" icon="fa fa-cloud-upload" url="upload/uploadAccomodationPhoto" on-upload-finished="onUploadAccomodation(url)"></alex-uploader>
 						</div>
 					</div>
-					<hr/>
-										
-					<div>
-						<ui-gmap-google-map center='map.center' zoom='map.zoom'>
-						<ui-gmap-markers models="map.markers"
-						doCluster="true"
-						coords="'self'"
-						icon="'icon'"
-						click="'onclicked'"
-						options="'options'"
-						idkey='id'
-						clusterOptions='map.clusterOptions'
-						control='markerControl.getChildMarkers().get(id)'>
-						</ui-gmap-markers>
-						</ui-gmap-google-map>
+					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+						<h5>Equipements</h5>
+						<ui-select multiple ng-model="profile.equipments" theme="bootstrap">
+						<ui-select-match placeholder="Select equipments...">{{$item.name[$parent.lg]}}</ui-select-match>
+						<ui-select-choices repeat="equipment in equipments">
+						<div ng-bind-html="equipment.name[$parent.lg] | highlight: $select.search"></div>
+						</ui-select-choices>
+						</ui-select>
+						
+						<h5>Service</h5>
+						<ui-select multiple ng-model="profile.services" theme="bootstrap">
+						<ui-select-match placeholder="Select equipments...">{{$item.name[$parent.lg]}}</ui-select-match>
+						<ui-select-choices repeat="service in services">
+						<div ng-bind-html="service.name[$parent.lg] | highlight: $select.search"></div>
+						</ui-select-choices>
+						</ui-select>
+						<h5>Adresse</h5>
+						<span ng-show="!editLocation">
+							{{profile.location.formatted_address}}
+						</span>
+						<span>
+							<input type="text" id="accomodationAdressInput" class="form-control" g-places-autocomplete options="optionsLocation" force-selection="true" ng-model="profile.location" ng-show="editLocation" />
+							<button type="button" class="btn btn-primary btn-xs" ng-model="editLocation" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false" ng-click="updateLocation()">
+							<i class="fa fa-pencil"></i>
+							</button>
+						</span>
 					</div>
+				</div>
+				<hr/>
+				
+				<div>
+					<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+					<ui-gmap-markers models="map.markers"
+					doCluster="true"
+					coords="'self'"
+					icon="'icon'"
+					click="'onclicked'"
+					options="'options'"
+					idkey='id'
+					clusterOptions='map.clusterOptions'
+					control='markerControl.getChildMarkers().get(id)'>
+					</ui-gmap-markers>
+					</ui-gmap-google-map>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 </div>
