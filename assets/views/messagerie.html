@@ -1,0 +1,53 @@
+<div id="blackBar">
+    <div class="container">
+        <h1>{{'Messagerie' | translate}}</h1>
+
+        <p>{{'learn.subtitle' | translate}}</p>
+    </div>
+</div>
+<div class="container messagerie">
+    <div class="row" ng-if="conversations.length > 0">
+        <div class="col-sm-4 col-md-4 col-lg-4 conversations">
+            <div ng-repeat="conv in conversations" class="conversation"
+                 ng-class="{selected : conv.id == selectedConv.id }" ng-click="selectConversation(conv.id)">
+                <span class="name">
+                {{conv.interlocutor}}
+                </span>
+                <span class="badge" ng-show="selectedConv.unseenCount > 0">
+                    {{conv.unseenCount}}
+                </span>
+            </div>
+        </div>
+        <div class="col-sm-8 col-md-8 col-lg-8" id="selected-conversation-wrapper">
+            <div id="selected-conversation">
+                <div ng-repeat="msg in selectedConv.messages">
+                    <div class="msg-wrapper" ng-class="{mymsg:msg.author == currentUser.id}">
+                        <span class="sender" ng-if="msg.author != currentUser.id">{{selectedConv.interlocutor}}</span>
+                        <div class="msg arrow" ng-class="msg.author == currentUser.id ? 'right' :'left'">
+                            {{msg.content}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="send-msg-panel">
+                <form ng-submit="sendMessage()">
+                    <textarea ng-model="message.content" placeholder="{{'messagerie.msg.content' | translate}}"
+                              class="form-control" rows="3" ng-required="true"></textarea>
+                    <button id="send-msg" class="btn btn-default" type="submit">
+                        <span class="fa fa-send"></span> <span class="hidden-xs hidden-sm">{{'messagerie.msg.send' | translate}}</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="nomsg-panel" ng-if="conversations.length == 0">
+        <span>{{'messagerie.nomsg' | translate}}</span>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function scrollMessagePanel(){
+        var objDiv = document.getElementById("selected-conversation");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    }
+</script>

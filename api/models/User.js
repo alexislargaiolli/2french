@@ -1,53 +1,72 @@
 var User = {
-	// Enforce model schema in the case of schemaless databases
-	schema: true,
+    // Enforce model schema in the case of schemaless databases
+    schema: true,
 
-	attributes: {
-		username: {
-			type: 'string',
-			unique: true
-		},
-		email: {
-			type: 'email',
-			unique: true
-		},
-		passports: {
-			collection: 'Passport',
-			via: 'user'
-		},
-		role: {
-			type: 'string',
-			enum: ['admin', 'teacher', 'student']
-		},
-		profile: {
-			model: 'Profile'
-		}		
-	},
+    attributes: {
+        username: {
+            type: 'string',
+            unique: true
+        },
+        email: {
+            type: 'email',
+            unique: true
+        },
+        passports: {
+            collection: 'Passport',
+            via: 'user'
+        },
+        role: {
+            type: 'string',
+            enum: ['admin', 'teacher', 'student']
+        },
+        profile: {
+            model: 'Profile'
+        },
+        conversations: {
+            collection: 'conversation',
+            via: 'owner'
+        }
+    },
+    sendMessage: function (user, recipient, messageContent, callback) {
 
-	afterCreate: function(user, next) {
-		/*sails.models.profile.create({
-			"owner": user.id
-		}).exec(function(err, profile) {
-			sails.models.user.update({
-				"email": user.email
-			}, {
-				"profile": profile.id
-			}).exec(function(err, u) {
-				next();
-			});
+        Conversation.findOrCreate({owner: user, interlocutor: recipient}, {
+            owner: user,
+            interlocutor: recipient
+        }, function (err, conv) {
+            if (!conv.messages) {
+                conv.messages = [];
+            }
+            conv.messages.add({author: user, recipient: recipient, content: messageContent, conversation: conv});
+            conv.save(callback);
+        });
 
-		});*/
-		next();
-	},
-	afterDestroy: function(users, next) {
-		users.forEach(function(user, i) {
-			sails.models.profile.destroy({
-				id: user.profile
-			}).exec(function(err) {
-				next();
-			});
-		});
-	}
+    },
+    receiveMessage: function (user, sender, messageContent, callback) {
+        Conversation.findOrCreate({owner: user, interlocutor: sender}, {
+            owner: user,
+            interlocutor: sender
+        }, function (err, conv) {
+            if (!conv.messages) {
+                conv.messages = [];
+            }
+            conv.unseenCount++;
+            conv.messages.add({author: sender, recipient: user, content: messageContent, conversation: conv});
+            conv.save(callback);
+        });
+    },
+    afterCreate: function (user, next) {
+        next();
+    },
+    afterDestroy: function (users, next) {
+        users.forEach(function (user, i) {
+            //TODO clean all datas
+            sails.models.profile.destroy({
+                id: user.profile
+            }).exec(function (err) {
+                next();
+            });
+        });
+    }
 
 };
 

@@ -1,0 +1,33 @@
+<div id="blackBar">
+    <div class="container">
+        <h1>{{'recommandation.title' | translate}}</h1>
+    </div>
+</div>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 hp-10">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading">{{'search.result.utillink' | translate}}</div>
+                <!-- List group -->
+                <ul class="list-group">
+                    <a href="#" class="list-group-item" ng-repeat="r in utillinks">
+                        <h4 class="list-group-item-heading">{{r.title[$parent.lg]}}</h4>
+                        <p class="list-group-item-text">{{r.link}}</p>
+                    </a>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 hp-10">
+            <div ng-repeat="r in recommandations" class="recommandationPanel bordered-block">
+                <div>
+                    <h2>{{r.title[$parent.lg]}}</h2>
+                    <a href="{{r.link}}">{{r.link}}</a>
+                    <p>{{r.description[$parent.lg]}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

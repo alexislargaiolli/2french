@@ -1,225 +1,304 @@
 <div id="myprofile-container">
-	<div class="container">
-		<div class="row">
-			<div id="profile-left" class="col-sm-3 col-md-3 col-lg-3">
-				<div class="panel panel-default">
-					<div class="panel-heading block-title1 center">{{'myprofile.calendar' | translate}}</div>
-					<div class="panel-body p-0">
-						<multiple-date-picker day-click="dayClick" days-selected="profile.daySelected"/>
-					</div>
-				</div>
-			</div>
-			<div id="profile-right" class="col-sm-9 col-md-9 col-lg-9">
-				
-				<div id="profile-header" class="bordered-block">
-					<div>
-						<div class="row">
-							<div class="col-sm-3 col-md-3 col-lg-3">
-								<div id="profilePhoto" class="thumbnail">
-									<img id="profile-pins" ng-src="/images/pins.png" ng-show="profile.photo" />
-									<img ng-src="{{profile.photo}}" ng-show="profile.photo" />
-									<i class="fa fa-user" ng-show="!profile.photo"></i>
-									<div id="upload-btn-wrapper">
-									<alex-uploader text="Photo" icon="fa fa-cloud-upload" url="upload/uploadAvatar" on-upload-finished="onUpload(url)"></alex-uploader>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-9 col-md-9 col-lg-9">
-							<div id="btns-wrapper">
-								<button id="profile-save-btn" ng-click="save()" type="button" class="btn btn-default green2-btn"><span class="fa fa-floppy-o"></span> Save</button ng-click="save()">
-								
-								<div class="btn-group">
-									<button id="profile-lang-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-									<img ng-src="images/languages/{{profileLocale}}.png" /><span> {{'myprofile.language' | translate}} </span><span class="caret"></span>
-									</button>
-									<ul class="dropdown-menu" role="menu">
-										<li><a ng-click="changeProfileLanguage('frFR')"><img src="images/languages/frFR.png" /></a></li>
-										<li><a ng-click="changeProfileLanguage('enUS')"><img src="images/languages/enUS.png" /></a></li>
-									</ul>
-								</div>
-							</div>
-							<div>
-								<a id="profile-title" class="f-25 middle" href="#" e-form="firstnameBtn" editable-text="profile.firstname">{{profile.firstname || 'firstname'}}</a>
-								<span class="fa fa-pencil edit-icon middle" ng-click="firstnameBtn.$show()" ng-hide="firstnameBtn.$visible"></span>
-							</div>
-							<div ng-show="{{editable}}">
-								<span class="block-title2 f-16">{{'myprofile.level.from' | translate}} </span>
-								<a href="#" editable-select="profile.levelFrom" e-ng-options="level as level.name[profileLang] for level in formationLevels track by level.id">
-									{{ profile.levelFrom ? profile.levelFrom.name[profileLang] : '...'}}
-								</a>
-								<span class="block-title2 f-16"> {{'myprofile.level.to' | translate}} </span>
-								<a href="#" editable-select="profile.levelTo" e-ng-options="level as level.name[profileLang] for level in formationLevels track by level.id">
-									{{ profile.levelTo ? profile.levelTo.name[profileLang] : '...' }}
-								</a>
-							</div>
+    <div class="container">
+        <div ng-if="isTeacher && !diploma.diplomaValidated">
+            <div id="profile-completion-wrapper">
+                <div class="item-wrapper">
+                    <div class="left-col">
+                        <i class="fa fa-graduation-cap"></i>
+                    </div>
+                    <div class="center-col">
+                        Uploader votre diplôme
+                    </div>
+                    <div class="right-col">
+                        <div ng-if="!diploma.diplomaUploaded && !diploma.diplomaValidated">
+                            <div class="fileUpload btn btn-primary" ng-show="diplomaFile == null">
+                                <span class="fa fa-file-pdf-o"></span>
+                                <span>{{'diploma.btn.select' | translate}}</span>
+                                <input id="diplomaInput" type="file" accept=".pdf" class="upload"/>
+                            </div>
+                            <button ng-show="diplomaFile != null" ng-click="uploadDiploma()" type="button" class="btn btn-default green2-btn"><span class="fa fa-upload"></span> {{'diploma.btn.upload' | translate}}
+                            </button>
+                        </div>
+                        <i class="fa fa-spinner" ng-if="diploma.diplomaUploaded && !diploma.diplomaValidated"></i>
+                        <i class="fa fa-check-circle-o" ng-if="diploma.diplomaValidated"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div id="profile-left" class="col-sm-3 col-md-3 col-lg-3">
+                <div class="panel panel-default" ng-if="isTeacher">
+                    <div class="panel-heading block-title1 center">{{'myprofile.calendar' | translate}}</div>
+                    <div class="panel-body p-0">
+                        <multiple-date-picker day-click="dayClick" days-selected="profile.daySelected"/>
+                    </div>
+                </div>
+            </div>
+            <div id="profile-right" class="col-sm-9 col-md-9 col-lg-9">
+
+                <div id="profile-header" class="bordered-block">
+                    <div>
+                        <div class="row">
+                            <div class="col-sm-3 col-md-3 col-lg-3">
+                                <div id="profilePhoto" class="thumbnail">
+                                    <img id="profile-pins" ng-src="/images/pins.png" ng-show="profile.photo"/>
+                                    <img ng-src="{{profile.photo}}" ng-show="profile.photo"/>
+                                    <i class="fa fa-user" ng-show="!profile.photo"></i>
+
+                                    <div id="upload-btn-wrapper">
+                                        <alex-uploader text="Photo" icon="fa fa-cloud-upload" url="upload/uploadAvatar"
+                                                       on-upload-finished="onUpload(url)"></alex-uploader>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-9 col-md-9 col-lg-9">
+                                <div id="btns-wrapper">
+                                    <button id="profile-save-btn" ng-click="save()" type="button"
+                                            class="btn btn-default green2-btn"><span class="fa fa-floppy-o"></span> Save
+                                    </button>
+
+                                    <div class="btn-group">
+                                        <button id="profile-lang-btn" type="button"
+                                                class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                                                aria-expanded="false">
+                                            <img ng-src="images/languages/{{profileLocale}}.png"/><span> {{'myprofile.language' | translate}} </span><span
+                                                class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu" role="menu">
+                                            <li><a ng-click="changeProfileLanguage('frFR')"><img
+                                                    src="images/languages/frFR.png"/></a></li>
+                                            <li><a ng-click="changeProfileLanguage('enUS')"><img
+                                                    src="images/languages/enUS.png"/></a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div>
+                                    <a id="profile-title" class="f-25 middle" href="#" e-form="firstnameBtn"
+                                       editable-text="profile.firstname">{{profile.firstname || 'firstname'}}</a>
+                                    <span class="fa fa-pencil edit-icon middle" ng-click="firstnameBtn.$show()"
+                                          ng-hide="firstnameBtn.$visible"></span>
+                                </div>
+                                <div ng-if="isTeacher">
+                                    <span class="block-title2 f-16">{{'myprofile.level.from' | translate}} </span>
+                                    <a href="#" editable-select="profile.levelFrom"
+                                       e-ng-options="level as level.name[profileLang] for level in formationLevels track by level.id">
+                                        {{ profile.levelFrom ? profile.levelFrom.name[profileLang] : '...'}}
+                                    </a>
+                                    <span class="block-title2 f-16"> {{'myprofile.level.to' | translate}} </span>
+                                    <a href="#" editable-select="profile.levelTo"
+                                       e-ng-options="level as level.name[profileLang] for level in formationLevels track by level.id">
+                                        {{ profile.levelTo ? profile.levelTo.name[profileLang] : '...' }}
+                                    </a>
+                                </div>
 							<span ng-show="!editCity">
 								{{profile.city.address_components[0].long_name}} ({{profile.city.address_components[3].long_name}})
 							</span>
-							<span ng-show="{{editable}}">
-								<input type="text" g-places-autocomplete ng-model="profile.city" options="optionsCity" ng-show="editCity" force-selection="true" />
+							<span>
+								<input type="text" g-places-autocomplete ng-model="profile.city" options="optionsCity"
+                                       ng-show="editCity" force-selection="true"/>
 								<span class="fa fa-pencil edit-icon" ng-click="editCity = !editCity"></span>
 							</span>
-							<hr/>
-							<div class="mt-10">
-								<ui-select multiple ng-model="profile.formations" theme="bootstrap" style="width: 100%;" ng-show="{{editable}}">
-								<ui-select-match placeholder="Select person...">{{$item.name[profileLang]}}</ui-select-match>
-								<ui-select-choices repeat="formation in formations">
-								<div ng-bind-html="formation.name[profileLang] | highlight: $select.search"></div>
-								<small>
-								{{formation.description[profileLang]}}
-								</small>
-								</ui-select-choices>
-								</ui-select>
-							</div>
-							<div class="mt-10">
-								<ui-select multiple ng-model="profile.extras" theme="bootstrap" style="width: 100%;" ng-show="{{editable}}">
-								<ui-select-match placeholder="Select extras...">{{$item.name[profileLang]}}</ui-select-match>
-								<ui-select-choices repeat="extra in extras">
-								<div ng-bind-html="extra.name[profileLang] | highlight: $select.search"></div>
-								<small>
-								{{extra.description[profileLang]}}
-								</small>
-								</ui-select-choices>
-								</ui-select>
-							</div>
-						</div>
-					</div>
-					<div id="motivation-panel">
-						<div>
-							<h4 class="block-title2 f-16"> {{'myprofile.experience' | translate}}
-							
-							<span class="fa fa-pencil edit-icon" ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible"></span>
-							</h4>
-						</div>
-						<p editable-textarea="profile.motivation[profileLang]" e-form="textBtnForm" e-rows="7" e-style="width:100%">
-							{{ profile.motivation[profileLang] || 'empty' }}
-						</p>
-					</div>
-				</div>
-			</div>
-			
-			<h3 class="block-title2 f-16 mt-35">
-			{{'myprofile.formations' | translate}}
-			<span class="fa fa-plus edit-icon" ng-click="createFormula()" data-toggle="modal" data-target="#dlgAddFormula"></span>
-			</h3>
-			<hr/>
-			<label class="blue-title f-14">Prix d'une heure de cours : <a href="#" editable-number="profile.hourRate" e-min="0">{{ profile.hourRate || '...' }}</a>€</label>
-			<div ng-repeat="formula in profile.formulas">
-				<hr/>
-				<h4 class="blue-title f-14">
-				{{formula.name[profileLang]}}
-				<span class="fa fa-pencil edit-icon" ng-click="editFormula(formula)" data-toggle="modal" data-target="#dlgAddFormula"></span>
-				<span class="fa fa-trash-o edit-icon red" ng-click="deleteFormula(formula)"></span>
-				</h4>
-				<p>{{formula.description[profileLang]}}</p>
-			</div>
-			<hr/>
-			
-			<div class="modal fade" id="dlgAddFormula" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" ng-show="{{editable}}">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<form name="formAddFormula">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								<h4 class="modal-title" id="myModalLabel">Nouvelle formule</h4>
-							</div>
-							<div class="modal-body">
-								<div class="form-group">
-									<label for="formulaName">Nom</label>
-									<input type="text" ng-model="formulaToAdd.name[profileLang]" class="form-control" id="formulaName" placeholder="Nom de la formule" ng-required="true">
-								</div>
-								<div class="form-group">
-									<label for="formulaDesc">Description</label>
-									<textarea id="formulaDesc" ng-model="formulaToAdd.description[profileLang]" placeholder="Description de la formule" class="form-control" rows="3" ng-required="true"></textarea>
-								</div>
-								<div class="form-group">
-									<label for="formulaPrice">Prix</label>
-									<input type="number" ng-model="formulaToAdd.price" min="0" class="form-control" id="formulaPrice" placeholder="Prix de la formule" ng-required="true">
-								</div>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-								<button type="submit" ng-click="addFormula();" class="btn btn-primary" data-dismiss="modal" ng-disabled="formAddFormula.$invalid">Ajouter la formule</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-			
-			<div class="mt-35">
-				
-				<h4 style="display:inline-block;">Hébergement</h4>
-				<div style="display:inline-block;">
-					Proposer un hebergement : <input type="checkbox" ng-model="profile.activeAccomodation">
-				</div>
-				<div ng-show="profile.activeAccomodation == true">
-					<hr/>
-					<div class="row">
-						<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-							<div id="caroussel-wrapper" class="thumbnail">
-							<carousel class="accomodationCarousel" interval="5000" disable-animation="true">
-							<slide ng-repeat="photo in profile.photos">
-							<img ng-src="{{photo.url}}" style="margin:auto;" />
-							<div class="carousel-caption">
-								<button type="button" class="btn btn-danger" ng-click="deletePhoto({{$index}})"><i class="fa fa-trash"></i></button>
-							</div>
-							</slide>
-							</carousel>
-							<div id="no-photo-accomodation" ng-show="!profile.photos || profile.photos.length == 0">
-								<i class="fa fa-file-image-o" ng-show="!profile.photos || profile.photos.length == 0" ></i>
-							</div>
-							<div class="center">
-							<alex-uploader id="test" text="Image" icon="fa fa-cloud-upload" url="upload/uploadAccomodationPhoto" on-upload-finished="onUploadAccomodation(url)"></alex-uploader>
-						</div>
-						</div>
-					</div>
-					<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-						<h5>Equipements</h5>
-						<ui-select multiple ng-model="profile.equipments" theme="bootstrap">
-						<ui-select-match placeholder="Select equipments...">{{$item.name[profileLang]}}</ui-select-match>
-						<ui-select-choices repeat="equipment in equipments">
-						<div ng-bind-html="equipment.name[profileLang] | highlight: $select.search"></div>
-						</ui-select-choices>
-						</ui-select>
-						
-						<h5>Service</h5>
-						<ui-select multiple ng-model="profile.services" theme="bootstrap">
-						<ui-select-match placeholder="Select equipments...">{{$item.name[profileLang]}}</ui-select-match>
-						<ui-select-choices repeat="service in services">
-						<div ng-bind-html="service.name[profileLang] | highlight: $select.search"></div>
-						</ui-select-choices>
-						</ui-select>
-						<h5>Adresse</h5>
+                                <hr/>
+                                <div class="mt-10" ng-if="isTeacher">
+                                    <ui-select multiple ng-model="profile.formations" theme="bootstrap"
+                                               style="width: 100%;">
+                                        <ui-select-match placeholder="Select person...">{{$item.name[profileLang]}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="formation in formations">
+                                            <div ng-bind-html="formation.name[profileLang] | highlight: $select.search"></div>
+                                            <small>
+                                                {{formation.description[profileLang]}}
+                                            </small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                                <div class="mt-10" ng-if="isTeacher">
+                                    <ui-select multiple ng-model="profile.extras" theme="bootstrap"
+                                               style="width: 100%;">
+                                        <ui-select-match placeholder="Select extras...">{{$item.name[profileLang]}}
+                                        </ui-select-match>
+                                        <ui-select-choices repeat="extra in extras">
+                                            <div ng-bind-html="extra.name[profileLang] | highlight: $select.search"></div>
+                                            <small>
+                                                {{extra.description[profileLang]}}
+                                            </small>
+                                        </ui-select-choices>
+                                    </ui-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="motivation-panel">
+                            <div>
+                                <h4 class="block-title2 f-16"> {{'myprofile.experience' | translate}}
+
+                                    <span class="fa fa-pencil edit-icon" ng-click="textBtnForm.$show()"
+                                          ng-hide="textBtnForm.$visible"></span>
+                                </h4>
+                            </div>
+                            <p editable-textarea="profile.motivation[profileLang]" e-form="textBtnForm" e-rows="7"
+                               e-style="width:100%">
+                                {{ profile.motivation[profileLang] || ('myprofile.motivation.empty' | translate) }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="isTeacher">
+                    <h3 class="block-title2 f-16 mt-35">
+                        {{'myprofile.formations' | translate}}
+                        <span class="fa fa-plus edit-icon" ng-click="createFormula()" data-toggle="modal"
+                              data-target="#dlgAddFormula"></span>
+                    </h3>
+                    <hr/>
+                    <label class="blue-title f-14">Prix d'une heure de cours : <a href="#"
+                                                                                  editable-number="profile.hourRate"
+                                                                                  e-min="0">{{ profile.hourRate || '...'
+                        }}</a>€</label>
+
+                    <div ng-repeat="formula in profile.formulas">
+                        <hr/>
+                        <h4 class="blue-title f-14">
+                            {{formula.name[profileLang]}}
+                            <span class="fa fa-pencil edit-icon" ng-click="editFormula(formula)" data-toggle="modal"
+                                  data-target="#dlgAddFormula"></span>
+                            <span class="fa fa-trash-o edit-icon red" ng-click="deleteFormula(formula)"></span>
+                        </h4>
+
+                        <p>{{formula.description[profileLang]}}</p>
+                    </div>
+                    <hr/>
+
+                    <div class="modal fade" id="dlgAddFormula" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form name="formAddFormula">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span></button>
+                                        <h4 class="modal-title" id="myModalLabel">Nouvelle formule</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="formulaName">Nom</label>
+                                            <input type="text" ng-model="formulaToAdd.name[profileLang]"
+                                                   class="form-control" id="formulaName" placeholder="Nom de la formule"
+                                                   ng-required="true">
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="formulaDesc">Description</label>
+                                            <textarea id="formulaDesc" ng-model="formulaToAdd.description[profileLang]"
+                                                      placeholder="Description de la formule" class="form-control"
+                                                      rows="3" ng-required="true"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="formulaPrice">Prix</label>
+                                            <input type="number" ng-model="formulaToAdd.price" min="0"
+                                                   class="form-control" id="formulaPrice"
+                                                   placeholder="Prix de la formule" ng-required="true">
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Annuler
+                                        </button>
+                                        <button type="submit" ng-click="addFormula();" class="btn btn-primary"
+                                                data-dismiss="modal" ng-disabled="formAddFormula.$invalid">Ajouter la
+                                            formule
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-35" ng-if="isTeacher">
+
+                    <h4 style="display:inline-block;">Hébergement</h4>
+
+                    <div style="display:inline-block;">
+                        Proposer un hebergement : <input type="checkbox" ng-model="profile.activeAccomodation">
+                    </div>
+                    <div ng-show="profile.activeAccomodation == true">
+                        <hr/>
+                        <div class="row">
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                <div id="caroussel-wrapper" class="thumbnail">
+                                    <carousel class="accomodationCarousel" interval="5000" disable-animation="true">
+                                        <slide ng-repeat="photo in profile.photos">
+                                            <img ng-src="{{photo.url}}" style="margin:auto;"/>
+
+                                            <div class="carousel-caption">
+                                                <button type="button" class="btn btn-danger"
+                                                        ng-click="deletePhoto({{$index}})"><i class="fa fa-trash"></i>
+                                                </button>
+                                            </div>
+                                        </slide>
+                                    </carousel>
+                                    <div id="no-photo-accomodation"
+                                         ng-show="!profile.photos || profile.photos.length == 0">
+                                        <i class="fa fa-file-image-o"
+                                           ng-show="!profile.photos || profile.photos.length == 0"></i>
+                                    </div>
+                                    <div class="center">
+                                        <alex-uploader id="test" text="Image" icon="fa fa-cloud-upload"
+                                                       url="upload/uploadAccomodationPhoto"
+                                                       on-upload-finished="onUploadAccomodation(url)"></alex-uploader>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                <h5>Equipements</h5>
+                                <ui-select multiple ng-model="profile.equipments" theme="bootstrap">
+                                    <ui-select-match placeholder="Select equipments...">{{$item.name[profileLang]}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="equipment in equipments">
+                                        <div ng-bind-html="equipment.name[profileLang] | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+
+                                <h5>Service</h5>
+                                <ui-select multiple ng-model="profile.services" theme="bootstrap">
+                                    <ui-select-match placeholder="Select equipments...">{{$item.name[profileLang]}}
+                                    </ui-select-match>
+                                    <ui-select-choices repeat="service in services">
+                                        <div ng-bind-html="service.name[profileLang] | highlight: $select.search"></div>
+                                    </ui-select-choices>
+                                </ui-select>
+                                <h5>Adresse</h5>
 						<span ng-show="!editLocation">
 							{{profile.location.formatted_address || ('myprofile.accomodation.address' | translate)}}
 						</span>
 						<span>
-							<input type="text" id="accomodationAdressInput" class="form-control" g-places-autocomplete options="optionsLocation" force-selection="true" ng-model="profile.location" ng-show="editLocation" />
-							<button type="button" class="btn btn-primary btn-xs" ng-model="editLocation" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false" ng-click="updateLocation()">
-							<i class="fa fa-pencil"></i>
-							</button>
+							<input type="text" id="accomodationAdressInput" class="form-control" g-places-autocomplete
+                                   options="optionsLocation" force-selection="true" ng-model="profile.location"
+                                   ng-show="editLocation"/>
+							<button type="button" class="btn btn-primary btn-xs" ng-model="editLocation" btn-checkbox
+                                    btn-checkbox-true="true" btn-checkbox-false="false" ng-click="updateLocation()">
+                                <i class="fa fa-pencil"></i>
+                            </button>
 						</span>
-					</div>
-				</div>
-				<hr/>
-				
-				<div>
-					<ui-gmap-google-map center='map.center' zoom='map.zoom'>
-					<ui-gmap-markers models="map.markers"
-					doCluster="true"
-					coords="'self'"
-					icon="'icon'"
-					click="'onclicked'"
-					options="'options'"
-					idkey='id'
-					clusterOptions='map.clusterOptions'
-					control='markerControl.getChildMarkers().get(id)'>
-					</ui-gmap-markers>
-					</ui-gmap-google-map>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-</div>
+                            </div>
+                        </div>
+                        <hr/>
+
+                        <div>
+                            <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+                                <ui-gmap-markers models="map.markers"
+                                                 doCluster="true"
+                                                 coords="'self'"
+                                                 icon="'icon'"
+                                                 click="'onclicked'"
+                                                 options="'options'"
+                                                 idkey='id'
+                                                 clusterOptions='map.clusterOptions'
+                                                 control='markerControl.getChildMarkers().get(id)'>
+                                </ui-gmap-markers>
+                            </ui-gmap-google-map>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

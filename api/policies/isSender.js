@@ -2,7 +2,7 @@
  * profileOwner
  *
  * @module      :: Policy
- * @description :: Simple policy to allow profile owner to modify profile
+ * @description :: Simple policy to allow user to send message
  * @docs        :: http://sailsjs.org/#!documentation/policies
  *
  */
@@ -10,7 +10,7 @@ module.exports = function(req, res, next) {
 
   // User is allowed, proceed to the next policy,
   // or if this is the last policy, the controller
-  if (req.user.id == req.allParams().owner) {
+    if (req.user.id == req.allParams().senderId) {
     return next();
   }
   // User is not allowed

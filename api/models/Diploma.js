@@ -11,7 +11,13 @@ module.exports = {
 		owner: {
 			model: 'User'
 		},
-		diplomaUploaded: 'boolean',
-		diplomaValidated: 'boolean'
+		diplomaUploaded :{
+			type:'boolean',
+			defaultsTo: false
+		},
+		diplomaValidated :{
+			type:'boolean',
+			defaultsTo: false
+		}
 	}
 };

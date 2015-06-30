@@ -34,5 +34,22 @@
   "myprofile.level.from" :"Niveau",
   "myprofile.level.to" :"à",
   "myprofile.formations":"Formations proposées",
-  "myprofile.accomodation.address":"Saisissez l'adresse de l'hébergement"
+  "myprofile.accomodation.address":"Saisissez l'adresse de l'hébergement",
+  "myprofile.motivation.empty":"Saisissez vos motivations",
+  "search.result.label":"Résultats de votre recherche",
+  "search.result.label2":"Enseignants à ",
+  "search.result.recommandation":"Recommandations",
+  "search.result.utillink":"Liens utiles",
+  "search.result.seemore":"Voir +",
+  "recommandation.title":"Recommandations",
+  "messagerie.title" : "Messagerie",
+  "messagerie.nomsg" : "Vous n'avez aucun message.",
+  "messagerie.msg.content" : "Contenu du message...",
+  "messagerie.msg.send" : "Envoyer",
+  "contact.dlg.title" : "Contacter",
+  "contact.dlg.send" : "Envoyer",
+  "diploma.not.uploaded" : "Vaus devez faire valider votre diplôme pour apparaître dans la recherche.",
+  "diploma.not.uploaded.link" : "Cliquez ici",
+  "diploma.btn.select" : "Fichier",
+  "diploma.btn.upload" : "Soumettre"
 }

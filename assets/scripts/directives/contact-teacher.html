@@ -1,0 +1,46 @@
+<button type="button" id="btn-upload_{{$id}}" class="btn btn-default {{icon}}" data-toggle="modal" data-target="#dlg-upload_{{$id}}"> {{text}}</button>
+<div class="modal fade" id="dlg-upload_{{$id}}" tabindex="-1" role="dialog" aria-labelledby="dlg-upload_{{$id}}" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Upload</h4>
+			</div>
+			<div class="modal-body">
+				
+				<div class="btn-panel">
+					<span class="btn btn-default btn-file">
+						Browse
+						<input type="file" id="fileInput{{$id}}" />
+					</span>
+					<button type="button" class="btn btn-default" ng-click="upload()" ng-show="uploadable">Upload</button>
+				</div>
+				<div class="row" ng-show="!uploading">
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<div class="img-wrapper">
+							<label>Recadrer votre image:</label>
+							<div class="cropArea">
+								<img-crop image="myImage" result-image="myCroppedImage" area-type="square"></img-crop>
+							</div>
+						</div>
+					</div>
+					<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+						<div class="img-wrapper">
+							<label>Image recadrer:</label>
+							<div class="croppedArea">
+								<img ng-src="{{myCroppedImage}}" />
+							</div>
+						</div>
+					</div>
+				</div>
+				<div ng-show="uploading">
+				<progressbar max="100" value="progress" type="{{progressBarType}}"><b>{{progress}}%</b></progressbar>
+			</div>
+		<alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+	</div>
+</div>
+</div>
+</div>

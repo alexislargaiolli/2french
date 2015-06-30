@@ -70,8 +70,18 @@ module.exports.policies = {
 
   DiplomaController : {
     '*' : [ 'passport', 'sessionAuth', 'admin'],
-    find : ['owner']
+    'userDiploma' : ['passport', 'sessionAuth', 'teacher'],
+    'upload' : ['passport', 'sessionAuth', 'teacher']
+  },
+  ConversationController : {
+    '*' : [ 'passport', 'sessionAuth', 'admin'],
+    sendMessage : ['passport', 'sessionAuth', 'isSender'],
+    allUserConversations : ['passport', 'sessionAuth'],
+    userConversation: ['passport', 'sessionAuth'],
+    totalUnseenMessageCount: ['passport', 'sessionAuth'],
+    setAsRead: ['passport', 'sessionAuth']
   }
+
 
   /***************************************************************************
   *                                                                          *

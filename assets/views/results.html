@@ -1,34 +1,105 @@
 <div class="container">
-	
-	<div id="search-results" class="row">
-		<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-			
-		</div>
-		<div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-			<div class="row" ng-repeat="p in results">
-				<hr/>
-				<div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-					<img class="photo" ng-src="{{p.photo}}">
-					<div class="info-wrapper">
-						<a ui-sref="profile({profileId: p.id})" class="firstname">{{p.firstname}}</a>
-						<h4>Formation proposées</h4>
-						<ul class="formations">
-							<li ng-repeat="formation in p.formations"> {{formation.name[$parent.lg]}}</li>
-						</ul>
-						<ul class="extras">
-							<li ng-repeat="extra in p.extras" class="{{extra.icon}}"> {{extra.name[$parent.lg]}}</li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-					<button type="button" class="calendar-btn btn btn-default blue-btn fa fa-calendar"></button>
-					<button type="button" class="fav-btn btn btn-default blue-btn fa fa-star"> Favoris</button>
-					<button type="button" class="contact-btn btn btn-default green2-btn fa fa-envelope"> Contacter</button>
-					<div class="hour-rate">{{p.hourRate}}</div>
-				</div>
-				
-			</div>
-			<hr/>
-		</div>
-	</div>
+
+    <div id="search-results" class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 hp-10">
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading"><span class="block-title1 bold">{{'search.result.recommandation' | translate}}</span>
+                </div>
+                <!-- List group -->
+                <ul id="list-recommandation" class="list-group">
+                    <li class="list-group-item" ng-repeat="r in recommandations">
+                        <h4 class="list-group-item-heading" data-toggle="collapse" href="#collapseExample"
+                            aria-expanded="false" aria-controls="collapseExample">{{r.title[$parent.lg]}}</h4>
+
+                        <div class="collapse" id="collapseExample">
+                            <div class="well">
+                                {{r.description[$parent.lg]}}
+                            </div>
+                        </div>
+                        <p class="list-group-item-text recommandation-link"><a href="http://{{r.link}}" target="_blank">{{r.link}}</a>
+                        </p>
+                    </li>
+                </ul>
+
+                <div class="panel-footer center">
+                    <a ui-sref="recommandations({city : '{{city}}'})" class="see-more-link">{{'search.result.seemore' |
+                        translate}}</a>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading"><span
+                        class="block-title1 bold">{{'search.result.utillink' | translate}}</span></div>
+                <!-- List group -->
+                <ul class="list-group">
+                    <a href="http://{{r.link}}" target="_blank" class="list-group-item" ng-repeat="r in utillinks">
+                        <h4 class="list-group-item-heading">{{r.title[$parent.lg]}}</h4>
+
+                        <p class="list-group-item-text util-link">{{r.link}}</p>
+                    </a>
+                </ul>
+            </div>
+        </div>
+        <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 hp-10">
+            <p class="light-title bold f-12">{{'search.result.label' | translate}} : </p>
+
+            <h2 class="block-title2 f-25 vm-10">{{'search.result.label2' | translate}} <strong>{{city}}</strong></h2>
+
+            <div class="row" ng-repeat="p in results">
+                <hr/>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                    <div class="left-photo-border"></div>
+                    <img class="photo" ng-src="{{p.photo}}">
+
+                    <div class="info-wrapper">
+                        <a ui-sref="profile({profileId: p.id})" class="firstname">{{p.firstname}}</a>
+                        <h4 class="f-12">Formation proposées</h4>
+                        <ul class="formations">
+                            <li class="f-12" ng-repeat="formation in p.formations"> - {{formation.name[$parent.lg]}}
+                            </li>
+                        </ul>
+                        <ul class="extras">
+                            <li ng-repeat="extra in p.extras" class="{{extra.icon}}"> {{extra.name[$parent.lg]}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <button type="button" class="calendar-btn btn btn-default blue-btn fa fa-calendar"></button>
+                    <button type="button" class="fav-btn btn btn-default blue-btn fa fa-star"> Favoris</button>
+                    <button type="button" class="contact-btn btn btn-default green2-btn fa fa-envelope"
+                            ng-controller="ContactCtrl" ng-click="setUserToContact(p)" data-toggle="modal"
+                            data-target="#contactDlg"> Contacter
+                    </button>
+                    <div class="hour-rate">{{p.hourRate}}</div>
+                </div>
+
+            </div>
+            <hr/>
+        </div>
+        <div id="contactDlg" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">{{'contact.dlg.title' | translate}} {{userToContact.firstname}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" ng-controller="ContactCtrl" ng-submit="sendMessage(userToContact.owner)">
+                            <textarea class="form-control" rows="3" ng-model="message.content"
+                                      ng-required="true"></textarea>
+
+                            <div class="center p-10">
+                                <button type="submit" class="btn btn-default">
+                                    <span class="fa fa-send"></span>{{'contact.dlg.send' | translate}}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

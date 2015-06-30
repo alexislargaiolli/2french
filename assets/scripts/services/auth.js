@@ -97,13 +97,15 @@ tooFrenchServices.factory('AuthService', ['$http', '$q', 'Session' , function($h
 		}
 }]);
 
-tooFrenchServices.service('Session', function ($rootScope, AUTH_EVENTS) {
+tooFrenchServices.service('Session', function ($rootScope, AUTH_EVENTS, MESSAGE_EVENTS) {
   this.create = function (sessionId, userId, user, userRole) {
     this.id = sessionId;
     this.userId = userId;
     this.user = user;
     this.userRole = userRole;
+    $rootScope.isTeacher = (userRole == "teacher") || (userRole == "admin");
     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
+    $rootScope.$broadcast(MESSAGE_EVENTS.update);
   };
   this.destroy = function () {
     this.id = null;

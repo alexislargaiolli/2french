@@ -1,24 +1,12 @@
 var tooFrenchControllers = angular.module('tooFrenchCtrl');
-tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state', 'Profile', '$http', '$timeout',
+tooFrenchControllers.controller('RecommandationCtrl', ['$scope', '$stateParams', '$state', '$http', '$timeout',
 
-	function($scope, $stateParams, $state, Profile, $http, $timeout) {
-		$scope.results = [];
+	function($scope, $stateParams, $state, $http, $timeout) {
 		$scope.recommandations = [];
 		$scope.utillinks = [];
 		$scope.city = $stateParams.city;
-		$scope.messageContent;
-		$scope.userToContact;
 
 		$scope.search = function(){
-			$http.get('/profile/findByCity', {params : {city : $scope.city}}).
-			  success(function(profiles, status, headers, config) {
-			    	angular.forEach(profiles, function(profile, key) {
-						$scope.results.push(profile);
-					});
-			  }).
-			  error(function(data, status, headers, config) {
-
-			  });
 			$http.get('/recommandation/findByCity', {params : {city : $scope.city}}).
 				success(function(recommandations, status, headers, config) {
 					angular.forEach(recommandations, function(recommandation, key) {
@@ -39,9 +27,5 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
 				});
 		}
 		$scope.search();
-
-		$scope.setUserToContact= function(u){
-			$scope.userToContact = u;
-		}
 	}
 ]);
