@@ -47,53 +47,6 @@ module.exports = {
 
             res.ok(matchingRecords);
         });
-    },
-    userFavTeacher : function(req, res){
-        UserFavList.findOne({owner : req.user.id}).populate('favorits').exec(function(err, favlist){
-            if(err){
-                res.serverError("Unable to fetch user fav list");
-            }
-            else{
-                res.send(200, favlist);
-            }
-        });
-    },
-    addFavorite : function(req, res){
-        var profileId = req.allParams().profileId;
-        if(!profileId){
-            return res.serverError("Missing parameters");
-        }
-        UserFavList.findOrCreate({owner:req.user.id}, {owner:req.user.id}).exec(function(err, favlist){
-            if(err){
-                res.serverError("Unable to fetch user fav list");
-            }
-            else{
-                Profile.findOne({id : profileId}).exec(function(err, p){
-                    if(err){
-                        res.serverError("Teacher does not exist");
-                    }
-                    else{
-                        if(favlist.favorits){
-                            favlist.favorits.push(p);
-                        }
-                        else{
-                            favlist.favorits = [];
-                            favlist.favorits.push(p);
-                        }
-
-                        sails.log.info(favlist);
-                        favlist.save(function(err, f){
-                            if(err){
-                                res.serverError("Unable to add teacher to fav list");
-                            }
-                            else{
-                                res.send('200', f);
-                            }
-                        });
-                    }
-                });
-            }
-        });
     }
 };
 

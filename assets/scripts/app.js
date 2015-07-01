@@ -296,8 +296,10 @@ tooFrenchApp.run(['$rootScope', '$state', 'AUTH_EVENTS', 'AuthService', 'editabl
     function ($rootScope, $state, AUTH_EVENTS, AuthService, editableOptions) {
         editableOptions.theme = 'bs3';
         AuthService.getUser().then(function () {
+            $rootScope.$on('$stateChangeSuccess', function(event, toState){
+                $rootScope.currentState = toState.name;
+            });
             $rootScope.$on('$stateChangeStart', function (event, next) {
-                console.log("app state change");
                 if (next.data) {
                     if (next.data.auth === true) {
                         if (!AuthService.isAuthenticated()) {
@@ -321,8 +323,9 @@ tooFrenchApp.run(['$rootScope', '$state', 'AUTH_EVENTS', 'AuthService', 'editabl
             });
         }, function () {
             $rootScope.$on('$stateChangeStart', function (event, next) {
-                console.log("app state change");
                 if (next.data) {
+                    console.log('test');
+                    console.log(event);
                     if (next.data.auth === true) {
                         if (!AuthService.isAuthenticated()) {
                             event.preventDefault();
@@ -419,6 +422,7 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope','$scope',
         });
         $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
             console.log('logout success');
+            $rootScope.diploma = null;
             $state.go('home');
         });
         $scope.$on(AUTH_EVENTS.notAuthenticated, function () {

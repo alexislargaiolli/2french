@@ -4,7 +4,7 @@
 @dark-gray: #4e4e4e;
 @gray: #818181;
 @light-gray: #999999;
-@very-light-gray: #DDDDDD;
+@very-light-gray: #d7d7d7;
 @green: #00db05;
 @light-green: #00ff06;
 @red: #d20b0b;
@@ -15,7 +15,8 @@
 /* INIT */
 
 body {
-  background: #f6f6f6;
+  background: #fff;
+  font-family: @police1;
 }
 
 .navbar {
@@ -24,6 +25,18 @@ body {
 }
 
 /* HEADER */
+
+#btn-report-bug{
+  display: inline-block;
+  vertical-align: middle;
+  height: 50px;
+  line-height: 50px;
+  margin-right:10px;
+  color:#000;
+  i{
+    margin-right:5px;
+  }
+}
 
 #logo {
   color: @dark-gray;
@@ -104,6 +117,21 @@ body {
       margin-top: 3px;
     }
   }
+  #alert-diploma{
+    border-top:1px solid #d7d7d7;
+    background:#FFFECF;
+    padding:10px;
+    color: #E4A342;
+    font-size: 16px;
+  }
+}
+
+@carousel-max-height:700px;
+#carousel-wrapper, #carousel-wrapper .carousel, #carousel-wrapper .carousel .carousel-inner, #carousel-wrapper .carousel .carousel-inner .item{
+  max-height: @carousel-max-height;
+  .carousel-control{
+    display: none;
+  }
 }
 
 #searchBar {
@@ -161,6 +189,10 @@ body {
 #blackBar h1, #blackBar p {
   text-align: center;
   color: #fff;
+}
+
+#blackBar.small {
+  height: 80px;
 }
 
 /* HOME */
@@ -332,14 +364,21 @@ body {
 /* PROFILE */
 
 #myprofile-container {
+  #profile-completion{
+    padding:0 20px;
+  }
   #profile-completion-wrapper {
     text-align: center;
-    background: #000;
-    margin: 10px auto;
-    padding: 10px;
-    max-width: 500px;
+    background: #FFFECF;
+    margin-top: 18px;
+    padding: 20px 10px;
+    border:2px dashed #ECAD4E;
+    border-radius: 4px;
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    -o-border-radius: 4px;
     .item-wrapper {
-      color: #fff;
+      color:#E4A342;
       div {
         display: inline-block;
         vertical-align: middle;
@@ -348,11 +387,13 @@ body {
         i.fa {
           font-size: 40px;
         }
+        margin-right:20px;
       }
       .center-col {
-
+          font-size:16px;
       }
       .right-col {
+        margin-left:20px;
         .fileUpload {
           position: relative;
           overflow: hidden;
@@ -370,7 +411,7 @@ body {
           filter: alpha(opacity=0);
         }
         i.fa {
-          font-size: 40px;
+          font-size: 30px;
         }
       }
     }
@@ -665,13 +706,24 @@ hr {
 
 /* Messagerie */
 .messagerie {
+  margin: 20px auto;
+  .conversations-small {
+    padding-bottom: 10px;
+    .btn-group {
+      width: 100%;
+      .btn {
+        width: 100%;
+      }
+    }
+  }
   .conversations {
-    border: 1px solid #000;
+    border: 1px solid @very-light-gray;
     padding: 0;
     .conversation {
       height: 40px;
       line-height: 40px;
       padding: 0 10px;
+      background: #fff;
     }
     .conversation:hover {
       cursor: pointer;
@@ -683,38 +735,50 @@ hr {
     }
   }
   #selected-conversation-wrapper {
-    padding: 0;
+
   }
   #selected-conversation {
-    border: 1px solid #000;
+    border: 1px solid @very-light-gray;
     height: 400px;
     overflow-y: scroll;
     overflow-x: hidden;
-    padding: 10px;
+    padding: 10px 0 10px 30px;
+    background: #fff;
     .msg-wrapper {
-      margin: 10px 0;
+      margin: 15px 0;
       .sender {
         display: inline-block;
         vertical-align: middle;
         font-weight: bold;
+        max-width: 18%;
+        color: @blue-title2;
       }
       .msg {
-        padding: 5px;
+        padding: 10px 15px;
         display: inline-block;
         vertical-align: middle;
-        width: 70%;
+        width: 85%;
       }
     }
     .msg-wrapper.mymsg {
       text-align: right;
     }
     .arrow {
+      border-radius: 4px;
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      -o-border-radius: 4px;
       position: relative;
       background: #ffffff;
-      border: 2px solid #04bfc6;
+      border: 1px solid @very-light-gray;
     }
     .arrow.left {
       margin-left: 10px;
+    }
+    .arrow.right {
+      text-align: left;
+      margin-right: 30px;
+      color: #818181;
     }
     .arrow:after, .arrow:before {
       top: 50%;
@@ -746,19 +810,19 @@ hr {
     .arrow:before {
       border-color: rgba(4, 191, 198, 0);
       border-width: 8px;
-      margin-top: -8px;
+      margin-top: -6px;
     }
     .arrow.left:before {
-      border-right-color: #04bfc6;
+      border-right-color: @very-light-gray;
     }
     .arrow.right:before {
-      border-left-color: #04bfc6;
+      border-left-color: @very-light-gray;
     }
   }
   #send-msg-panel {
     min-height: 150px;
     background-color: #eeeeee;
-    border: 1px solid #000;
+    border: 1px solid @very-light-gray;
     padding: 10px;
     text-align: center;
     textarea {
@@ -778,16 +842,48 @@ hr {
 
 }
 
-
 /* Admin */
-#diplomas-list{
-  .diploma-owner, .diploma-btn-wrapper{
+#diplomas-list {
+  .diploma-owner, .diploma-btn-wrapper {
     display: inline-block;
     vertical-align: middle;
     width: 48%;
   }
-  .diploma-btn-wrapper{
+  .diploma-btn-wrapper {
     text-align: right;
+  }
+}
+
+/* FOOTER */
+.footer {
+  #first-row {
+    div{
+      height: 50px;
+      line-height: 50px;
+      #cometsens, #toofrench {
+        margin: 0;
+      }
+      #btn-share {
+        background: #3a5795;
+        color:#fff;
+        font-weight: bold;
+        padding-left:20px;
+        padding-right:20px;
+        i{
+          margin-right:10px;
+        }
+      }
+    }
+  }
+  #second-row{
+    border-top:1px solid #d7d7d7;
+    height: 35px;
+    line-height: 35px;
+    background:#eee;
+    a{
+      margin: 0 20px;
+      color:@gray;
+    }
   }
 }
 

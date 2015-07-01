@@ -1,13 +1,11 @@
-<div id="blackBar">
+<div id="blackBar" class="small">
     <div class="container">
         <h1>{{'Messagerie' | translate}}</h1>
-
-        <p>{{'learn.subtitle' | translate}}</p>
     </div>
 </div>
 <div class="container messagerie">
     <div class="row" ng-if="conversations.length > 0">
-        <div class="col-sm-4 col-md-4 col-lg-4 conversations">
+        <div class="hidden-xs hidden-sm col-md-3 col-lg-3 conversations">
             <div ng-repeat="conv in conversations" class="conversation"
                  ng-class="{selected : conv.id == selectedConv.id }" ng-click="selectConversation(conv.id)">
                 <span class="name">
@@ -18,7 +16,17 @@
                 </span>
             </div>
         </div>
-        <div class="col-sm-8 col-md-8 col-lg-8" id="selected-conversation-wrapper">
+        <div class="visible-xs visible-sm col-md-3 col-lg-3 center conversations-small">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {{selectedConv.interlocutor}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li ng-repeat="conv in conversations">{{conv.interlocutor}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-9 col-lg-9" id="selected-conversation-wrapper">
             <div id="selected-conversation">
                 <div ng-repeat="msg in selectedConv.messages">
                     <div class="msg-wrapper" ng-class="{mymsg:msg.author == currentUser.id}">
@@ -30,8 +38,8 @@
                 </div>
             </div>
             <div id="send-msg-panel">
-                <form ng-submit="sendMessage()">
-                    <textarea ng-model="message.content" placeholder="{{'messagerie.msg.content' | translate}}"
+                <form id="form-message" ng-submit="sendMessage()">
+                    <textarea id="msg-content-area" ng-model="message.content" placeholder="{{'messagerie.msg.content' | translate}}"
                               class="form-control" rows="3" ng-required="true"></textarea>
                     <button id="send-msg" class="btn btn-default" type="submit">
                         <span class="fa fa-send"></span> <span class="hidden-xs hidden-sm">{{'messagerie.msg.send' | translate}}</span>
@@ -50,4 +58,5 @@
         var objDiv = document.getElementById("selected-conversation");
         objDiv.scrollTop = objDiv.scrollHeight;
     }
+
 </script>

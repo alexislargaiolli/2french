@@ -1,6 +1,6 @@
 <!doctype html>
 <html class="no-js">
-  <head>
+<head>
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
@@ -8,11 +8,11 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
     <link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
-    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
-    <link rel="stylesheet" href="bower_components/angular-dialog-service/dist/dialogs.min.css" />
+    <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css"/>
+    <link rel="stylesheet" href="bower_components/angular-dialog-service/dist/dialogs.min.css"/>
     <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css">
     <link rel="stylesheet" href="bower_components/ng-img-crop/compile/unminified/ng-img-crop.css">
     <link rel="stylesheet" href="bower_components/multiple-date-picker/dist/multiple-date-picker.css">
@@ -23,217 +23,252 @@
     <link rel="stylesheet" href="styles/global.css">
     <link rel="stylesheet" href="styles/uploader.css">
     <!-- endbuild -->
-  </head>
-  <body ng-app="tooFrenchApp" ng-controller="ApplicationController">
-    <!--[if lt IE 7]>
-    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-    <![endif]-->
-    <!-- Add your site or application content here -->
+</head>
+<body ng-app="tooFrenchApp" ng-controller="ApplicationController">
+<!--[if lt IE 7]>
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
+    your browser</a> to improve your experience.</p>
+<![endif]-->
+<!-- Add your site or application content here -->
 
-    <nav id="header" class="navbar navbar-default" role="navigation">
-      <div class="container">
+<nav id="header" class="navbar navbar-default" role="navigation">
+    <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-          <span class="sr-only">Toggle navigation</span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          </button>
-          <a id="logo" class="navbar-brand" ui-sref="home"><i class="fa fa-graduation-cap"></i>TooFrench.com</a>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a id="logo" class="navbar-brand" ui-sref="home"><i class="fa fa-graduation-cap"></i>TooFrench.com</a>
         </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul id="left" class="nav navbar-nav">
-            <li>
-              <a ui-sref="learn" class="basic-link" ui-sref-active="active">{{'header.learn' | translate}}</a>
-            </li>
-            <li>
-              <a ui-sref="teach" class="basic-link" ui-sref-active="active">{{'header.teach' | translate}}</a>
-            </li>
-            <li>
-              <a ui-sref="forum" class="basic-link" ui-sref-active="active">{{'header.forum' | translate}}</a>
-            </li>
-            <li>
-              <a ui-sref="admin" class="basic-link" ui-sref-active="active" ng-if="isAdmin">{{'header.admin' | translate}}</a>
-            </li>
-            <li class="dropdown" ng-controller="TranslateCtrl">
-              <a id="current-language" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img ng-src="images/languages/{{$parent.locale}}.png" /><span class="caret"></span></a>
-              <ul id="language-dropdown" class="dropdown-menu" role="menu">
-                <li><a ng-click="changeLanguage('frFR')"><img src="images/languages/frFR.png" /></a></li>
-                <li><a ng-click="changeLanguage('enUS')"><img src="images/languages/enUS.png" /></a></li>
-              </ul>
-            </li>
-          </ul>
-          <login-input></login-input>
-
-          <ul id="user-menu" class="nav navbar-nav navbar-right" ng-if="currentUser != null">
-            <li><a href="#"><i class="fa fa-pencil-square-o"></i></a></li>
-            <li><a ui-sref="messagerie" id="link-message"><i class="fa fa-envelope-o"></i><span class="badge" ng-show="unseenMsgCount > 0">{{unseenMsgCount}}</span></a></li>
-            <li id="user-menu-dropdown" class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                <img id="user-menu-photo" ng-src="{{currentProfile.photo}}" ng-show="currentProfile && currentProfile.photo" />
-                <i id="user-menu-photo-icon" class="fa fa-user" ng-show="!currentProfile || !currentProfile.photo"></i>
-                <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a ui-sref="myprofile">Profile</a></li>
-                  <li><a ng-click="logout()">Logout</a></li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <div ng-if="isTeacher && !diploma.diplomaValidated">
-          <div class="container center">
-              <div>{{'diploma.not.uploaded' | translate}}</div>
-              <div><a ui-sref="myprofile">{{'diploma.not.uploaded.link' | translate}}</a></div>
-          </div>
-        </div>
-        <div id="searchBar" ng-controller="SearchBarCtrl">
-          <form class="form-inline" style="max-width:700px;margin:0 auto;">
-            <div class="row">
-              <div class="col-xs-2 col-sm-3 col-md-3 col-lg-3">
-                <div class="form-group right">
-                  <div class="btn-group">
-                    <button id="search-calendar" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
-                    <span class="fa fa-calendar"></span> <span class="hidden-xs hidden-sm">{{'search.dispo' | translate}}</span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-
+        <div class="collapse navbar-collapse right" id="bs-example-navbar-collapse-1">
+            <ul id="left" class="nav navbar-nav">
+                <li>
+                    <a ui-sref="learn" class="basic-link" ui-sref-active="active">{{'header.learn' | translate}}</a>
+                </li>
+                <li>
+                    <a ui-sref="teach" class="basic-link" ui-sref-active="active">{{'header.teach' | translate}}</a>
+                </li>
+                <li>
+                    <a ui-sref="forum" class="basic-link" ui-sref-active="active">{{'header.forum' | translate}}</a>
+                </li>
+                <li>
+                    <a ui-sref="admin" class="basic-link" ui-sref-active="active" ng-if="isAdmin">{{'header.admin' |
+                        translate}}</a>
+                </li>
+                <li class="dropdown" ng-controller="TranslateCtrl">
+                    <a id="current-language" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-expanded="false"><img ng-src="images/languages/{{$parent.locale}}.png"/><span
+                            class="caret"></span></a>
+                    <ul id="language-dropdown" class="dropdown-menu" role="menu">
+                        <li><a ng-click="changeLanguage('frFR')"><img src="images/languages/frFR.png"/></a></li>
+                        <li><a ng-click="changeLanguage('enUS')"><img src="images/languages/enUS.png"/></a></li>
                     </ul>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-8 col-sm-7 col-md-7 col-lg-7">
-                <div class="form-group">
-                  <input id="search-text" type="text" class="form-control" g-places-autocomplete ng-model="city" placeholder="Ville" options="optionsCity" force-selection="true" />
-                </div>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
-                <div class="form-group">
-                  <button id="search-btn" ng-click="search();" type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                </div>
-              </div>
-            </div>
-          </form>
-        </div>
-      </nav>
+                </li>
+            </ul>
+            <login-input></login-input>
 
-      <div ui-view></div>
-      <div id="footer" class="footer">
+            <a href="#" id="btn-report-bug">{{'header.report.bug' | translate}}</a>
+
+            <ul id="user-menu" class="nav navbar-nav navbar-right" ng-if="currentUser != null">
+                <li><a href="#"><i class="fa fa-pencil-square-o"></i></a></li>
+                <li><a ui-sref="messagerie" id="link-message"><i class="fa fa-envelope-o"></i><span class="badge"
+                                                                                                    ng-show="unseenMsgCount > 0">{{unseenMsgCount}}</span></a>
+                </li>
+                <li id="user-menu-dropdown" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <img id="user-menu-photo" ng-src="{{currentProfile.photo}}"
+                             ng-show="currentProfile && currentProfile.photo"/>
+                        <i id="user-menu-photo-icon" class="fa fa-user"
+                           ng-show="!currentProfile || !currentProfile.photo"></i>
+                        <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a ui-sref="myprofile">Profile</a></li>
+                        <li><a ng-click="logout()">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div id="alert-diploma" ng-if="currentUser != null && isTeacher && !diploma.diplomaValidated && currentState != 'myprofile'">
+        <div class="container center">
+            <span ng-if="!diploma.diplomaUploaded && ! diploma.diplomaValidated">{{'diploma.not.uploaded' | translate}} <a ui-sref="myprofile">{{'diploma.not.uploaded.link' | translate}}</a></span>
+            <span ng-if="diploma.diplomaUploaded && ! diploma.diplomaValidated">{{'diploma.label.validating' | translate}}</span>
+        </div>
+    </div>
+    <div id="searchBar" ng-controller="SearchBarCtrl">
+        <form class="form-inline" style="max-width:700px;margin:0 auto;">
+            <div class="row">
+                <div class="col-xs-2 col-sm-3 col-md-3 col-lg-3">
+                    <div class="form-group right">
+                        <div class="btn-group">
+                            <button id="search-calendar" class="btn btn-default dropdown-toggle" type="button"
+                                    data-toggle="dropdown" aria-expanded="false">
+                                <span class="fa fa-calendar"></span> <span class="hidden-xs hidden-sm">{{'search.dispo' | translate}}</span>
+                            </button>
+                            <ul class="dropdown-menu" role="menu">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-8 col-sm-7 col-md-7 col-lg-7">
+                    <div class="form-group">
+                        <input id="search-text" type="text" class="form-control" g-places-autocomplete ng-model="city"
+                               placeholder="Ville" options="optionsCity" force-selection="true"/>
+                    </div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <div class="form-group">
+                        <button id="search-btn" ng-click="search();" type="submit" class="btn btn-default"><i
+                                class="fa fa-search"></i></button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</nav>
+
+<div ui-view></div>
+<div id="footer" class="footer">
+    <div class="container">
+
+        <div id="first-row" class="row">
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 left">
+                <p id="cometsens">Réalisation www.comessence.net</p>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 center block-center">
+                <p id="toofrench">TooFrench.net © 2015</p>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 right">
+                <button id="btn-share" class="btn btn-default mv-10"><i class="fa fa-facebook"></i>Partager</button>
+            </div>
+        </div>
+
+    </div>
+    <div id="second-row">
         <div class="container">
-
-          <div class="row">
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-
+            <div class="row center">
+                <a ui-sref="home">{{'footer.home' | translate}}</a>
+                <a ui-sref="learn">{{'footer.learn' | translate}}</a>
+                <a ui-sref="teach">{{'footer.teach' | translate}}</a>
+                <a ui-sref="forum">{{'footer.forum' | translate}}</a>
+                <a ui-sref="#">{{'footer.faq' | translate}}</a>
+                <a ui-sref="#">{{'footer.mentions' | translate}}</a>
+                <a ui-sref="#">{{'footer.contact' | translate}}</a>
             </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-              <p>TooFrench.net 2015</p>
-              <p>Réalisation www.comessence.net</p>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
+</div>
 
-      <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-      <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-      ga('create', 'UA-XXXXX-X');
-      ga('send', 'pageview');
-      </script>
-      <!-- build:js(.) scripts/oldieshim.js -->
-      <!--[if lt IE 9]>
-      <script src="bower_components/es5-shim/es5-shim.js"></script>
-      <script src="bower_components/json3/lib/json3.js"></script>
-      <![endif]-->
-      <!-- endbuild -->
-      <!-- build:js(.) scripts/vendor.js -->
-      <!-- bower:js -->
-      <script src="bower_components/jquery/dist/jquery.js"></script>
-      <script src="bower_components/cloudinary_js/js/jquery.cloudinary.js"></script>
-      <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-      <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+<!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+<script>
+    (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+                    (i[r].q = i[r].q || []).push(arguments)
+                }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
+</script>
+<!-- build:js(.) scripts/oldieshim.js -->
+<!--[if lt IE 9]>
+<script src="bower_components/es5-shim/es5-shim.js"></script>
+<script src="bower_components/json3/lib/json3.js"></script>
+<![endif]-->
+<!-- endbuild -->
+<!-- build:js(.) scripts/vendor.js -->
+<!-- bower:js -->
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/cloudinary_js/js/jquery.cloudinary.js"></script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 
-      <script src="bower_components/angular/angular.js"></script>
-      <script src="bower_components/angular-translate/angular-translate.js"></script>
-      <script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
-      <script src="bower_components/angular-animate/angular-animate.js"></script>
-      <script src="bower_components/angular-cookies/angular-cookies.js"></script>
-      <script src="bower_components/angular-resource/angular-resource.js"></script>
-      <script src="bower_components/angular-route/angular-route.js"></script>
-      <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-      <script src="bower_components/angular-touch/angular-touch.js"></script>
-      <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-      <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
-      <script src="bower_components/lodash/lodash.js"></script>
-      <script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
-      <script src="bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
-      <script src="bower_components/angular-ui-select/dist/select.js"></script>
-      <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-      <script src="bower_components/angular-dialog-service/dist/dialogs.min.js"></script>
-      <script src="bower_components/ng-img-crop/compile/unminified/ng-img-crop.js"></script>
-      <script src="bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script>
-      <script src="bower_components/cloudinary_ng/js/angular.cloudinary.js"></script>
-      <script src="bower_components/ng-file-upload/angular-file-upload.min.js"></script>
-      <script src="bower_components/moment/moment.js"></script>
-      <script src="bower_components/moment/locale/fr.js"></script>
-      <script src="bower_components/multiple-date-picker/dist/multipleDatePicker.min.js"></script>
-
-
-      <!-- endbower -->
-      <!-- endbuild -->
-      <!-- build:js({.tmp,app}) scripts/scripts.js -->
-      <script src="scripts/app.js"></script>
-      <!-- Cloudinay config -->
-      <script src="scripts/cloudinary.config.js"></script>
-
-      <!-- Controllers -->
-      <script src="scripts/controllers/login.js"></script>
-      <script src="scripts/controllers/admin.js"></script>
-      <script src="scripts/controllers/admin/users.js"></script>
-      <script src="scripts/controllers/admin/formations.js"></script>
-      <script src="scripts/controllers/admin/equipments.js"></script>
-      <script src="scripts/controllers/admin/extras.js"></script>
-      <script src="scripts/controllers/admin/recommandations.js"></script>
-      <script src="scripts/controllers/admin/utillinks.js"></script>
-      <script src="scripts/controllers/admin/diplomas.js"></script>
-      <script src="scripts/controllers/register.js"></script>
-      <script src="scripts/controllers/translate.js"></script>
-      <script src="scripts/controllers/profile.js"></script>
-      <script src="scripts/controllers/myprofile.js"></script>
-      <script src="scripts/controllers/uploadPhoto.js"></script>
-      <script src="scripts/controllers/search.js"></script>
-      <script src="scripts/controllers/searchBar.js"></script>
-      <script src="scripts/controllers/temp/uploader.js"></script>
-      <script src="scripts/controllers/recommandations.js"></script>
-      <script src="scripts/controllers/messagerie.js"></script>
-      <script src="scripts/controllers/contact.js"></script>
-      <script src="scripts/controllers/diploma.js"></script>
-      <!-- Services -->
-      <script src="scripts/services/auth.js"></script>
-      <script src="scripts/services/profile.js"></script>
-      <script src="scripts/services/formation.js"></script>
-      <script src="scripts/services/formationlevel.js"></script>
-      <script src="scripts/services/equipment.js"></script>
-      <script src="scripts/services/extra.js"></script>
-      <script src="scripts/services/service.js"></script>
-      <script src="scripts/services/users.js"></script>
-      <script src="scripts/services/recommandation.js"></script>
-      <script src="scripts/services/utillink.js"></script>
-      <script src="scripts/services/messagerie.js"></script>
-      <script src="scripts/services/diplomas.js"></script>
-      <script src="scripts/services/userFavList.js"></script>
-
-      <!-- Directives -->
-      <script src="scripts/directives/directives.js"></script>
-      <script src="scripts/directives/login.js"></script>
-      <script src="scripts/directives/uploader.js"></script>
+<script src="bower_components/angular/angular.js"></script>
+<script src="bower_components/angular-translate/angular-translate.js"></script>
+<script src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
+<script src="bower_components/angular-animate/angular-animate.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.js"></script>
+<script src="bower_components/angular-resource/angular-resource.js"></script>
+<script src="bower_components/angular-route/angular-route.js"></script>
+<script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+<script src="bower_components/angular-touch/angular-touch.js"></script>
+<script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+<script src="bower_components/lodash/lodash.js"></script>
+<script src="bower_components/angular-google-maps/dist/angular-google-maps.js"></script>
+<script src="bower_components/angular-google-places-autocomplete/dist/autocomplete.min.js"></script>
+<script src="bower_components/angular-ui-select/dist/select.js"></script>
+<script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+<script src="bower_components/angular-dialog-service/dist/dialogs.min.js"></script>
+<script src="bower_components/ng-img-crop/compile/unminified/ng-img-crop.js"></script>
+<script src="bower_components/ng-file-upload/angular-file-upload-shim.min.js"></script>
+<script src="bower_components/cloudinary_ng/js/angular.cloudinary.js"></script>
+<script src="bower_components/ng-file-upload/angular-file-upload.min.js"></script>
+<script src="bower_components/moment/moment.js"></script>
+<script src="bower_components/moment/locale/fr.js"></script>
+<script src="bower_components/multiple-date-picker/dist/multipleDatePicker.min.js"></script>
 
 
-      <!-- endbuild -->
-    </body>
-  </html>
+<!-- endbower -->
+<!-- endbuild -->
+<!-- build:js({.tmp,app}) scripts/scripts.js -->
+<script src="scripts/app.js"></script>
+<!-- Cloudinay config -->
+<script src="scripts/cloudinary.config.js"></script>
+
+<!-- Controllers -->
+<script src="scripts/controllers/login.js"></script>
+<script src="scripts/controllers/admin.js"></script>
+<script src="scripts/controllers/admin/users.js"></script>
+<script src="scripts/controllers/admin/formations.js"></script>
+<script src="scripts/controllers/admin/equipments.js"></script>
+<script src="scripts/controllers/admin/extras.js"></script>
+<script src="scripts/controllers/admin/recommandations.js"></script>
+<script src="scripts/controllers/admin/utillinks.js"></script>
+<script src="scripts/controllers/admin/diplomas.js"></script>
+<script src="scripts/controllers/register.js"></script>
+<script src="scripts/controllers/translate.js"></script>
+<script src="scripts/controllers/profile.js"></script>
+<script src="scripts/controllers/myprofile.js"></script>
+<script src="scripts/controllers/uploadPhoto.js"></script>
+<script src="scripts/controllers/search.js"></script>
+<script src="scripts/controllers/searchBar.js"></script>
+<script src="scripts/controllers/temp/uploader.js"></script>
+<script src="scripts/controllers/recommandations.js"></script>
+<script src="scripts/controllers/messagerie.js"></script>
+<script src="scripts/controllers/contact.js"></script>
+<script src="scripts/controllers/diploma.js"></script>
+<script src="scripts/controllers/home.js"></script>
+<!-- Services -->
+<script src="scripts/services/auth.js"></script>
+<script src="scripts/services/profile.js"></script>
+<script src="scripts/services/formation.js"></script>
+<script src="scripts/services/formationlevel.js"></script>
+<script src="scripts/services/equipment.js"></script>
+<script src="scripts/services/extra.js"></script>
+<script src="scripts/services/service.js"></script>
+<script src="scripts/services/users.js"></script>
+<script src="scripts/services/recommandation.js"></script>
+<script src="scripts/services/utillink.js"></script>
+<script src="scripts/services/messagerie.js"></script>
+<script src="scripts/services/diplomas.js"></script>
+<script src="scripts/services/userFavList.js"></script>
+
+<!-- Directives -->
+<script src="scripts/directives/directives.js"></script>
+<script src="scripts/directives/login.js"></script>
+<script src="scripts/directives/uploader.js"></script>
+
+
+<!-- endbuild -->
+</body>
+</html>

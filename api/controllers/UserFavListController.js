@@ -28,21 +28,6 @@ module.exports = {
         query.exec(function found(err, matchingRecords) {
             if (err) return res.serverError(err);
 
-            /*var i = 0;
-            for(i = 0; i < matchingRecords.length; i++){
-                var favlist = matchingRecords[i];
-                var j = 0;
-                var lightFavorites = [];
-                for(j = 0; j < favlist.favorits.length; j ++){
-                    var profile = favlist.favorits[j];
-                    var lightFavorite = {};
-                    lightFavorite.id =  profile.id;
-                    lightFavorite.firstname =  profile.firstname;
-                    lightFavorites.push(lightFavorite);
-                }
-                favlist.favorits = lightFavorites;
-            }*/
-
             // Only `.watch()` for new instances of the model if
             // `autoWatch` is enabled.
             if (req._sails.hooks.pubsub && req.isSocket) {

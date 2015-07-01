@@ -50,9 +50,23 @@ tooFrenchControllers.controller('MessagerieCtrl', ['$scope', '$stateParams','Mes
 			console.log(message);
 		}
 
+        $scope.binded = false;
         $scope.updateMessagePanel = function(){
             $timeout(function(){
                 scrollMessagePanel();
+                if(!$scope.binded){
+                    angular.element("#msg-content-area").bind('keydown', function(event) {
+                        var code = event.keyCode || event.which;
+
+                        if (code === 13) {
+                            if (!event.shiftKey) {
+                                event.preventDefault();
+                                angular.element("#send-msg").click();
+                            }
+                        }
+                    });
+                    $scope.binded = true;
+                }
             });
         }
 	}
