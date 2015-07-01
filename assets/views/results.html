@@ -67,7 +67,7 @@
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <button type="button" class="calendar-btn btn btn-default blue-btn fa fa-calendar"></button>
-                    <button type="button" class="fav-btn btn btn-default blue-btn fa fa-star"> Favoris</button>
+                    <button type="button" class="fav-btn btn btn-default blue-btn fa fa-star" ng-click="addFavorit(p.id)"> Favoris</button>
                     <button type="button" class="contact-btn btn btn-default green2-btn fa fa-envelope"
                             ng-controller="ContactCtrl" ng-click="setUserToContact(p)" data-toggle="modal"
                             data-target="#contactDlg"> Contacter

@@ -1,7 +1,7 @@
 var tooFrenchControllers = angular.module('tooFrenchCtrl');
-tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Session', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Extra', 'Service', 'FormationLevel', '$translate', '$upload', '$timeout',
+tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Session', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Extra', 'Service', 'FormationLevel', 'UserFavList', '$translate', '$upload', '$timeout',
 
-    function ($rootScope, $scope, Session, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Extra, Service, FormationLevel, $translate, $upload, $timeout) {
+    function ($rootScope, $scope, Session, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Extra, Service, FormationLevel, UserFavList, $translate, $upload, $timeout) {
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////              COMMON            ////////////////////////////////
@@ -45,6 +45,12 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
         $scope.onUpload = function (url) {
             $scope.profile.photo = url;
         }
+
+        $scope.favlist = [];
+
+        UserFavList.getFavList().then(function(favlist){
+            $scope.favlist = favlist;
+        });
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////              TEACHER            ///////////////////////////////

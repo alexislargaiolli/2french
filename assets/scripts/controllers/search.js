@@ -1,7 +1,7 @@
 var tooFrenchControllers = angular.module('tooFrenchCtrl');
-tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state', 'Profile', '$http', '$timeout',
+tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state', 'Profile', '$http', '$timeout', 'UserFavList', 'Session',
 
-	function($scope, $stateParams, $state, Profile, $http, $timeout) {
+	function($scope, $stateParams, $state, Profile, $http, $timeout, UserFavList, Session) {
 		$scope.results = [];
 		$scope.recommandations = [];
 		$scope.utillinks = [];
@@ -43,5 +43,14 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
 		$scope.setUserToContact= function(u){
 			$scope.userToContact = u;
 		}
+
+		$scope.addFavorit = function(profileId){
+			console.log('addFavorit');
+			UserFavList.addFavorit(profileId).then(function(){
+				alert('ok');
+			});
+		}
+
+
 	}
 ]);

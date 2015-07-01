@@ -37,6 +37,8 @@
   "myprofile.formations":"Formations proposées",
   "myprofile.accomodation.address":"Saisissez l'adresse de l'hébergement",
   "myprofile.motivation.empty":"Saisissez vos motivations",
+  "myprofile.favlist.title":"Professeurs favoris",
+  "myprofile.favlist.empty":"Aucun professeur favoris.",
   "search.result.label":"Résultats de votre recherche",
   "search.result.label2":"Enseignants à ",
   "search.result.recommandation":"Recommandations",

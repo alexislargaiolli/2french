@@ -32,6 +32,9 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
+  /////////////////////////////////////////////
+  ///////////    AuthController    ////////////
+  /////////////////////////////////////////////
   'get /loggedin': 'AuthController.loggedin',
   'get /logout': 'AuthController.logout',
 
@@ -41,8 +44,24 @@ module.exports.routes = {
   'get /auth/:provider': 'AuthController.provider',
   'get /auth/:provider/callback': 'AuthController.callback',
   'get /auth/:provider/:action': 'AuthController.callback',
+
+
+
+  /////////////////////////////////////////////
+  ///////////    UserController    ////////////
+  /////////////////////////////////////////////
+  'get /user/addFavorite/:profileId': 'UserController.addFavorite',
+
+
+
+
+
+  /////////////////////////////////////////////
+  ///////////    DiplomaController    ////////////
+  /////////////////////////////////////////////
   'get /diploma/downloadDiploma/:fd': 'DiplomaController.downloadDiploma',
   'get /diploma/validate/:diplomaId': 'DiplomaController.validate'
+
 
   /***************************************************************************
   *                                                                          *

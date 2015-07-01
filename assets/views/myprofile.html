@@ -36,6 +36,17 @@
                         <multiple-date-picker day-click="dayClick" days-selected="profile.daySelected"/>
                     </div>
                 </div>
+                <div class="panel panel-default">
+                    <div class="panel-heading block-title1 center">{{'myprofile.favlist.title' | translate}}</div>
+                    <div class="panel-body p-0">
+                        <ul id="favlist" class="list-group" ng-if="favlist.favorits.length > 0">
+                            <li class="list-group-item" ng-repeat="f in favlist.favorits">
+                                {{f.firstname}}
+                            </li>
+                        </ul>
+                        <p ng-if="favlist.favorits.length == 0" class="center vm-10">{{'myprofile.favlist.empty' | translate}}</p>
+                    </div>
+                </div>
             </div>
             <div id="profile-right" class="col-sm-9 col-md-9 col-lg-9">
 
