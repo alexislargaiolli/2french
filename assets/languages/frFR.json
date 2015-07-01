@@ -2,6 +2,7 @@
   "header.login": "Connexion",
   "header.learn": "Apprendre",
   "header.teach": "Enseigner",
+  "header.admin": "Admin",
   "header.forum": "Forum",
   "header.register": "Inscription",
   "header.language" : "Language",
@@ -50,6 +51,9 @@
   "contact.dlg.send" : "Envoyer",
   "diploma.not.uploaded" : "Vaus devez faire valider votre diplôme pour apparaître dans la recherche.",
   "diploma.not.uploaded.link" : "Cliquez ici",
+  "diploma.label.upload" : "Faite valider votre diplôme.",
+  "diploma.label.validating" : "Votre diplôme est en cours de validation",
+  "diploma.label.validated" : "Votre diplôme a été validé !",
   "diploma.btn.select" : "Fichier",
   "diploma.btn.upload" : "Soumettre"
 }

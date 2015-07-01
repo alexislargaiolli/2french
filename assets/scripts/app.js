@@ -233,6 +233,15 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor],
                 }
             })
+            .state('admin.diplomas', {
+                url: '/diplomas',
+                templateUrl: 'views/admin/diplomas.html',
+                controller: 'AdminDiplomaCtrl',
+                data: {
+                    auth: true,
+                    authorizedRoles: [USER_ROLES.admin],
+                }
+            })
             .state('temp', {
                 url: '/temp',
                 templateUrl: 'views/temp.html',

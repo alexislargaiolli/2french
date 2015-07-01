@@ -60,22 +60,29 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
             $scope.extras = Extra.query();
             $scope.optionsLocation = {};
             $scope.diplomaFile = null;
+            $scope.diplomaUploading = false;
 
             var handleDiplomaSelect = function(evt) {
                 $scope.diplomaFile = evt.currentTarget.files[0];
             };
 
             $scope.uploadDiploma = function(){
+                $scope.diplomaUploading = true;
+                var filename = Session.userId;
+                console.log(filename);
                 $upload.upload({
                     url: 'diploma/upload',
-                    file: $scope.diplomaFile
+                    file: $scope.diplomaFile,
+                    user:filename
                 }).progress(function(evt) {
                     $scope.diplomaProgress = Math.round((evt.loaded * 100.0) / evt.total);
                 }).success(function(data, status, headers, config) {
                     $rootScope.diploma = data;
                     console.log('success ' + data);
+                    $scope.diplomaUploading = false;
                 }).error(function(data, status, headers, config) {
                     console.log('error ' + data);
+                    $scope.diplomaUploading = false;
                 });
             }
 

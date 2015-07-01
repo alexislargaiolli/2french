@@ -52,6 +52,9 @@
             <li>
               <a ui-sref="forum" class="basic-link" ui-sref-active="active">{{'header.forum' | translate}}</a>
             </li>
+            <li>
+              <a ui-sref="admin" class="basic-link" ui-sref-active="active" ng-if="isAdmin">{{'header.admin' | translate}}</a>
+            </li>
             <li class="dropdown" ng-controller="TranslateCtrl">
               <a id="current-language" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><img ng-src="images/languages/{{$parent.locale}}.png" /><span class="caret"></span></a>
               <ul id="language-dropdown" class="dropdown-menu" role="menu">
@@ -197,6 +200,7 @@
       <script src="scripts/controllers/admin/extras.js"></script>
       <script src="scripts/controllers/admin/recommandations.js"></script>
       <script src="scripts/controllers/admin/utillinks.js"></script>
+      <script src="scripts/controllers/admin/diplomas.js"></script>
       <script src="scripts/controllers/register.js"></script>
       <script src="scripts/controllers/translate.js"></script>
       <script src="scripts/controllers/profile.js"></script>
@@ -220,7 +224,8 @@
       <script src="scripts/services/users.js"></script>
       <script src="scripts/services/recommandation.js"></script>
       <script src="scripts/services/utillink.js"></script>
-        <script src="scripts/services/messagerie.js"></script>
+      <script src="scripts/services/messagerie.js"></script>
+      <script src="scripts/services/diplomas.js"></script>
 
       <!-- Directives -->
       <script src="scripts/directives/directives.js"></script>

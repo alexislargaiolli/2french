@@ -30,6 +30,7 @@
     "sails": "^0.10.5",
     "sails-mongo": "~0.10.5",
     "shortid": "^2.2.2",
+    "skipper-gridfs": "^0.5.3",
     "validator": "^3.34.0"
   },
   "scripts": {

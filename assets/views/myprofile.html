@@ -7,17 +7,20 @@
                         <i class="fa fa-graduation-cap"></i>
                     </div>
                     <div class="center-col">
-                        Uploader votre diplôme
+                        <span ng-if="!diploma.diplomaUploaded">{{'diploma.label.upload' | translate}}</span>
+                        <span ng-if="diploma.diplomaUploaded && !diploma.diplomaValidated">{{'diploma.label.validating' | translate}}</span>
+                        <span ng-if="diploma.diplomaUploaded && diploma.diplomaValidated">{{'diploma.label.validated' | translate}}</span>
                     </div>
                     <div class="right-col">
                         <div ng-if="!diploma.diplomaUploaded && !diploma.diplomaValidated">
                             <div class="fileUpload btn btn-primary" ng-show="diplomaFile == null">
                                 <span class="fa fa-file-pdf-o"></span>
                                 <span>{{'diploma.btn.select' | translate}}</span>
-                                <input id="diplomaInput" type="file" accept=".pdf" class="upload"/>
+                                <input id="diplomaInput" name="file" type="file" accept=".pdf" class="upload"/>
                             </div>
-                            <button ng-show="diplomaFile != null" ng-click="uploadDiploma()" type="button" class="btn btn-default green2-btn"><span class="fa fa-upload"></span> {{'diploma.btn.upload' | translate}}
+                            <button ng-show="diplomaFile != null && !diplomaUploading" ng-click="uploadDiploma()" type="button" class="btn btn-default green2-btn"><span class="fa fa-upload"></span> {{'diploma.btn.upload' | translate}}
                             </button>
+                            <progressbar ng-show="diplomaUploading" max="100" value="diplomaProgress"><b>{{diplomaProgress}}%</b></progressbar>
                         </div>
                         <i class="fa fa-spinner" ng-if="diploma.diplomaUploaded && !diploma.diplomaValidated"></i>
                         <i class="fa fa-check-circle-o" ng-if="diploma.diplomaValidated"></i>

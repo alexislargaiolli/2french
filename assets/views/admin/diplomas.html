@@ -1,0 +1,11 @@
+<h2 style="display:inline-block;">Diplôme à valider</h2>
+
+<ul class="list-group" id="diplomas-list">
+    <li ng-repeat="d in diplomas" class="list-group-item">
+        <div class="diploma-owner">{{d.owner}}</div>
+        <div class="diploma-btn-wrapper">
+            <a href="/diploma/downloadDiploma/{{d.fileName}}" target="_blank" class="btn btn-default"><i class="fa fa-search"></i>voir</a>
+            <button type="button" ng-click="validate(d.id)" class="btn btn-success"><i class="fa fa-check"></i>Validate</button>
+        </div>
+    </li>
+</ul>

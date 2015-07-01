@@ -18,7 +18,7 @@ module.exports = {
    ***************************************************************************/
 
   models: {
-     connection: 'mongoProd'
+     connection: 'mongoProd' //Careful, used in DiplomaController directly
   },
 
   /***************************************************************************

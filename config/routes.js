@@ -40,7 +40,9 @@ module.exports.routes = {
 
   'get /auth/:provider': 'AuthController.provider',
   'get /auth/:provider/callback': 'AuthController.callback',
-  'get /auth/:provider/:action': 'AuthController.callback'
+  'get /auth/:provider/:action': 'AuthController.callback',
+  'get /diploma/downloadDiploma/:fd': 'DiplomaController.downloadDiploma',
+  'get /diploma/validate/:diplomaId': 'DiplomaController.validate'
 
   /***************************************************************************
   *                                                                          *

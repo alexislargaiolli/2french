@@ -104,6 +104,7 @@ tooFrenchServices.service('Session', function ($rootScope, AUTH_EVENTS, MESSAGE_
     this.user = user;
     this.userRole = userRole;
     $rootScope.isTeacher = (userRole == "teacher") || (userRole == "admin");
+	$rootScope.isAdmin = userRole == "admin";
     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess);
     $rootScope.$broadcast(MESSAGE_EVENTS.update);
   };

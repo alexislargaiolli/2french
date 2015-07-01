@@ -11,6 +11,7 @@ module.exports = {
 		owner: {
 			model: 'User'
 		},
+		fileName:'string',
 		diplomaUploaded :{
 			type:'boolean',
 			defaultsTo: false
