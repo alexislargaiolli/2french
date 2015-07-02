@@ -6,15 +6,18 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
 		$scope.recommandations = [];
 		$scope.utillinks = [];
 		$scope.city = $stateParams.city;
+		$scope.days = $stateParams.days;
 		$scope.messageContent;
 		$scope.userToContact;
 
 		$scope.search = function(){
-			$http.get('/profile/findByCity', {params : {city : $scope.city}}).
+			console.log($scope.days);
+			$http.get('/profile/findByCity', {params : {city : $scope.city, days : $scope.days}}).
 			  success(function(profiles, status, headers, config) {
-			    	angular.forEach(profiles, function(profile, key) {
+					$scope.results = profiles;
+					/*angular.forEach(profiles, function(profile, key) {
 						$scope.results.push(profile);
-					});
+					});*/
 			  }).
 			  error(function(data, status, headers, config) {
 

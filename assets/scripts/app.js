@@ -253,7 +253,7 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
                 controller: 'UploaderCtrl'
             })
             .state('results', {
-                url: '/results/:city',
+                url: '/results/:city/:days',
                 templateUrl: 'views/results.html',
                 controller: 'SearchCtrl'
             })

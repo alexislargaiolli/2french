@@ -159,6 +159,9 @@ body {
   .form-group {
     width: 100%;
   }
+  #search-date-wrapper{
+    width:250px;
+  }
   #search-calendar {
     font-size: 15px;
     color: #04bfc6;
@@ -210,6 +213,9 @@ body {
 
 #container-teach-learn {
   margin-bottom: 20px;
+  h2{
+    font-weight: bold;
+  }
   p, h2 {
     text-align: center;
   }
@@ -223,6 +229,9 @@ body {
 #container-concept {
   background-color: #000;
   color: #fff;
+  h2{
+    font-weight: bold;
+  }
   p, h2, h3 {
     text-align: center;
   }
@@ -296,7 +305,19 @@ body {
 
 #registerPanel {
   #left {
-
+    #register-vignet{
+      margin-top:50px;
+    }
+    h2{
+      text-transform: uppercase;
+      font-weight: bold;
+      font-family: @police1;
+    }
+    p{
+      font-family: @police1;
+      font-size:13px;
+      color:@light-gray;
+    }
   }
   #right {
     border-left: 1px solid @very-light-gray;
@@ -338,7 +359,7 @@ body {
     }
     ul {
       list-style: none;
-      text-align: center;
+      text-align: left;
       li {
         img {
           margin-right: 10px;
@@ -358,6 +379,7 @@ body {
   }
   p {
     text-align: center;
+
   }
 }
 

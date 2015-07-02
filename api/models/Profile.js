@@ -55,6 +55,9 @@ module.exports = {
 		daySelected: {
 			type: 'json'
 		},
+		schedules: {
+			type:'json'
+		},
 		diplomaUploaded : 'boolean',
 		diplomaValidated : 'boolean'
 	},

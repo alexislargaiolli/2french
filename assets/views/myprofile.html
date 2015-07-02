@@ -33,7 +33,7 @@
                 <div class="panel panel-default" ng-if="isTeacher">
                     <div class="panel-heading block-title1 center">{{'myprofile.calendar' | translate}}</div>
                     <div class="panel-body p-0">
-                        <multiple-date-picker day-click="dayClick" days-selected="profile.daySelected"/>
+                        <multiple-date-picker day-click="dayClick" highlight-days="profile.schedules[scheduleIndex].undispos" month-changed="onMonthChanged"/>
                     </div>
                 </div>
                 <div class="panel panel-default">

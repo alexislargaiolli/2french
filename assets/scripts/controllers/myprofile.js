@@ -12,11 +12,42 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
         $scope.optionsCity = {
             types: ['(regions)']
         };
+        $scope.period = moment().date(10).format('MM-YYYY');
+        $scope.scheduleIndex = -1;
+
+        var findShedule = function (period) {
+            if ($scope.profile.schedules == 0) {
+                return -1;
+            }
+            var i = 0;
+            for (i = 0; i < $scope.profile.schedules.length; i++) {
+                if ($scope.profile.schedules.period === period) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
         $scope.profile = Profile.get({
             id: Session.user.profile
         }, function () {
             if ($scope.isTeacher) {
                 updateMap();
+                if($scope.profile.schedules && $scope.profile.schedules.length > 0){
+                    $scope.scheduleIndex = findShedule($scope.period);
+                }
+                if($scope.scheduleIndex == -1){
+                    if (!$scope.profile.schedules) {
+                       $scope.profile.schedules = [];
+                   }
+                    console.log('empty');
+                    var schedule = {period : $scope.period, dayoff : [], undispos: []};
+                    $scope.scheduleIndex = $scope.profile.schedules.push(schedule) - 1;
+                    console.log($scope.profile.schedules);
+                }
+                console.log($scope.profile.schedules);
+                console.log($scope.scheduleIndex);
+                console.log($scope.profile.schedules[$scope.scheduleIndex]);
             }
         });
 
@@ -27,6 +58,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
             $scope.profile.$update(function (p, response) {
 
             });
+
         }
 
         /**
@@ -217,21 +249,59 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
                     "showWindow": false,
                     "date": "2u"
                 }];
-            }
 
-            /* CALENDAR */
-            $scope.dayClick = function (event, date) {
-                if (!$scope.profile.daySelected) {
-                    $scope.profile.daySelected = [];
-                }
-                var index = $scope.profile.daySelected.indexOf(date.valueOf());
-                if (index == -1) { //If day is not already selected, day is added to selected days list
-                    $scope.profile.daySelected.push(date.valueOf());
-                }
-                else { //Else remove the day from selected day list
-                    $scope.profile.daySelected.splice(index, 1);
+                /*Schedule.getSchedule(Session.user.profile, moment().date(10).format('MM-YYYY')).then(function (schedule) {
+                    $scope.schedule = schedule;
+                });*/
+
+
+
+                var findUndispo = function (date) {
+                    console.log($scope.profile.schedules);
+                    if ($scope.profile.schedules[$scope.scheduleIndex].undispos.length == 0) {
+                        return -1;
+                    }
+                    var i = 0;
+                    for (i = 0; i < $scope.profile.schedules[$scope.scheduleIndex].undispos.length; i++) {
+                        if ($scope.profile.schedules[$scope.scheduleIndex].undispos[i].date === date) {
+                            return i;
+                        }
+                    }
+                    return -1;
                 }
 
+
+
+                /* CALENDAR */
+                $scope.dayClick = function (event, date) {
+                    var v = date.valueOf();
+                    var i = findUndispo(v);
+                    if (i == -1) {
+                        $scope.profile.schedules[$scope.scheduleIndex].undispos.push({date: v, css: 'am'});
+                    }
+                    else {
+                        var undispo = $scope.profile.schedules[$scope.scheduleIndex].undispos[i];
+                        if (undispo.css == 'am') {
+                            $scope.profile.schedules[$scope.scheduleIndex].undispos[i].css = 'pm';
+                        }
+                        else if (undispo.css == 'pm') {
+                            $scope.profile.schedules[$scope.scheduleIndex].undispos[i].css = 'day';
+                        }
+                        else if (undispo.css == 'day') {
+                            $scope.profile.schedules[$scope.scheduleIndex].undispos.splice(i, 1);
+                        }
+                    }
+                }
+
+                $scope.onMonthChanged = function (newMonth, oldMonth) {
+                    console.log('onMonthChanged ');
+                    $scope.period = newMonth.format('MM-YYYY');
+                    $scope.scheduleIndex = findShedule($scope.period);
+                    if($scope.scheduleIndex == -1){
+                        var schedule = {period : $scope.period, dayoff : [], undispos: []};
+                        $scope.scheduleIndex = $scope.profile.schedules.push(schedule) - 1;
+                    }
+                };
             }
         }
 
