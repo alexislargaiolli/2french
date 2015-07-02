@@ -22,7 +22,7 @@ module.exports = {
     findByCity: function (req, res) {
         var city = req.query['city'];
         var days = req.query['days'];
-        if (days && days.length > 0) {
+       /* if (days && days.length > 0) {
             sails.log.info('search by days');
             days = days.split(',');
             for(i=0;i<days.length;i++){
@@ -62,10 +62,10 @@ module.exports = {
                             }
                         }
                     }*/
-                    res.send(200, profiles);
+                    /*res.send(200, profiles);
                 });
         }
-        else {
+        else {*/
             Profile.find(
                 {
                     "city.address_components": {
@@ -83,7 +83,7 @@ module.exports = {
                     }
                     res.send(200, profiles);
                 });
-        }
+        //}
     }
 };
 
