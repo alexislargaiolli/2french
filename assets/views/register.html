@@ -10,13 +10,16 @@
                 <img src="images/home/teach.png"/>
             </div>
             <h2 class="center">{{'register.learn' | translate}}</h2>
-            <div ng-if="registerType == 2">
+            <div ng-if="registerType == 1">
                 <p>{{'register.teacher.text.1'|translate}}</p>
                 <p>{{'register.teacher.text.2'|translate}}</p>
                 <p>{{'register.teacher.text.3'|translate}}</p>
             </div>
-            <div ng-if="registerType == 1">
+            <div ng-if="registerType == 2">
                 <p>{{'register.student.text.1'|translate}}</p>
+            </div>
+            <div class="center">
+                <a ui-sref="learn">{{'register.moreinfo'|translate}}</a>
             </div>
         </div>
         <div id="right" class="col-xs-8 col-sm-8 col-md-8 col-lg-8">

@@ -224,6 +224,14 @@ body {
       margin-right: 5px;
     }
   }
+  .home-vignet{
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .home-vignet-text{
+    display: inline-block;
+    vertical-align: middle;
+  }
 }
 
 #container-concept {
@@ -258,7 +266,7 @@ body {
 #loginForm {
 
   .btn-wrapper {
-    width: 350px;
+    //width: 350px;
     border: 1px solid @light-gray;
     background-color: #fff;
     border-radius: 5px;
@@ -291,7 +299,8 @@ body {
     margin-left: 20px;
   }
   .fa-user {
-    padding-left: 10px;
+    float:left;
+    padding: 10px;
     color: @light-gray;
   }
   .alert {
@@ -317,6 +326,9 @@ body {
       font-family: @police1;
       font-size:13px;
       color:@light-gray;
+    }
+    a{
+      color:@light-blue;
     }
   }
   #right {
@@ -351,6 +363,9 @@ body {
     border: 5px solid #ebebeb;
     background-color: #fff;
     margin-top: -50px;
+    h2{
+      margin-top:15px;
+    }
     #vignet {
       float: left;
       position: absolute;
@@ -376,6 +391,7 @@ body {
     font-size: 18px;
     text-align: center;
     color: @dark-gray;
+    margin-top:40px;
   }
   p {
     text-align: center;
@@ -699,7 +715,11 @@ body {
   }
   .extras li {
     font-size: 12px;
-    margin-right: 10px;
+    margin-right: 30px;
+    color: @gray;
+  }
+  .hour-rate{
+    padding-top:10px;
     color: @gray;
   }
 

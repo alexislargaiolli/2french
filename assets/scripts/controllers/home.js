@@ -10,7 +10,7 @@ var ctrl = angular.module('tooFrenchCtrl');
 ctrl.controller('HomeCtrl', ['$scope', function ($scope) {
     $scope.interval = 5000;
     var slides = $scope.slides = [{
-        image: 'http://res.cloudinary.com/hmn3vaygs/image/upload/v1435767999/diapo1_nbj0gs.png'
+        image: 'http://res.cloudinary.com/hmn3vaygs/image/upload/v1435768122/diapo1_qfdqgy.jpg'
     }, {
         image: 'http://res.cloudinary.com/hmn3vaygs/image/upload/v1435768133/diapo2_ua1ctu.jpg'
     }, {
