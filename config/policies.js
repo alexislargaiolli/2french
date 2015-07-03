@@ -87,6 +87,10 @@ module.exports.policies = {
     userConversation: ['passport', 'sessionAuth'],
     totalUnseenMessageCount: ['passport', 'sessionAuth'],
     setAsRead: ['passport', 'sessionAuth']
+  },
+  ContactThemeController : {
+    '*' : [ 'passport', 'sessionAuth', 'admin'],
+    find : []
   }
 
 

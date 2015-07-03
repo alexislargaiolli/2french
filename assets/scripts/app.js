@@ -275,8 +275,15 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
                 url: '/contact',
                 templateUrl: 'views/contact.html',
                 controller: 'FormContactCtrl'
+            })
+            .state('mentions', {
+                url: '/mentions',
+                templateUrl: 'views/mentions.html'
+            })
+            .state('faq', {
+                url: '/faq',
+                templateUrl: 'views/faq.html'
             });
-
 
         //================================================
         // Translation support
@@ -305,7 +312,7 @@ tooFrenchApp.run(['$rootScope', '$state', 'AUTH_EVENTS', 'AuthService', 'editabl
     function ($rootScope, $state, AUTH_EVENTS, AuthService, editableOptions) {
         editableOptions.theme = 'bs3';
         AuthService.getUser().then(function () {
-            $rootScope.$on('$stateChangeSuccess', function(event, toState){
+            $rootScope.$on('$stateChangeSuccess', function (event, toState) {
                 $rootScope.currentState = toState.name;
             });
             $rootScope.$on('$stateChangeStart', function (event, next) {
@@ -371,7 +378,7 @@ tooFrenchControllers.config(function (uiSelectConfig) {
 angular.module('tooFrenchService', ['ngRoute', 'ngResource']);
 
 
-tooFrenchControllers.controller('ApplicationController', ['$rootScope','$scope', '$state', '$http', '$timeout', 'USER_ROLES', 'AUTH_EVENTS', 'LOCALE_EVENTS', 'MESSAGE_EVENTS', 'AuthService', 'Session', '$translate', 'Profile', 'Messagerie',
+tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope', '$state', '$http', '$timeout', 'USER_ROLES', 'AUTH_EVENTS', 'LOCALE_EVENTS', 'MESSAGE_EVENTS', 'AuthService', 'Session', '$translate', 'Profile', 'Messagerie',
 
     function ($rootScope, $scope, $state, $http, $timeout, USER_ROLES, AUTH_EVENTS, LOCALE_EVENTS, MESSAGE_EVENTS, AuthService, Session, $translate, Profile, Messagerie) {
         $scope.currentUser = null;
@@ -402,10 +409,10 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope','$scope',
         });
 
         $scope.$on(MESSAGE_EVENTS.read, function (event, args) {
-            $timeout(function(){
+            $timeout(function () {
                 var count = args.count;
                 $scope.unseenMsgCount = 0;
-            },10);
+            }, 10);
         });
 
         $scope.$on(MESSAGE_EVENTS.update, function (event, args) {
@@ -422,8 +429,8 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope','$scope',
             }, function () {
 
             });
-            if($scope.isTeacher){
-                $http.get('diploma/userDiploma').success(function(data){
+            if ($scope.isTeacher) {
+                $http.get('diploma/userDiploma').success(function (data) {
                     $rootScope.diploma = data;
                 });
             }
