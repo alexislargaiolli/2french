@@ -13,14 +13,14 @@
                     </div>
                     <div class="right-col">
                         <div ng-if="!diploma.diplomaUploaded && !diploma.diplomaValidated">
-                            <div class="fileUpload btn btn-primary" ng-show="diplomaFile == null">
+                            <div class="fileUpload btn blue-btn" ng-show="diplomaFile == null">
                                 <span class="fa fa-file-pdf-o"></span>
-                                <span>{{'diploma.btn.select' | translate}}</span>
+                                <span class="lm-5">{{'diploma.btn.select' | translate}}</span>
                                 <input id="diplomaInput" name="file" type="file" accept=".pdf" class="upload"/>
                             </div>
                             <button ng-show="diplomaFile != null && !diplomaUploading" ng-click="uploadDiploma()"
                                     type="button" class="btn btn-default green2-btn"><span class="fa fa-upload"></span>
-                                {{'diploma.btn.upload' | translate}}
+                                <span class="lm-5">{{'diploma.btn.upload' | translate}}</span>
                             </button>
                             <progressbar ng-show="diplomaUploading" max="100" value="diplomaProgress"><b>{{diplomaProgress}}%</b>
                             </progressbar>
@@ -43,13 +43,14 @@
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading block-title1 center">{{'myprofile.favlist.title' | translate}}</div>
-                    <div class="panel-body p-0">
+
                         <ul id="favlist" class="list-group" ng-if="favlist.favorits.length > 0">
                             <li class="list-group-item" ng-repeat="f in favlist.favorits">
                                 {{f.firstname}}
                             </li>
                         </ul>
-                        <p ng-if="favlist.favorits.length == 0" class="center vm-10">{{'myprofile.favlist.empty' |
+                    <div class="panel-body p-0" ng-if="favlist.favorits.length == 0">
+                        <p class="center vm-10">{{'myprofile.favlist.empty' |
                             translate}}</p>
                     </div>
                 </div>

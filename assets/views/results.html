@@ -15,6 +15,10 @@
                         <p class="list-group-item-text util-link">{{r.link}}</p>
                     </a>
                 </ul>
+
+                <div class="panel-footer center">
+                    <br/>
+                </div>
             </div>
 
 
@@ -26,9 +30,9 @@
                 <ul id="list-recommandation" class="list-group">
                     <li class="list-group-item" ng-repeat="r in recommandations">
                         <h4 class="list-group-item-heading" data-toggle="collapse" href="#collapseExample"
-                            aria-expanded="false" aria-controls="collapseExample">{{r.title[$parent.lg]}}</h4>
+                            aria-expanded="false" aria-controls="collapseExample">{{r.title[$parent.lg]}} <i class="fa fa-angle-down"></i></h4>
 
-                        <div class="collapse" id="collapseExample">
+                        <div class="collapse toggle-panel" id="collapseExample">
                             <div class="well">
                                 {{r.description[$parent.lg]}}
                             </div>
@@ -71,14 +75,14 @@
                     <button type="button" class="calendar-btn btn btn-default blue-btn fa fa-calendar"></button>
                     <button ng-if="isConnected" type="button" class="fav-btn btn btn-default blue-btn fa fa-star"
                             ng-click="addFavorit(p.id)" ng-class="{favorit : favlist.indexOf(p.id) != -1}">
-                        <span class="hidden-xs .hidden-sm">Favoris</span></button>
+                        <span class="hidden-xs .hidden-sm lm-5">Favoris</span></button>
                     <button ng-if="isConnected" type="button"
                             class="contact-btn btn btn-default green2-btn fa fa-envelope" ng-click="setUserToContact(p)"
                             data-toggle="modal"
                             data-target="#contactDlg">
-                        <span class="hidden-xs .hidden-sm">Contacter</span>
+                        <span class="hidden-xs .hidden-sm lm-5">Contacter</span>
                     </button>
-                    <div class="hour-rate">{{p.hourRate}}€ {{'search.result.price' | translate}}</div>
+                    <div class="hour-rate" ng-if="p.hourRate">{{p.hourRate}}€ {{'search.result.price' | translate}}</div>
                 </div>
 
             </div>

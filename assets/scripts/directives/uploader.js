@@ -29,6 +29,7 @@ tooFrench.directive('alexUploader', function() {
 
 			var handleFileSelect = function(evt) {
 				$scope.file = evt.currentTarget.files[0];
+				$scope.progress = 0;
 				var reader = new FileReader();
 				reader.onload = function(evt) {
 					$scope.$apply(function($scope) {
@@ -42,6 +43,15 @@ tooFrench.directive('alexUploader', function() {
 				reader.readAsDataURL($scope.file);
 			};
 
+			$scope.reset = function(){
+				$scope.file = null;
+				$scope.progress = 0;
+				$scope.uploadable = 0;
+				$scope.uploading = 0;
+				$scope.alerts = [];
+				$scope.myImage = '';
+				$scope.myCroppedImage = '';
+			}
 
 			$timeout(function() {
 				var inputId = '#fileInput' + $scope.$id;
@@ -62,6 +72,7 @@ tooFrench.directive('alexUploader', function() {
 					});
 					file.name = $scope.file.name;
 					$scope.uploading = 1;
+					$scope.progress = 0;
 					$upload.upload({
 						url: $scope.uploadUrl,
 						file: file
@@ -77,13 +88,17 @@ tooFrench.directive('alexUploader', function() {
 							$scope.onUploadFinished({
 								url: data.url
 							});
-						}, 2000);
+						});
+						$scope.uploadable = 0;
+						var modalId = '#dlg-upload_' + $scope.$id;
+						angular.element(modalId).modal('hide');
 					}).error(function(data, status, headers, config) {
 						$scope.progressBarType = 'danger';
 						$scope.alerts.push({
 							type: 'danger',
 							msg: data.message
 						});
+						$scope.uploadable = 0;
 					});
 				}
 			};

@@ -1,13 +1,17 @@
-<div id="home-header">
-    <div id="carousel-wrapper" ng-controller="HomeCtrl">
-        <carousel interval="interval">
+<div id="home-header" ng-controller="HomeCtrl">
+    <div id="carousel-wrapper">
+        <carousel interval="interval" disable-animation="true">
             <slide ng-repeat="slide in slides" active="slide.active">
-                <img ng-src="{{slide.image}}" style="margin:auto;">
+                <img ng-src="{{slide.image}}">
+                <div class="carousel-caption">
+                    <h4>{{slide.text | translate}}</h4>
+                </div>
             </slide>
         </carousel>
     </div>
 </div>
 <div id="home-subheader">
+    <i class="fa fa-angle-down"></i>
 </div>
 <div id="container-teach-learn" class="container">
     <div class="row">
