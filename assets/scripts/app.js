@@ -312,13 +312,16 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
 ]);
 
 
-tooFrenchApp.run(['$rootScope', '$state', 'AUTH_EVENTS', 'AuthService', 'editableOptions',
-    function ($rootScope, $state, AUTH_EVENTS, AuthService, editableOptions) {
+tooFrenchApp.run(['$rootScope', '$state', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache',
+    function ($rootScope, $state, AUTH_EVENTS, AuthService, editableOptions, $templateCache) {
         editableOptions.theme = 'bs3';
+        $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+            if (typeof(current) !== 'undefined'){
+                $templateCache.remove(current.templateUrl);
+            }
+            $rootScope.currentState = toState.name;
+        });
         AuthService.getUser().then(function () {
-            $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-                $rootScope.currentState = toState.name;
-            });
             $rootScope.$on('$stateChangeStart', function (event, next) {
                 if (next.data) {
                     if (next.data.auth === true) {
