@@ -315,6 +315,7 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
 tooFrenchApp.run(['$rootScope', '$state', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache',
     function ($rootScope, $state, AUTH_EVENTS, AuthService, editableOptions, $templateCache) {
         editableOptions.theme = 'bs3';
+        $templateCache.remove('index.html');
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
             if (typeof(current) !== 'undefined'){
                 $templateCache.remove(current.templateUrl);
