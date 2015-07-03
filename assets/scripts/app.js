@@ -388,10 +388,11 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
         $scope.locale = $translate.preferredLanguage();
         $scope.lg = $translate.preferredLanguage().substring(0, 2);
         $scope.unseenMsgCount = 0;
-
+        $rootScope.isConnected = false;
 
         $scope.setCurrentUser = function (user) {
             $scope.currentUser = user;
+            $rootScope.isConnected = $scope.currentUser != null;
         };
 
         $scope.logout = function () {
@@ -437,7 +438,7 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
             $scope.setCurrentUser(Session.user);
         });
         $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
-            console.log('logout success');
+            $rootScope.isConnected = false;
             $rootScope.diploma = null;
             $state.go('home');
         });

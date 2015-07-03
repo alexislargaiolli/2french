@@ -30,8 +30,7 @@ tooFrenchControllers.controller('RegisterCtrl', ['$scope', '$state', 'AuthServic
 		$scope.submit = function() {
 			if ($scope.formRegister.$valid) {
 				var teacher = $scope.registerType == 1 ? 1 : 0;
-				authService.register($scope.user.username, $scope.user.email, $scope.user.password, teacher, $scope.user.firstname, $scope.user.city).then(function(user) {
-					$scope.setCurrentUser(user);
+				authService.register($scope.user.email, $scope.user.email, $scope.user.password, teacher, $scope.user.firstname, $scope.user.city).then(function(user) {
 					$state.go('home');
 				}, function(message) {
 					$scope.message = message;

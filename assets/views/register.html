@@ -36,19 +36,12 @@
                 </div>
             </div>
             <form id="formRegister" name="formRegister" role="form" class="center-block">
-                <div class="form-group has-feedback" class-valid="formRegister.firstname">
-                    <input ng-model="user.firstname" type="text" name="firstname" class="form-control"
-                           placeholder="{{'register.firstname'|translate}}" ng-required="true">
-                    <span class="error" ng-show="formRegister.firstname.$error.required"></span>
+                <div class="form-group has-feedback" class-valid="formRegister.pseudo">
+                    <input ng-model="user.firstname" type="text" name="pseudo" class="form-control"
+                           placeholder="{{'register.pseudo'|translate}}" ng-required="true">
+                    <span class="error" ng-show="formRegister.pseudo.$error.required"></span>
 
-                    <icon-validation elt="formRegister.firstname"></icon-validation>
-                </div>
-                <div class="form-group has-feedback" class-valid="formRegister.username">
-                    <input ng-model="user.username" type="text" name="username" class="form-control"
-                           placeholder="{{'register.pseudo' | translate}}" ng-required="true">
-                    <span class="error" ng-show="formRegister.username.$error.required"></span>
-
-                    <icon-validation elt="formRegister.username"></icon-validation>
+                    <icon-validation elt="formRegister.pseudo"></icon-validation>
                 </div>
 
                 <div class="form-group has-feedback" class-valid="formRegister.city">

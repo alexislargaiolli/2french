@@ -365,10 +365,11 @@ body {
   padding-bottom: 50px;
   #learn-header {
     width: 80%;
-    height: 200px;
+    min-height: 200px;
     border: 5px solid #ebebeb;
     background-color: #fff;
     margin-top: -50px;
+    margin-bottom: 40px;
     h2{
       margin-top:15px;
     }
@@ -394,14 +395,21 @@ body {
   h2 {
     font-family: arial;
     font-weight: bold;
-    font-size: 18px;
     text-align: center;
     color: @dark-gray;
-    margin-top:40px;
+    font-size: 20px;
   }
   p {
     text-align: center;
 
+  }
+}
+
+#learn-teach-wrapper{
+  width:80%;
+  margin:0 auto;
+  hr{
+    margin:30px 0;
   }
 }
 
@@ -733,13 +741,21 @@ body {
     cursor: pointer;
     font-weight: bold;
   }
+  h4{
+    font-family: @police2;
+    font-size:14px;
+  }
 
   .util-link {
     color: @light-blue;
+    font-family: @police2;
+    font-size:12px;
   }
 
   .recommandation-link a {
     color: @light-blue;
+    font-family: @police2;
+    font-size:12px;
   }
 
   .see-more-link {
@@ -750,6 +766,18 @@ body {
     background-color: #FFDB1F;
     border-color: #FFDB1F;
     color:#666;
+  }
+  .result-item.first{
+    border-top:1px solid @very-light-gray;
+  }
+  .result-item{
+    min-height:100px;
+    border-bottom:1px solid @very-light-gray;
+    padding:15px 0;
+  }
+  .result-item:hover{
+    background: #F8F8F8;
+    transform: scale(1.01);
   }
 }
 
