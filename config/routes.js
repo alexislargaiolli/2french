@@ -53,8 +53,15 @@ module.exports.routes = {
   ///////////    DiplomaController    ////////////
   /////////////////////////////////////////////
   'get /diploma/downloadDiploma/:fd': 'DiplomaController.downloadDiploma',
-  'get /diploma/validate/:diplomaId': 'DiplomaController.validate'
+  'get /diploma/validate/:diplomaId': 'DiplomaController.validate',
 
+
+
+
+  /////////////////////////////////////////////
+  ///////////   ContactController   ///////////
+  /////////////////////////////////////////////
+  'post /contact': 'ContactController.contact'
 
   /***************************************************************************
   *                                                                          *

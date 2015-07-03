@@ -10,7 +10,6 @@ tooFrenchControllers.controller('ContactCtrl', ['$scope', '$stateParams','Messag
             var from = Session.userId;
             $scope.message.author = from;
             $scope.message.recipient = recipient;
-
             Messagerie.sendMessage(from, recipient, $scope.message.content).then(function(){
                 $scope.message = {};
             }, function(){

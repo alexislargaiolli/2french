@@ -96,6 +96,12 @@
   "myprofile.motivation.empty":"Saisissez vos motivations",
   "myprofile.favlist.title":"Professeurs favoris",
   "myprofile.favlist.empty":"Aucun professeur favoris.",
+  "myprofile.accomodation.description.empty":"Description de l'hebergement.",
+  "profile.services":"Services",
+  "profile.services.empty":"Non renseigné",
+  "profile.equipements.empty":"Non renseigné",
+  "profile.equipements":"Équipements",
+  "profile.location":"Localisation",
   "search.result.label":"Résultats de votre recherche",
   "search.result.label2":"Enseignants à ",
   "search.result.recommandation":"Recommandations",
@@ -115,5 +121,13 @@
   "diploma.label.validating" : "Votre diplôme est en cours de validation",
   "diploma.label.validated" : "Votre diplôme a été validé !",
   "diploma.btn.select" : "Fichier",
-  "diploma.btn.upload" : "Soumettre"
+  "diploma.btn.upload" : "Soumettre",
+  "contact.title":"Contact",
+  "contact.form.title":"Afin que votre demande soit traitée avec efficacité, merci de bien renseigner les champs ci-dessous.",
+  "contact.form.username.placeholder":"Votre nom",
+  "contact.form.email.placeholder":"Votre e-mail",
+  "contact.form.theme.placeholder":"Thème du message",
+  "contact.form.message.placeholder":"Message",
+  "contact.form.send":"Envoyer le message",
+  "contact.form.succcess":"Votre message a bien été envoyé !"
 }

@@ -39,27 +39,40 @@ module.exports = {
 		city: {
 			type: 'json'
 		},
+		/**
+		 * True if the user proposes an accomodation
+		 */
 		activeAccomodation: 'boolean',
+		/**
+		 * List of accomodation equipement
+ 		 */
 		equipments: {
 			collection: 'Equipment'
 		},
+		/**
+		 * List of accomodation services
+		 */
 		services: {
 			collection: 'Service'
 		},
+		/**
+		 * Location of accomodation
+		 */
 		location: {
 			type: 'json'
 		},
+		/**
+		 * Photos of accomodation
+		 */
 		photos: {
 			type: 'json'
 		},
-		daySelected: {
-			type: 'json'
+		accomodationDescription:{
+			type : 'string'
 		},
 		schedules: {
 			type:'json'
-		},
-		diplomaUploaded : 'boolean',
-		diplomaValidated : 'boolean'
+		}
 	},
 	beforeCreate: function(values, next) {
 		/*values.accommodation = {};

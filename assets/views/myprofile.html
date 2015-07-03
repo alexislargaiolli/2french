@@ -18,9 +18,12 @@
                                 <span>{{'diploma.btn.select' | translate}}</span>
                                 <input id="diplomaInput" name="file" type="file" accept=".pdf" class="upload"/>
                             </div>
-                            <button ng-show="diplomaFile != null && !diplomaUploading" ng-click="uploadDiploma()" type="button" class="btn btn-default green2-btn"><span class="fa fa-upload"></span> {{'diploma.btn.upload' | translate}}
+                            <button ng-show="diplomaFile != null && !diplomaUploading" ng-click="uploadDiploma()"
+                                    type="button" class="btn btn-default green2-btn"><span class="fa fa-upload"></span>
+                                {{'diploma.btn.upload' | translate}}
                             </button>
-                            <progressbar ng-show="diplomaUploading" max="100" value="diplomaProgress"><b>{{diplomaProgress}}%</b></progressbar>
+                            <progressbar ng-show="diplomaUploading" max="100" value="diplomaProgress"><b>{{diplomaProgress}}%</b>
+                            </progressbar>
                         </div>
                         <i class="fa fa-spinner" ng-if="diploma.diplomaUploaded && !diploma.diplomaValidated"></i>
                         <i class="fa fa-check-circle-o" ng-if="diploma.diplomaValidated"></i>
@@ -33,7 +36,9 @@
                 <div class="panel panel-default" ng-if="isTeacher">
                     <div class="panel-heading block-title1 center">{{'myprofile.calendar' | translate}}</div>
                     <div class="panel-body p-0">
-                        <multiple-date-picker class="without-select" day-click="dayClick" highlight-days="profile.schedules[scheduleIndex].undispos" month-changed="onMonthChanged"/>
+                        <multiple-date-picker class="without-select" day-click="dayClick"
+                                              highlight-days="profile.schedules[scheduleIndex].undispos"
+                                              month-changed="onMonthChanged"/>
                     </div>
                 </div>
                 <div class="panel panel-default">
@@ -44,7 +49,8 @@
                                 {{f.firstname}}
                             </li>
                         </ul>
-                        <p ng-if="favlist.favorits.length == 0" class="center vm-10">{{'myprofile.favlist.empty' | translate}}</p>
+                        <p ng-if="favlist.favorits.length == 0" class="center vm-10">{{'myprofile.favlist.empty' |
+                            translate}}</p>
                     </div>
                 </div>
             </div>
@@ -178,7 +184,7 @@
                             <span class="fa fa-trash-o edit-icon red" ng-click="deleteFormula(formula)"></span>
                         </h4>
 
-                        <p>{{formula.description[profileLang]}}, {{formula.price}}€</p>
+                        <p class="grey-text">{{formula.description[profileLang]}}, {{formula.price}}€</p>
                     </div>
                     <hr/>
 
@@ -296,19 +302,27 @@
                         </div>
                         <hr/>
 
-                        <div>
-                            <ui-gmap-google-map center='map.center' zoom='map.zoom'>
-                                <ui-gmap-markers models="map.markers"
-                                                 doCluster="true"
-                                                 coords="'self'"
-                                                 icon="'icon'"
-                                                 click="'onclicked'"
-                                                 options="'options'"
-                                                 idkey='id'
-                                                 clusterOptions='map.clusterOptions'
-                                                 control='markerControl.getChildMarkers().get(id)'>
-                                </ui-gmap-markers>
-                            </ui-gmap-google-map>
+                        <div class="row">
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+                                    <ui-gmap-markers models="map.markers"
+                                                     doCluster="true"
+                                                     coords="'self'"
+                                                     icon="'icon'"
+                                                     click="'onclicked'"
+                                                     options="'options'"
+                                                     idkey='id'
+                                                     clusterOptions='map.clusterOptions'
+                                                     control='markerControl.getChildMarkers().get(id)'>
+                                    </ui-gmap-markers>
+                                </ui-gmap-google-map>
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                <p editable-textarea="profile.accomodationDescription[profileLang]" e-rows="7"
+                                   e-style="width:100%">
+                                    {{ profile.accomodationDescription[profileLang] || ('myprofile.accomodation.description.empty' | translate) }}
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -27,7 +27,8 @@ var tooFrenchApp = angular.module('tooFrenchApp', [
     'dialogs.main',
     'google.places',
     'angularFileUpload',
-    'multipleDatePicker'
+    'multipleDatePicker',
+    'vcRecaptcha'
 ]);
 
 
@@ -265,7 +266,15 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
             .state('messagerie', {
                 url: '/messagerie',
                 templateUrl: 'views/messagerie.html',
-                controller: 'MessagerieCtrl'
+                controller: 'MessagerieCtrl',
+                data: {
+                    auth: true
+                }
+            })
+            .state('contact', {
+                url: '/contact',
+                templateUrl: 'views/contact.html',
+                controller: 'FormContactCtrl'
             });
 
 
@@ -351,7 +360,7 @@ tooFrenchApp.run(['$rootScope', '$state', 'AUTH_EVENTS', 'AuthService', 'editabl
 ]);
 
 var tooFrenchControllers = angular.module('tooFrenchCtrl', ['ngRoute', 'ui.router', 'xeditable', 'uiGmapgoogle-maps', 'pascalprecht.translate', 'tooFrenchService', 'angularFi' +
-'leUpload', 'ui.select', 'ui.bootstrap', 'dialogs.main', 'google.places', 'ngImgCrop', 'multipleDatePicker']);
+'leUpload', 'ui.select', 'ui.bootstrap', 'dialogs.main', 'google.places', 'ngImgCrop', 'multipleDatePicker', 'vcRecaptcha']);
 tooFrenchControllers.config(function (uiSelectConfig) {
     //================================================
     // Angular ui components

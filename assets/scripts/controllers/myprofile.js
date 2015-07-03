@@ -225,8 +225,8 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
                 var lat = $scope.profile.city.geometry.location.k;
                 var lon = $scope.profile.city.geometry.location.D;
                 if ($scope.profile.location) {
-                    lat = $scope.profile.location.geometry.location.F;
-                    lon = $scope.profile.location.geometry.location.A;
+                    lat = $scope.profile.location.geometry.location.k;
+                    lon = $scope.profile.location.geometry.location.D;
                     console.log($scope.profile.location.geometry);
                 }
                 $scope.map = {

@@ -1,0 +1,75 @@
+<div id="blackBar" class="small">
+    <div class="container">
+        <h1>{{'contact.title' | translate}}</h1>
+    </div>
+</div>
+<div class="container">
+    <div id="contact-wrapper">
+        <div id="contact-header">
+            {{'contact.form.title' | translate}}
+        </div>
+        <div id="contact-content">
+            <form ng-submit="sendMessage()">
+                <div class="row">
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group">
+                            <input type="text" class="form-control" ng-model="message.username"
+                                   placeholder="{{'contact.form.username.placeholder' | translate}}"
+                                   aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group">
+                            <input type="email" class="form-control" ng-model="message.email"
+                                   placeholder="{{'contact.form.email.placeholder' | translate}}"
+                                   aria-describedby="basic-addon1">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="btn-group">
+                            <button id="btn-theme" type="button" class="btn btn-default dropdown-toggle"
+                                    data-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                {{'contact.form.theme.placeholder' | translate}} <span class="caret"></span>
+                            </button>
+                            <ul id="dropdown-theme" class="dropdown-menu">
+                                <li><a href="#">Action</a></li>
+                                <li><a href="#">Another action</a></li>
+                                <li><a href="#">Something else here</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#">Separated link</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <textarea class="form-control" ng-model="message.content"
+                                      placeholder="{{'contact.form.message.placeholder' | translate}}" rows="5"
+                                      id="message" res></textarea>
+                        </div>
+                    </div>
+                </div>
+                <hr/>
+                <div class="center p-10">
+                    <div vc-recaptcha key="'6LevQwkTAAAAAA4JNfLATe3528-iLBZihJVQRtI-'" on-success="setResponse(response)" class="inline"></div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center">
+                        <button id="send-button" type="submit" class="btn btn-default blue-btn">
+                            <i class="fa fa-paper-plane"></i>
+                            {{'contact.form.send' | translate}}
+                        </button>
+                    </div>
+                </div>
+
+                <div class="alert alert-success center" role="alert" ng-if="success">{{'contact.form.succcess' | translate}}</div>
+                <div class="alert alert-danger center" role="alert" ng-if="error != null">{{error}}</div>
+            </form>
+        </div>
+    </div>
+</div>
+

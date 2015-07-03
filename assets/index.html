@@ -158,7 +158,7 @@
                 <a ui-sref="forum">{{'footer.forum' | translate}}</a>
                 <a ui-sref="#">{{'footer.faq' | translate}}</a>
                 <a ui-sref="#">{{'footer.mentions' | translate}}</a>
-                <a ui-sref="#">{{'footer.contact' | translate}}</a>
+                <a ui-sref="contact">{{'footer.contact' | translate}}</a>
             </div>
         </div>
     </div>
@@ -217,6 +217,8 @@
 <script src="bower_components/moment/moment.js"></script>
 <script src="bower_components/moment/locale/fr.js"></script>
 <script src="scripts/libs/multiple-date-picker/dist/multipleDatePicker.min.js"></script>
+<script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
+<script src="bower_components/angular-recaptcha/release/angular-recaptcha.js"></script>
 
 
 <!-- endbower -->
@@ -249,6 +251,7 @@
 <script src="scripts/controllers/contact.js"></script>
 <script src="scripts/controllers/diploma.js"></script>
 <script src="scripts/controllers/home.js"></script>
+<script src="scripts/controllers/formcontact.js"></script>
 <!-- Services -->
 <script src="scripts/services/auth.js"></script>
 <script src="scripts/services/profile.js"></script>

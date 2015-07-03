@@ -9,8 +9,14 @@
 @light-green: #00ff06;
 @red: #d20b0b;
 @police1: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-;
 @police2: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+
+
+/* Bootsrap overrides*/
+@btn-border-radius-base : 0;
+@btn-border-radius-large:0;
+@btn-border-radius-small:0;
+
 
 /* INIT */
 
@@ -535,7 +541,7 @@ body {
   }
 
   .angular-google-map-container {
-    height: 400px;
+    height: 300px;
   }
 
   #caroussel-wrapper {
@@ -657,7 +663,7 @@ body {
       font-weight: bold;
     }
     .angular-google-map-container {
-      height: 400px;
+      height: 300px;
     }
     .accomodationCarousel {
       .carousel-control.right, .carousel-control.left {
@@ -739,6 +745,11 @@ body {
   .see-more-link {
     text-decoration: underline;
     color: @gray;
+  }
+  button.favorit{
+    background-color: #FFDB1F;
+    border-color: #FFDB1F;
+    color:#666;
   }
 }
 
@@ -884,6 +895,55 @@ hr {
 
 }
 
+
+/* Contact form */
+#contact-wrapper{
+  display: block;
+  width:70%;
+  margin:20px auto;
+  .bordered-block;
+  #contact-header{
+    padding:20px;
+    background: #D7FFC5;
+    border-bottom:1px solid @very-light-gray;
+    color:#507C3C;
+    text-align: center;
+    font-size: 15px;
+  }
+  #contact-content{
+    padding:20px;
+    form{
+      width:60%;
+      margin:0 auto;
+    }
+    .input-group, .btn-group{
+      width:100%;
+    }
+    .row{
+      margin-bottom: 20px;
+    }
+    #btn-theme{
+      width:100%;
+      text-align: left;
+      span{
+        float:right;
+        margin: 8px;
+      }
+    }
+    #dropdown-theme{
+      width:100%;
+    }
+    textarea{
+      resize:none;
+    }
+    #send-button{
+      font-size: 20px;
+      text-shadow: 2px 2px #999;
+    }
+  }
+}
+
+
 /* Admin */
 #diplomas-list {
   .diploma-owner, .diploma-btn-wrapper {
@@ -950,6 +1010,15 @@ hr {
 .light-title {
   font-family: @police1;
   color: @light-gray;
+}
+
+.grey-text{
+  color:@gray;
+  font-family: @police1;
+}
+.grey-text{
+  color:@dark-gray;
+  font-family: @police1;
 }
 
 .bordered-block {
@@ -1117,6 +1186,10 @@ hr {
 
 .m-10 {
   margin: 10px;
+}
+
+.mt-0{
+  margin-top: 0;
 }
 
 .mt-5 {

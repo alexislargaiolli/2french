@@ -13,7 +13,7 @@ tooFrenchServices.factory('UserFavList', ['$resource', '$http', '$q', 'Session',
                         deferred.resolve(favlists[0]);
                     }
                     else{
-                        deferred.resolve({favorits : []});
+                        deferred.resolve(new UserFavList({owner : Session.userId, favorits : []}));
                     }
                 });
                 return deferred.promise;
