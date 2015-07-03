@@ -17,6 +17,7 @@
   "footer.faq": "F.A.Q",
   "footer.mentions": "Mentions légales",
   "footer.contact": "Contact",
+  "footer.informations": "Qui sommes nous ?",
   "search.dispo": "Disponibilités",
   "home.learn.title": "Apprendre",
   "home.teach.title": "Enseigner",
@@ -141,5 +142,6 @@
   "uploader.result": "Image recadrée",
   "uploader.upload": "Enregistrer",
   "uploader.browse": "Parcourir...",
-  "parameters.title": "Paramètres"
+  "parameters.title": "Paramètres",
+  "informations.title":"Qui sommes nous ?"
 }

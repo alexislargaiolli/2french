@@ -287,6 +287,10 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
             .state('faq', {
                 url: '/faq',
                 templateUrl: 'views/faq.html'
+            })
+            .state('informations', {
+                url: '/informations',
+                templateUrl: 'views/informations.html'
             });
 
         //================================================
