@@ -441,6 +441,30 @@ body {
 
 /* PROFILE */
 
+#schedule-legend{
+  text-align: center;
+  height:40px;
+  padding:9px;
+  .legend-images{
+    width: 20px;
+    height:20px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  .legend-images.pm{
+    margin-left: 15px;
+  }
+  .legend-images.day{
+    margin-left: 15px;
+    background-color: @very-light-gray;
+  }
+  .legend-text{
+    color:@gray;
+    vertical-align: middle;
+    padding-left: 5px;
+  }
+}
+
 #myprofile-container {
   #profile-completion {
     padding: 0 20px;
@@ -726,11 +750,21 @@ body {
       color: @gray;
     }
   }
-  .photo {
+  .photo, .photo-wrapper {
     width: 60px;
     float: left;
     border: 1px solid @gray;
   }
+
+  .photo-wrapper{
+    height:60px;
+    text-align: center;
+    i{
+      font-size: 50px;
+      padding:5px;
+    }
+  }
+
   .left-photo-border {
     display: inline-block;
     height: 60px;

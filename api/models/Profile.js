@@ -68,7 +68,7 @@ module.exports = {
 			type: 'json'
 		},
 		accomodationDescription:{
-			type : 'string'
+			type : 'json'
 		},
 		schedules: {
 			type:'json'

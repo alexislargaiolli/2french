@@ -22,14 +22,10 @@ module.exports = {
     findByCity: function (req, res) {
         var city = req.query['city'];
         var days = req.query['days'];
-       /* if (days && days.length > 0) {
-            sails.log.info('search by days');
-            days = days.split(',');
-            for(i=0;i<days.length;i++){
-                days[i] = parseInt(days[i]);
-            }
-            days = [1.4369976E12];
-            sails.log.info(days);
+        var periods = req.query['periods'];
+        if (days && days.length > 0) {
+            days = JSON.parse(days);
+            periods = JSON.parse(periods);
 
             Profile.find(
                 {
@@ -38,34 +34,30 @@ module.exports = {
                             long_name: city
                         }
                     },
-                    "schedules" : {
-                        $elemMatch: {
-                            period : "07-2015"
+                    "schedules": {
+                        $not : {
+                            $elemMatch: {
+                                "period" : {
+                                    $in : periods
+                                },
+                                "undispos": {
+                                    $in : days
+                                }
+                            }
                         }
                     }
-                    //'schedules.undispos.css' : 'am'
                 }
             )
                 .populate('formations')
                 .populate('extras')
-                .populate('schedules')
                 .exec(function (err, profiles) {
                     if (err) {
                         res.send('500', 'error')
                     }
-                    /*for(i=0; i< profiles.length;i++){
-                        var schedules = profiles[i].schedules;
-                        for(j=0; j< schedules.length; j++){
-                            var undispos = schedules[j].undispos;
-                            for(k=0; k < undispos.length; k++){
-                                if(days.con undispos[k])
-                            }
-                        }
-                    }*/
-                    /*res.send(200, profiles);
+                    res.send(200, profiles);
                 });
         }
-        else {*/
+        else {
             Profile.find(
                 {
                     "city.address_components": {
@@ -83,7 +75,7 @@ module.exports = {
                     }
                     res.send(200, profiles);
                 });
-        //}
+        }
     }
 };
 

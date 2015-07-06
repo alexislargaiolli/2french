@@ -16,12 +16,12 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
         $scope.scheduleIndex = -1;
 
         var findShedule = function (period) {
-            if ($scope.profile.schedules == 0) {
+            if ($scope.profile.schedules.length == 0) {
                 return -1;
             }
             var i = 0;
             for (i = 0; i < $scope.profile.schedules.length; i++) {
-                if ($scope.profile.schedules.period === period) {
+                if ($scope.profile.schedules[i].period == period) {
                     return i;
                 }
             }
@@ -33,21 +33,18 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
         }, function () {
             if ($scope.isTeacher) {
                 updateMap();
+                //If schedules is not empty, searches for a schedules for the current pediod
                 if($scope.profile.schedules && $scope.profile.schedules.length > 0){
                     $scope.scheduleIndex = findShedule($scope.period);
                 }
+                else{
+                    $scope.profile.schedules = [];
+                }
+                //If none schedule found, creates one
                 if($scope.scheduleIndex == -1){
-                    if (!$scope.profile.schedules) {
-                       $scope.profile.schedules = [];
-                   }
-                    console.log('empty');
                     var schedule = {period : $scope.period, dayoff : [], undispos: []};
                     $scope.scheduleIndex = $scope.profile.schedules.push(schedule) - 1;
-                    console.log($scope.profile.schedules);
                 }
-                console.log($scope.profile.schedules);
-                console.log($scope.scheduleIndex);
-                console.log($scope.profile.schedules[$scope.scheduleIndex]);
             }
         });
 
@@ -107,7 +104,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
             $scope.uploadDiploma = function(){
                 $scope.diplomaUploading = true;
                 var filename = Session.userId;
-                console.log(filename);
                 $upload.upload({
                     url: 'diploma/upload',
                     file: $scope.diplomaFile,
@@ -294,7 +290,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
                 }
 
                 $scope.onMonthChanged = function (newMonth, oldMonth) {
-                    console.log('onMonthChanged ');
                     $scope.period = newMonth.format('MM-YYYY');
                     $scope.scheduleIndex = findShedule($scope.period);
                     if($scope.scheduleIndex == -1){
