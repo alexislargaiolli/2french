@@ -8,5 +8,5 @@
  */
 var ctrl = angular.module('tooFrenchCtrl');
 ctrl.controller('AdminCtrl', ['$scope', function($scope) {
-	
+
 }]);

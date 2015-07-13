@@ -89,8 +89,18 @@ module.exports.policies = {
   ContactThemeController : {
     '*' : [ 'passport', 'sessionAuth', 'admin'],
     find : []
+  },
+  PostController:{
+    '*':[ 'passport', 'sessionAuth'],
+    save : ['passport', 'sessionAuth', 'teacherPost']
+  },
+  PostCategoryController:{
+    '*' : [ 'passport', 'sessionAuth', 'admin'],
+    find : []
+  },
+  CommentController:{
+    '*':[ 'passport', 'sessionAuth']
   }
-
 
   /***************************************************************************
   *                                                                          *

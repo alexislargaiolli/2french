@@ -28,7 +28,8 @@ var tooFrenchApp = angular.module('tooFrenchApp', [
     'google.places',
     'angularFileUpload',
     'multipleDatePicker',
-    'vcRecaptcha'
+    'vcRecaptcha',
+    'vAccordion'
 ]);
 
 
@@ -135,7 +136,29 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
 
             .state('forum', {
                 url: '/forum',
-                templateUrl: 'views/forum.html'
+                controller:'ForumCtrl',
+                templateUrl: 'views/forum/forum.html',
+                data: {
+                    auth: true,
+                }
+            })
+
+            .state('forum.post', {
+                url: '/:postId',
+                controller:'ForumPostCtrl',
+                templateUrl: 'views/forum/forum-post.html',
+                data: {
+                    auth: true,
+                }
+            })
+
+            .state('forum.create', {
+                url: '/post/create/:teacher',
+                controller:'ForumCreatePostCtrl',
+                templateUrl: 'views/forum/forum-create-post.html',
+                data: {
+                    auth: true,
+                }
             })
 
             .state('login', {
@@ -238,6 +261,15 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
                 url: '/diplomas',
                 templateUrl: 'views/admin/diplomas.html',
                 controller: 'AdminDiplomaCtrl',
+                data: {
+                    auth: true,
+                    authorizedRoles: [USER_ROLES.admin],
+                }
+            })
+            .state('admin.forum', {
+                url: '/forum',
+                templateUrl: 'views/admin/forum.html',
+                controller: 'AdminPostCategoryCtrl',
                 data: {
                     auth: true,
                     authorizedRoles: [USER_ROLES.admin],
@@ -398,6 +430,8 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
         $scope.userRoles = USER_ROLES;
         $scope.isAuthorized = AuthService.isAuthorized;
         $scope.locale = $translate.preferredLanguage();
+        $rootScope.currentLocale = $translate.preferredLanguage();
+        $rootScope.currentLg = $translate.preferredLanguage().substring(0, 2);
         $scope.lg = $translate.preferredLanguage().substring(0, 2);
         $scope.unseenMsgCount = 0;
         $rootScope.isConnected = false;

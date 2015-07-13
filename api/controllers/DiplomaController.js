@@ -63,7 +63,7 @@ module.exports = {
             conf = sails.config.connections.mongoProd;
         }
         if (conf) {
-            var url = "mongodb://" + conf.user + ":" + conf.password + "@" + conf.host + ":" + conf.port + "/" + conf.database + "." + DIPLOMA_COLUMN_NAME
+            var url = "mongodb://" + conf.user + ":" + conf.password + "@" + conf.host + ":" + conf.port + "/" + conf.database + "." + DIPLOMA_COLUMN_NAME;
             sails.log.info(url);
             req.file('file')
                 .upload({

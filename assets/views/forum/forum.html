@@ -1,0 +1,139 @@
+<div id="blackBar" class="small">
+    <div class="container">
+        <h1>{{'forum.title' | translate}}</h1>
+    </div>
+</div>
+<div class="container forum">
+    <div class="row" ng-if="currentState == 'forum'">
+        <div class="col-md-3 col-lg-3">
+            <div class="panel panel-default">
+                <div class="panel-heading block-title1 center">{{'forum.posts.recent.title' | translate}}</div>
+
+                <div class="list-group" ng-if="recentPosts.length > 0">
+                    <a ui-sref="forum.post({postId : post.id})" class="list-group-item" ng-repeat="post in recentPosts">
+                        <h4 class="list-group-item-heading">{{post.title}}</h4>
+
+                        <p class="list-group-item-text">{{post.category.name[$parent.lg]}}</p>
+                    </a>
+                </div>
+                <div class="panel-body p-0" ng-if="recentPosts.length == 0">
+                    <p class="center vm-10">{{'forum.posts.empty' |
+                        translate}}</p>
+                </div>
+            </div>
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading block-title1 center">{{'forum.posts.popular.title' | translate}}</div>
+
+                <div class="list-group" ng-if="popularPosts.length > 0">
+                    <a ui-sref="forum.post({postId : post.id})" class="list-group-item" ng-repeat="post in popularPosts">
+                        <h4 class="list-group-item-heading">{{post.title}}</h4>
+
+                        <p class="list-group-item-text">{{post.category.name[$parent.lg]}}</p>
+                    </a>
+                </div>
+                <div class="panel-body p-0" ng-if="popularPosts.length == 0">
+                    <p class="center vm-10">{{'forum.posts.empty' |
+                        translate}}</p>
+                </div>
+            </div>
+
+
+            <div class="panel panel-default">
+                <div class="panel-heading block-title1 center">{{'forum.posts.downloaded.title' | translate}}</div>
+
+                <div class="list-group" ng-if="popularFilePosts.length > 0">
+                    <a ui-sref="forum.post({postId : post.id})" class="list-group-item" ng-repeat="post in popularFilePosts">
+                        <h4 class="list-group-item-heading">{{post.title}}</h4>
+
+                        <p class="list-group-item-text">{{post.category.name[$parent.lg]}}</p>
+                    </a>
+                </div>
+                <div class="panel-body p-0" ng-if="popularFilePosts.length == 0">
+                    <p class="center vm-10">{{'forum.posts.empty' |
+                        translate}}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9 col-lg-9">
+            <div class="bordered-block forum">
+                <div>
+                    <div>
+                        <h1 class="block-title1 f-25">{{'forum.teacher.title' | translate}}</h1>
+                    </div>
+
+                    <v-accordion class="vAccordion--default">
+
+                        <v-pane ng-repeat="category in categories">
+                            <v-pane-header class="category-item" ng-click="onOpenCategory(category)">
+                                <i class="fa fa-folder-open"></i> {{category.name[currentLg]}}
+                            </v-pane-header>
+
+                            <v-pane-content>
+                                <div class="data-loader" ng-if="teacherPostsByCategory[category.id].loading">
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                </div>
+                                <div class="list-group post-item" ng-if="!teacherPostsByCategory[category.id].loading && teacherPostsByCategory[category.id].values.length > 0"
+                                     ng-repeat="post in teacherPostsByCategory[category.id].values">
+                                    <a ui-sref="forum.post({postId : post.id})" class="list-group-item">
+                                        <i class="fa fa-file-o"></i> {{post.title}}
+                                    </a>
+                                </div>
+                                <div class="p-10 center" ng-if="!teacherPostsByCategory[category.id].loading && teacherPostsByCategory[category.id].values.length == 0">
+                                    {{'forum.posts.empty' | translate}}
+                                </div>
+                                <div class="paginator-wrapper"  ng-if="!teacherPostsByCategory[category.id].loading && teacherPostsByCategory[category.id].count > pageSize">
+                                    <pagination total-items="teacherPostsByCategory[category.id].count" items-per-page="pageSize" ng-model="teacherPostsByCategory[category.id].pageIndex" ng-change="pageChanged(category)"></pagination>
+                                </div>
+                            </v-pane-content>
+                        </v-pane>
+
+                    </v-accordion>
+                    <div class="panel-add-post">
+                        <a ui-sref="forum.create({teacher : true})">{{'forum.post.new' | translate}}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bordered-block forum">
+                <div>
+                    <div>
+                        <h1 class="block-title1 f-25">{{'forum.general.title' | translate}}</h1>
+                    </div>
+                    <v-accordion class="vAccordion--default">
+
+                        <v-pane ng-repeat="category in categories">
+                            <v-pane-header class="category-item" ng-click="onOpenGeneralCategory(category)">
+                                <i class="fa fa-folder-open"></i> {{category.name[currentLg]}}
+                            </v-pane-header>
+
+                            <v-pane-content>
+                                <div class="data-loader" ng-if="generalPostsByCategory[category.id].loading">
+                                    <i class="fa fa-spinner fa-spin"></i>
+                                </div>
+                                <div class="list-group post-item" ng-if="!generalPostsByCategory[category.id].loading && generalPostsByCategory[category.id].values.length > 0"
+                                     ng-repeat="post in generalPostsByCategory[category.id].values">
+                                    <a ui-sref="forum.post({postId : post.id})" class="list-group-item">
+                                        <i class="fa fa-file-o"></i> {{post.title}}
+                                    </a>
+                                </div>
+                                <div class="p-10 center" ng-if="!generalPostsByCategory[category.id].loading && generalPostsByCategory[category.id].values.length == 0">
+                                    {{'forum.posts.empty' | translate}}
+                                </div>
+                                <div class="paginator-wrapper" ng-if="!generalPostsByCategory[category.id].loading && generalPostsByCategory[category.id].count > pageSize">
+                                    <pagination total-items="generalPostsByCategory[category.id].count" items-per-page="pageSize" ng-model="generalPostsByCategory[category.id].pageIndex" ng-change="pageGeneralChanged(category)"></pagination>
+                                </div>
+                            </v-pane-content>
+                        </v-pane>
+
+                    </v-accordion>
+                    <div class="panel-add-post">
+                        <a ui-sref="forum.create({teacher : false})">{{'forum.post.new' | translate}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div ui-view></div>
+</div>

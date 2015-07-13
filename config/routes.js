@@ -61,7 +61,23 @@ module.exports.routes = {
   /////////////////////////////////////////////
   ///////////   ContactController   ///////////
   /////////////////////////////////////////////
-  'post /contact': 'ContactController.contact'
+  'post /contact': 'ContactController.contact',
+
+
+
+  /////////////////////////////////////////////
+  /////////////   PostController   ////////////
+  /////////////////////////////////////////////
+  'get /post/findone/:id': 'PostController.findOne',
+  'get /post/postTeacherByCategory/:categoryId/:count/:pageSize/:pageIndex': 'PostController.postTeacherByCategory',
+  'get /post/postGeneralByCategory/:categoryId/:count/:pageSize/:pageIndex': 'PostController.postGeneralByCategory',
+  'get /post/downloadFile/:postId/:fd': 'PostController.downloadFile',
+
+
+  /////////////////////////////////////////////
+  ///////////   CommentController   ///////////
+  /////////////////////////////////////////////
+  'get /comment/postComments/:postId/:count/:pageSize/:pageIndex': 'CommentController.postComments'
 
   /***************************************************************************
   *                                                                          *
