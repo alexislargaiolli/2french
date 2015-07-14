@@ -10,12 +10,40 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
         $scope.periods = $stateParams.periods;
         $scope.messageContent;
         $scope.userToContact;
+        $scope.pageSize = 10;
+        $scope.pageIndex = 1;
+        $scope.count = 0;
+        $scope.loading = true;;
 
         $scope.search = function () {
-            console.log($scope.days);
-            $http.get('/profile/findByCity', {params: {city: $scope.city, days: $scope.days, periods : $scope.periods}}).
-                success(function (profiles, status, headers, config) {
-                    $scope.results = profiles;
+            $scope.loading = true;
+            $http.get('/profile/findByCity', {
+                params: {
+                    count: 1,
+                    city: $scope.city,
+                    days: $scope.days,
+                    periods: $scope.periods,
+                    pageSize : $scope.pageSize,
+                    pageIndex :$scope.pageIndex
+                }
+            }).
+                success(function (count, status, headers, config) {
+                    $scope.count = count.count;
+                    $http.get('/profile/findByCity', {
+                        params: {
+                            count: 0,
+                            city: $scope.city,
+                            days: $scope.days,
+                            periods: $scope.periods,
+                            pageSize : $scope.pageSize,
+                            pageIndex :$scope.pageIndex
+                        }
+                    }).success(function (profiles) {
+                        $scope.loading = false;
+                        $scope.results = profiles;
+                    }).error(function(data, status, headers, config){
+
+                    });
                 }).
                 error(function (data, status, headers, config) {
 
@@ -45,56 +73,25 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
             $scope.userToContact = u;
         }
 
-        if ($scope.isConnected) {
+        $scope.pageChanged = function () {
+            $scope.loading = true;
+            $http.get('/profile/findByCity', {
+                params: {
+                    count: 0,
+                    city: $scope.city,
+                    days: $scope.days,
+                    periods: $scope.periods,
+                    pageSize : $scope.pageSize,
+                    pageIndex :$scope.pageIndex
+                }
+            }).success(function (profiles) {
+                $scope.loading = false;
+                $scope.results = profiles;
+            }).error(function(data, status, headers, config){
 
-            $scope.favlist = [];
-
-            $scope.userFavList = null;
-
-            UserFavList.getFavList().then(function (favlist) {
-                $scope.userFavList = favlist;
             });
-
-            var saveFavList = function (cb) {
-                if ($scope.userFavList.id) {
-                    $scope.userFavList.$update(function (f) {
-                        $scope.userFavList = f;
-                        cb();
-                    });
-                }
-                else {
-                    $scope.userFavList.$save(function (f) {
-                        $scope.userFavList = f;
-                        cb();
-                    });
-                }
-            }
-
-            UserFavList.getFavList().then(function (favlist) {
-                $scope.favlist = [];
-                if (favlist && favlist.favorits && favlist.favorits.length > 0) {
-                    favlist.favorits.forEach(function (fav, index) {
-                        $scope.favlist[index] = fav.id;
-                    });
-                }
-            });
-
-            $scope.addFavorit = function (profileId) {
-                var index = $scope.favlist.indexOf(profileId);
-                if (index == -1) {
-                    $scope.userFavList.favorits.push(profileId);
-                    saveFavList(function () {
-                        $scope.favlist.push(profileId);
-                    });
-                }
-                else {
-                    $scope.userFavList.favorits.splice(index, 1);
-                    saveFavList(function () {
-                        $scope.favlist.splice(index, 1);
-                    });
-                }
-            }
         }
+
 
     }
 ]);

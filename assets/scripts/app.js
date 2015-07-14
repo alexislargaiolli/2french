@@ -194,6 +194,15 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
                 }
             })
 
+            .state('reservation', {
+                url: '/reservation/:profileId/:formula',
+                controller: 'ReservationCtrl',
+                templateUrl: 'views/reservation.html',
+                data: {
+                    auth: true
+                }
+            })
+
             .state('admin', {
                 url: '/admin',
                 templateUrl: 'views/admin.html',
@@ -303,6 +312,14 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
                     auth: true
                 }
             })
+            .state('planning', {
+                url: '/planning',
+                templateUrl: 'views/planning.html',
+                controller: 'PlanningCtrl',
+                data: {
+                    auth: true
+                }
+            })
             .state('contact', {
                 url: '/contact',
                 templateUrl: 'views/contact.html',
@@ -384,8 +401,6 @@ tooFrenchApp.run(['$rootScope', '$state', 'AUTH_EVENTS', 'AuthService', 'editabl
         }, function () {
             $rootScope.$on('$stateChangeStart', function (event, next) {
                 if (next.data) {
-                    console.log('test');
-                    console.log(event);
                     if (next.data.auth === true) {
                         if (!AuthService.isAuthenticated()) {
                             event.preventDefault();
@@ -422,9 +437,9 @@ tooFrenchControllers.config(function (uiSelectConfig) {
 angular.module('tooFrenchService', ['ngRoute', 'ngResource']);
 
 
-tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope', '$state', '$http', '$timeout', 'USER_ROLES', 'AUTH_EVENTS', 'LOCALE_EVENTS', 'MESSAGE_EVENTS', 'AuthService', 'Session', '$translate', 'Profile', 'Messagerie',
+tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope', '$state', '$http', '$timeout', 'USER_ROLES', 'AUTH_EVENTS', 'LOCALE_EVENTS', 'MESSAGE_EVENTS', 'AuthService', 'Session', '$translate', 'Profile', 'Messagerie', 'Reservation',
 
-    function ($rootScope, $scope, $state, $http, $timeout, USER_ROLES, AUTH_EVENTS, LOCALE_EVENTS, MESSAGE_EVENTS, AuthService, Session, $translate, Profile, Messagerie) {
+    function ($rootScope, $scope, $state, $http, $timeout, USER_ROLES, AUTH_EVENTS, LOCALE_EVENTS, MESSAGE_EVENTS, AuthService, Session, $translate, Profile, Messagerie, Reservation) {
         $scope.currentUser = null;
         $scope.currentProfile = null;
         $scope.userRoles = USER_ROLES;
@@ -435,6 +450,7 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
         $scope.lg = $translate.preferredLanguage().substring(0, 2);
         $scope.unseenMsgCount = 0;
         $rootScope.isConnected = false;
+        $rootScope.newResaCount = 0;
 
         $scope.setCurrentUser = function (user) {
             $scope.currentUser = user;
@@ -481,6 +497,9 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
                     $rootScope.diploma = data;
                 });
             }
+            Reservation.newTeacherResaCount().then(function(count){
+                $rootScope.newResaCount = count;
+            });
             $scope.setCurrentUser(Session.user);
         });
         $scope.$on(AUTH_EVENTS.logoutSuccess, function () {

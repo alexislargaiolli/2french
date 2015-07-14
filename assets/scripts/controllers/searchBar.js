@@ -30,6 +30,7 @@ tooFrenchControllers.controller('SearchBarCtrl', ['$scope', '$state', 'Profile',
 		$scope.schedules = [{period : moment().date(10).format('MM-YYYY'), undispos : []}];
 
 		$scope.onDayClick = function (event, date) {
+			event.preventDefault() // prevent the select to happen
 			var v = date.valueOf();
 			var i = findUndispo(v);
 			if (i == -1) {

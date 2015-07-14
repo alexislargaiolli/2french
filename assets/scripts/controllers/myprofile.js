@@ -223,7 +223,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
                 if ($scope.profile.location) {
                     lat = $scope.profile.location.geometry.location.k;
                     lon = $scope.profile.location.geometry.location.D;
-                    console.log($scope.profile.location.geometry);
                 }
                 $scope.map = {
                     center: {
@@ -270,6 +269,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
 
                 /* CALENDAR */
                 $scope.dayClick = function (event, date) {
+                    event.preventDefault() // prevent the select to happen
                     var v = date.valueOf();
                     var i = findUndispo(v);
                     if (i == -1) {

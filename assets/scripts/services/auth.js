@@ -17,7 +17,6 @@ tooFrenchServices.factory('AuthService', ['$http', '$q', 'Session' , function($h
 				// Make an AJAX call to check if the user is logged in
 				$http.get('/loggedin').success(function(data) {
 					if(data != 0 && data.user !== null){
-						console.log(data);
 						Session.create(data.user.id, data.user.id, data.user, data.user.role);
 						deferred.resolve(data.user);
 					}

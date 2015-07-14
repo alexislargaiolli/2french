@@ -1,0 +1,113 @@
+<div id="blackBar" class="small">
+    <div class="container">
+        <h1>{{'planning.title' | translate}}</h1>
+    </div>
+</div>
+<div id="planningContainer" class="container">
+    <div class="resa-item" ng-repeat="resa in teacherResas" ng-if="isTeacher">
+
+        <div class="profilePhoto">
+            <img class="profile-pins" ng-src="/images/pins.png" ng-show="resa.photo"/>
+            <img class="profile-photo" ng-src="{{resa.photo}}" ng-show="resa.photo"/>
+            <i class="fa fa-user" ng-show="!resa.photo"></i>
+        </div>
+
+        <div class="profileInfo">
+            <h3 class="blue-title f-20">{{resa.student}}</h3>
+
+            <div class="light-title">
+                {{resa.city.address_components[0].long_name}} ({{resa.city.address_components[3].long_name}})
+            </div>
+        </div>
+
+        <div class="arrow left resa-message">
+            <span ng-if="resa.message">{{resa.message}}</span>
+            <span ng-if="!resa.message">
+                {{'planning.reservations.message.empty' | translate}}
+            </span>
+        </div>
+        <div class="resaDetail">
+            <div>
+                <label>{{'planning.reservations.date' | translate}}</label> : {{resa.date | date : 'shortDate'}}
+            </div>
+            <div>
+                <label>{{'planning.reservations.time' | translate}} : </label>
+                {{resa.date | date : 'shortTime'}}
+            </div>
+            <div>
+                <label>{{'planning.reservations.activity' | translate}} : </label>
+                <span ng-if="resa.activity == 'true'">{{'reservation.form.yes' | translate}}</span>
+                <span ng-if="resa.activity == 'false'">{{'reservation.form.no' | translate}}</span>
+            </div>
+            <div>
+                <label>{{'planning.reservations.accomodation' | translate}} : </label>
+                <span ng-if="resa.accomodation == 'true'">{{'reservation.form.yes' | translate}}</span>
+                <span ng-if="resa.accomodation == 'false'">{{'reservation.form.no' | translate}}</span>
+            </div>
+            <div ng-if="resa.formula != null">
+                <label>{{'planning.reservations.formula' | translate}}</label>
+
+                <div class="formulaWrapper">
+                    <h4 class="blue-title f-14">{{resa.formula.name[$parent.lg]}}</h4>
+
+                    <p class="grey-text">{{resa.formula.description[$parent.lg]}},
+                        {{resa.formula.price}}€</p>
+                </div>
+            </div>
+            <div ng-if="resa.formula == null">
+                <div>
+                    <label>{{'planning.reservations.formation' | translate}} : </label>
+                    {{resa.formation.name[currentLg]}}
+                </div>
+                <div>
+                    <label>{{'planning.reservations.duration' | translate}} : </label>
+                    {{resa.hourCount.name}}
+                </div>
+            </div>
+        </div>
+        <div style="height:35px;">
+            <button type="button" class="btn green2-btn" data-toggle="modal"
+                    data-target="#contactDlg"><i class="fa fa-envelope rm-10"></i>{{'planning.reservations.contact' | translate}}
+            </button>
+            <div class="btn-group fright" dropdown>
+                <button type="button" class="btn dropdown-toggle" dropdown-toggle ng-class="{'pending' : resa.status == 'pending', 'green2-btn' : resa.status == 'validated', 'btn-danger' : resa.status == 'refused'}">
+                    <span ng-if="resa.status == 'pending'">{{'planning.reservations.status.pending' | translate}}</span>
+                    <span ng-if="resa.status == 'validated'">{{'planning.reservations.status.validated' | translate}}</span>
+                    <span ng-if="resa.status == 'refused'">{{'planning.reservations.status.refused' | translate}}</span>
+                     <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                    <li><a ng-click="changeStatus(resa, 'validated')">{{'planning.reservations.status.validate' | translate}}</a></li>
+                    <li><a ng-click="changeStatus(resa, 'refused')">{{'planning.reservations.status.refuse' | translate}}</a></li>
+                </ul>
+            </div>
+        </div>
+        <div id="contactDlg" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">{{'contact.dlg.title' | translate}} {{resa.student}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" ng-controller="ContactCtrl" ng-submit="sendMessage(resa.owner)">
+                            <textarea class="form-control" rows="3" ng-model="message.content"
+                                      ng-required="true"></textarea>
+
+                            <div class="center p-10">
+                                <button type="submit" class="btn btn-default">
+                                    <span class="fa fa-send"></span>{{'contact.dlg.send' | translate}}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div ng-if="reservations.length == 0" id="no-reservations">
+        {{'planning.reservations.empty' | translate}}
+    </div>
+</div>

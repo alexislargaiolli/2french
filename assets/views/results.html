@@ -30,7 +30,8 @@
                 <ul id="list-recommandation" class="list-group">
                     <li class="list-group-item" ng-repeat="r in recommandations">
                         <h4 class="list-group-item-heading" data-toggle="collapse" href="#collapseExample"
-                            aria-expanded="false" aria-controls="collapseExample">{{r.title[$parent.lg]}} <i class="fa fa-angle-down"></i></h4>
+                            aria-expanded="false" aria-controls="collapseExample">{{r.title[$parent.lg]}} <i
+                                class="fa fa-angle-down"></i></h4>
 
                         <div class="collapse toggle-panel" id="collapseExample">
                             <div class="well">
@@ -53,11 +54,12 @@
 
             <h2 class="block-title2 f-25 vm-10">{{'search.result.label2' | translate}} <strong>{{city}}</strong></h2>
 
-            <div class="row result-item" ng-repeat="p in results" ng-class='{first:$first}'>
+            <div class="row result-item" ng-repeat="p in results" ng-class='{first:$first}' ng-if="!loading">
 
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                     <div class="left-photo-border"></div>
                     <img class="photo" ng-src="{{p.photo}}" ng-show="p.photo"/>
+
                     <div class="photo-wrapper" ng-show="!p.photo">
                         <i class="fa fa-user"></i>
                     </div>
@@ -76,7 +78,8 @@
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 right">
                     <button type="button" class="calendar-btn btn btn-default blue-btn fa fa-calendar"></button>
-                    <button ng-if="isConnected" type="button" class="fav-btn btn btn-default blue-btn fa fa-star"
+                    <button ng-controller="FavListCtrl" ng-if="isConnected" type="button"
+                            class="fav-btn btn btn-default blue-btn fa fa-star"
                             ng-click="addFavorit(p.id)" ng-class="{favorit : favlist.indexOf(p.id) != -1}">
                         <span class="hidden-xs .hidden-sm lm-5">Favoris</span></button>
                     <button ng-if="isConnected" type="button"
@@ -85,9 +88,17 @@
                             data-target="#contactDlg">
                         <span class="hidden-xs .hidden-sm lm-5">Contacter</span>
                     </button>
-                    <div class="hour-rate" ng-if="p.hourRate">{{p.hourRate}}€ {{'search.result.price' | translate}}</div>
+                    <div class="hour-rate" ng-if="p.hourRate">{{p.hourRate}}€ {{'search.result.price' | translate}}
+                    </div>
                 </div>
 
+            </div>
+            <div class="data-loader" ng-if="loading">
+                <i class="fa fa-circle-o-notch fa-spin"></i>
+            </div>
+            <div class="paginator-wrapper center" ng-class="{'hidden': (loading || count < pageSize)}">
+                <pagination total-items="count" items-per-page="pageSize" ng-model="pageIndex"
+                            ng-change="pageChanged()"></pagination>
             </div>
         </div>
         <div id="contactDlg" class="modal fade">

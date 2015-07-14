@@ -100,6 +100,10 @@ module.exports.policies = {
   },
   CommentController:{
     '*':[ 'passport', 'sessionAuth']
+  },
+  ReservationController:{
+    '*':[ 'passport', 'sessionAuth'],
+    'myresa' : ['passport', 'sessionAuth']
   }
 
   /***************************************************************************

@@ -20,61 +20,137 @@ module.exports = {
     },
 
     findByCity: function (req, res) {
+        var count = req.allParams().count;
+        var pageSize = req.allParams().pageSize;
+        var pageIndex = req.allParams().pageIndex;
         var city = req.query['city'];
         var days = req.query['days'];
         var periods = req.query['periods'];
         if (days && days.length > 0) {
             days = JSON.parse(days);
             periods = JSON.parse(periods);
-
-            Profile.find(
-                {
-                    "city.address_components": {
-                        $elemMatch: {
-                            long_name: city
-                        }
-                    },
-                    "schedules": {
-                        $not : {
-                            $elemMatch: {
-                                "period" : {
-                                    $in : periods
-                                },
-                                "undispos": {
-                                    $in : days
+            if (count && count == 1) {
+                Profile.count(
+                    {
+                        where: {
+                            "city.address_components": {
+                                $elemMatch: {
+                                    long_name: city
+                                }
+                            }
+                            ,
+                            "schedules": {
+                                $not: {
+                                    $elemMatch: {
+                                        "period": {
+                                            $in: periods
+                                        }
+                                        ,
+                                        "undispos": {
+                                            $in: days
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
+                ).exec(function (err, count) {
+                        if (err) {
+                            return res.send('500', 'error')
+                        }
+                        res.send(200, {count: count});
+                    });
+            }
+            else {
+                if(!pageSize){
+                    pageSize = 10;
                 }
-            )
-                .populate('formations')
-                .populate('extras')
-                .exec(function (err, profiles) {
-                    if (err) {
-                        res.send('500', 'error')
+                if(!pageIndex){
+                    pageIndex = 1;
+                }
+                var skip = pageSize * (pageIndex - 1);
+                Profile.find(
+                    {
+                        where: {
+                            "city.address_components": {
+                                $elemMatch: {
+                                    long_name: city
+                                }
+                            },
+                            "schedules": {
+                                $not: {
+                                    $elemMatch: {
+                                        "period": {
+                                            $in: periods
+                                        },
+                                        "undispos": {
+                                            $in: days
+                                        }
+                                    }
+                                }
+                            }
+                        },
+                        skip: skip,
+                        limit: pageSize,
                     }
-                    res.send(200, profiles);
-                });
+                )
+                    .populate('formations')
+                    .populate('extras')
+                    .exec(function (err, profiles) {
+                        if (err) {
+                            return res.send('500', 'error')
+                        }
+                        res.send(200, profiles);
+                    });
+            }
         }
         else {
-            Profile.find(
-                {
-                    "city.address_components": {
-                        $elemMatch: {
-                            long_name: city
+            if (count && count == 1) {
+                Profile.count(
+                    {
+                        "city.address_components": {
+                            $elemMatch: {
+                                long_name: city
+                            }
                         }
                     }
+                ).exec(function (err, count) {
+                        if (err) {
+                            return res.send('500', 'error')
+                        }
+                        res.send(200, {count: count});
+                    });
+            }
+            else {
+                if(!pageSize){
+                    pageSize = 10;
                 }
-            )
-                .populate('formations')
-                .populate('extras')
-                .exec(function (err, profiles) {
-                    if (err) {
-                        res.send('500', 'error')
+                if(!pageIndex){
+                    pageIndex = 1;
+                }
+                var skip = pageSize * (pageIndex - 1);
+                Profile.find(
+                    {
+                        where: {
+                            "city.address_components": {
+                                $elemMatch: {
+                                    long_name: city
+                                }
+                            }
+                        },
+                        skip: skip,
+                        limit: pageSize,
                     }
-                    res.send(200, profiles);
-                });
+                )
+                    .populate('formations')
+                    .populate('extras')
+                    .exec(function (err, profiles) {
+                        if (err) {
+                            return res.send('500', 'error')
+                        }
+                        res.send(200, profiles);
+                    });
+            }
         }
     }
 };

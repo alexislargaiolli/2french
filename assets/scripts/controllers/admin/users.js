@@ -8,7 +8,7 @@
  */
 var ctrl = angular.module('tooFrenchCtrl');
 ctrl.controller('AdminUserCtrl', ['$scope', 'User', 'dialogs', function($scope, User, dialogs) {
-	$scope.users = User.query({skip: 0, limit: 2});
+	$scope.users = User.query();
 	$scope.user = null;
 
 	$scope.saveUser = function() {

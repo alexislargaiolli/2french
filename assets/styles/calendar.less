@@ -1,9 +1,15 @@
 .with-select .picker-day.picker-selected {
-  background: #04bfc6;
-  color: #fff;
+  background: #FFFECF;
+  color: #666!important;
 }
 
-.with-select .picker-day:not(.picker-off):not(.picker-empty):not(.picker-selected):hover {
+.with-select .picker-day:not(.picker-off):not(.picker-empty):not(.picker-selected):not(.day):hover {
+  background-color: #E2FBFC;
+  color: #000;
+  cursor: pointer;
+}
+
+.without-select .picker-day:not(.picker-off):not(.picker-empty):not(.picker-selected):not(.day):hover {
   background-color: #E2FBFC;
   color: #000;
   cursor: pointer;
@@ -41,12 +47,14 @@
   cursor: default;
 }
 
-.picker-day.day:hover {
-  background: #04bfc6 !important;
-}
-
 .picker-day:not(.picker-off):not(.picker-empty):hover {
   background-color: #E2FBFC;
   color: #000;
   cursor: pointer;
+}
+
+.picker-day:not(.picker-empty){
+  background-color: #04bfc6;
+  border: 1px solid #eeeeee;
+  color:#fff;
 }

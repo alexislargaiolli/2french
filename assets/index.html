@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css">
     <link rel="stylesheet" href="bower_components/ng-img-crop/compile/unminified/ng-img-crop.css">
     <link rel="stylesheet" href="scripts/libs/multiple-date-picker/dist/multiple-date-picker.css">
-    <link rel="stylesheet" href="bower_components/v-accordion/dist/v-accordion.css" />
+    <link rel="stylesheet" href="bower_components/v-accordion/dist/v-accordion.css"/>
 
     <!-- endbower -->
     <!-- endbuild -->
@@ -75,9 +75,17 @@
             <a href="#" id="btn-report-bug">{{'header.report.bug' | translate}}</a>
 
             <ul id="user-menu" class="nav navbar-nav navbar-right" ng-if="currentUser != null">
-                <li><a href="#"><i class="fa fa-pencil-square-o"></i></a></li>
-                <li><a ui-sref="messagerie" id="link-message"><i class="fa fa-envelope-o"></i><span class="badge"
-                                                                                                    ng-show="unseenMsgCount > 0">{{unseenMsgCount}}</span></a>
+                <li>
+                    <a ui-sref="planning" id="link-planning">
+                        <i class="fa fa-pencil-square-o"></i>
+                        <span class="badge" ng-show="newResaCount > 0">{{newResaCount}}</span>
+                    </a>
+                </li>
+                <li>
+                    <a ui-sref="messagerie" id="link-message">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge" ng-show="unseenMsgCount > 0">{{unseenMsgCount}}</span>
+                    </a>
                 </li>
                 <li id="user-menu-dropdown" class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -275,6 +283,9 @@
 <script src="scripts/controllers/forum/forum.js"></script>
 <script src="scripts/controllers/forum/forum-post.js"></script>
 <script src="scripts/controllers/forum/forum-create-post.js"></script>
+<script src="scripts/controllers/reservation.js"></script>
+<script src="scripts/controllers/planning.js"></script>
+<script src="scripts/controllers/favlist.js"></script>
 <!-- Services -->
 <script src="scripts/services/auth.js"></script>
 <script src="scripts/services/profile.js"></script>
@@ -292,6 +303,7 @@
 <script src="scripts/services/schedule.js"></script>
 <script src="scripts/services/postcategory.js"></script>
 <script src="scripts/services/post.js"></script>
+<script src="scripts/services/reservation.js"></script>
 
 <!-- Directives -->
 <script src="scripts/directives/directives.js"></script>
