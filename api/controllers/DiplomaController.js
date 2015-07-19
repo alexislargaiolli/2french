@@ -24,16 +24,21 @@ module.exports = {
                 res.send(500, 'Error while fetching diplomas');
             }
             else{
-                sails.services['util'].populateDeep('diploma', diplomas, 'owner.profile', function (err, diplomas) {
-                    if (err) {
-                        sails.log.error("ERR:", err);
-                    }
-                    diplomas.forEach(function(diploma){
-                        diploma.ownerId = diploma.owner.id;
-                        diploma.owner= diploma.owner.profile.firstname;
+                if(diplomas && diplomas.length > 0) {
+                    sails.services['util'].populateDeep('diploma', diplomas, 'owner.profile', function (err, diplomas) {
+                        if (err) {
+                            return res.sendError("error while populating diplomas");
+                        }
+                        diplomas.forEach(function (diploma) {
+                            diploma.ownerId = diploma.owner.id;
+                            diploma.owner = diploma.owner.profile.firstname;
+                        });
+                        res.send(200, diplomas);
                     });
+                }
+                else{
                     res.send(200, diplomas);
-                });
+                }
             }
         });
     },
