@@ -1,7 +1,7 @@
 var tooFrenchControllers = angular.module('tooFrenchCtrl');
-tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state', 'Profile', '$http', '$timeout', 'UserFavList', 'Session',
+tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state', 'Profile', '$http', '$timeout', 'UserFavList', 'Session', 'Schedule',
 
-    function ($scope, $stateParams, $state, Profile, $http, $timeout, UserFavList, Session) {
+    function ($scope, $stateParams, $state, Profile, $http, $timeout, UserFavList, Session, Schedule) {
         $scope.results = [];
         $scope.recommandations = [];
         $scope.utillinks = [];
@@ -13,7 +13,10 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
         $scope.pageSize = 10;
         $scope.pageIndex = 1;
         $scope.count = 0;
-        $scope.loading = true;;
+        $scope.loading = true;
+        ;
+        $scope.period = moment().date(10).format('MM-YYYY');
+        $scope.scheduleIndex = -1;
 
         $scope.search = function () {
             $scope.loading = true;
@@ -23,8 +26,8 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
                     city: $scope.city,
                     days: $scope.days,
                     periods: $scope.periods,
-                    pageSize : $scope.pageSize,
-                    pageIndex :$scope.pageIndex
+                    pageSize: $scope.pageSize,
+                    pageIndex: $scope.pageIndex
                 }
             }).
                 success(function (count, status, headers, config) {
@@ -35,13 +38,15 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
                             city: $scope.city,
                             days: $scope.days,
                             periods: $scope.periods,
-                            pageSize : $scope.pageSize,
-                            pageIndex :$scope.pageIndex
+                            pageSize: $scope.pageSize,
+                            pageIndex: $scope.pageIndex
                         }
                     }).success(function (profiles) {
                         $scope.loading = false;
                         $scope.results = profiles;
-                    }).error(function(data, status, headers, config){
+
+                        $scope.schedules = [];
+                    }).error(function (data, status, headers, config) {
 
                     });
                 }).
@@ -69,6 +74,33 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
         }
         $scope.search();
 
+        $scope.currentScheduleProfileId;
+        $scope.initSchedule = function (profileId) {
+            $scope.currentScheduleProfileId = profileId;
+            $scope.period = moment().date(10).format('MM-YYYY');
+            $scope.schedules = [];
+            $scope.scheduleIndex = findShedule($scope.period);
+            if ($scope.scheduleIndex == -1) {
+                Schedule.getSchedule($scope.currentScheduleProfileId, $scope.period).then(function(schedule){
+                    $scope.scheduleIndex = $scope.schedules.push(schedule) - 1;
+                });
+            }
+        }
+
+        $scope.dayClick = function (event, date) {
+            event.preventDefault() // prevent the select to happen
+        }
+
+        $scope.onMonthChanged = function (newMonth, oldMonth) {
+            $scope.period = newMonth.format('MM-YYYY');
+            $scope.scheduleIndex = findShedule($scope.period);
+            if ($scope.scheduleIndex == -1) {
+                Schedule.getSchedule($scope.currentScheduleProfileId, $scope.period).then(function(schedule){
+                    $scope.scheduleIndex = $scope.schedules.push(schedule) - 1;
+                });
+            }
+        };
+
         $scope.setUserToContact = function (u) {
             $scope.userToContact = u;
         }
@@ -81,17 +113,30 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
                     city: $scope.city,
                     days: $scope.days,
                     periods: $scope.periods,
-                    pageSize : $scope.pageSize,
-                    pageIndex :$scope.pageIndex
+                    pageSize: $scope.pageSize,
+                    pageIndex: $scope.pageIndex
                 }
             }).success(function (profiles) {
                 $scope.loading = false;
                 $scope.results = profiles;
-            }).error(function(data, status, headers, config){
+            }).error(function (data, status, headers, config) {
 
             });
         }
 
+
+        var findShedule = function (period) {
+            if ($scope.schedules.length == 0) {
+                return -1;
+            }
+            var i = 0;
+            for (i = 0; i < $scope.schedules.length; i++) {
+                if ($scope.schedules[i].period == period) {
+                    return i;
+                }
+            }
+            return -1;
+        }
 
     }
 ]);
