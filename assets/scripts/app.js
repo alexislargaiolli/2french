@@ -380,52 +380,38 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
             }
             $rootScope.currentState = toState.name;
         });
-        AuthService.getUser().then(function () {
-            $rootScope.$on('$stateChangeStart', function (event, next) {
-                if (next.data) {
-                    if (next.data.auth === true) {
-                        if (!AuthService.isAuthenticated()) {
+
+        var processChange = function(event, next){
+            if (next.data) {
+                if (next.data.auth === true) {
+                    if (!AuthService.isAuthenticated()) {
+                        event.preventDefault();
+                        $state.go('login');
+                        $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
+                    } else if (next.data.authorizedRoles) {
+                        if (!AuthService.isAuthorized(next.data.authorizedRoles)) {
                             event.preventDefault();
-                            $state.go('login');
-                            $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-                        } else if (next.data.authorizedRoles) {
-                            if (!AuthService.isAuthorized(next.data.authorizedRoles)) {
-                                event.preventDefault();
-                                $state.go('forbidden');
-                                $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-                            }
-                        }
-                    }
-                    if (next.data.auth === false) {
-                        if (AuthService.isAuthenticated()) {
-                            event.preventDefault();
+                            $state.go('forbidden');
+                            $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
                         }
                     }
                 }
-            });
-        }, function () {
-            $rootScope.$on('$stateChangeStart', function (event, next) {
-                if (next.data) {
-                    if (next.data.auth === true) {
-                        if (!AuthService.isAuthenticated()) {
-                            event.preventDefault();
-                            $state.go('login');
-                            $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
-                        } else if (next.data.authorizedRoles) {
-                            if (!AuthService.isAuthorized(next.data.authorizedRoles)) {
-                                event.preventDefault();
-                                $state.go('forbidden');
-                                $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
-                            }
-                        }
-                    }
-                    if (next.data.auth === false) {
-                        if (AuthService.isAuthenticated()) {
-                            event.preventDefault();
-                        }
+                if (next.data.auth === false) {
+                    if (AuthService.isAuthenticated()) {
+                        event.preventDefault();
                     }
                 }
-            });
+            }
+        }
+        $rootScope.$on('$stateChangeStart', function (event, next) {
+            if($rootScope.sessionInitialized){
+                processChange(event, next);
+            }
+            else{
+                AuthService.getUser().then(function () {
+                    processChange(event, next);
+                });
+            }
         });
     }
 ]);

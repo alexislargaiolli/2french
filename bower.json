@@ -6,7 +6,7 @@
     "json3": "^3.3.0",
     "es5-shim": "^4.0.0",
     "bootstrap": "^3.2.0",
-    "angular-animate": "1.4.3",
+    "angular-animate": "~1.4.3",
     "angular-cookies": "~1.4.x",
     "angular-resource": "~1.4.x",
     "angular-route": "~1.4.x",
@@ -34,7 +34,6 @@
     "angular-recaptcha": "~2.2.4",
     "v-accordion": "~1.2.7",
     "angular-ui-router-anim-in-out": "~0.0.13",
-    "angular-gsapify-router": "~0.0.23",
     "angular-bootstrap-lightbox": "~0.6.1"
   },
   "devDependencies": {
@@ -48,6 +47,6 @@
     "lodash": "~3.7.0",
     "moment": "~2.8.3",
     "angular-bootstrap": "^0.13.0",
-    "angular-animate": "~1.2.14"
+    "angular-animate": "1.4.3"
   }
 }

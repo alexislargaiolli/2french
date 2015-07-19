@@ -23,16 +23,18 @@
                     <div>
                         <div class="row">
                             <div class="col-sm-3 col-md-3 col-lg-3">
-                                <div id="profilePhoto" class="thumbnail">
-                                    <img id="profile-pins" ng-src="/images/pins.png" ng-show="profile.photo"/>
+                                <div class="profilePhoto thumbnail">
+                                    <img class="profile-pins" ng-src="/images/pins.png" ng-show="profile.photo"/>
                                     <img ng-src="{{profile.photo}}" ng-show="profile.photo"/>
                                     <i class="fa fa-user" ng-show="!profile.photo"></i>
                                 </div>
                             </div>
                             <div class="col-sm-9 col-md-9 col-lg-9">
                                 <div id="btns-wrapper" ng-if="isConnected">
-                                    <button ng-controller="FavListCtrl" type="button" class="fav-btn btn btn-default blue-btn fa fa-star"
-                                            ng-click="addFavorit(profile.id)" ng-class="{favorit : favlist.indexOf(profile.id) != -1}">
+                                    <button ng-controller="FavListCtrl" type="button"
+                                            class="fav-btn btn btn-default blue-btn fa fa-star"
+                                            ng-click="addFavorit(profile.id)"
+                                            ng-class="{favorit : favlist.indexOf(profile.id) != -1}">
                                         <span class="hidden-xs .hidden-sm lm-5">Favoris</span></button>
                                     <button type="button" class="btn btn-default green2-btn fa fa-envelope"
                                             data-toggle="modal"
@@ -98,16 +100,23 @@
                     <h4 class="block-title2 f-16 mt-35">Hébergement</h4>
                     <hr/>
                     <div class="row">
-                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                            <div class="thumbnail">
-                                <carousel class="accomodationCarousel" interval="5000">
-                                    <slide ng-repeat="photo in profile.photos">
-                                        <img ng-src="{{photo.url}}" style="margin:auto;"/>
-                                    </slide>
-                                </carousel>
+                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                            <div id="photos-viewer">
+                                <div id="photos-selected">
+                                    <img ng-src="{{profile.photos[selectedPhotoIndex].url}}"
+                                         ng-click="openLightboxModal()"
+                                         ng-if="profile.photos[selectedPhotoIndex]"/>
+
+                                    <i class="fa fa-picture-o fa-5x" ng-if="!profile.photos[selectedPhotoIndex]"></i>
+                                </div>
+                                <ul id="photos-list">
+                                    <li ng-click="selectPhoto($index)" ng-repeat="photo in profile.photos track by $index">
+                                        <img ng-src="{{photo.url}}" />
+                                    </li>
+                                </ul>
                             </div>
                         </div>
-                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                             <h5 class="block-title2 f-16 mt-0">{{'profile.equipements'| translate}}</h5>
 
                             <div>
@@ -128,7 +137,7 @@
                     </div>
                     <hr/>
                     <div class="row" ng-if="profile.activeAccomodation && map">
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <ui-gmap-google-map center='map.center' zoom='map.zoom'>
                                 <ui-gmap-markers models="map.markers"
                                                  doCluster="true"
@@ -142,7 +151,7 @@
                                 </ui-gmap-markers>
                             </ui-gmap-google-map>
                         </div>
-                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                             <h5 class="block-title2 f-16 mt-0">{{'profile.location'| translate}}</h5>
 
                             <p>{{profile.accomodationDescription[$parent.lg]}}</p>

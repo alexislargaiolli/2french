@@ -312,9 +312,9 @@
 						</span>
 						<span>
 							<input type="text" id="accomodationAdressInput" class="form-control" g-places-autocomplete
-                                   options="optionsLocation" force-selection="true" ng-model="place"
-                                   ng-show="editLocation"/>
-							<button type="button" class="btn btn-primary btn-xs" ng-model="editLocation" ng-click="updateLocation()">
+                                   options="optionsLocation" force-selection="true" ng-model="profile.location" ng-if="editLocation" />
+							<button type="button" class="btn btn-primary btn-xs" ng-model="editLocation" btn-checkbox
+                                    btn-checkbox-true="true" btn-checkbox-false="false">
                                 <i class="fa fa-pencil"></i>
                             </button>
 						</span>

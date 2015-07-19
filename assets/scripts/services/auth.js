@@ -9,10 +9,9 @@
  */
 var tooFrenchServices = angular.module('tooFrenchService');
 
-tooFrenchServices.factory('AuthService', ['$http', '$q', 'Session' , function($http, $q, Session){
+tooFrenchServices.factory('AuthService', ['$http', '$rootScope', '$q', 'Session' , function($http, $rootScope, $q, Session){
 	return {
 			getUser: function() {
-				console.log('auth service getuser');
 				var deferred = $q.defer();
 				// Make an AJAX call to check if the user is logged in
 				$http.get('/loggedin').success(function(data) {
@@ -21,8 +20,9 @@ tooFrenchServices.factory('AuthService', ['$http', '$q', 'Session' , function($h
 						deferred.resolve(data.user);
 					}
 					else{
-						deferred.reject();
+						deferred.resolve();
 					}
+					$rootScope.sessionInitialized = 1;
 				});
 				return deferred.promise;
 			},

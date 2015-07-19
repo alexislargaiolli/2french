@@ -14,7 +14,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
         };
         $scope.period = moment().date(10).format('MM-YYYY');
         $scope.scheduleIndex = -1;
-        $scope.place;
 
         var findShedule = function (period) {
             if ($scope.profile.schedules.length == 0) {
@@ -53,8 +52,9 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
          * Save profile modifications
          */
         $scope.save = function () {
+            console.log($scope.profile.location.lat);
             $scope.profile.$update(function (p, response) {
-
+                console.log(p.location.lat);
             });
 
         }
@@ -94,7 +94,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             $scope.equipments = Equipment.query();
             $scope.services = Service.query();
             $scope.extras = Extra.query();
-            $scope.optionsLocation = {};
+            $scope.optionsLocation = {types: ['geocode']};
             $scope.diplomaFile = null;
             $scope.diplomaUploading = false;
             $scope.selectedPhotoIndex = 0;
@@ -163,7 +163,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
              */
             $scope.updateLocation = function () {
                 if ($scope.editLocation) {
-                    console.log($scope.place.geometry.location.lat());
                     updateMap();
                     $scope.editLocation = false;
                 }
@@ -171,6 +170,49 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                     $scope.editLocation = true;
                 }
             }
+
+            $scope.$on('g-places-autocomplete:select', function (event, args) {
+                if(!$scope.profile.accomodationCoords){
+                    $scope.profile.accomodationCoords = {};
+                }
+                $scope.profile.accomodationCoords.lat = args.geometry.location.lat();
+                $scope.profile.accomodationCoords.lng = args.geometry.location.lng();
+                updateMap();
+            });
+
+            /**
+             * Update the google map component
+             */
+            var updateMap = function () {
+                var lat, lon;
+                if ($scope.profile.accomodationCoords) {
+                    lat = $scope.profile.accomodationCoords.lat;
+                    lon = $scope.profile.accomodationCoords.lng;
+                }
+                if(lat){
+                    $scope.map = {
+                        center: {
+                            latitude: lat,
+                            longitude: lon
+                        },
+                        zoom: 14
+                    };
+                    $scope.map.markers = [{
+                        "id" : '1',
+                        "latitude": lat,
+                        "longitude": lon,
+                        "title": $scope.profile.location.formatted_address,
+                        "distance": "585m",
+                        "hoofdcat": "70",
+                        "img": "http://snm-crm.nl/wealert/img/70/ambu_6_thumb.jpg?2u",
+                        "reactiecount": "0",
+                        "likecount": "0",
+                        "showWindow": false,
+                        "date": "2u"
+                    }];
+                }
+            }
+
 
             /**
              * Initialization of google map component
@@ -231,40 +273,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                 $('#dlgAddFormation').modal('hide');
             }
 
-            /**
-             * Update the google map component
-             */
-            var updateMap = function () {
-                var lat = $scope.profile.city.geometry.location.lat;
-                var lon = $scope.profile.city.geometry.location.lng;
-                if ($scope.profile.location) {
-                    lat = $scope.profile.city.geometry.location.lat;
-                    lon = $scope.profile.city.geometry.location.lng;
-                }
-                $scope.map = {
-                    center: {
-                        latitude: lat,
-                        longitude: lon
-                    },
-                    zoom: 8
-                };
-                $scope.map.markers = [{
-                    "id": "50651",
-                    "latitude": lat,
-                    "longitude": lon,
-                    "title": "Zorgambulance met spoed naar W. Plokkerstraat in Spijkenisse",
-                    "distance": "585m",
-                    "hoofdcat": "70",
-                    "img": "http://snm-crm.nl/wealert/img/70/ambu_6_thumb.jpg?2u",
-                    "reactiecount": "0",
-                    "likecount": "0",
-                    "showWindow": false,
-                    "date": "2u"
-                }];
-            }
-            /*Schedule.getSchedule(Session.user.profile, moment().date(10).format('MM-YYYY')).then(function (schedule) {
-             $scope.schedule = schedule;
-             });*/
 
 
             var findUndispo = function (date) {

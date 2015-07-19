@@ -56,10 +56,16 @@ module.exports = {
 			collection: 'Service'
 		},
 		/**
-		 * Location of accomodation
+		 * Google places info of accomodation
 		 */
 		location: {
 			type: 'json'
+		},
+		/**
+		 * Accomodation latitude and longitude
+		 */
+		accomodationCoords:{
+			type : 'json'
 		},
 		/**
 		 * Photos of accomodation

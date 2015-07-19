@@ -37,9 +37,9 @@ tooFrenchControllers.controller('ProfileCtrl', ['$scope', '$stateParams', 'uiGma
 
             var lat = null;
             var lon = null;
-            if ($scope.profile.location) {
-                lat = $scope.profile.location.geometry.location.k;
-                lon = $scope.profile.location.geometry.location.D;
+            if ($scope.profile.accomodationCoords) {
+                lat = $scope.profile.accomodationCoords.lat;
+                lon = $scope.profile.accomodationCoords.lng;
             }
             if (lat && lon) {
                 $scope.map = {
@@ -47,13 +47,13 @@ tooFrenchControllers.controller('ProfileCtrl', ['$scope', '$stateParams', 'uiGma
                         latitude: lat,
                         longitude: lon
                     },
-                    zoom: 8
+                    zoom: 14
                 };
                 $scope.map.markers = [{
-                    "id": "50651",
+                    "id" : '1',
                     "latitude": lat,
                     "longitude": lon,
-                    "title": "Zorgambulance met spoed naar W. Plokkerstraat in Spijkenisse",
+                    "title": $scope.profile.location.formatted_address,
                     "distance": "585m",
                     "hoofdcat": "70",
                     "img": "http://snm-crm.nl/wealert/img/70/ambu_6_thumb.jpg?2u",
