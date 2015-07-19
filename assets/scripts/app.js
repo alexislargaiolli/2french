@@ -366,7 +366,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
 
 tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache',
     function ($rootScope, $state, $window, AUTH_EVENTS, AuthService, editableOptions, $templateCache) {
-        editableOptions.theme = 'bootstrap';
+        editableOptions.theme = 'bs3';
         $templateCache.remove('index.html');
 
         $rootScope.$on('$viewContentLoaded',

@@ -104,6 +104,7 @@
   "myprofile.motivation.empty": "Saisissez vos motivations",
   "myprofile.favlist.title": "Professeurs favoris",
   "myprofile.favlist.empty": "Aucun professeur favoris.",
+  "myprofile.accomodation.description.title": "Description de l'hebergement.",
   "myprofile.accomodation.description.empty": "Description de l'hebergement.",
   "profile.services": "Services",
   "profile.services.empty": "Non renseigné",
@@ -204,8 +205,8 @@
   "planning.reservations.message.empty": "Aucun message",
   "planning.reservations.status.pending": "En attente",
   "planning.reservations.status.validate": "Accepter",
-  "planning.reservations.status.validated": "Acceptée",
+  "planning.reservations.status.validated": "Vous avez accepté cette réservation.",
   "planning.reservations.status.refuse": "Refuser",
-  "planning.reservations.status.refused": "Refusée",
+  "planning.reservations.status.refused": "Vous avez refusé cette réservation",
   "planning.reservations.contact": "Contacter"
 }

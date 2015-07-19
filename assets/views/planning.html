@@ -4,29 +4,39 @@
     </div>
 </div>
 <div id="planningContainer" class="container">
-    <div class="resa-item" ng-repeat="resa in teacherResas" ng-if="isTeacher">
+    <div class="resa-item row" ng-repeat="resa in teacherResas" ng-if="isTeacher">
+        <div class="col-md-7 col-lg-7">
 
-        <div class="profilePhoto">
-            <img class="profile-pins" ng-src="/images/pins.png" ng-show="resa.photo"/>
-            <img class="profile-photo" ng-src="{{resa.photo}}" ng-show="resa.photo"/>
-            <i class="fa fa-user" ng-show="!resa.photo"></i>
-        </div>
-
-        <div class="profileInfo">
-            <h3 class="blue-title f-20">{{resa.student}}</h3>
-
-            <div class="light-title">
-                {{resa.city.address_components[0].long_name}} ({{resa.city.address_components[3].long_name}})
+            <div class="profilePhoto">
+                <img class="profile-pins" ng-src="/images/pins.png" ng-show="resa.photo"/>
+                <img class="profile-photo" ng-src="{{resa.photo}}" ng-show="resa.photo"/>
+                <i class="fa fa-user" ng-show="!resa.photo"></i>
             </div>
-        </div>
 
-        <div class="arrow left resa-message">
-            <span ng-if="resa.message">{{resa.message}}</span>
+            <div class="profileInfo">
+                <h3 class="blue-title f-20">{{resa.student}}</h3>
+
+                <div class="light-title">
+                    {{resa.city.address_components[0].long_name}} ({{resa.city.address_components[3].long_name}})
+                </div>
+            </div>
+
+            <div class="p-10">
+                <div class="arrow left resa-message">
+                    <span ng-if="resa.message">{{resa.message}}</span>
             <span ng-if="!resa.message">
                 {{'planning.reservations.message.empty' | translate}}
             </span>
+                </div>
+
+                <button type="button" class="btn blue-btn" data-toggle="modal"
+                        data-target="#contactDlg"><i class="fa fa-envelope rm-10"></i>{{'planning.reservations.contact'
+                    | translate}}
+                </button>
+            </div>
         </div>
-        <div class="resaDetail">
+
+        <div class="col-md-5 col-lg-5 resaDetail">
             <div>
                 <label>{{'planning.reservations.date' | translate}}</label> : {{resa.date | date : 'shortDate'}}
             </div>
@@ -64,22 +74,19 @@
                     {{resa.hourCount.name}}
                 </div>
             </div>
-        </div>
-        <div style="height:35px;">
-            <button type="button" class="btn green2-btn" data-toggle="modal"
-                    data-target="#contactDlg"><i class="fa fa-envelope rm-10"></i>{{'planning.reservations.contact' | translate}}
-            </button>
-            <div class="btn-group fright" dropdown>
-                <button type="button" class="btn dropdown-toggle" dropdown-toggle ng-class="{'pending' : resa.status == 'pending', 'green2-btn' : resa.status == 'validated', 'btn-danger' : resa.status == 'refused'}">
-                    <span ng-if="resa.status == 'pending'">{{'planning.reservations.status.pending' | translate}}</span>
+            <div class="btn-wrapper">
+                <div ng-if="resa.status == 'pending'">
+                    <button type="button" class="btn btn-danger" ng-click="changeStatus(resa, 'refused')">
+                        {{'planning.reservations.status.refuse' | translate}}
+                    </button>
+                    <button type="button" class="btn green2-btn" ng-click="changeStatus(resa, 'validated')">
+                        {{'planning.reservations.status.validate' | translate}}
+                    </button>
+                </div>
+                <div class="cancel-wrapper pending" ng-if="resa.status != 'pending'">
                     <span ng-if="resa.status == 'validated'">{{'planning.reservations.status.validated' | translate}}</span>
                     <span ng-if="resa.status == 'refused'">{{'planning.reservations.status.refused' | translate}}</span>
-                     <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                    <li><a ng-click="changeStatus(resa, 'validated')">{{'planning.reservations.status.validate' | translate}}</a></li>
-                    <li><a ng-click="changeStatus(resa, 'refused')">{{'planning.reservations.status.refuse' | translate}}</a></li>
-                </ul>
+                </div>
             </div>
         </div>
         <div id="contactDlg" class="modal fade">

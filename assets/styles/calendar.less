@@ -4,13 +4,15 @@
 }
 
 .with-select .picker-day:not(.picker-off):not(.picker-empty):not(.picker-selected):not(.day):hover {
-  background-color: #E2FBFC;
+  background-color: #04bfc6;
+  opacity:0.7;
   color: #000;
   cursor: pointer;
 }
 
 .without-select .picker-day:not(.picker-off):not(.picker-empty):not(.picker-selected):not(.day):hover {
-  background-color: #E2FBFC;
+  background-color: #04bfc6;
+  opacity:0.7;
   color: #000;
   cursor: pointer;
 }
@@ -18,6 +20,11 @@
 .without-select .picker-day.picker-selected {
   background: #fff;
   color: #000;
+}
+
+.picker-day.am:hover, .picker-day.pm:hover, .picker-day.day:hover{
+  opacity:0.7;
+  cursor: pointer;
 }
 
 .picker-day.am {
@@ -48,13 +55,15 @@
 }
 
 .picker-day:not(.picker-off):not(.picker-empty):hover {
-  background-color: #E2FBFC;
+  background-color: #04bfc6;
   color: #000;
   cursor: pointer;
+  opacity:0.7;
 }
 
 .picker-day:not(.picker-empty){
   background-color: #04bfc6;
   border: 1px solid #eeeeee;
   color:#fff;
+  font-weight: bold;
 }

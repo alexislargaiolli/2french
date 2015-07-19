@@ -105,12 +105,14 @@ body {
       margin-top: -10px;
       z-index: 100;
       position: absolute;
+      background-color: #ff7108;
     }
     #link-message .badge {
       margin-left: -10px;
       margin-top: -10px;
       z-index: 100;
       position: absolute;
+      background-color: #ff7108;
     }
     #user-menu-dropdown a {
       padding-top: 5px;
@@ -471,6 +473,18 @@ body {
   }
 }
 
+.ui-select-multiple.ui-select-bootstrap .ui-select-match-item{
+  color: #8D8D8D;
+  border: none;
+  padding: 5px 6px;
+  background: #F5F5F5;
+}
+
+.ui-select-multiple.ui-select-bootstrap .ui-select-match .close{
+  padding: 3px;
+  margin: 0 5px 3px 0;
+}
+
 #myprofile-container {
   #profile-completion {
     padding: 0 20px;
@@ -536,6 +550,9 @@ body {
       border-color: #d7d7d7;
     }
     #profile-header {
+      .profilePhoto{
+        padding: 8px 8px 10px 8px!important;
+      }
       background: #fff;
       .row {
         margin: 10px 10px 0 10px;
@@ -587,6 +604,20 @@ body {
     }
   }
 
+  #accomodationDescPan{
+    form{
+      width:100%;
+      .editable-buttons{
+        display: block;
+        text-align: center;
+        padding:10px;
+      }
+      .editable-controls{
+        display: block;
+      }
+    }
+  }
+
   .angular-google-map-container {
     height: 300px;
   }
@@ -620,6 +651,8 @@ body {
     color: @green;
     padding: 2px;
     border: 1px solid transparent;
+    background: none;
+    font-size: 16px;
   }
   .edit-icon:hover {
     border: 1px solid @green;
@@ -639,12 +672,32 @@ body {
 /* ACCOMODATION PHOTO VIEWER */
 #photos-viewer{
   #photos-menu{
-    text-align: center;
+    text-align: right;
+    height: 50px;
+    margin-top: -50px;
+    background-color: rgba(0, 0, 0, 0.39);
+    position: relative;
+    z-index: 1000;
+    padding: 8px;
+    #btn-remove-photo{
+      background-color: transparent;
+      color:#fff;
+      font-size: 20px;
+      padding: 2px 10px;
+      border-color: #8D8D8D;
+    }
+    #btn-remove-photo:hover{
+      background-color: #444;
+    }
+  }
+  #accomodationUploadBtn button{
+    margin-top:120px;
+    padding: 15px 20px;
   }
   #photos-selected{
     display: inline-block;
     vertical-align: top;
-    width:74%;
+    width:78%;
     padding:5px 0;
     text-align: center;
     img{
@@ -657,7 +710,7 @@ body {
   #photos-list{
     display: inline-block;
     vertical-align: top;
-    width:24%;
+    width:20%;
     padding:0;
     list-style: none;
     li{
@@ -676,6 +729,8 @@ body {
       }
       i{
         font-size: 40px;
+        margin: 15px 0;
+        color:@very-light-gray;
       }
     }
   }
@@ -689,8 +744,6 @@ body {
   width: 150px;
   padding: 8px 8px 25px 8px;
   text-align: center;
-  .no-radius;
-  box-shadow: -1px -1px 5px #d7d7d7, 1px 1px 5px #d7d7d7;
   .profile-photo {
     width: 90%;
   }
@@ -1315,16 +1368,12 @@ hr {
   }
 
   .resaDetail{
-    display: inline-block;
-    vertical-align: middle;
-    width:250px;
     border-left:1px solid @very-light-gray;
-    padding-left:10px;
-    margin-left:10px;
     .formulaWrapper{
       border:1px dashed @very-light-gray;
       padding:5px;
       border-radius: 3px;
+      margin-bottom: 10px;
     }
   }
 
@@ -1338,6 +1387,9 @@ hr {
     display: inline-block;
     vertical-align: middle;
     padding: 10px;
+    h3{
+      margin-top:0;
+    }
   }
 
   .resa-item {
@@ -1349,9 +1401,25 @@ hr {
 
   .resa-message {
     padding: 10px;
-    width:40%;
+    width:60%;
     display: inline-block;
     vertical-align: middle;
+  }
+
+  .btn-wrapper{
+    button{
+      width:120px;
+    }
+    .contact-wrapper{
+
+    }
+    .cancel-wrapper{
+      padding: 6px 12px;
+    }
+    div{
+      display: inline-block;
+      vertical-align: middle;
+    }
   }
 }
 
