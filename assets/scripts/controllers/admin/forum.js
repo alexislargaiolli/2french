@@ -12,7 +12,6 @@ ctrl.controller('AdminPostCategoryCtrl', ['$scope', 'PostCategory', 'dialogs', f
 	$scope.category = new PostCategory;
 	$scope.createPostCategory = function() {
 		$scope.category = new PostCategory;
-		$scope.category.name = [];
 	}
 	$scope.savePostCategory = function() {
 		if ($scope.category.id) {
