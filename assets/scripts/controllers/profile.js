@@ -1,9 +1,10 @@
 var tooFrenchControllers = angular.module('tooFrenchCtrl');
-tooFrenchControllers.controller('ProfileCtrl', ['$scope', '$stateParams', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Service', 'FormationLevel',
+tooFrenchControllers.controller('ProfileCtrl', ['$scope', '$stateParams', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Service', 'FormationLevel', 'Lightbox',
 
-    function ($scope, $stateParams, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Service, FormationLevel) {
+    function ($scope, $stateParams, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Service, FormationLevel, Lightbox) {
         $scope.period = moment().date(10).format('MM-YYYY');
         $scope.scheduleIndex = -1;
+        $scope.selectedPhotoIndex = 0;
 
         var findShedule = function (period) {
             if ($scope.profile.schedules.length == 0) {
@@ -80,5 +81,15 @@ tooFrenchControllers.controller('ProfileCtrl', ['$scope', '$stateParams', 'uiGma
         uiGmapGoogleMapApi.then(function (maps) {
 
         });
+
+        $scope.selectPhoto = function(index){
+            $scope.selectedPhotoIndex = index;
+        }
+
+        $scope.openLightboxModal = function () {
+            if($scope.profile.photos[$scope.selectedPhotoIndex]){
+                Lightbox.openModal($scope.profile.photos, $scope.selectedPhotoIndex);
+            }
+        };
     }
 ]);

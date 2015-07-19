@@ -226,6 +226,7 @@ body {
   }
 }
 
+
 #home-subheader {
   background-color: @light-blue;
   height: 50px;
@@ -634,6 +635,54 @@ body {
   }
 }
 
+
+/* ACCOMODATION PHOTO VIEWER */
+#photos-viewer{
+  #photos-menu{
+    text-align: center;
+  }
+  #photos-selected{
+    display: inline-block;
+    vertical-align: top;
+    width:74%;
+    padding:5px 0;
+    text-align: center;
+    img{
+      width:100%;
+    }
+    i{
+
+    }
+  }
+  #photos-list{
+    display: inline-block;
+    vertical-align: top;
+    width:24%;
+    padding:0;
+    list-style: none;
+    li{
+      padding:5px;
+      text-align: center;
+      img{
+        width:100%;
+      }
+      img:hover{
+        cursor: pointer;
+        -webkit-transform: scale(1.05);
+        -moz-transform: scale(1.05);
+        -ms-transform: scale(1.05);
+        -o-transform: scale(1.05);
+        transform: scale(1.05);
+      }
+      i{
+        font-size: 40px;
+      }
+    }
+  }
+}
+
+
+/* USER PROFILE PHOTO */
 .profilePhoto {
   background: #fff;
   display: inline-block;

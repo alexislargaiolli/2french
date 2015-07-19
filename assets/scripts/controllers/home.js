@@ -20,4 +20,5 @@ ctrl.controller('HomeCtrl', ['$scope', function ($scope) {
     }, {
         image: 'http://res.cloudinary.com/hmn3vaygs/image/upload/v1435768131/diapo5_xy4tpl.jpg', text : 'home.carousel.caption'
     }];
+
 }]);

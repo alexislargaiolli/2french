@@ -88,10 +88,10 @@ tooFrench.directive('alexUploader', function() {
 							$scope.onUploadFinished({
 								url: data.url
 							});
+							var modalId = '#dlg-upload_' + $scope.$id;
+							angular.element(modalId).modal('hide');
 						});
 						$scope.uploadable = 0;
-						var modalId = '#dlg-upload_' + $scope.$id;
-						angular.element(modalId).modal('hide');
 					}).error(function(data, status, headers, config) {
 						$scope.progressBarType = 'danger';
 						$scope.alerts.push({

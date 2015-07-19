@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="bower_components/ng-img-crop/compile/unminified/ng-img-crop.css">
     <link rel="stylesheet" href="scripts/libs/multiple-date-picker/dist/multiple-date-picker.css">
     <link rel="stylesheet" href="bower_components/v-accordion/dist/v-accordion.css"/>
+    <link rel="stylesheet" href="bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css"/>
+    <link rel="stylesheet" href="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css">
 
     <!-- endbower -->
     <!-- endbuild -->
@@ -27,13 +29,121 @@
     <!-- endbuild -->
 </head>
 <body ng-app="tooFrenchApp" ng-controller="ApplicationController">
+
+
+<!--
+        BEGIN: App-Loading Screen.
+        --
+        Until the AngularJS application code is loaded and bootstrapped, this is just
+        "static HTML." Meaning, the [class-based] directive, "mAppLoading", won't
+        actually do anything until the application is initialized. As such, we'll give
+        it just enough CSS to "fail open"; then, when the AngularJS app loads, the
+        directive will run and we'll remove this loading screen.
+
+        NOTES ON ANIMATION:
+
+        When the AngularJS application is loaded and starts bootstrapping, all
+        animations are disabled until all the routing information and templating
+        information is loaded AND at least two digests have run (in order to prevent
+        a flurry of animation activity). As such, we can't animate the root of the
+        directive. Instead, we have to add "ngAnimateChildren" to the root element
+        and then animate the inner container. The "ngAnimateChildren" directive allows
+        us to override the animation-blocking within the bounds of our directive, which
+        is fine since it only runs once.
+    -->
+<div class="m-app-loading" ng-animate-children>
+
+    <!--
+        HACKY CODE WARNING: I'm putting Style block inside directive so that it
+        will be removed from the DOM when we remove the directive container.
+    -->
+    <style type="text/css">
+
+        div.m-app-loading {
+            position: fixed ;
+            z-index: 1000;
+        }
+
+        div.m-app-loading div.animated-container {
+            background-color: #fff ;
+            bottom: 0px ;
+            left: 0px ;
+            opacity: 1.0 ;
+            position: fixed ;
+            right: 0px ;
+            top: 0px ;
+            z-index: 999999 ;
+        }
+        div.m-app-loading div.animated-container.ng-leave {
+            opacity: 1.0 ;
+            transition: all linear 200ms ;
+            -webkit-transition: all linear 200ms ;
+        }
+
+        /* Used to set the end properties of the ng-leave animation state. */
+        div.m-app-loading div.animated-container.ng-leave-active {
+            opacity: 0 ;
+        }
+
+        div.m-app-loading div.messaging {
+            color: #666 ;
+            font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+            left: 0px ;
+            margin-top: -37px ;
+            position: absolute ;
+            right: 0px ;
+            text-align: center ;
+            top: 40% ;
+        }
+
+        div.m-app-loading h1 {
+            font-size: 26px ;
+            line-height: 35px ;
+            margin: 0px 0px 20px 0px ;
+        }
+
+        div.m-app-loading h1 i{
+            font-size:2em;
+            vertical-align: middle;
+            padding:10px;
+            color:#666;
+        }
+
+        div.m-app-loading i{
+            color:#04bfc6;
+            font-size:3em;
+        }
+
+    </style>
+
+
+    <!-- BEGIN: Actual animated container. -->
+    <div class="animated-container">
+
+        <div class="messaging">
+
+            <h1>
+                <i class="fa fa-graduation-cap"></i>TooFrench.net
+            </h1>
+
+            <i id="loader" class="fa fa-circle-o-notch fa-spin"></i>
+        </div>
+
+    </div>
+    <!-- END: Actual animated container. -->
+
+</div>
+<!-- END: App-Loading Screen. -->
+
+
+
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
 <!-- Add your site or application content here -->
 
-<nav id="header" class="navbar navbar-default" role="navigation">
+<nav id="header" class="navbar navbar-default" role="navigation" >
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -43,7 +153,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a id="logo" class="navbar-brand" ui-sref="home"><i class="fa fa-graduation-cap"></i>TooFrench.com</a>
+            <a id="logo" class="navbar-brand" ui-sref="home"><i class="fa fa-graduation-cap"></i>TooFrench.net</a>
         </div>
         <div class="collapse navbar-collapse right" id="bs-example-navbar-collapse-1">
             <ul id="left" class="nav navbar-nav">
@@ -156,7 +266,8 @@
     </div>
 </nav>
 
-<div ui-view id="main-container"></div>
+<div ui-view id="main-container" class="anim-in-out anim-fade" data-anim-speed="500" data-anim-sync="true"></div>
+
 <div id="footer" class="footer">
     <div class="container">
 
@@ -246,6 +357,8 @@
 <script src="https://www.google.com/recaptcha/api.js?onload=vcRecaptchaApiLoaded&render=explicit" async defer></script>
 <script src="bower_components/angular-recaptcha/release/angular-recaptcha.js"></script>
 <script src="bower_components/v-accordion/dist/v-accordion.js"></script>
+<script src="bower_components/angular-ui-router-anim-in-out/anim-in-out.js"></script>
+<script src="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
 
 
 <!-- endbower -->

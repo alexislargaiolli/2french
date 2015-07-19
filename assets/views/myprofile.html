@@ -43,17 +43,19 @@
                     <div id="schedule-legend" class="panel-footer">
                         <img src="../images/am.png" class="legend-images"><span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
                         <img src="../images/pm.png" class="legend-images pm"><span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
-                        <div class="legend-images day"></div><span class="legend-text">{{'myprofile.calendar.legend.day' | translate}}</span>
+
+                        <div class="legend-images day"></div>
+                        <span class="legend-text">{{'myprofile.calendar.legend.day' | translate}}</span>
                     </div>
                 </div>
                 <div class="panel panel-default">
                     <div class="panel-heading block-title1 center">{{'myprofile.favlist.title' | translate}}</div>
 
-                        <ul id="favlist" class="list-group" ng-if="favlist.favorits.length > 0">
-                            <li class="list-group-item" ng-repeat="f in favlist.favorits">
-                                {{f.firstname}}
-                            </li>
-                        </ul>
+                    <ul id="favlist" class="list-group" ng-if="favlist.favorits.length > 0">
+                        <li class="list-group-item" ng-repeat="f in favlist.favorits">
+                            {{f.firstname}}
+                        </li>
+                    </ul>
                     <div class="panel-body p-0" ng-if="favlist.favorits.length == 0">
                         <p class="center vm-10">{{'myprofile.favlist.empty' |
                             translate}}</p>
@@ -66,11 +68,12 @@
                     <div>
                         <div class="row">
                             <div class="col-sm-3 col-md-3 col-lg-3">
-                                <div id="profilePhoto" class="thumbnail">
-                                    <img id="profile-pins" ng-src="/images/pins.png" ng-show="profile.photo"/>
+                                <div class="profilePhoto thumbnail">
+                                    <img class="profile-pins" ng-src="/images/pins.png" ng-show="profile.photo"/>
                                     <img ng-src="{{profile.photo}}" ng-show="profile.photo"/>
                                     <i class="fa fa-user" ng-show="!profile.photo"></i>
 
+                                    <hr/>
                                     <div id="upload-btn-wrapper">
                                         <alex-uploader text="Photo" icon="fa fa-cloud-upload" url="upload/uploadAvatar"
                                                        on-upload-finished="onUpload(url)"></alex-uploader>
@@ -248,32 +251,44 @@
                     <div ng-show="profile.activeAccomodation == true">
                         <hr/>
                         <div class="row">
-                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                <div id="caroussel-wrapper" class="thumbnail">
-                                    <carousel class="accomodationCarousel" interval="5000" disable-animation="true">
-                                        <slide ng-repeat="photo in profile.photos">
-                                            <img ng-src="{{photo.url}}" style="margin:auto;"/>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <div id="photos-viewer">
+                                    <div id="photos-selected">
+                                            <img ng-src="{{profile.photos[selectedPhotoIndex].url}}" ng-click="openLightboxModal()"
+                                                 ng-if="profile.photos[selectedPhotoIndex]"/>
 
-                                            <div class="carousel-caption">
-                                                <button type="button" class="btn btn-danger"
-                                                        ng-click="deletePhoto({{$index}})"><i class="fa fa-trash"></i>
-                                                </button>
-                                            </div>
-                                        </slide>
-                                    </carousel>
-                                    <div id="no-photo-accomodation"
-                                         ng-show="!profile.photos || profile.photos.length == 0">
-                                        <i class="fa fa-file-image-o"
-                                           ng-show="!profile.photos || profile.photos.length == 0"></i>
+                                            <i class="fa fa-picture-o fa-5x" ng-if="!profile.photos[selectedPhotoIndex]"></i>
                                     </div>
-                                    <div class="center">
+                                    <ul id="photos-list">
+                                        <li ng-click="selectPhoto(0)">
+                                            <img ng-src="{{profile.photos[0].url}}" ng-if="profile.photos[0]"/>
+                                            <i class="fa fa-picture-o" ng-if="!profile.photos[0]"></i>
+                                        </li>
+                                        <li ng-click="selectPhoto(1)">
+                                            <img ng-src="{{profile.photos[1].url}}" ng-if="profile.photos[1]"/>
+                                            <i class="fa fa-picture-o" ng-if="!profile.photos[1]"></i>
+                                        </li>
+                                        <li ng-click="selectPhoto(2)">
+                                            <img ng-src="{{profile.photos[2].url}}" ng-if="profile.photos[2]"/>
+                                            <i class="fa fa-picture-o" ng-if="!profile.photos[2]"></i>
+                                        </li>
+                                        <li ng-click="selectPhoto(3)">
+                                            <img ng-src="{{profile.photos[3].url}}" ng-if="profile.photos[3]"/>
+                                            <i class="fa fa-picture-o" ng-if="!profile.photos[3]"></i>
+                                        </li>
+                                    </ul>
+                                    <div id="photos-menu">
                                         <alex-uploader id="test" text="Image" icon="fa fa-cloud-upload"
                                                        url="upload/uploadAccomodationPhoto"
-                                                       on-upload-finished="onUploadAccomodation(url)"></alex-uploader>
+                                                       on-upload-finished="onUploadAccomodation(url)" ng-if="!profile.photos[selectedPhotoIndex]"></alex-uploader>
+
+                                        <button type="button" class="btn btn-danger"
+                                                ng-click="deletePhoto(selectedPhotoIndex)" ng-if="profile.photos[selectedPhotoIndex]"><i class="fa fa-trash"></i>
+                                        </button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
                                 <h5>Equipements</h5>
                                 <ui-select multiple ng-model="profile.equipments" theme="bootstrap">
                                     <ui-select-match placeholder="Select equipments...">{{$item.name[profileLang]}}
@@ -297,10 +312,9 @@
 						</span>
 						<span>
 							<input type="text" id="accomodationAdressInput" class="form-control" g-places-autocomplete
-                                   options="optionsLocation" force-selection="true" ng-model="profile.location"
+                                   options="optionsLocation" force-selection="true" ng-model="place"
                                    ng-show="editLocation"/>
-							<button type="button" class="btn btn-primary btn-xs" ng-model="editLocation" btn-checkbox
-                                    btn-checkbox-true="true" btn-checkbox-false="false" ng-click="updateLocation()">
+							<button type="button" class="btn btn-primary btn-xs" ng-model="editLocation" ng-click="updateLocation()">
                                 <i class="fa fa-pencil"></i>
                             </button>
 						</span>
@@ -309,7 +323,7 @@
                         <hr/>
 
                         <div class="row">
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <ui-gmap-google-map center='map.center' zoom='map.zoom'>
                                     <ui-gmap-markers models="map.markers"
                                                      doCluster="true"
@@ -323,10 +337,11 @@
                                     </ui-gmap-markers>
                                 </ui-gmap-google-map>
                             </div>
-                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <p editable-textarea="profile.accomodationDescription[profileLang]" e-rows="7"
                                    e-style="width:100%">
-                                    {{ profile.accomodationDescription[profileLang] || ('myprofile.accomodation.description.empty' | translate) }}
+                                    {{ profile.accomodationDescription[profileLang] ||
+                                    ('myprofile.accomodation.description.empty' | translate) }}
                                 </p>
                             </div>
                         </div>

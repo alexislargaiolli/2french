@@ -1,7 +1,7 @@
 var tooFrenchControllers = angular.module('tooFrenchCtrl');
-tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Session', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Extra', 'Service', 'FormationLevel', 'UserFavList', '$translate', '$upload', '$timeout',
+tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Session', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Extra', 'Service', 'FormationLevel', 'UserFavList', '$translate', '$upload', '$timeout', 'Lightbox',
 
-    function ($rootScope, $scope, Session, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Extra, Service, FormationLevel, UserFavList, $translate, $upload, $timeout) {
+    function ($rootScope, $scope, Session, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Extra, Service, FormationLevel, UserFavList, $translate, $upload, $timeout, Lightbox) {
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////              COMMON            ////////////////////////////////
@@ -14,6 +14,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
         };
         $scope.period = moment().date(10).format('MM-YYYY');
         $scope.scheduleIndex = -1;
+        $scope.place;
 
         var findShedule = function (period) {
             if ($scope.profile.schedules.length == 0) {
@@ -34,15 +35,15 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
             if ($scope.isTeacher) {
                 updateMap();
                 //If schedules is not empty, searches for a schedules for the current pediod
-                if($scope.profile.schedules && $scope.profile.schedules.length > 0){
+                if ($scope.profile.schedules && $scope.profile.schedules.length > 0) {
                     $scope.scheduleIndex = findShedule($scope.period);
                 }
-                else{
+                else {
                     $scope.profile.schedules = [];
                 }
                 //If none schedule found, creates one
-                if($scope.scheduleIndex == -1){
-                    var schedule = {period : $scope.period, dayoff : [], undispos: []};
+                if ($scope.scheduleIndex == -1) {
+                    var schedule = {period: $scope.period, dayoff: [], undispos: []};
                     $scope.scheduleIndex = $scope.profile.schedules.push(schedule) - 1;
                 }
             }
@@ -77,7 +78,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
 
         $scope.favlist = [];
 
-        UserFavList.getFavList().then(function(favlist){
+        UserFavList.getFavList().then(function (favlist) {
             $scope.favlist = favlist;
         });
 
@@ -96,32 +97,33 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
             $scope.optionsLocation = {};
             $scope.diplomaFile = null;
             $scope.diplomaUploading = false;
+            $scope.selectedPhotoIndex = 0;
 
-            var handleDiplomaSelect = function(evt) {
+            var handleDiplomaSelect = function (evt) {
                 $scope.diplomaFile = evt.currentTarget.files[0];
             };
 
-            $scope.uploadDiploma = function(){
+            $scope.uploadDiploma = function () {
                 $scope.diplomaUploading = true;
                 var filename = Session.userId;
                 $upload.upload({
                     url: 'diploma/upload',
                     file: $scope.diplomaFile,
-                    user:filename
-                }).progress(function(evt) {
+                    user: filename
+                }).progress(function (evt) {
                     $scope.diplomaProgress = Math.round((evt.loaded * 100.0) / evt.total);
-                }).success(function(data, status, headers, config) {
+                }).success(function (data, status, headers, config) {
                     $rootScope.diploma = data;
                     console.log('success ' + data);
                     $scope.diplomaUploading = false;
-                }).error(function(data, status, headers, config) {
+                }).error(function (data, status, headers, config) {
                     console.log('error ' + data);
                     $scope.diplomaUploading = false;
                 });
             }
 
 
-            $timeout(function() {
+            $timeout(function () {
                 var inputId = '#diplomaInput';
                 var elts = angular.element(inputId);
                 elts.on('change', handleDiplomaSelect);
@@ -135,7 +137,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
                 if (!$scope.profile.photos) {
                     $scope.profile.photos = [];
                 }
-                $scope.profile.photos.push({url: url});
+                $scope.profile.photos[$scope.selectedPhotoIndex] = {url: url};
             }
 
             /**
@@ -146,12 +148,27 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
                 $scope.profile.photos.splice(index, 1);
             }
 
+            $scope.selectPhoto = function (index) {
+                $scope.selectedPhotoIndex = index;
+            }
+
+            $scope.openLightboxModal = function () {
+                if ($scope.profile.photos[$scope.selectedPhotoIndex]) {
+                    Lightbox.openModal($scope.profile.photos, $scope.selectedPhotoIndex);
+                }
+            };
+
             /**
              * Event call after change location to update google map component
              */
             $scope.updateLocation = function () {
                 if ($scope.editLocation) {
+                    console.log($scope.place.geometry.location.lat());
                     updateMap();
+                    $scope.editLocation = false;
+                }
+                else{
+                    $scope.editLocation = true;
                 }
             }
 
@@ -218,11 +235,11 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
              * Update the google map component
              */
             var updateMap = function () {
-                var lat = $scope.profile.city.geometry.location.k;
-                var lon = $scope.profile.city.geometry.location.D;
+                var lat = $scope.profile.city.geometry.location.lat;
+                var lon = $scope.profile.city.geometry.location.lng;
                 if ($scope.profile.location) {
-                    lat = $scope.profile.location.geometry.location.k;
-                    lon = $scope.profile.location.geometry.location.D;
+                    lat = $scope.profile.city.geometry.location.lat;
+                    lon = $scope.profile.city.geometry.location.lng;
                 }
                 $scope.map = {
                     center: {
@@ -244,61 +261,60 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope','$scope', 'Sessio
                     "showWindow": false,
                     "date": "2u"
                 }];
+            }
+            /*Schedule.getSchedule(Session.user.profile, moment().date(10).format('MM-YYYY')).then(function (schedule) {
+             $scope.schedule = schedule;
+             });*/
 
-                /*Schedule.getSchedule(Session.user.profile, moment().date(10).format('MM-YYYY')).then(function (schedule) {
-                    $scope.schedule = schedule;
-                });*/
 
-
-
-                var findUndispo = function (date) {
-                    console.log($scope.profile.schedules);
-                    if ($scope.profile.schedules[$scope.scheduleIndex].undispos.length == 0) {
-                        return -1;
-                    }
-                    var i = 0;
-                    for (i = 0; i < $scope.profile.schedules[$scope.scheduleIndex].undispos.length; i++) {
-                        if ($scope.profile.schedules[$scope.scheduleIndex].undispos[i].date === date) {
-                            return i;
-                        }
-                    }
+            var findUndispo = function (date) {
+                console.log($scope.profile.schedules);
+                if ($scope.profile.schedules[$scope.scheduleIndex].undispos.length == 0) {
                     return -1;
                 }
-
-
-
-                /* CALENDAR */
-                $scope.dayClick = function (event, date) {
-                    event.preventDefault() // prevent the select to happen
-                    var v = date.valueOf();
-                    var i = findUndispo(v);
-                    if (i == -1) {
-                        $scope.profile.schedules[$scope.scheduleIndex].undispos.push({date: v, css: 'am'});
-                    }
-                    else {
-                        var undispo = $scope.profile.schedules[$scope.scheduleIndex].undispos[i];
-                        if (undispo.css == 'am') {
-                            $scope.profile.schedules[$scope.scheduleIndex].undispos[i].css = 'pm';
-                        }
-                        else if (undispo.css == 'pm') {
-                            $scope.profile.schedules[$scope.scheduleIndex].undispos[i].css = 'day';
-                        }
-                        else if (undispo.css == 'day') {
-                            $scope.profile.schedules[$scope.scheduleIndex].undispos.splice(i, 1);
-                        }
+                var i = 0;
+                for (i = 0; i < $scope.profile.schedules[$scope.scheduleIndex].undispos.length; i++) {
+                    if ($scope.profile.schedules[$scope.scheduleIndex].undispos[i].date === date) {
+                        return i;
                     }
                 }
-
-                $scope.onMonthChanged = function (newMonth, oldMonth) {
-                    $scope.period = newMonth.format('MM-YYYY');
-                    $scope.scheduleIndex = findShedule($scope.period);
-                    if($scope.scheduleIndex == -1){
-                        var schedule = {period : $scope.period, dayoff : [], undispos: []};
-                        $scope.scheduleIndex = $scope.profile.schedules.push(schedule) - 1;
-                    }
-                };
+                return -1;
             }
+
+
+            /* CALENDAR */
+            $scope.dayClick = function (event, date) {
+                event.preventDefault() // prevent the select to happen
+                var v = date.valueOf();
+                var i = findUndispo(v);
+                if (i == -1) {
+                    $scope.profile.schedules[$scope.scheduleIndex].undispos.push({date: v, css: 'am'});
+                }
+                else {
+                    var undispo = $scope.profile.schedules[$scope.scheduleIndex].undispos[i];
+                    if (undispo.css == 'am') {
+                        $scope.profile.schedules[$scope.scheduleIndex].undispos[i].css = 'pm';
+                    }
+                    else if (undispo.css == 'pm') {
+                        $scope.profile.schedules[$scope.scheduleIndex].undispos[i].css = 'day';
+                    }
+                    else if (undispo.css == 'day') {
+                        $scope.profile.schedules[$scope.scheduleIndex].undispos.splice(i, 1);
+                    }
+                }
+            }
+
+            $scope.onMonthChanged = function (newMonth, oldMonth) {
+                $scope.period = newMonth.format('MM-YYYY');
+                $scope.scheduleIndex = findShedule($scope.period);
+                if ($scope.scheduleIndex == -1) {
+                    var schedule = {period: $scope.period, dayoff: [], undispos: []};
+                    $scope.scheduleIndex = $scope.profile.schedules.push(schedule) - 1;
+                }
+            };
+
         }
 
     }
-]);
+])
+;

@@ -29,7 +29,9 @@ var tooFrenchApp = angular.module('tooFrenchApp', [
     'angularFileUpload',
     'multipleDatePicker',
     'vcRecaptcha',
-    'vAccordion'
+    'vAccordion',
+    'anim-in-out',
+    'bootstrapLightbox'
 ]);
 
 
@@ -58,9 +60,7 @@ tooFrenchApp.constant('LOCALE_EVENTS', {
     localeChange: 'locale-change'
 });
 
-tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$translateProvider', 'USER_ROLES', 'uiGmapGoogleMapApiProvider',
-
-    function ($httpProvider, $stateProvider, $urlRouterProvider, $translateProvider, USER_ROLES, uiGmapGoogleMapApiProvider) {
+tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider, $translateProvider, USER_ROLES, uiGmapGoogleMapApiProvider) {
 
 
         //================================================
@@ -136,7 +136,7 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
 
             .state('forum', {
                 url: '/forum',
-                controller:'ForumCtrl',
+                controller: 'ForumCtrl',
                 templateUrl: 'views/forum/forum.html',
                 data: {
                     auth: true,
@@ -145,7 +145,7 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
 
             .state('forum.post', {
                 url: '/:postId',
-                controller:'ForumPostCtrl',
+                controller: 'ForumPostCtrl',
                 templateUrl: 'views/forum/forum-post.html',
                 data: {
                     auth: true,
@@ -154,7 +154,7 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
 
             .state('forum.create', {
                 url: '/post/create/:teacher',
-                controller:'ForumCreatePostCtrl',
+                controller: 'ForumCreatePostCtrl',
                 templateUrl: 'views/forum/forum-create-post.html',
                 data: {
                     auth: true,
@@ -360,17 +360,22 @@ tooFrenchApp.config(['$httpProvider', '$stateProvider', '$urlRouterProvider', '$
             v: '3.17',
             libraries: 'weather,geometry,visualization'
         });
-
     }
-]);
+);
 
 
-tooFrenchApp.run(['$rootScope', '$state', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache',
-    function ($rootScope, $state, AUTH_EVENTS, AuthService, editableOptions, $templateCache) {
+tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache',
+    function ($rootScope, $state, $window, AUTH_EVENTS, AuthService, editableOptions, $templateCache) {
         editableOptions.theme = 'bs3';
         $templateCache.remove('index.html');
+
+        $rootScope.$on('$viewContentLoaded',
+            function (event) {
+                $rootScope.updateFooter($window.innerHeight);
+            });
+
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-            if (typeof(current) !== 'undefined'){
+            if (typeof(current) !== 'undefined') {
                 $templateCache.remove(current.templateUrl);
             }
             $rootScope.currentState = toState.name;
@@ -425,21 +430,60 @@ tooFrenchApp.run(['$rootScope', '$state', 'AUTH_EVENTS', 'AuthService', 'editabl
     }
 ]);
 
+// This CSS class-based directive controls the pre-bootstrap loading screen. By
+// default, it is visible on the screen; but, once the application loads, we'll
+// fade it out and remove it from the DOM.
+// --
+// NOTE: Normally, I would probably just jQuery to fade-out the container; but,
+// I thought this would be a nice moment to learn a bit more about AngularJS
+// animation. As such, I'm using the ng-leave workflow to learn more about the
+// ngAnimate module.
+tooFrenchApp.directive(
+    "mAppLoading",
+    function ($animate, $timeout) {
+
+        // Return the directive configuration.
+        return ({
+            link: link,
+            restrict: "C"
+        });
+
+
+        // I bind the JavaScript events to the scope.
+        function link(scope, element, attributes) {
+
+            $animate.leave(element.children().eq(1)).then(
+                function cleanupAfterAnimation() {
+
+                    // Remove the root directive element.
+                    element.remove();
+
+                    // Clear the closed-over variable references.
+                    scope = element = attributes = null;
+
+                }
+            );
+
+        }
+
+    }
+);
+
 var tooFrenchControllers = angular.module('tooFrenchCtrl', ['ngRoute', 'ui.router', 'xeditable', 'uiGmapgoogle-maps', 'pascalprecht.translate', 'tooFrenchService', 'angularFi' +
 'leUpload', 'ui.select', 'ui.bootstrap', 'dialogs.main', 'google.places', 'ngImgCrop', 'multipleDatePicker', 'vcRecaptcha']);
 tooFrenchControllers.config(function (uiSelectConfig) {
     //================================================
     // Angular ui components
     //================================================
-    uiSelectConfig.theme = 'bootstrap';
+    uiSelectConfig.theme = 'œ';
 });
 
 angular.module('tooFrenchService', ['ngRoute', 'ngResource']);
 
 
-tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope', '$state', '$http', '$timeout', 'USER_ROLES', 'AUTH_EVENTS', 'LOCALE_EVENTS', 'MESSAGE_EVENTS', 'AuthService', 'Session', '$translate', 'Profile', 'Messagerie', 'Reservation',
+tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope', '$window', '$state', '$http', '$timeout', 'USER_ROLES', 'AUTH_EVENTS', 'LOCALE_EVENTS', 'MESSAGE_EVENTS', 'AuthService', 'Session', '$translate', 'Profile', 'Messagerie', 'Reservation',
 
-    function ($rootScope, $scope, $state, $http, $timeout, USER_ROLES, AUTH_EVENTS, LOCALE_EVENTS, MESSAGE_EVENTS, AuthService, Session, $translate, Profile, Messagerie, Reservation) {
+    function ($rootScope, $scope, $window, $state, $http, $timeout, USER_ROLES, AUTH_EVENTS, LOCALE_EVENTS, MESSAGE_EVENTS, AuthService, Session, $translate, Profile, Messagerie, Reservation) {
         $scope.currentUser = null;
         $scope.currentProfile = null;
         $scope.userRoles = USER_ROLES;
@@ -497,7 +541,7 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
                     $rootScope.diploma = data;
                 });
             }
-            Reservation.newTeacherResaCount().then(function(count){
+            Reservation.newTeacherResaCount().then(function (count) {
                 $rootScope.newResaCount = count;
             });
             $scope.setCurrentUser(Session.user);
@@ -513,5 +557,25 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
         $scope.$on(AUTH_EVENTS.notAuthorized, function () {
             console.log('not authorized');
         });
+
+
+        $(window).resize(function () {
+            $scope.$apply(function () {
+                $rootScope.updateFooter(window.innerHeight);
+            });
+        });
+
+        $scope.$watch(function () {
+            return $window.innerHeight;
+        }, function (value) {
+            $rootScope.updateFooter(value);
+        });
+
+        $rootScope.updateFooter = function (pageHeight) {
+            var headerHeight = angular.element('#header').height();
+            var footerHeight = angular.element('#footer').height();
+            var bodyMinSize = pageHeight - headerHeight - footerHeight;
+            angular.element('#main-container').css('min-height', bodyMinSize);
+        }
     }
 ]);
