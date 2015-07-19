@@ -5,8 +5,10 @@
     <div class="bordered-block col-lg-8 center-block p-20">
         <h1 class="center m-0">{{'forum.post.create.title' | translate}}</h1>
         <hr/>
+
+
         <form ng-submit="createPost()" id="createPost">
-            <ui-select ng-model="post.category" class="vm-10" ng-required="true" required>
+            <ui-select ng-model="post.category" class="vm-10" ng-required="true" theme="bootstrap">
                 <ui-select-match placeholder="{{'forum.post.create.category.placeholder' | translate}}">
                     {{$select.selected.name[$parent.lg]}}
                 </ui-select-match>
