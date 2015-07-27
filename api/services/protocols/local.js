@@ -60,6 +60,7 @@ exports.register = function (req, res, next) {
                         email: email
                     },
                     function (err, user) {
+                        sails.log.info(user);
                         if (user) {
                             req.flash('error', 'Error.Passport.Email.Exists');
                             return next(new Error('Error.Passport.Email.Exists'));

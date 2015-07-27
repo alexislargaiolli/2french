@@ -100,7 +100,9 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             $scope.selectedPhotoIndex = 0;
 
             var handleDiplomaSelect = function (evt) {
-                $scope.diplomaFile = evt.currentTarget.files[0];
+                $timeout(function(){
+                    $scope.diplomaFile = evt.currentTarget.files[0];
+                });
             };
 
             $scope.uploadDiploma = function () {

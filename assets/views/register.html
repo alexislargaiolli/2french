@@ -9,13 +9,15 @@
             <div id="register-vignet" class="center">
                 <img src="images/home/teach.png"/>
             </div>
-            <h2 class="center">{{'register.learn' | translate}}</h2>
+
             <div ng-if="registerType == 1">
+                <h2 class="center">{{'register.teach' | translate}}</h2>
                 <p>{{'register.teacher.text.1'|translate}}</p>
                 <p>{{'register.teacher.text.2'|translate}}</p>
                 <p>{{'register.teacher.text.3'|translate}}</p>
             </div>
             <div ng-if="registerType == 2">
+                <h2 class="center">{{'register.learn' | translate}}</h2>
                 <p>{{'register.student.text.1'|translate}}</p>
             </div>
             <div class="center">
