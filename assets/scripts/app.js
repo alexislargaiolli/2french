@@ -504,7 +504,7 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
         $scope.$on(MESSAGE_EVENTS.read, function (event, args) {
             $timeout(function () {
                 var count = args.count;
-                $scope.unseenMsgCount = 0;
+                $scope.unseenMsgCount -= count;
             }, 10);
         });
 

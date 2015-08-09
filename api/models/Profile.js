@@ -88,7 +88,6 @@ module.exports = {
 		next();
 	},
 	afterCreate: function(profile, next) {
-		sails.log.info(profile);
 		next();
 	}
 

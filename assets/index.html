@@ -60,58 +60,59 @@
     <style type="text/css">
 
         div.m-app-loading {
-            position: fixed ;
+            position: fixed;
             z-index: 1000;
         }
 
         div.m-app-loading div.animated-container {
-            background-color: #fff ;
-            bottom: 0px ;
-            left: 0px ;
-            opacity: 1.0 ;
-            position: fixed ;
-            right: 0px ;
-            top: 0px ;
-            z-index: 999999 ;
+            background-color: #fff;
+            bottom: 0px;
+            left: 0px;
+            opacity: 1.0;
+            position: fixed;
+            right: 0px;
+            top: 0px;
+            z-index: 999999;
         }
+
         div.m-app-loading div.animated-container.ng-leave {
-            opacity: 1.0 ;
-            transition: all linear 200ms ;
-            -webkit-transition: all linear 200ms ;
+            opacity: 1.0;
+            transition: all linear 200ms;
+            -webkit-transition: all linear 200ms;
         }
 
         /* Used to set the end properties of the ng-leave animation state. */
         div.m-app-loading div.animated-container.ng-leave-active {
-            opacity: 0 ;
+            opacity: 0;
         }
 
         div.m-app-loading div.messaging {
-            color: #666 ;
+            color: #666;
             font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-            left: 0px ;
-            margin-top: -37px ;
-            position: absolute ;
-            right: 0px ;
-            text-align: center ;
-            top: 40% ;
+            left: 0px;
+            margin-top: -37px;
+            position: absolute;
+            right: 0px;
+            text-align: center;
+            top: 40%;
         }
 
         div.m-app-loading h1 {
-            font-size: 26px ;
-            line-height: 35px ;
-            margin: 0px 0px 20px 0px ;
+            font-size: 26px;
+            line-height: 35px;
+            margin: 0px 0px 20px 0px;
         }
 
-        div.m-app-loading h1 i{
-            font-size:2em;
+        div.m-app-loading h1 i {
+            font-size: 2em;
             vertical-align: middle;
-            padding:10px;
-            color:#666;
+            padding: 10px;
+            color: #666;
         }
 
-        div.m-app-loading i{
-            color:#04bfc6;
-            font-size:3em;
+        div.m-app-loading i {
+            color: #04bfc6;
+            font-size: 3em;
         }
 
     </style>
@@ -136,14 +137,13 @@
 <!-- END: App-Loading Screen. -->
 
 
-
 <!--[if lt IE 7]>
 <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
 <![endif]-->
 <!-- Add your site or application content here -->
 
-<nav id="header" class="navbar navbar-default" role="navigation" >
+<nav id="header" class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
@@ -197,12 +197,16 @@
                         <span class="badge" ng-show="unseenMsgCount > 0">{{unseenMsgCount}}</span>
                     </a>
                 </li>
-                <li id="user-menu-dropdown" class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                <li>
+                    <a ui-sref="myprofile" id="link-myprofile">
                         <img id="user-menu-photo" ng-src="{{currentProfile.photo}}"
                              ng-show="currentProfile && currentProfile.photo"/>
                         <i id="user-menu-photo-icon" class="fa fa-user"
                            ng-show="!currentProfile || !currentProfile.photo"></i>
+                    </a>
+                </li>
+                <li id="user-menu-dropdown" class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a ui-sref="myprofile">{{'header.myprofile' | translate}}</a></li>

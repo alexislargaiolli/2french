@@ -48,106 +48,72 @@ exports.register = function (req, res, next) {
         return next(new Error('No password was entered.'));
     }
 
-    User.findOne({
-            username: username
-        },
-        function (err, user) {
-            if (user) {
-                req.flash('error', 'Error.Passport.User.Exists');
-                return next(new Error('Error.Passport.User.Exists'));
-            } else {
-                User.findOne({
-                        email: email
-                    },
-                    function (err, user) {
-                        sails.log.info(user);
-                        if (user) {
-                            req.flash('error', 'Error.Passport.Email.Exists');
-                            return next(new Error('Error.Passport.Email.Exists'));
-                        } else {
-                            User.create({
-                                username: username,
-                                email: email,
-                                role: role
-                            }, function (err, user) {
-                                if (err) {
-                                    if (err.code === 'E_VALIDATION') {
-                                        if (err.invalidAttributes.email) {
-                                            req.flash('error', 'Error.Passport.Email.Exists');
-                                        } else {
-                                            req.flash('error', 'Error.Passport.User.Exists');
-                                        }
+    //Check for username unicity
+    Profile.findOne({"firstname": firstname}, function (err, profile) {
+        if (profile) {
+            req.flash('error', req.__('Error.Passport.User.Exists', firstname));
+            return next();
+        }
+        else {
+            User.findOne({
+                    email: email
+                },
+                function (err, user) {
+                    if (user) {
+                        req.flash('error', req.__('Error.Passport.Email.Exists', email));
+                        return next();
+                    } else {
+                        User.create({
+                            username: username,
+                            email: email,
+                            role: role
+                        }, function (err, user) {
+                            if (err) {
+                                if (err.code === 'E_VALIDATION') {
+                                    if (err.invalidAttributes.email) {
+                                        req.flash('error', req.__('Error.Passport.Email.Invalid', email));
+                                    } else {
+                                        req.flash('error', 'Error.Passport.User.Exists');
                                     }
-
-                                    return next(err);
                                 }
 
-                                user.profile = {
-                                    "owner": user.id,
-                                    "firstname": firstname,
-                                    "city": city
-                                };
-                                user.save(function(err, user){
-                                    if(err){
+                                return next(err);
+                            }
+
+                            user.profile = {
+                                "owner": user.id,
+                                "firstname": firstname,
+                                "city": city
+                            };
+                            user.save(function (err, user) {
+                                if (err) {
+                                    return user.destroy(function (destroyErr) {
+                                        next(destroyErr || err);
+                                    });
+                                }
+                                Passport.create({
+                                    protocol: 'local',
+                                    password: password,
+                                    user: user.id
+                                }, function (err, passport) {
+                                    if (err) {
+                                        if (err.code === 'E_VALIDATION') {
+                                            req.flash('error', req.__('Error.Passport.Password.Invalid.minlength', 8));
+                                        }
+
                                         return user.destroy(function (destroyErr) {
-                                            next(destroyErr || err);
+                                            next();
                                         });
                                     }
-                                    Passport.create({
-                                        protocol: 'local',
-                                        password: password,
-                                        user: user.id
-                                    }, function (err, passport) {
-                                        if (err) {
-                                            if (err.code === 'E_VALIDATION') {
-                                                req.flash('error', 'Error.Passport.Password.Invalid');
-                                            }
-
-                                            return user.destroy(function (destroyErr) {
-                                                next(destroyErr || err);
-                                            });
-                                        }
-                                        user.profile = user.profile.id;
-                                        next(null, user);
-                                    });
+                                    user.profile = user.profile.id;
+                                    next(null, user);
                                 });
-
-                               /* sails.models.profile.create({
-                                    "owner": user.id,
-                                    "firstname": firstname,
-                                    "city": city
-                                }).exec(function (err, profile) {
-                                    sails.models.user.update({
-                                        "email": user.email
-                                    }, {
-                                        "profile": profile.id
-                                    }).exec(function (err, u) {
-                                        Passport.create({
-                                            protocol: 'local',
-                                            password: password,
-                                            user: user.id
-                                        }, function (err, passport) {
-                                            if (err) {
-                                                if (err.code === 'E_VALIDATION') {
-                                                    req.flash('error', 'Error.Passport.Password.Invalid');
-                                                }
-
-                                                return user.destroy(function (destroyErr) {
-                                                    next(destroyErr || err);
-                                                });
-                                            }
-                                            next(null, user);
-                                        });
-                                    });
-                                });*/
-
-
                             });
-                        }
-                    });
-
-            }
-        });
+                        });
+                    }
+                });
+        }
+    });
 
 
 };

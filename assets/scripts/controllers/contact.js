@@ -12,6 +12,7 @@ tooFrenchControllers.controller('ContactCtrl', ['$scope', '$stateParams','Messag
             $scope.message.recipient = recipient;
             Messagerie.sendMessage(from, recipient, $scope.message.content).then(function(){
                 $scope.message = {};
+                angular.element('#contactDlg').modal('hide');
             }, function(){
 
             });

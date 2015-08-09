@@ -102,10 +102,7 @@
                                     </div>
                                 </div>
                                 <div>
-                                    <a id="profile-title" class="f-25 middle" href="#" e-form="firstnameBtn"
-                                       editable-text="profile.firstname">{{profile.firstname || 'firstname'}}</a>
-                                    <span class="fa fa-pencil edit-icon middle" ng-click="firstnameBtn.$show()"
-                                          ng-hide="firstnameBtn.$visible"></span>
+                                    <span id="profile-title" class="f-25 middle" href="#" e-form="firstnameBtn">{{profile.firstname || 'firstname'}}</span>
                                 </div>
                                 <div ng-if="isTeacher">
                                     <span class="block-title2 f-16">{{'myprofile.level.from' | translate}} </span>

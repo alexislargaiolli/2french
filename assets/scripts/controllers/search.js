@@ -17,6 +17,8 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
         ;
         $scope.period = moment().date(10).format('MM-YYYY');
         $scope.scheduleIndex = -1;
+        $scope.scheduleLoading = false;
+        $scope.monthLoading = false;
 
         $scope.search = function () {
             $scope.loading = true;
@@ -81,8 +83,10 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
             $scope.schedules = [];
             $scope.scheduleIndex = findShedule($scope.period);
             if ($scope.scheduleIndex == -1) {
-                Schedule.getSchedule($scope.currentScheduleProfileId, $scope.period).then(function(schedule){
+                $scope.scheduleLoading = true;
+                Schedule.getSchedule($scope.currentScheduleProfileId, $scope.period).then(function (schedule) {
                     $scope.scheduleIndex = $scope.schedules.push(schedule) - 1;
+                    $scope.scheduleLoading = false;
                 });
             }
         }
@@ -94,9 +98,14 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
         $scope.onMonthChanged = function (newMonth, oldMonth) {
             $scope.period = newMonth.format('MM-YYYY');
             $scope.scheduleIndex = findShedule($scope.period);
+
             if ($scope.scheduleIndex == -1) {
-                Schedule.getSchedule($scope.currentScheduleProfileId, $scope.period).then(function(schedule){
+                $scope.monthLoading = true;
+                console.log('loading');
+
+                Schedule.getSchedule($scope.currentScheduleProfileId, $scope.period).then(function (schedule) {
                     $scope.scheduleIndex = $scope.schedules.push(schedule) - 1;
+                    $scope.monthLoading = false;
                 });
             }
         };

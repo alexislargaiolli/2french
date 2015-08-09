@@ -58,7 +58,9 @@
 
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                     <div class="left-photo-border"></div>
-                    <img class="photo" ng-src="{{p.photo}}" ng-show="p.photo"/>
+                    <a ui-sref="profile({profileId: p.id})">
+                        <img class="photo" ng-src="{{p.photo}}" ng-show="p.photo"/>
+                    </a>
 
                     <div class="photo-wrapper" ng-show="!p.photo">
                         <i class="fa fa-user"></i>
@@ -79,13 +81,17 @@
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 right">
 
                     <span class="dropdown" dropdown dropdown-append-to-body auto-close="outsideClick">
-                      <a href class="calendar-btn btn btn-default blue-btn fa fa-calendar dropdown-toggle" dropdown-toggle ng-click="initSchedule(p.id)">
+                      <a href class="calendar-btn btn btn-default blue-btn fa fa-calendar dropdown-toggle"
+                         dropdown-toggle ng-click="initSchedule(p.id)">
                       </a>
-                      <div class="dropdown-menu" ng-click="$event.stopPropagation()">
-                          <div>
+                      <div class="dropdown-menu dropdown-calendar" ng-click="$event.stopPropagation()">
+                          <div class="dropdown-calendar-loader" ng-if="scheduleLoading">
+                              <i class="fa fa-circle-o-notch fa-spin"></i>
+                          </div>
+                          <div ng-if="!scheduleLoading">
                               <multiple-date-picker class="without-select" day-click="dayClick"
                                                     highlight-days="schedules[scheduleIndex].undispos"
-                                                    month-changed="onMonthChanged"/>
+                                                    month-changed="onMonthChanged" disallow-back-past-months="true"/>
                           </div>
                           <div id="schedule-legend">
                               <img src="../images/am.png" class="legend-images"><span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
@@ -96,7 +102,6 @@
                           </div>
                       </div>
                     </span>
-
 
 
                     <button ng-controller="FavListCtrl" ng-if="isConnected" type="button"
