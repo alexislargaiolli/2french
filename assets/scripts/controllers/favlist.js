@@ -52,6 +52,16 @@ tooFrenchControllers.controller('FavListCtrl', ['$scope', 'UserFavList',
                     });
                 }
             }
+
+            $scope.removeTeacher = function (profileId) {
+                var index = $scope.favlist.indexOf(profileId);
+                if(index > -1){
+                    $scope.userFavList.favorits.splice(index, 1);
+                }
+                saveFavList(function(){
+
+                });
+            }
         }
 
     }

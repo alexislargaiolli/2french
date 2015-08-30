@@ -41,26 +41,20 @@
                                               month-changed="onMonthChanged"/>
                     </div>
                     <div id="schedule-legend" class="panel-footer">
-                        <img src="../images/am.png" class="legend-images"><span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
-                        <img src="../images/pm.png" class="legend-images pm"><span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
-
-                        <div class="legend-images day"></div>
-                        <span class="legend-text">{{'myprofile.calendar.legend.day' | translate}}</span>
-                    </div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-heading block-title1 center">{{'myprofile.favlist.title' | translate}}</div>
-
-                    <ul id="favlist" class="list-group" ng-if="favlist.favorits.length > 0">
-                        <li class="list-group-item" ng-repeat="f in favlist.favorits">
-                            <img class="user-photo-profile" ng-src="{{f.photo}}" ng-show="f.photo"/>
-                            <i class="fa fa-user user-photo-profile" ng-show="!f.photo"></i>
-                            {{f.firstname}}
-                        </li>
-                    </ul>
-                    <div class="panel-body p-0" ng-if="favlist.favorits.length == 0">
-                        <p class="center vm-10">{{'myprofile.favlist.empty' |
-                            translate}}</p>
+                        <div class="left p-10">
+                            <div class="legend-images day"></div>
+                            <span class="legend-text">{{'myprofile.calendar.legend.day' | translate}}</span>
+                        </div>
+                        <div class="left p-10">
+                            <img src="../images/pm.png" class="legend-images pm"><span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
+                        </div>
+                        <div class="left p-10">
+                            <img src="../images/am.png" class="legend-images"><span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
+                        </div>
+                        <button id="profile-save-btn" ng-click="save()" type="button" ng-if="needSave"
+                                class="btn btn-default green2-btn mt-10"><span class="fa fa-floppy-o"></span> {{'myprofile.calendar.save' |
+                            translate}}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -84,9 +78,6 @@
                             </div>
                             <div class="col-sm-9 col-md-9 col-lg-9">
                                 <div id="btns-wrapper">
-                                    <button id="profile-save-btn" ng-click="save()" type="button"
-                                            class="btn btn-default green2-btn"><span class="fa fa-floppy-o"></span> Save
-                                    </button>
 
                                     <div class="btn-group">
                                         <button id="profile-lang-btn" type="button"
@@ -109,12 +100,14 @@
                                 <div ng-if="isTeacher">
                                     <span class="block-title2 f-16">{{'myprofile.level.from' | translate}} </span>
                                     <a href="#" editable-select="profile.levelFrom"
-                                       e-ng-options="level as level.name[profileLang] for level in formationLevels track by level.id">
+                                       e-ng-options="level as level.name[profileLang] for level in formationLevels track by level.id"
+                                       onaftersave="save()">
                                         {{ profile.levelFrom ? profile.levelFrom.name[profileLang] : '...'}}
                                     </a>
                                     <span class="block-title2 f-16"> {{'myprofile.level.to' | translate}} </span>
                                     <a href="#" editable-select="profile.levelTo"
-                                       e-ng-options="level as level.name[profileLang] for level in formationLevels track by level.id">
+                                       e-ng-options="level as level.name[profileLang] for level in formationLevels track by level.id"
+                                       onaftersave="save()">
                                         {{ profile.levelTo ? profile.levelTo.name[profileLang] : '...' }}
                                     </a>
                                 </div>
@@ -123,13 +116,13 @@
 							</span>
 							<span>
 								<input type="text" g-places-autocomplete ng-model="profile.city" options="optionsCity"
-                                       ng-show="editCity" force-selection="true"/>
+                                       ng-show="editCity" force-selection="true" onaftersave="save()"/>
 								<span class="fa fa-pencil edit-icon" ng-click="editCity = !editCity"></span>
 							</span>
                                 <hr/>
                                 <div class="mt-10" ng-if="isTeacher">
                                     <ui-select multiple ng-model="profile.formations" theme="bootstrap"
-                                               style="width: 100%;">
+                                               on-select="save()" on-remove="save()">
                                         <ui-select-match placeholder="Select person...">{{$item.name[profileLang]}}
                                         </ui-select-match>
                                         <ui-select-choices repeat="formation in formations">
@@ -141,8 +134,8 @@
                                     </ui-select>
                                 </div>
                                 <div class="mt-10" ng-if="isTeacher">
-                                    <ui-select multiple ng-model="profile.extras" theme="bootstrap"
-                                               style="width: 100%;">
+                                    <ui-select multiple ng-model="profile.extras" theme="bootstrap" on-select="save()"
+                                               on-remove="save()">
                                         <ui-select-match placeholder="Select extras...">{{$item.name[profileLang]}}
                                         </ui-select-match>
                                         <ui-select-choices repeat="extra in extras">
@@ -164,7 +157,7 @@
                                 </h4>
                             </div>
                             <p editable-textarea="profile.motivation[profileLang]" e-form="textBtnForm" e-rows="7"
-                               e-style="width:100%">
+                               e-style="width:100%" onaftersave="save()">
                                 {{ profile.motivation[profileLang] || ('myprofile.motivation.empty' | translate) }}
                             </p>
                         </div>
@@ -180,7 +173,8 @@
                     <hr/>
                     <label class="blue-title f-14">Prix d'une heure de cours : <a href="#"
                                                                                   editable-number="profile.hourRate"
-                                                                                  e-min="0">{{ profile.hourRate || '...'
+                                                                                  e-min="0" onaftersave="save()">{{
+                        profile.hourRate || '...'
                         }}</a>€</label>
 
                     <div ng-repeat="formula in profile.formulas">
@@ -242,10 +236,11 @@
 
                 <div class="mt-35" ng-if="isTeacher">
 
-                    <h4 style="display:inline-block;">Hébergement</h4>
+                    <h4>Hébergement</h4>
 
-                    <div style="display:inline-block;">
-                        Proposer un hebergement : <input type="checkbox" ng-model="profile.activeAccomodation">
+                    <div>
+                        Proposer un hebergement : <input type="checkbox" ng-model="profile.activeAccomodation"
+                                                         ng-click="save()">
                     </div>
                     <div ng-show="profile.activeAccomodation == true">
                         <hr/>
@@ -256,6 +251,7 @@
                                         <alex-uploader id="accomodationUploadBtn" text="Image"
                                                        icon="fa fa-cloud-upload"
                                                        on-upload-finished="onUploadAccomodation(url)"
+                                                       url="upload/uploadAccomodationPhoto"
                                                        ng-if="!profile.photos[selectedPhotoIndex]"></alex-uploader>
                                         <img ng-src="{{profile.photos[selectedPhotoIndex].url}}"
                                              ng-click="openLightboxModal()"
@@ -291,7 +287,8 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <h5>Equipements</h5>
-                                <ui-select multiple ng-model="profile.equipments" theme="bootstrap">
+                                <ui-select multiple ng-model="profile.equipments" theme="bootstrap" on-select="save()"
+                                           on-remove="save()">
                                     <ui-select-match placeholder="Select equipments...">{{$item.name[profileLang]}}
                                     </ui-select-match>
                                     <ui-select-choices repeat="equipment in equipments">
@@ -300,7 +297,8 @@
                                 </ui-select>
 
                                 <h5>Service</h5>
-                                <ui-select multiple ng-model="profile.services" theme="bootstrap">
+                                <ui-select multiple ng-model="profile.services" theme="bootstrap" on-select="save()"
+                                           on-remove="save()">
                                     <ui-select-match placeholder="Select equipments...">{{$item.name[profileLang]}}
                                     </ui-select-match>
                                     <ui-select-choices repeat="service in services">
@@ -315,7 +313,8 @@
 							<input type="text" id="accomodationAdressInput" class="form-control" g-places-autocomplete
                                    options="optionsLocation" force-selection="true" ng-model="profile.location"
                                    ng-if="editLocation"/>
-							<button type="button" class="fa fa-pencil edit-icon" ng-model="editLocation" btn-checkbox
+							<button id="editLocationBtn" type="button" class="fa fa-pencil edit-icon"
+                                    ng-model="editLocation" btn-checkbox
                                     btn-checkbox-true="true" btn-checkbox-false="false">
 
                             </button>
@@ -347,7 +346,8 @@
                                 </h4>
 
                                 <p editable-textarea="profile.accomodationDescription[profileLang]" e-rows="7"
-                                   e-style="width:100%;resize: none;" e-form="accomodationDescBtnForm">
+                                   e-style="width:100%;resize: none;" e-form="accomodationDescBtnForm"
+                                   onaftersave="save()">
                                     {{ profile.accomodationDescription[profileLang] ||
                                     ('myprofile.accomodation.description.empty' | translate) }}
                                 </p>

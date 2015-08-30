@@ -1,4 +1,4 @@
-<form id="loginForm" name="formLogin" role="form" class="navbar-form navbar-right" ng-if="currentUser == null" ng-controller="LoginCtrl" >
+<form id="loginForm" name="formLogin" role="form" class="navbar-form navbar-right navbar-login" ng-if="currentUser == null" ng-controller="LoginCtrl" >
 	<div class="form-group btn-wrapper">
 		<i class="fa fa-user"></i>
 		<input id="input-email" ng-model="credential.email" type="text" name="username" placeholder="{{'header.login.email' | translate}}" ng-required="true" class="form-control">

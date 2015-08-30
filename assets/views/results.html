@@ -74,6 +74,7 @@
                         </ul>
                         <ul class="extras">
                             <li ng-repeat="extra in p.extras" class="{{extra.icon}}"> {{extra.name[$parent.lg]}}</li>
+                            <li class="fa fa-bed fa-pr5" ng-if="p.activeAccomodation">{{'search.result.accomodation' | translate}}</li>
                         </ul>
                     </div>
                 </div>
@@ -93,11 +94,16 @@
                                                     month-changed="onMonthChanged" disallow-back-past-months="true"/>
                           </div>
                           <div id="schedule-legend">
-                              <img src="../images/am.png" class="legend-images"><span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
-                              <img src="../images/pm.png" class="legend-images pm"><span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
-
-                              <div class="legend-images day"></div>
-                              <span class="legend-text">{{'myprofile.calendar.legend.day' | translate}}</span>
+                              <div class="left p-10">
+                                  <img src="../images/am.png" class="legend-images"><span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
+                              </div>
+                              <div class="left p-10">
+                                  <img src="../images/pm.png" class="legend-images pm"><span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
+                              </div>
+                              <div class="left p-10">
+                                  <div class="legend-images day"></div>
+                                  <span class="legend-text">{{'myprofile.calendar.legend.day' | translate}}</span>
+                              </div>
                           </div>
                       </div>
                     </span>

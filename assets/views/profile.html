@@ -10,11 +10,16 @@
                                               month-changed="onMonthChanged"/>
                     </div>
                     <div id="schedule-legend" class="panel-footer">
-                        <img src="../images/am.png" class="legend-images"><span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
-                        <img src="../images/pm.png" class="legend-images pm"><span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
-
-                        <div class="legend-images day"></div>
-                        <span class="legend-text">{{'myprofile.calendar.legend.day' | translate}}</span>
+                        <div class="left p-10">
+                            <img src="../images/am.png" class="legend-images"><span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
+                        </div>
+                        <div class="left p-10">
+                            <img src="../images/pm.png" class="legend-images pm"><span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
+                        </div>
+                        <div class="left p-10">
+                            <div class="legend-images day"></div>
+                            <span class="legend-text">{{'myprofile.calendar.legend.day' | translate}}</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -110,8 +115,9 @@
                                     <i class="fa fa-picture-o fa-5x" ng-if="!profile.photos[selectedPhotoIndex]"></i>
                                 </div>
                                 <ul id="photos-list">
-                                    <li ng-click="selectPhoto($index)" ng-repeat="photo in profile.photos track by $index">
-                                        <img ng-src="{{photo.url}}" />
+                                    <li ng-click="selectPhoto($index)"
+                                        ng-repeat="photo in profile.photos track by $index">
+                                        <img ng-src="{{photo.url}}"/>
                                     </li>
                                 </ul>
                             </div>

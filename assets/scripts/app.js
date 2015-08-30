@@ -331,6 +331,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             })
             .state('parameters', {
                 url: '/parameters',
+                controller: 'ParametersCtrl',
                 templateUrl: 'views/parameters.html'
             })
             .state('faq', {
@@ -340,6 +341,14 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             .state('informations', {
                 url: '/informations',
                 templateUrl: 'views/informations.html'
+            })
+            .state('myteachers', {
+                url: '/myteachers',
+                templateUrl: 'views/myteachers.html',
+                controller: 'FavListCtrl',
+                data: {
+                    auth: true
+                }
             });
 
         //================================================

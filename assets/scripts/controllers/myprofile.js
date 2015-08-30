@@ -14,6 +14,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
         };
         $scope.period = moment().date(10).format('MM-YYYY');
         $scope.scheduleIndex = -1;
+        $scope.needSave = false;
 
         var findShedule = function (period) {
             if ($scope.profile.schedules.length == 0) {
@@ -53,6 +54,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
          */
         $scope.save = function () {
             $scope.profile.$update(function (p, response) {
+                $scope.needSave = false;
             });
         }
 
@@ -71,6 +73,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
          */
         $scope.onUpload = function (url) {
             $scope.profile.photo = url;
+            $scope.save();
         }
 
         $scope.favlist = [];
@@ -137,6 +140,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                     $scope.profile.photos = [];
                 }
                 $scope.profile.photos[$scope.selectedPhotoIndex] = {url: url};
+                $scope.save();
             }
 
             /**
@@ -145,6 +149,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
              */
             $scope.deletePhoto = function (index) {
                 $scope.profile.photos.splice(index, 1);
+                $scope.save();
             }
 
             $scope.selectPhoto = function (index) {
@@ -177,6 +182,10 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                 $scope.profile.accomodationCoords.lat = args.geometry.location.lat();
                 $scope.profile.accomodationCoords.lng = args.geometry.location.lng();
                 updateMap();
+                $timeout(function(){
+                    $scope.save();
+                    angular.element('#editLocationBtn').click();
+                }, 10);
             });
 
             /**
@@ -188,6 +197,11 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                     lat = $scope.profile.accomodationCoords.lat;
                     lon = $scope.profile.accomodationCoords.lng;
                 }
+                else{
+                    lat = 48.856614;
+                    lon = 2.3522219000000177;
+                }
+
                 if(lat){
                     $scope.map = {
                         center: {
@@ -241,6 +255,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
 
                 $scope.formulaToAdd = {};
                 $('#dlgAddFormula').modal('hide');
+                $scope.save();
             }
 
             /**
@@ -258,6 +273,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             $scope.deleteFormula = function (formula) {
                 var index = $scope.profile.formulas.indexOf(formula);
                 $scope.profile.formulas.splice(index, 1);
+                $scope.save();
             }
 
             /**
@@ -275,7 +291,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
 
 
             var findUndispo = function (date) {
-                console.log($scope.profile.schedules);
                 if ($scope.profile.schedules[$scope.scheduleIndex].undispos.length == 0) {
                     return -1;
                 }
@@ -295,20 +310,21 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                 var v = date.valueOf();
                 var i = findUndispo(v);
                 if (i == -1) {
-                    $scope.profile.schedules[$scope.scheduleIndex].undispos.push({date: v, css: 'am'});
+                    $scope.profile.schedules[$scope.scheduleIndex].undispos.push({date: v, css: 'pm'});
                 }
                 else {
                     var undispo = $scope.profile.schedules[$scope.scheduleIndex].undispos[i];
-                    if (undispo.css == 'am') {
-                        $scope.profile.schedules[$scope.scheduleIndex].undispos[i].css = 'pm';
+                    if (undispo.css == 'pm') {
+                        $scope.profile.schedules[$scope.scheduleIndex].undispos[i].css = 'am';
                     }
-                    else if (undispo.css == 'pm') {
+                    else if (undispo.css == 'am') {
                         $scope.profile.schedules[$scope.scheduleIndex].undispos[i].css = 'day';
                     }
                     else if (undispo.css == 'day') {
                         $scope.profile.schedules[$scope.scheduleIndex].undispos.splice(i, 1);
                     }
                 }
+                $scope.needSave = true;
             }
 
             $scope.onMonthChanged = function (newMonth, oldMonth) {

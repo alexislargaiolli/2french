@@ -26,12 +26,25 @@ tooFrench.directive('alexUploader', function() {
 			$scope.progress = 0;
 			$scope.progressBarType = '';
 			$scope.alerts = [];
+			$scope.resultSize = 200;
 
 			var handleFileSelect = function(evt) {
 				$scope.file = evt.currentTarget.files[0];
 				$scope.progress = 0;
+				var image  = new Image();
 				var reader = new FileReader();
 				reader.onload = function(evt) {
+					image.src    = evt.target.result;
+					image.onload = function() {
+						var w = this.width,
+							h = this.height;
+						if(w > h){
+							$scope.resultSize = h;
+						}
+						else{
+							$scope.resultSize = w;
+						}
+					}
 					$scope.$apply(function($scope) {
 						$scope.myImage = evt.target.result;
 						$scope.uploadable = 1;
