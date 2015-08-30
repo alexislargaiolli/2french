@@ -8,6 +8,8 @@
         <div class="hidden-xs hidden-sm col-md-3 col-lg-3 conversations">
             <div ng-repeat="conv in conversations" class="conversation"
                  ng-class="{selected : conv.id == selectedConv.id }" ng-click="selectConversation(conv.id)">
+                <img class="user-photo-profile" ng-src="{{conv.photo}}" ng-show="conv.photo"/>
+                <i class="fa fa-user user-photo-profile" ng-show="!conv.photo"></i>
                 <span class="name">
                 {{conv.interlocutor}}
                 </span>

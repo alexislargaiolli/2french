@@ -63,7 +63,28 @@ var User = {
             sails.models.profile.destroy({
                 id: user.profile
             }).exec(function (err) {
-                next();
+
+                //Remove user fav list
+                sails.models.userFavList.destroy({
+                    owner: user.id
+                }).exec(function (err) {
+
+                    //Remove user conversations
+                    sails.models.conversation.destroy({
+                        $or: [
+                            {owner: user.id},
+                            {interlocutor: user.id}
+                        ]
+                    }).exec(function (err) {
+
+                        //Remove user diplomas
+                        sails.models.diploma.destroy({
+                            owner: user.id
+                        }).exec(function (err) {
+                            next();
+                        });
+                    });
+                });
             });
         });
     }

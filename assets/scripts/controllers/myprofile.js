@@ -52,11 +52,8 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
          * Save profile modifications
          */
         $scope.save = function () {
-            console.log($scope.profile.location.lat);
             $scope.profile.$update(function (p, response) {
-                console.log(p.location.lat);
             });
-
         }
 
         /**

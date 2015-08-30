@@ -563,5 +563,9 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
             var bodyMinSize = pageHeight - headerHeight - footerHeight;
             angular.element('#main-container').css('min-height', bodyMinSize);
         }
+
+        /*socket.on('test', function(data){
+            console.log('SOCKET : ' + data);
+        });*/
     }
 ]);

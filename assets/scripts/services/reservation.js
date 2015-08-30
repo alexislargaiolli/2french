@@ -40,6 +40,15 @@ tooFrenchServices.factory('Reservation', ['$resource', '$http', '$q', 'Session',
                     deferred.reject();
                 });
                 return deferred.promise;
+            },
+            cancelReservation : function(resaId){
+                var deferred = $q.defer();
+                $http.get('/reservation/cancelReservation', {params : {resaId : resaId}}).success(function (data, status, headers, config) {
+                    deferred.resolve(data);
+                }).error(function (data, status, headers, config) {
+                    deferred.reject();
+                });
+                return deferred.promise;
             }
         }
     }

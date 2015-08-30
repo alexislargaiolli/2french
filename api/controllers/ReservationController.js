@@ -14,11 +14,11 @@ module.exports = {
                     return res.sendError("Unable to find resas");
                 }
                 resas.forEach(function (r) {
-                    r.studentId = r.student.id;
-                    r.owner = r.student.owner;
-                    r.photo = r.student.photo;
-                    r.city = r.student.city;
-                    r.student = r.student.firstname;
+                    r.teacherId = r.teacher.id;
+                    r.owner = r.teacher.owner;
+                    r.photo = r.teacher.photo;
+                    r.city = r.teacher.city;
+                    r.student = r.teacher.firstname;
                 });
                 res.send(resas);
             });
@@ -65,13 +65,39 @@ module.exports = {
                 if (err) {
                     return res.sendError("Unable to find resas");
                 }
-                if(!resa){
+                if (!resa) {
                     return res.send('not found');
                 }
-                if(['pending', 'validated', 'refused', 'canceled'].indexOf(status) == -1){
+                if (['pending', 'validated', 'refused', 'canceled'].indexOf(status) == -1) {
                     return res.send(500);
                 }
-                Reservation.update({id: resaId}, {status : status}).exec(function(err, r){
+                Reservation.update({id: resaId}, {status: status}).exec(function (err, r) {
+                    if (err) {
+                        return res.sendError("Unable to update status");
+                    }
+                    res.send(200, r);
+                });
+            });
+        });
+    },
+    cancelReservation: function (req, res) {
+        var userId = req.user.id;
+        var resaId = req.allParams().resaId;
+        Profile.findOne({owner: userId}).exec(function (err, profile) {
+            if (err) {
+                return res.sendError("Unable to find profile");
+            }
+            Reservation.findOne({
+                id: resaId,
+                $or: [{teacher: profile.id}, {student: profile.id}]
+            }).exec(function (err, resa) {
+                if (err) {
+                    return res.sendError("Unable to find resas");
+                }
+                if (!resa) {
+                    return res.send('not found');
+                }
+                Reservation.update({id: resaId}, {status: 'canceled'}).exec(function (err, r) {
                     if (err) {
                         return res.sendError("Unable to update status");
                     }
