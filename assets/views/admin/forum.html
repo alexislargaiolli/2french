@@ -3,7 +3,7 @@
 <i class="fa fa-plus"></i>
 </button>
 <ul class="list-group">
-	<li ng-repeat="e in categorys" class="list-group-item">{{e.name[$parent.lg]}}
+	<li ng-repeat="e in categorys" class="list-group-item">{{e.name[currentLg]}}
 		<button type="button" ng-click="selectPostCategory(e)" data-toggle="modal" data-target="#dlgAddPostCategory" class="btn btn-default">Edit</button>
 		<button type="button" ng-click="deletePostCategory(e)" class="btn btn-default">Remove</button>
 	</li>
@@ -19,7 +19,7 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="PostCategoryName">Nom</label>
-						<input type="text" ng-model="category.name[$parent.lg]" class="form-control" id="PostCategoryName" placeholder="Libellé" ng-required="true">
+						<input type="text" ng-model="category.name[currentLg]" class="form-control" id="PostCategoryName" placeholder="Libellé" ng-required="true">
 					</div>
 				</div>
 				<div class="modal-footer">

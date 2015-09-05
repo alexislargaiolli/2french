@@ -31,9 +31,9 @@
         <div class="col-sm-12 col-md-9 col-lg-9" id="selected-conversation-wrapper">
             <div id="selected-conversation">
                 <div ng-repeat="msg in selectedConv.messages">
-                    <div class="msg-wrapper" ng-class="{mymsg:msg.author == currentUser.id}">
-                        <span class="sender" ng-if="msg.author != currentUser.id">{{selectedConv.interlocutor}}</span>
-                        <div class="msg arrow" ng-class="msg.author == currentUser.id ? 'right' :'left'">
+                    <div class="msg-wrapper" ng-class="{mymsg:msg.author == session.user.id}">
+                        <span class="sender" ng-if="msg.author != session.user.id">{{selectedConv.interlocutor}}</span>
+                        <div class="msg arrow" ng-class="msg.author == session.user.id ? 'right' :'left'">
                             {{msg.content}}
                         </div>
                     </div>

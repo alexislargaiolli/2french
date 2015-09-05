@@ -92,6 +92,12 @@ module.exports.policies = {
   },
   PostController:{
     '*':[ 'passport', 'sessionAuth'],
+    find : [],
+    findone : [],
+    recentPosts : [],
+    popularPosts : [],
+    popularFilePosts:[],
+    postGeneralByCategory : [],
     save : ['passport', 'sessionAuth', 'teacherPost']
   },
   PostCategoryController:{
@@ -99,7 +105,9 @@ module.exports.policies = {
     find : []
   },
   CommentController:{
-    '*':[ 'passport', 'sessionAuth']
+    '*':[ 'passport', 'sessionAuth'],
+    find : [],
+    postComments : []
   },
   ReservationController:{
     '*':[ 'passport', 'sessionAuth'],

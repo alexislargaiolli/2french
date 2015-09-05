@@ -115,7 +115,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                 }).progress(function (evt) {
                     $scope.diplomaProgress = Math.round((evt.loaded * 100.0) / evt.total);
                 }).success(function (data, status, headers, config) {
-                    $rootScope.diploma = data;
+                    $rootScope.session.diploma = data;
                     console.log('success ' + data);
                     $scope.diplomaUploading = false;
                 }).error(function (data, status, headers, config) {

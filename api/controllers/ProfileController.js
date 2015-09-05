@@ -19,6 +19,47 @@ module.exports = {
         });
     },
 
+    search: function (req, res) {
+        var count = req.allParams().count;
+        var pageSize = req.allParams().pageSize;
+        var pageIndex = req.allParams().pageIndex;
+        var city = req.query['city'];
+        var lvl2 = req.query['lvl2'] ? req.query['lvl2'] : city;
+        var lvl1 = req.query['lvl1'] ? req.query['lvl1'] : city;
+        var country = req.query['country'] ? req.query['country'] : city;
+        var days = req.query['days'];
+        var periods = req.query['periods'];
+
+        if (days && days.length > 0) {
+            sails.log.info('search with days ');
+            days = JSON.parse(days);
+            periods = JSON.parse(periods);
+        }
+        if (count && count == 1) {
+            sails.services['search'].fullSearch(true, skip, pageSize, city, lvl2, lvl1, country, days, periods, function (err, count) {
+                if (err) {
+                    return res.sendError('Erreur dans la recherche');
+                }
+                res.send(200, {count: count});
+            });
+        }
+        else {
+            if (!pageSize) {
+                pageSize = 10;
+            }
+            if (!pageIndex) {
+                pageIndex = 1;
+            }
+            var skip = pageSize * (pageIndex - 1);
+            sails.services['search'].fullSearch(false, skip, pageSize, city, lvl2, lvl1, country, days, periods, function (err, profiles) {
+                if (err) {
+                    return res.sendError('Erreur dans la recherche');
+                }
+                res.send(200, profiles);
+            });
+        }
+    },
+
     findByCity: function (req, res) {
         var count = req.allParams().count;
         var pageSize = req.allParams().pageSize;
@@ -62,10 +103,10 @@ module.exports = {
                     });
             }
             else {
-                if(!pageSize){
+                if (!pageSize) {
                     pageSize = 10;
                 }
-                if(!pageIndex){
+                if (!pageIndex) {
                     pageIndex = 1;
                 }
                 var skip = pageSize * (pageIndex - 1);
@@ -122,10 +163,10 @@ module.exports = {
                     });
             }
             else {
-                if(!pageSize){
+                if (!pageSize) {
                     pageSize = 10;
                 }
-                if(!pageIndex){
+                if (!pageIndex) {
                     pageIndex = 1;
                 }
                 var skip = pageSize * (pageIndex - 1);

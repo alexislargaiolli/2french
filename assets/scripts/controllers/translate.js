@@ -8,10 +8,15 @@ tooFrench.controller('TranslateCtrl', ['$translate', '$scope', '$rootScope', 'LO
 				next: langKey
 			})
 			$translate.use(langKey);
+			$rootScope.currentLocale = $translate.preferredLanguage();
+			$rootScope.currentLg = $translate.preferredLanguage().substring(0, 2);
 		};
 
 		$scope.currentLanguage = function() {
 			return $translate.use();
 		}
+
+		$rootScope.currentLocale = $translate.preferredLanguage();
+		$rootScope.currentLg = $translate.preferredLanguage().substring(0, 2);
 	}
 ]);

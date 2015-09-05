@@ -1,4 +1,4 @@
-<form id="loginForm" name="formLogin" role="form" class="navbar-form navbar-right navbar-login" ng-if="currentUser == null" ng-controller="LoginCtrl" >
+<form id="loginForm" name="formLogin" role="form" class="navbar-form navbar-right navbar-login" ng-if="!session.authenticated" ng-controller="LoginCtrl" >
 	<div class="form-group btn-wrapper">
 		<i class="fa fa-user"></i>
 		<input id="input-email" ng-model="credential.email" type="text" name="username" placeholder="{{'header.login.email' | translate}}" ng-required="true" class="form-control">
@@ -11,6 +11,6 @@
 	<button id="login-btn" ng-click="login()" type="submit" class="btn"><i class="fa fa-unlock-alt"></i></button>
 	<div class="alert alert-danger" role="alert" ng-show="message">{{message}}</div>
 	
-	<button id="register-btn" ng-if="currentUser == null" type="button" ui-sref="register" class="btn btn-default orange-btn" ui-sref-active="active">{{'header.register' | translate}}</button>
+	<button id="register-btn" ng-if="!session.authenticated" type="button" ui-sref="register" class="btn btn-default orange-btn" ui-sref-active="active">{{'header.register' | translate}}</button>
 	
 </form>

@@ -7,12 +7,12 @@
                         <i class="fa fa-graduation-cap"></i>
                     </div>
                     <div class="center-col">
-                        <span ng-if="!diploma.diplomaUploaded">{{'diploma.label.upload' | translate}}</span>
-                        <span ng-if="diploma.diplomaUploaded && !diploma.diplomaValidated">{{'diploma.label.validating' | translate}}</span>
-                        <span ng-if="diploma.diplomaUploaded && diploma.diplomaValidated">{{'diploma.label.validated' | translate}}</span>
+                        <span ng-if="!session.diploma.diplomaUploaded">{{'diploma.label.upload' | translate}}</span>
+                        <span ng-if="session.diploma.diplomaUploaded && !session.diploma.diplomaValidated">{{'diploma.label.validating' | translate}}</span>
+                        <span ng-if="session.diploma.diplomaUploaded && session.diploma.diplomaValidated">{{'diploma.label.validated' | translate}}</span>
                     </div>
                     <div class="right-col">
-                        <div ng-if="!diploma.diplomaUploaded && !diploma.diplomaValidated">
+                        <div ng-if="!session.diploma.diplomaUploaded && !session.diploma.diplomaValidated">
                             <div class="fileUpload btn blue-btn" ng-show="diplomaFile == null">
                                 <span class="fa fa-file-pdf-o"></span>
                                 <span class="lm-5">{{'diploma.btn.select' | translate}}</span>

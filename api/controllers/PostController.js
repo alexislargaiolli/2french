@@ -61,7 +61,7 @@ module.exports = {
         });
     },
     recentPosts: function (req, res) {
-        var teacher = req.user.role == 'admin' || req.user.role == 'teacher';
+        var teacher = req.user  && (req.user.role == 'admin' || req.user.role == 'teacher');
         Post.find({
             where: {teacher: teacher},
             limit: 3,
@@ -76,7 +76,7 @@ module.exports = {
         });
     },
     popularPosts: function (req, res) {
-        var teacher = req.user.role == 'admin' || req.user.role == 'teacher';
+        var teacher = req.user && (req.user.role == 'admin' || req.user.role == 'teacher');
         Post.find({
             where: {teacher: teacher},
             limit: 3,
@@ -91,7 +91,7 @@ module.exports = {
         });
     },
     popularFilePosts: function (req, res) {
-        var teacher = req.user.role == 'admin' || req.user.role == 'teacher';
+        var teacher = req.user  && (req.user.role == 'admin' || req.user.role == 'teacher');
         Post.find({
             where: {teacher: teacher, files: {$exists: true, $not: {$size: 0}}},
             limit: 3,

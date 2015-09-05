@@ -3,7 +3,7 @@
 		<i class="fa fa-plus"></i>
 		</button>
 		<ul class="list-group">
-			<li ng-repeat="f in formations" class="list-group-item">{{f.name[$parent.lg]}}
+			<li ng-repeat="f in formations" class="list-group-item">{{f.name[currentLg]}}
 				<button type="button" ng-click="selectFormation(f)" data-toggle="modal" data-target="#dlgAddFormation" class="btn btn-default">Edit</button>
 				<button type="button" ng-click="deleteFormation(f)" class="btn btn-default">Remove</button>
 			</li>
@@ -20,11 +20,11 @@
 						<div class="modal-body">
 							<div class="form-group">
 								<label for="formulaName">Nom</label>
-								<input type="text" ng-model="formation.name[$parent.lg]" class="form-control" id="formulaName" placeholder="Nom de la formule" ng-required="true">
+								<input type="text" ng-model="formation.name[currentLg]" class="form-control" id="formulaName" placeholder="Nom de la formule" ng-required="true">
 							</div>
 							<div class="form-group">
 								<label for="formulaDesc">Description</label>
-								<textarea id="formulaDesc" ng-model="formation.description[$parent.lg]" placeholder="Description de la formule" class="form-control" rows="3" ng-required="true"></textarea>
+								<textarea id="formulaDesc" ng-model="formation.description[currentLg]" placeholder="Description de la formule" class="form-control" rows="3" ng-required="true"></textarea>
 							</div>
 							<div class="form-group">
 								<label for="icon">Nom</label>

@@ -14,7 +14,6 @@ tooFrenchControllers.controller('LoginCtrl', ['$scope', '$state', 'AuthService',
 
 	$scope.login = function(){
 		AuthService.login($scope.credential).then(function(user){//success
-			$scope.setCurrentUser(user);
 			$state.go('home');
 		},function(msg){ //error			
 			$scope.message = msg;

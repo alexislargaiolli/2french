@@ -3,7 +3,7 @@
 <i class="fa fa-plus"></i>
 </button>
 <ul class="list-group">
-	<li ng-repeat="e in recommandations" class="list-group-item">{{e.title[$parent.lg]}}
+	<li ng-repeat="e in recommandations" class="list-group-item">{{e.title[currentLg]}}
 		<button type="button" ng-click="selectRecommandation(e)" data-toggle="modal" data-target="#dlgAddRecommandation" class="btn btn-default">Edit</button>
 		<button type="button" ng-click="deleteRecommandation(e)" class="btn btn-default">Remove</button>
 	</li>
@@ -19,7 +19,7 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="recommandationName">Nom</label>
-						<input type="text" ng-model="recommandation.title[$parent.lg]" class="form-control" id="recommandationName" placeholder="Nom de la recommandation" ng-required="true">
+						<input type="text" ng-model="recommandation.title[currentLg]" class="form-control" id="recommandationName" placeholder="Nom de la recommandation" ng-required="true">
 
 						<div class="form-group">
 							<label for="recommandationLink">Lien</label>
@@ -28,7 +28,7 @@
 
 						<div class="form-group">
 							<label for="recommandationDesc">Description</label>
-							<textarea ng-model="recommandation.description[$parent.lg]" class="form-control" id="recommandationDesc" placeholder="Description" ng-required="true"></textarea>
+							<textarea ng-model="recommandation.description[currentLg]" class="form-control" id="recommandationDesc" placeholder="Description" ng-required="true"></textarea>
 						</div>
 
 						<div class="form-group">

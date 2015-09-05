@@ -31,7 +31,8 @@ var tooFrenchApp = angular.module('tooFrenchApp', [
     'vcRecaptcha',
     'vAccordion',
     'anim-in-out',
-    'bootstrapLightbox'
+    'bootstrapLightbox',
+    'angular-carousel'
 ]);
 
 
@@ -39,6 +40,7 @@ tooFrenchApp.constant('AUTH_EVENTS', {
     loginSuccess: 'auth-login-success',
     loginFailed: 'auth-login-failed',
     logoutSuccess: 'auth-logout-success',
+    sessionCreated: 'auth-session-created',
     sessionTimeout: 'auth-session-timeout',
     notAuthenticated: 'auth-not-authenticated',
     notAuthorized: 'auth-not-authorized'
@@ -138,18 +140,12 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
                 url: '/forum',
                 controller: 'ForumCtrl',
                 templateUrl: 'views/forum/forum.html',
-                data: {
-                    auth: true,
-                }
             })
 
             .state('forum.post', {
                 url: '/:postId',
                 controller: 'ForumPostCtrl',
                 templateUrl: 'views/forum/forum-post.html',
-                data: {
-                    auth: true,
-                }
             })
 
             .state('forum.create', {
@@ -295,12 +291,12 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
                 controller: 'UploaderCtrl'
             })
             .state('results', {
-                url: '/results/:city/:days/:periods',
+                url: '/results/:country/:lvl1/:lvl2/:city/:days/:periods',
                 templateUrl: 'views/results.html',
                 controller: 'SearchCtrl'
             })
             .state('recommandations', {
-                url: '/recommandations/:city',
+                url: '/recommandations/:country/:lvl1/:lvl2/:city',
                 templateUrl: 'views/recommandations.html',
                 controller: 'RecommandationCtrl'
             })
@@ -390,15 +386,15 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
             $rootScope.currentState = toState.name;
         });
 
-        var processChange = function(event, next){
+        var processChange = function (event, next) {
             if (next.data) {
                 if (next.data.auth === true) {
-                    if (!AuthService.isAuthenticated()) {
+                    if (!$rootScope.session.authenticated) {
                         event.preventDefault();
                         $state.go('login');
                         $rootScope.$broadcast(AUTH_EVENTS.notAuthenticated);
                     } else if (next.data.authorizedRoles) {
-                        if (!AuthService.isAuthorized(next.data.authorizedRoles)) {
+                        if (!$rootScope.session.isAuthorized(next.data.authorizedRoles)) {
                             event.preventDefault();
                             $state.go('forbidden');
                             $rootScope.$broadcast(AUTH_EVENTS.notAuthorized);
@@ -406,17 +402,17 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
                     }
                 }
                 if (next.data.auth === false) {
-                    if (AuthService.isAuthenticated()) {
+                    if ($rootScope.session.authenticated) {
                         event.preventDefault();
                     }
                 }
             }
         }
         $rootScope.$on('$stateChangeStart', function (event, next) {
-            if($rootScope.sessionInitialized){
+            if ($rootScope.sessionInitialized) {
                 processChange(event, next);
             }
-            else{
+            else {
                 AuthService.getUser().then(function () {
                     processChange(event, next);
                 });
@@ -465,7 +461,7 @@ tooFrenchApp.directive(
 );
 
 var tooFrenchControllers = angular.module('tooFrenchCtrl', ['ngRoute', 'ui.router', 'xeditable', 'uiGmapgoogle-maps', 'pascalprecht.translate', 'tooFrenchService', 'angularFi' +
-'leUpload', 'ui.select', 'ui.bootstrap', 'dialogs.main', 'google.places', 'ngImgCrop', 'multipleDatePicker', 'vcRecaptcha']);
+'leUpload', 'ui.select', 'ui.bootstrap', 'dialogs.main', 'google.places', 'ngImgCrop', 'multipleDatePicker', 'vcRecaptcha', 'angular-carousel']);
 tooFrenchControllers.config(function (uiSelectConfig) {
     //================================================
     // Angular ui components
@@ -476,41 +472,17 @@ tooFrenchControllers.config(function (uiSelectConfig) {
 angular.module('tooFrenchService', ['ngRoute', 'ngResource']);
 
 
-tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope', '$window', '$state', '$http', '$timeout', 'USER_ROLES', 'AUTH_EVENTS', 'LOCALE_EVENTS', 'MESSAGE_EVENTS', 'AuthService', 'Session', '$translate', 'Profile', 'Messagerie', 'Reservation',
+tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope', '$window', '$state', '$timeout', 'AUTH_EVENTS', 'MESSAGE_EVENTS', 'AuthService', 'Session', 'Profile', 'Messagerie', 'Reservation',
 
-    function ($rootScope, $scope, $window, $state, $http, $timeout, USER_ROLES, AUTH_EVENTS, LOCALE_EVENTS, MESSAGE_EVENTS, AuthService, Session, $translate, Profile, Messagerie, Reservation) {
-        $scope.currentUser = null;
-        $scope.currentProfile = null;
-        $scope.userRoles = USER_ROLES;
-        $scope.isAuthorized = AuthService.isAuthorized;
-        $scope.locale = $translate.preferredLanguage();
-        $rootScope.currentLocale = $translate.preferredLanguage();
-        $rootScope.currentLg = $translate.preferredLanguage().substring(0, 2);
-        $scope.lg = $translate.preferredLanguage().substring(0, 2);
-        $scope.unseenMsgCount = 0;
-        $rootScope.isConnected = false;
-        $rootScope.newResaCount = 0;
-
-        $scope.setCurrentUser = function (user) {
-            $scope.currentUser = user;
-            $rootScope.isConnected = $scope.currentUser != null;
-        };
+    function ($rootScope, $scope, $window, $state, $timeout, AUTH_EVENTS, MESSAGE_EVENTS, AuthService, Session, Profile, Messagerie, Reservation) {
 
         $scope.logout = function () {
-            if ($scope.currentUser !== null) {
-                AuthService.logout().then(function () {
-                    $scope.setCurrentUser(null);
-                });
-            }
+            AuthService.logout().then(function () {
+
+            });
         }
 
-        $scope.$on(LOCALE_EVENTS.localeChange, function (event, args) {
-            $scope.lg = args.next.substring(0, 2);
-            $scope.locale = args.next;
-            //moment.lang($scope.lg);
-        });
-
-        $scope.$on(MESSAGE_EVENTS.read, function (event, args) {
+       /* $scope.$on(MESSAGE_EVENTS.read, function (event, args) {
             $timeout(function () {
                 var count = args.count;
                 $scope.unseenMsgCount -= count;
@@ -523,29 +495,19 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
             }, function () {
                 $scope.unseenMsgCount = -1;
             });
+        });*/
+
+        $scope.$on(AUTH_EVENTS.loginSuccess, function (event, args) {
+            Session.create(args.data);
+            $rootScope.$broadcast(AUTH_EVENTS.sessionCreated);
         });
 
-        $scope.$on(AUTH_EVENTS.loginSuccess, function () {
-            $scope.currentProfile = Profile.get({
-                id: Session.user.profile
-            }, function () {
-
-            });
-            if ($scope.isTeacher) {
-                $http.get('diploma/userDiploma').success(function (data) {
-                    $rootScope.diploma = data;
-                });
-            }
-            Reservation.newTeacherResaCount().then(function (count) {
-                $rootScope.newResaCount = count;
-            });
-            $scope.setCurrentUser(Session.user);
-        });
         $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
-            $rootScope.isConnected = false;
-            $rootScope.diploma = null;
+            Session.destroy();
             $state.go('home');
         });
+
+
         $scope.$on(AUTH_EVENTS.notAuthenticated, function () {
             console.log('not authenticated');
         });
@@ -574,7 +536,7 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
         }
 
         /*socket.on('test', function(data){
-            console.log('SOCKET : ' + data);
-        });*/
+         console.log('SOCKET : ' + data);
+         });*/
     }
 ]);

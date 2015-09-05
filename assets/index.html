@@ -10,15 +10,16 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
     <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.css">
-    <link href="bower_components/angular-xeditable/dist/css/xeditable.css" rel="stylesheet">
+    <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css">
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css"/>
     <link rel="stylesheet" href="bower_components/angular-dialog-service/dist/dialogs.min.css"/>
-    <link rel="stylesheet" href="/bower_components/angular-google-places-autocomplete/src/autocomplete.css">
+    <link rel="stylesheet" href="bower_components/angular-google-places-autocomplete/src/autocomplete.css">
     <link rel="stylesheet" href="bower_components/ng-img-crop/compile/unminified/ng-img-crop.css">
     <link rel="stylesheet" href="scripts/libs/multiple-date-picker/dist/multiple-date-picker.css">
     <link rel="stylesheet" href="bower_components/v-accordion/dist/v-accordion.css"/>
     <link rel="stylesheet" href="bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css"/>
     <link rel="stylesheet" href="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css">
+    <link rel="stylesheet" href="bower_components/angular-carousel/dist/angular-carousel.css">
 
     <!-- endbower -->
     <!-- endbuild -->
@@ -172,7 +173,7 @@
                 </li>
                 <li class="dropdown" ng-controller="TranslateCtrl">
                     <a id="current-language" href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                       aria-expanded="false"><img ng-src="images/languages/{{$parent.locale}}.png"/><span
+                       aria-expanded="false"><img ng-src="images/languages/{{currentLocale}}.png"/><span
                             class="caret"></span></a>
                     <ul id="language-dropdown" class="dropdown-menu" role="menu">
                         <li><a ng-click="changeLanguage('frFR')"><img src="images/languages/frFR.png"/></a></li>
@@ -185,7 +186,7 @@
 
             <!-- Button trigger modal -->
             <button type="button" class="reportBugBtn" data-toggle="modal" data-target="#reportBug"
-                    ng-if="currentUser != null">
+                    ng-if="session.authenticated">
                 {{'header.report.bug' | translate}}
             </button>
 
@@ -223,7 +224,7 @@
                 </div>
             </div>
 
-            <ul id="user-menu" class="nav navbar-nav navbar-right" ng-if="currentUser != null">
+            <ul id="user-menu" class="nav navbar-nav navbar-right" ng-if="session.authenticated" ng-controller="NotificationCtrl">
                 <li>
                     <a ui-sref="myteachers" title="{{'myteachers.title' | translate}}">
                         <i class="fa fa-star"></i>
@@ -232,21 +233,21 @@
                 <li>
                     <a ui-sref="planning" id="link-planning" title="{{'planning.title' | translate}}">
                         <i class="fa fa-pencil-square-o"></i>
-                        <span class="badge" ng-show="newResaCount > 0">{{newResaCount}}</span>
+                        <span class="badge" ng-show="notifResaCount > 0">{{notifResaCount}}</span>
                     </a>
                 </li>
                 <li>
                     <a ui-sref="messagerie" id="link-message" title="{{'messagerie.title' | translate}}">
                         <i class="fa fa-envelope-o"></i>
-                        <span class="badge" ng-show="unseenMsgCount > 0">{{unseenMsgCount}}</span>
+                        <span class="badge" ng-show="notifMsgCount > 0">{{notifMsgCount}}</span>
                     </a>
                 </li>
                 <li>
                     <a ui-sref="myprofile" id="link-myprofile" title="{{'myprofile.title' | translate}}">
-                        <img id="user-menu-photo" ng-src="{{currentProfile.photo}}"
-                             ng-show="currentProfile && currentProfile.photo"/>
+                        <img id="user-menu-photo" ng-src="{{session.profile.photo}}"
+                             ng-show="session.profile && session.profile.photo"/>
                         <i id="user-menu-photo-icon" class="fa fa-user"
-                           ng-show="!currentProfile || !currentProfile.photo"></i>
+                           ng-show="!session.profile || !session.profile.photo"></i>
                     </a>
                 </li>
                 <li id="user-menu-dropdown" class="dropdown">
@@ -262,12 +263,11 @@
             </ul>
         </div>
     </div>
-    <div id="alert-diploma"
-         ng-if="currentUser != null && isTeacher && !diploma.diplomaValidated && currentState != 'myprofile'">
+    <div id="alert-diploma" ng-if="session.authenticated && isTeacher && !session.diploma.diplomaValidated && currentState != 'myprofile'">
         <div class="container center">
-            <span ng-if="!diploma.diplomaUploaded && ! diploma.diplomaValidated">{{'diploma.not.uploaded' | translate}} <a
+            <span ng-if="!session.diploma.diplomaUploaded && ! session.diploma.diplomaValidated">{{'diploma.not.uploaded' | translate}} <a
                     ui-sref="myprofile">{{'diploma.not.uploaded.link' | translate}}</a></span>
-            <span ng-if="diploma.diplomaUploaded && ! diploma.diplomaValidated">{{'diploma.label.validating' | translate}}</span>
+            <span ng-if="session.diploma.diplomaUploaded && ! session.diploma.diplomaValidated">{{'diploma.label.validating' | translate}}</span>
         </div>
     </div>
     <div id="searchBar" ng-controller="SearchBarCtrl">
@@ -425,6 +425,7 @@
 <script src="bower_components/v-accordion/dist/v-accordion.js"></script>
 <script src="bower_components/angular-ui-router-anim-in-out/anim-in-out.js"></script>
 <script src="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
+<script src="bower_components/angular-carousel/dist/angular-carousel.js"></script>
 <!--script src="/bower_components/socket.io-client/socket.io.js"></script-->
 
 
@@ -467,6 +468,7 @@
 <script src="scripts/controllers/planning.js"></script>
 <script src="scripts/controllers/favlist.js"></script>
 <script src="scripts/controllers/parameters.js"></script>
+<script src="scripts/controllers/notifications.js"></script>
 <!-- Services -->
 <script src="scripts/services/auth.js"></script>
 <script src="scripts/services/profile.js"></script>

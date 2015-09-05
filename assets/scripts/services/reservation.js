@@ -23,6 +23,15 @@ tooFrenchServices.factory('Reservation', ['$resource', '$http', '$q', 'Session',
                 });
                 return deferred.promise;
             },
+            notifCount : function(){
+                var deferred = $q.defer();
+                $http.get('/reservation/notifCount').success(function (data, status, headers, config) {
+                    deferred.resolve(data.count);
+                }).error(function (data, status, headers, config) {
+                    deferred.reject();
+                });
+                return deferred.promise;
+            },
             newTeacherResaCount : function(){
                 var deferred = $q.defer();
                 $http.get('/reservation/newTeacherResaCount').success(function (data, status, headers, config) {

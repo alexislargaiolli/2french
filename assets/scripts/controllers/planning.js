@@ -1,8 +1,9 @@
 var tooFrenchControllers = angular.module('tooFrenchCtrl');
-tooFrenchControllers.controller('PlanningCtrl', ['$scope', 'Reservation', '$timeout',
+tooFrenchControllers.controller('PlanningCtrl', ['$rootScope', '$scope', 'Reservation', '$timeout', 'AUTH_EVENTS',
 
-    function ($scope, Reservation, $timeout) {
+    function ($rootScope, $scope, Reservation, $timeout, AUTH_EVENTS) {
         $scope.resas = [];
+
         if($scope.isTeacher){
 
             Reservation.teacherResa().then(function(resas){

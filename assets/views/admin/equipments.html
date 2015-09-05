@@ -3,7 +3,7 @@
 <i class="fa fa-plus"></i>
 </button>
 <ul class="list-group">
-	<li ng-repeat="e in equipments" class="list-group-item">{{e.name[$parent.lg]}}
+	<li ng-repeat="e in equipments" class="list-group-item">{{e.name[currentLg]}}
 		<button type="button" ng-click="selectEquipment(e)" data-toggle="modal" data-target="#dlgAddEquipment" class="btn btn-default">Edit</button>
 		<button type="button" ng-click="deleteEquipment(e)" class="btn btn-default">Remove</button>
 	</li>
@@ -19,7 +19,7 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="equipmentName">Nom</label>
-						<input type="text" ng-model="equipment.name[$parent.lg]" class="form-control" id="equipmentName" placeholder="Nom de l'équipement" ng-required="true">
+						<input type="text" ng-model="equipment.name[currentLg]" class="form-control" id="equipmentName" placeholder="Nom de l'équipement" ng-required="true">
 					</div>
 				</div>
 				<div class="modal-footer">

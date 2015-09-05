@@ -13,7 +13,7 @@
                     <a ui-sref="forum.post({postId : post.id})" class="list-group-item" ng-repeat="post in recentPosts">
                         <h4 class="list-group-item-heading">{{post.title}}</h4>
 
-                        <p class="list-group-item-text">{{post.category.name[$parent.lg]}}</p>
+                        <p class="list-group-item-text">{{post.category.name[currentLg]}}</p>
                     </a>
                 </div>
                 <div class="panel-body p-0" ng-if="recentPosts.length == 0">
@@ -30,7 +30,7 @@
                     <a ui-sref="forum.post({postId : post.id})" class="list-group-item" ng-repeat="post in popularPosts">
                         <h4 class="list-group-item-heading">{{post.title}}</h4>
 
-                        <p class="list-group-item-text">{{post.category.name[$parent.lg]}}</p>
+                        <p class="list-group-item-text">{{post.category.name[currentLg]}}</p>
                     </a>
                 </div>
                 <div class="panel-body p-0" ng-if="popularPosts.length == 0">
@@ -47,7 +47,7 @@
                     <a ui-sref="forum.post({postId : post.id})" class="list-group-item" ng-repeat="post in popularFilePosts">
                         <h4 class="list-group-item-heading">{{post.title}}</h4>
 
-                        <p class="list-group-item-text">{{post.category.name[$parent.lg]}}</p>
+                        <p class="list-group-item-text">{{post.category.name[currentLg]}}</p>
                     </a>
                 </div>
                 <div class="panel-body p-0" ng-if="popularFilePosts.length == 0">
@@ -57,7 +57,7 @@
             </div>
         </div>
         <div class="col-md-9 col-lg-9">
-            <div class="bordered-block forum">
+            <div class="bordered-block forum" ng-if="session.isTeacher">
                 <div>
                     <div>
                         <h1 class="block-title1 f-25">{{'forum.teacher.title' | translate}}</h1>

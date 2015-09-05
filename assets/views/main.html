@@ -1,22 +1,19 @@
 <div class="page-wrapper">
     <div id="home-header" ng-controller="HomeCtrl">
-        <div id="carousel-wrapper">
-            <carousel interval="interval">
-                <slide ng-repeat="slide in slides" active="slide.active">
-                    <img ng-src="{{slide.image}}">
+        <ul id="homeCarousel" rn-carousel class="image" rn-carousel-auto-slide rn-carousel-transition="fadeAndSlide" rn-carousel-easing="easeOutQuad" rn-carousel-duration="600" rn-carousel-controls-allow-loop="true">
+            <li ng-repeat="slide in slides">
+                <img src="{{ slide.image }}"/>
+                <div class="carousel-caption">
+                    <p>
+                        {{'home.carousel.caption' | translate}}
+                    </p>
 
-                    <div class="carousel-caption">
-                        <p>
-                            {{'home.carousel.caption' | translate}}
-                        </p>
-
-                        <p class="mb-10">
-                            {{'home.carousel.caption2' | translate}}
-                        </p>
-                    </div>
-                </slide>
-            </carousel>
-        </div>
+                    <p class="mb-10">
+                        {{'home.carousel.caption2' | translate}}
+                    </p>
+                </div>
+            </li>
+        </ul>
     </div>
     <div id="home-subheader">
         <i class="fa fa-angle-down"></i>
@@ -92,7 +89,7 @@
             <h3>{{'home.concept.subtitle' | translate}}</h3>
 
             <button id="register-btn" type="button" class="btn btn-default green-btn center-block" ui-sref="register"
-                    ng-if="currentUser == null">{{'home.concept.button' | translate}}
+                    ng-if="session.authenticated">{{'home.concept.button' | translate}}
             </button>
         </div>
     </div>

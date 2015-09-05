@@ -46,9 +46,9 @@
                         <div ng-if="reservation.formula != null" id="formula-wrapper">
                             <label>{{'reservation.form.formula' | translate}}</label>
                             <div>
-                                <h4 class="blue-title f-14">{{reservation.formula.name[$parent.lg]}}</h4>
+                                <h4 class="blue-title f-14">{{reservation.formula.name[currentLg]}}</h4>
 
-                                <p class="grey-text">{{reservation.formula.description[$parent.lg]}},
+                                <p class="grey-text">{{reservation.formula.description[currentLg]}},
                                     {{reservation.formula.price}}€</p>
                             </div>
                         </div>

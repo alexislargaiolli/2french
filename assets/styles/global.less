@@ -55,8 +55,8 @@ body {
 
 #header {
   background-color: #fff;
-  .navbar-login{
-    margin-top:12px;
+  .navbar-login {
+    margin-top: 12px;
   }
   .navbar-brand {
     padding: 5px !important;
@@ -171,30 +171,21 @@ body {
 }
 
 @carousel-max-height: 630px;
-#carousel-wrapper, #carousel-wrapper .carousel, #carousel-wrapper .carousel .carousel-inner, #carousel-wrapper .carousel .carousel-inner .item {
-  max-height: @carousel-max-height;
-  .carousel-control {
-    display: none;
-  }
+#homeCarousel {
+  min-height: 550px;
+  max-height: 630px;
+  margin: 0;
 }
 
-#carousel-wrapper {
-  .carousel-caption {
-    font-size: 2em;
-    font-weight: bold;
-    background: rgba(255, 255, 255, 0.7);
-    border-radius: 5px;
-    color: #444;
-    text-shadow: none;
-    p{
-      margin:0;
-    }
-  }
-  .carousel-indicators li{
-    border-color: #444;
-  }
-  .carousel-indicators li.active{
-    background-color: #444;
+#homeCarousel .carousel-caption {
+  font-size: 2em;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  color: #444;
+  text-shadow: none;
+  p {
+    margin: 0;
   }
 }
 
@@ -398,9 +389,9 @@ body {
   }
 }
 
-.formLogin{
-  width:50%;
-  margin:0 auto;
+.formLogin {
+  width: 50%;
+  margin: 0 auto;
 }
 
 /* REGISTER */
@@ -1204,7 +1195,21 @@ hr {
 
 /* Recommandations */
 .recommandationPanel {
+  .data-loader {
+    padding-top: 50px;
+    i {
+      font-size: 50px;
+    }
+  }
+}
 
+.utilLinkPanel{
+  .data-loader {
+    padding: 20px;
+    i {
+      font-size: 30px;
+    }
+  }
 }
 
 /* Contact form */
@@ -1775,14 +1780,14 @@ hr {
 }
 
 .orange-btn.active {
-  color:#fff;
+  color: #fff;
   border-color: @orange;
   background-color: @orange;
   .no-box-shadow;
 }
 
 .orange-btn:hover, .orange-btn.active:hover {
-  color:#fff;
+  color: #fff;
   border-color: #FF9805;
   background-color: #FF9805;
 }
@@ -1916,7 +1921,7 @@ hr {
 }
 
 .mb-10 {
-  margin-bottom: 10px!important;
+  margin-bottom: 10px !important;
 }
 
 .mt-15 {

@@ -3,7 +3,7 @@
 <i class="fa fa-plus"></i>
 </button>
 <ul class="list-group">
-	<li ng-repeat="e in extras" class="list-group-item">{{e.name[$parent.lg]}}
+	<li ng-repeat="e in extras" class="list-group-item">{{e.name[currentLg]}}
 		<button type="button" ng-click="selectExtra(e)" data-toggle="modal" data-target="#dlgAddExtra" class="btn btn-default">Edit</button>
 		<button type="button" ng-click="deleteExtra(e)" class="btn btn-default">Remove</button>
 	</li>
@@ -19,7 +19,7 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="extraName">Nom</label>
-						<input type="text" ng-model="extra.name[$parent.lg]" class="form-control" id="extraName" placeholder="Nom" ng-required="true">
+						<input type="text" ng-model="extra.name[currentLg]" class="form-control" id="extraName" placeholder="Nom" ng-required="true">
 					</div>
 					<div class="form-group">
 						<label for="extraIcon">Nom</label>

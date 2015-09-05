@@ -24,6 +24,7 @@ tooFrenchControllers.controller('ReservationCtrl', ['$scope', '$stateParams', 'P
             value: '3,5'
         }, {name: "4:00", value: '4'}]
 
+
         $scope.myprofile = Profile.get({id: Session.user.profile}, function (profile) {
 
         });

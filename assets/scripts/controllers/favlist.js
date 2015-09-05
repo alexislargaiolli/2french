@@ -1,9 +1,9 @@
 var tooFrenchControllers = angular.module('tooFrenchCtrl');
-tooFrenchControllers.controller('FavListCtrl', ['$scope', 'UserFavList',
+tooFrenchControllers.controller('FavListCtrl', ['$rootScope', '$scope', 'UserFavList',
 
-    function ($scope, UserFavList) {
+    function ($rootScope, $scope, UserFavList) {
 
-        if ($scope.isConnected) {
+        if ($rootScope.session.authenticated) {
 
             $scope.favlist = [];
 

@@ -42,6 +42,17 @@ module.exports = {
             });
         });
     },
+    notifCount: function (req, res) {
+        var userId = req.user.id;
+        Profile.findOne({owner: userId}).exec(function (err, profile) {
+            Reservation.count({ $or : [{teacher: profile.id}, {student: profile.id}] , status: 'pending'}).exec(function (err, count) {
+                if (err) {
+                    return res.sendError("Unable to find resas");
+                }
+                res.send({count: count});
+            });
+        });
+    },
     newTeacherResaCount: function (req, res) {
         var userId = req.user.id;
         Profile.findOne({owner: userId}).exec(function (err, profile) {

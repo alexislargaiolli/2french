@@ -5,6 +5,9 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
         $scope.results = [];
         $scope.recommandations = [];
         $scope.utillinks = [];
+        $scope.country = $stateParams.country;
+        $scope.lvl1 = $stateParams.lvl1;
+        $scope.lvl2 = $stateParams.lvl2;
         $scope.city = $stateParams.city;
         $scope.days = $stateParams.days;
         $scope.periods = $stateParams.periods;
@@ -22,9 +25,12 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
 
         $scope.search = function () {
             $scope.loading = true;
-            $http.get('/profile/findByCity', {
+            $http.get('/profile/search', {
                 params: {
                     count: 1,
+                    country: $scope.country,
+                    lvl1: $scope.lvl1,
+                    lvl2: $scope.lvl2,
                     city: $scope.city,
                     days: $scope.days,
                     periods: $scope.periods,
@@ -34,9 +40,12 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
             }).
                 success(function (count, status, headers, config) {
                     $scope.count = count.count;
-                    $http.get('/profile/findByCity', {
+                    $http.get('/profile/search', {
                         params: {
                             count: 0,
+                            country: $scope.country,
+                            lvl1: $scope.lvl1,
+                            lvl2: $scope.lvl2,
                             city: $scope.city,
                             days: $scope.days,
                             periods: $scope.periods,
@@ -55,20 +64,35 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
                 error(function (data, status, headers, config) {
 
                 });
-            $http.get('/recommandation/findByCity', {params: {city: $scope.city}}).
-                success(function (recommandations, status, headers, config) {
-                    angular.forEach(recommandations, function (recommandation, key) {
-                        $scope.recommandations.push(recommandation);
-                    });
-                }).
+            $http.get('/recommandation/search', {
+                params: {
+                    count: 0,
+                    country: $scope.country,
+                    lvl1: $scope.lvl1,
+                    lvl2: $scope.lvl2,
+                    city: $scope.city,
+                    pageSize: 5,
+                    pageIndex: 0
+                }
+            }).success(function (recommandations, status, headers, config) {
+                $scope.recommandations = recommandations;
+            }).
                 error(function (data, status, headers, config) {
 
                 });
-            $http.get('/utilLink/findByCity', {params: {city: $scope.city}}).
+            $http.get('/utilLink/search', {
+                params: {
+                    count: 0,
+                    country: $scope.country,
+                    lvl1: $scope.lvl1,
+                    lvl2: $scope.lvl2,
+                    city: $scope.city,
+                    pageSize: 5,
+                    pageIndex: 0
+                }
+            }).
                 success(function (utillinks, status, headers, config) {
-                    angular.forEach(utillinks, function (utillink, key) {
-                        $scope.utillinks.push(utillink);
-                    });
+                    $scope.utillinks = utillinks;
                 }).
                 error(function (data, status, headers, config) {
 
@@ -116,9 +140,12 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
 
         $scope.pageChanged = function () {
             $scope.loading = true;
-            $http.get('/profile/findByCity', {
+            $http.get('/profile/search', {
                 params: {
                     count: 0,
+                    country: $scope.country,
+                    lvl1: $scope.lvl1,
+                    lvl2: $scope.lvl2,
                     city: $scope.city,
                     days: $scope.days,
                     periods: $scope.periods,
