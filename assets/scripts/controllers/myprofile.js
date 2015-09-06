@@ -119,7 +119,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             }
 
             $scope.isProfileComplete = function(){
-                return $scope.profile.photo && $scope.profile.motivation && $scope.profile.hourRate && $scope.profile.formations.length > 0 && $rootScope.session.diploma.diplomaValidated;
+                return $scope.profile.photo && $scope.profile.motivation && $scope.profile.hourRate && $scope.profile.formations.length > 0 && ($rootScope.session.diplomagit  && $rootScope.session.diploma.diplomaValidated);
             }
 
             $timeout(function () {
