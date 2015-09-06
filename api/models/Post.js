@@ -46,11 +46,21 @@ module.exports = {
         }
     },
     afterDestroy: function (posts, next) {
+        sails.log.info('destroy post');
+        if(posts.length == 0){
+            return next();
+        }
         posts.forEach(function (post, i) {
-            //Remove reservations
+            sails.log.info('destroy comments');
+            //Remove comments
             sails.models.comment.destroy({
                 post: post.id
             }).exec(function (err) {
+                if(err){
+                    sails.log.info('error removing comments');
+                    return next(err);
+                }
+                sails.log.info('comments destroyed');
                 next();
             });
         });

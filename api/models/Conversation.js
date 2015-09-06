@@ -24,12 +24,18 @@ module.exports = {
         }
     },
     afterDestroy: function (conversations, next) {
+        if(conversations.length == 0){
+            return next();
+        }
         conversations.forEach(function (conversation, i) {
-
+            sails.log.info('destroy convs');
             //Remove conersation message
             sails.models.profile.destroy({
                 conversation: conversation.id
             }).exec(function (err) {
+                if(err){
+                    return next(err);
+                }
                 next();
             });
         });

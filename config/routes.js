@@ -82,7 +82,7 @@ module.exports.routes = {
   /////////////////////////////////////////////
   ///////////   CommentController   ///////////
   /////////////////////////////////////////////
-  'get /comment/postComments/:postId/:count/:pageSize/:pageIndex': 'CommentController.postComments'
+  'get /comment/postComments/:postId/:count/:pageSize/:pageIndex': 'CommentController.postComments',
 
   /***************************************************************************
   *                                                                          *

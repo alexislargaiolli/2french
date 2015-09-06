@@ -543,42 +543,42 @@ body {
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     -o-border-radius: 4px;
-    .item-wrapper {
+    .fileUpload {
+      position: relative;
+      overflow: hidden;
+    }
+    .fileUpload input.upload {
+      position: absolute;
+      top: 0;
+      right: 0;
+      margin: 0;
+      padding: 0;
+      font-size: 20px;
+      cursor: pointer;
+      opacity: 0;
+      filter: alpha(opacity=0);
+    }
+    hr{
+      border-color: #E4A342;
+    }
+    .left-col {
       color: #E4A342;
-      div {
-        display: inline-block;
-        vertical-align: middle;
+      text-align: right;
+      i.fa {
+        font-size: 30px;
       }
-      .left-col {
-        i.fa {
-          font-size: 40px;
-        }
-        margin-right: 20px;
-      }
-      .center-col {
-        font-size: 16px;
-      }
-      .right-col {
-        margin-left: 20px;
-        .fileUpload {
-          position: relative;
-          overflow: hidden;
-          margin: 10px;
-        }
-        .fileUpload input.upload {
-          position: absolute;
-          top: 0;
-          right: 0;
-          margin: 0;
-          padding: 0;
-          font-size: 20px;
-          cursor: pointer;
-          opacity: 0;
-          filter: alpha(opacity=0);
-        }
-        i.fa {
-          font-size: 30px;
-        }
+    }
+    .center-col {
+      font-size: 16px;
+      color: #E4A342;
+      padding: 5px 0;
+      text-align: center;
+    }
+    .right-col {
+      color: #E4A342;
+      text-align: left;
+      i.fa {
+        font-size: 30px;
       }
     }
   }
@@ -646,6 +646,22 @@ body {
         }
       }
     }
+  }
+
+  #activeAccomodation {
+    border: 1px solid @very-light-gray;
+    text-align: center;
+    padding: 20px;
+  }
+
+  #activeAccomodation:hover {
+      cursor: pointer;
+      background-color: #f7f7f7;
+  }
+
+  #activeAccomodation span:not(.fa) {
+    font-size: 1.8em;
+    padding-left: 20px;
   }
 
   #accomodationDescPan {
@@ -733,7 +749,7 @@ body {
       background-color: #444;
     }
   }
-  #accomodationUploadBtn button {
+  #accomodationUploadBtn .btn-upload {
     margin-top: 120px;
     padding: 15px 20px;
   }
@@ -1203,7 +1219,7 @@ hr {
   }
 }
 
-.utilLinkPanel{
+.utilLinkPanel {
   .data-loader {
     padding: 20px;
     i {

@@ -107,9 +107,9 @@
                     </span>
 
 
-                    <button ng-controller="FavListCtrl" ng-if="session.authenticated" type="button"
+                    <button ng-if="session.authenticated" type="button"
                             class="fav-btn btn btn-default blue-btn fa fa-star"
-                            ng-click="addFavorit(p.id)" ng-class="{favorit : favlist.indexOf(p.id) != -1}">
+                            ng-click="userfavlist.addFavorit(p.id)" ng-class="{favorit : userfavlist.isInFav(p.id)}">
                         <span class="hidden-xs .hidden-sm lm-5">Favoris</span></button>
                     <button ng-if="session.authenticated" type="button"
                             class="contact-btn btn btn-default green2-btn fa fa-envelope" ng-click="setUserToContact(p)"

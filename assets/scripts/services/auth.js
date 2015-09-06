@@ -98,10 +98,11 @@ tooFrenchServices.factory('AuthService', ['$http', '$rootScope', '$q', 'Session'
 tooFrenchServices.service('Session', function ($rootScope, AUTH_EVENTS, MESSAGE_EVENTS) {
     this.create = function (data) {
         this.id = data.user.id;
-        this.userId = data.user.Id;
+        this.userId = data.user.id;
         this.user = data.user;
         this.role = data.user.role;
         this.profile = data.profile;
+        this.favlistId = data.favlist ? data.favlist.id : null;
         this.diploma = data.diploma;
         this.authenticated = true;
         $rootScope.isTeacher = (this.role == "teacher") || (this.role == "admin");
@@ -115,6 +116,7 @@ tooFrenchServices.service('Session', function ($rootScope, AUTH_EVENTS, MESSAGE_
         this.user = null;
         this.role = null;
         this.profile = null;
+        this.favlistId = null;
         this.diploma = null;
         this.authenticated = false;
         $rootScope.isTeacher = false;

@@ -1,4 +1,4 @@
-<button type="button" id="btn-upload_{{$id}}" class="btn btn-default {{icon}}" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+<button type="button" id="btn-upload_{{$id}}" class="btn btn-default btn-upload {{icon}}" data-toggle="modal" data-backdrop="static" data-keyboard="false"
         data-target="#dlg-upload_{{$id}}" ng-click="reset()"> {{text}}
 </button>
 <div class="modal" id="dlg-upload_{{$id}}" tabindex="-1" role="dialog" aria-labelledby="dlg-upload_{{$id}}"
@@ -6,9 +6,10 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                        aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">{{'uploader.title' | translate}}</h4>
+                <span class="close" data-dismiss="modal" aria-label="Close"
+                        aria-hidden="true">&times;</span>
+                <h4 class="modal-title" ng-show="!uploading">{{'uploader.title' | translate}}</h4>
+                <h4 class="modal-title" ng-show="uploading">{{'uploader.uploading' | translate}}</h4>
             </div>
             <div class="modal-body uploader-wrapper">
                 <div class="row" ng-show="!uploading">
@@ -39,12 +40,12 @@
                 </alert>
             </div>
             <div class="modal-footer center">
-		        <span class="btn btn-default btn-file">
+		        <span class="btn btn-default btn-file uploader-btn">
                     <i class="fa fa-folder-open-o"></i>
                     {{'uploader.browse' | translate}}
-				    <input type="file" id="fileInput{{$id}}"/>
+				    <input type="file" id="fileInput{{$id}}" ng-disabled="uploading"/>
 				</span>
-                <button id="upload-btn" type="button" class="btn blue-btn" ng-click="upload()" ng-show="uploadable"><i
+                <button id="upload-btn" type="button" class="btn blue-btn uploader-btn" ng-click="upload()" ng-show="uploadable" ng-disabled="uploading"><i
                         class="fa fa-cloud-upload"></i>{{'uploader.upload'
                     | translate}}
                 </button>

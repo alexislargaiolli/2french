@@ -23,6 +23,7 @@ var validator = require('validator');
  * @param {Function} next
  */
 exports.register = function (req, res, next) {
+    sails.log.info('register');
     var email = req.param('email'),
         username = email,
         password = req.param('password'),
@@ -47,7 +48,7 @@ exports.register = function (req, res, next) {
         req.flash('error', 'Error.Passport.Password.Missing');
         return next(new Error('No password was entered.'));
     }
-
+    sails.log.info('var ok');
     //Check for username unicity
     Profile.findOne({"firstname": firstname}, function (err, profile) {
         if (profile) {
@@ -55,6 +56,7 @@ exports.register = function (req, res, next) {
             return next();
         }
         else {
+            sails.log.info('profile ok');
             User.findOne({
                     email: email
                 },
@@ -63,6 +65,7 @@ exports.register = function (req, res, next) {
                         req.flash('error', req.__('Error.Passport.Email.Exists', email));
                         return next();
                     } else {
+                        sails.log.info('email ok');
                         User.create({
                             username: username,
                             email: email,
@@ -79,7 +82,7 @@ exports.register = function (req, res, next) {
 
                                 return next(err);
                             }
-
+                            sails.log.info('user created');
                             user.profile = {
                                 "owner": user.id,
                                 "firstname": firstname,
@@ -91,6 +94,7 @@ exports.register = function (req, res, next) {
                                         next(destroyErr || err);
                                     });
                                 }
+                                sails.log.info('user merged');
                                 Passport.create({
                                     protocol: 'local',
                                     password: password,
@@ -98,6 +102,7 @@ exports.register = function (req, res, next) {
                                 }, function (err, passport) {
                                     if (err) {
                                         if (err.code === 'E_VALIDATION') {
+                                            sails.log.info('invalid password');
                                             req.flash('error', req.__('Error.Passport.Password.Invalid.minlength', 8));
                                         }
 
@@ -105,6 +110,7 @@ exports.register = function (req, res, next) {
                                             next();
                                         });
                                     }
+                                    sails.log.info('passport created');
                                     user.profile = user.profile.id;
                                     next(null, user);
                                 });

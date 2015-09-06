@@ -76,12 +76,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             $scope.save();
         }
 
-        $scope.favlist = [];
-
-        UserFavList.getFavList().then(function (favlist) {
-            $scope.favlist = favlist;
-        });
-
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////              TEACHER            ///////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -124,12 +118,25 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                 });
             }
 
+            $scope.isProfileComplete = function(){
+                return $scope.profile.photo && $scope.profile.motivation && $scope.profile.hourRate && $scope.profile.formations.length > 0 && $rootScope.session.diploma.diplomaValidated;
+            }
 
             $timeout(function () {
                 var inputId = '#diplomaInput';
                 var elts = angular.element(inputId);
                 elts.on('change', handleDiplomaSelect);
             });
+
+            $scope.activeAccomodation = function(){
+                $scope.profile.activeAccomodation = true;
+                $scope.save();
+            }
+
+            $scope.cancelAccomodation = function(){
+                $scope.profile.activeAccomodation = false;
+                $scope.save();
+            }
 
             /**
              * Upload picture listener for accomodation pictures
@@ -166,6 +173,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
              * Event call after change location to update google map component
              */
             $scope.updateLocation = function () {
+                console.log('updateLocation');
                 if ($scope.editLocation) {
                     updateMap();
                     $scope.editLocation = false;
@@ -214,7 +222,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                         "id" : '1',
                         "latitude": lat,
                         "longitude": lon,
-                        "title": $scope.profile.location.formatted_address,
                         "distance": "585m",
                         "hoofdcat": "70",
                         "img": "http://snm-crm.nl/wealert/img/70/ambu_6_thumb.jpg?2u",

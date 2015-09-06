@@ -8,47 +8,39 @@ var util = require('util'),
     actionUtil = require('sails/lib/hooks/blueprints/actionUtil'),
     _ = require('sails/node_modules/lodash');
 module.exports = {
-    find : function(req, res){
-
-        // If an `id` param was specified, use the findOne blueprint action
-        // to grab the particular instance with its primary key === the value
-        // of the `id` param.   (mainly here for compatibility for 0.9, where
-        // there was no separate `findOne` action)
-        if ( actionUtil.parsePk(req) ) {
-            return require('./findOne')(req,res);
-        }
-
-        // Lookup for records that match the specified criteria
-        var query = UserFavList.find()
-            .where( actionUtil.parseCriteria(req) )
-            .limit( actionUtil.parseLimit(req) )
-            .skip( actionUtil.parseSkip(req) )
-            .sort( actionUtil.parseSort(req) )
-            .populate('favorits');
-        query.exec(function found(err, matchingRecords) {
+    findOne : function(req, res){
+        var pk = actionUtil.requirePk(req);
+        var query = UserFavList.findOne(pk);
+        query = actionUtil.populateEach(query, req);
+        query.exec(function found(err, matchingRecord) {
             if (err) return res.serverError(err);
-
-            // Only `.watch()` for new instances of the model if
-            // `autoWatch` is enabled.
-            if (req._sails.hooks.pubsub && req.isSocket) {
-                UserFavList.subscribe(req, matchingRecords);
-                if (req.options.autoWatch) { UserFavList.watch(req); }
-                // Also subscribe to instances of all associated models
-                _.each(matchingRecords, function (record) {
-                    actionUtil.subscribeDeep(req, record);
-                });
+            if(!matchingRecord) return res.notFound('No record found with the specified `id`.');
+            if(matchingRecord.owner.id != req.user.id){
+                res.forbidden();
+            }
+            if (sails.hooks.pubsub && req.isSocket) {
+                Model.subscribe(req, matchingRecord);
+                actionUtil.subscribeDeep(req, matchingRecord);
             }
 
-            matchingRecords.forEach(function(favlist){
-                favlist.favorits.forEach(function(favorit){
-                    delete favorit.city;
-                    delete favorit.createdAt;
-                    delete favorit.updatedAt;
-                    delete favorit.motivation;
-                });
+            matchingRecord.favorits.forEach(function(favorit){
+                delete favorit.city;
+                delete favorit.createdAt;
+                delete favorit.updatedAt;
+                delete favorit.motivation;
+                delete favorit.accomodation;
+                delete favorit.accomodationCoords;
+                delete favorit.accomodationDescription;
+                delete favorit.activeAccomodation;
+                delete favorit.daySelected;
+                delete favorit.formulas;
+                delete favorit.location;
+                delete favorit.photos;
+                delete favorit.schedules;
+                delete favorit.hourRate;
             });
 
-            res.ok(matchingRecords);
+            res.ok(matchingRecord);
         });
     }
 };

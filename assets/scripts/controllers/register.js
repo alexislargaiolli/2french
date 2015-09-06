@@ -28,11 +28,15 @@ tooFrenchControllers.controller('RegisterCtrl', ['$scope', '$state', 'AuthServic
 		};
 
 		$scope.submit = function() {
+			console.log('submit');
 			if ($scope.formRegister.$valid) {
+				console.log('valid');
 				var teacher = $scope.registerType == 1 ? 1 : 0;
 				authService.register($scope.user.email, $scope.user.email, $scope.user.password, teacher, $scope.user.firstname, $scope.user.city).then(function(user) {
+					console.log(user);
 					$state.go('home');
 				}, function(message) {
+					console.log(message);
 					$scope.message = message;
 				});
 			}

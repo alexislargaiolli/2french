@@ -472,9 +472,10 @@ tooFrenchControllers.config(function (uiSelectConfig) {
 angular.module('tooFrenchService', ['ngRoute', 'ngResource']);
 
 
-tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope', '$window', '$state', '$timeout', 'AUTH_EVENTS', 'MESSAGE_EVENTS', 'AuthService', 'Session', 'Profile', 'Messagerie', 'Reservation',
+tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope', '$window', '$state', '$timeout', 'AUTH_EVENTS', 'MESSAGE_EVENTS', 'AuthService', 'Session', 'Profile', 'Messagerie', 'Reservation', 'UserFavList',
 
-    function ($rootScope, $scope, $window, $state, $timeout, AUTH_EVENTS, MESSAGE_EVENTS, AuthService, Session, Profile, Messagerie, Reservation) {
+    function ($rootScope, $scope, $window, $state, $timeout, AUTH_EVENTS, MESSAGE_EVENTS, AuthService, Session, Profile, Messagerie, Reservation, UserFavList) {
+        $rootScope.userfavlist = UserFavList;
 
         $scope.logout = function () {
             AuthService.logout().then(function () {
@@ -499,11 +500,14 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
 
         $scope.$on(AUTH_EVENTS.loginSuccess, function (event, args) {
             Session.create(args.data);
+            console.log(args.data);
+            $rootScope.userfavlist.getFavList();
             $rootScope.$broadcast(AUTH_EVENTS.sessionCreated);
         });
 
         $scope.$on(AUTH_EVENTS.logoutSuccess, function () {
             Session.destroy();
+            $rootScope.userfavlist.destroy();
             $state.go('home');
         });
 

@@ -9,10 +9,6 @@ tooFrenchControllers.controller('FavListCtrl', ['$rootScope', '$scope', 'UserFav
 
             $scope.userFavList = null;
 
-            UserFavList.getFavList().then(function (favlist) {
-                $scope.userFavList = favlist;
-            });
-
             var saveFavList = function (cb) {
                 if ($scope.userFavList.id) {
                     $scope.userFavList.$update(function (f) {
@@ -29,6 +25,8 @@ tooFrenchControllers.controller('FavListCtrl', ['$rootScope', '$scope', 'UserFav
             }
 
             UserFavList.getFavList().then(function (favlist) {
+                $scope.userFavList = favlist;
+                console.log(favlist);
                 $scope.favlist = [];
                 if (favlist && favlist.favorits && favlist.favorits.length > 0) {
                     favlist.favorits.forEach(function (fav, index) {

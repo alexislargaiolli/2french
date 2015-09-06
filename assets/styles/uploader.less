@@ -8,19 +8,21 @@
   }
 }
 
-.btn-file {
-  position: relative;
-  overflow: hidden;
+.uploader-btn{
+  height: 40px;
+  width: 130px;
+  padding: 0;
+  line-height: 40px;
+}
+
+.btn-file{
   i {
     font-size: 14px !important;
   }
   input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
+    position: relative;
+    top: -40px;
+    height: 40px;
     text-align: right;
     filter: alpha(opacity=0);
     opacity: 0;
@@ -28,6 +30,7 @@
     background: white;
     cursor: inherit;
     display: block;
+    width: 130px;
   }
 }
 

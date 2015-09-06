@@ -9,17 +9,11 @@ var AuthController = {
 
     loggedin: function (req, res) {
         if (req.user) {
-            //Find user profile
-            Profile.findOne({'id': req.user.profile}).exec(function (err, profile) {
-                if (err) {
-                    return sendError('Impossible de charger le profile');
+            sails.services['profile'].populateAfterLogin(req.user, function(err, data){
+                if(err){
+                    return sendError('Unable to laod user');
                 }
-                Diploma.findOne({'owner' : req.user.id}).exec(function(err, diploma){
-                    if(err){
-                        return sendError('Impossible de charger le diplome');
-                    }
-                    res.send(200, {status: 2, user: req.user, profile : profile, diploma : diploma});
-                });
+                res.send(200, data);
             });
         }
         else {
@@ -127,18 +121,12 @@ var AuthController = {
                 if (err) {
                     return tryAgain();
                 }
-
-                //Find user profile
-                Profile.findOne({'id': user.profile}).exec(function (err, profile) {
-                    if (err) {
-                        return tryAgain();
+                sails.services['profile'].populateAfterLogin(req.user, function(err, data){
+                    if(err){
+                        return sendError('Unable to laod user');
                     }
-                    Diploma.findOne({'owner' : req.user.id}).exec(function(err, diploma){
-                        if(err){
-                            return sendError('Impossible de charger le diplome');
-                        }
-                        res.send(200, {status: 2, user: user, profile : profile, diploma : diploma});
-                    });
+                    sails.log.info('logged in');
+                    res.send(200, data);
                 });
             });
         });

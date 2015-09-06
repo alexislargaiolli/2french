@@ -52,11 +52,6 @@
                                 </div>
                                 <h3 id="userName" class="f-25">{{profile.firstname}}</h3>
 
-                                <div id="level">
-                                    <span class="block-title2 f-16">{{'myprofile.level.from' | translate}} </span> {{
-                                    profile.levelFrom.name[currentLg] }} <span class="block-title2 f-16">{{'myprofile.level.to' | translate}} </span>
-                                    {{ profile.levelTo.name[currentLg] }}
-                                </div>
 								<span id="address">
 									{{profile.city.address_components[0].long_name}} ({{profile.city.address_components[3].long_name}})
 								</span>

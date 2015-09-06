@@ -79,7 +79,7 @@ module.exports = {
                         res.send(500, "Error while writing file");
                     }
                     else {
-                        Diploma.findOne({owner: req.user.id}).exec(function (err, diploma) {
+                        Diploma.findOrCreate({owner: req.user.id}, {owner: req.user.id}).exec(function (err, diploma) {
                             if (err) {
                                 res.send(500, "Diploma not found");
                             }

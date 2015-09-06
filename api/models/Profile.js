@@ -91,28 +91,46 @@ module.exports = {
         next();
     },
     afterDestroy: function (profiles, next) {
+        if(profiles.length == 0){
+            return next();
+        }
         profiles.forEach(function (profile, i) {
             //Remove reservations
+            sails.log.info('destroy profile');
             sails.models.reservation.destroy({
                 $or: [
                     {student: profile.id},
                     {teacher: profile.id},
                 ]
             }).exec(function (err) {
-
+                if(err){
+                    return next(err);
+                }
+                sails.log.info('destroy shedule');
                 //Remove    schedules
                 sails.models.schedule.destroy({
                     profile: profile.id
                 }).exec(function (err) {
-
-
+                    if(err){
+                        return next(err);
+                    }
+                    sails.log.info('update fav lists');
                     //Remove from other user fav list
-                    sails.models.userFavList.update({}, {$pull: {favorits: profile.id}}).exec(function (err) {
+                    UserFavList.update({}, {$pull: {favorits: profile.id}}).exec(function (err) {
+                        if(err){
+                            return next(err);
+                        }
 
+                        sails.log.info('destroy posts');
                         //Remove all user post
                         sails.models.post.destroy({
                             author: profile.id
                         }).exec(function (err) {
+                            if(err){
+                                sails.log.info('error destroying posts');
+                                return next(err);
+                            }
+                            sails.log.info('profile destroyed');
                             next();
                         });
                     });
