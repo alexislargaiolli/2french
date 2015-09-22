@@ -49,8 +49,13 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- Right panel -->
         <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 hp-10">
 
+
+            <!-- Results list -->
             <div class="row result-item" ng-repeat="p in results" ng-class='{first:$first}' ng-if="!loading">
 
                 <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
@@ -65,7 +70,7 @@
 
                     <div class="info-wrapper">
                         <a ui-sref="profile({profileId: p.id})" class="firstname">{{p.firstname}}</a>
-                        <h4 class="f-12">Formation proposées</h4>
+                        <h4 class="f-12">{{'search.result.formations' | translate}}</h4>
                         <ul class="formations">
                             <li class="f-12" ng-repeat="formation in p.formations"> - {{formation.name[currentLg]}}
                             </li>

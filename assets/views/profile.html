@@ -1,6 +1,9 @@
 <div id="profile-container">
     <div class="container">
         <div class="row">
+
+
+            <!-- Left panel -->
             <div id="profile-left" class="col-sm-3 col-md-3 col-lg-3">
                 <div class="panel panel-default">
                     <div class="panel-heading block-title1 center">{{'myprofile.calendar' | translate}}</div>
@@ -23,10 +26,15 @@
                     </div>
                 </div>
             </div>
+
+
+            <!-- Right panel -->
             <div id="profile-right" class="col-sm-9 col-md-9 col-lg-9">
                 <div id="profile-header" class="bordered-block">
                     <div>
                         <div class="row">
+
+                            <!-- User photo -->
                             <div class="col-sm-3 col-md-3 col-lg-3">
                                 <div class="profilePhoto thumbnail">
                                     <img class="profile-pins" ng-src="/images/pins.png" ng-show="profile.photo"/>
@@ -34,20 +42,24 @@
                                     <i class="fa fa-user" ng-show="!profile.photo"></i>
                                 </div>
                             </div>
+
+
                             <div class="col-sm-9 col-md-9 col-lg-9">
+
+                                <!-- Resa / contact buttons panel -->
                                 <div id="btns-wrapper" ng-if="session.authenticated">
                                     <button ng-controller="FavListCtrl" type="button"
                                             class="fav-btn btn btn-default blue-btn fa fa-star"
                                             ng-click="addFavorit(profile.id)"
                                             ng-class="{favorit : favlist.indexOf(profile.id) != -1}">
-                                        <span class="hidden-xs .hidden-sm lm-5">Favoris</span></button>
+                                        <span class="hidden-xs .hidden-sm lm-5">{{'profile.favorit.button' | translate}}</span></button>
                                     <button type="button" class="btn btn-default green2-btn fa fa-envelope"
                                             data-toggle="modal"
-                                            data-target="#contactDlg">Contacter
+                                            data-target="#contactDlg">{{'profile.contact.button' | translate}}
                                     </button>
                                     <a ui-sref="reservation({profileId : profile.id})"
                                        class="btn btn-default green2-btn fa fa-chevron-right">
-                                        Réserver
+                                        {{'profile.reserve.button' | translate}}
                                     </a>
                                 </div>
                                 <h3 id="userName" class="f-25">{{profile.firstname}}</h3>
@@ -78,9 +90,9 @@
                     </div>
                 </div>
 
-                <h4 class="block-title2 f-16 mt-35">Formations proposées</h4>
+                <h4 class="block-title2 f-16 mt-35">{{'profile.formations' | translate}}</h4>
                 <hr/>
-                <label id="hourRateLabel" class="blue-title f-14">Prix d'une heure de cours : </label><span
+                <label id="hourRateLabel" class="blue-title f-14">{{'profile.hourrate' | translate}}</label><span
                     id="hourRate">{{ profile.hourRate || 'NaN' }}€</span>
 
                 <div ng-repeat="formula in profile.formulas track by $index">
@@ -91,13 +103,13 @@
 
                     <div class="formuleBtns" ng-if="session.authenticated">
                         <a ui-sref="reservation({profileId : profile.id, formula : $index})"
-                           class="btn btn-default green2-btn">Réserver</a>
+                           class="btn btn-default green2-btn">{{'profile.formula.reserve' | translate}}</a>
                     </div>
                 </div>
                 <hr/>
 
                 <div class="mt-35" ng-show="profile.activeAccomodation == true">
-                    <h4 class="block-title2 f-16 mt-35">Hébergement</h4>
+                    <h4 class="block-title2 f-16 mt-35">{{'profile.accomodation' | translate}}</h4>
                     <hr/>
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">

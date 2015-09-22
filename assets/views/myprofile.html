@@ -157,9 +157,9 @@
 
                                     <hr/>
                                     <div id="upload-btn-wrapper">
-                                        <alex-uploader text="Photo" icon="fa fa-cloud-upload"
+                                        <alex-uploader text="{{'myprofile.photo.button' | translate}}" icon="fa fa-cloud-upload"
                                                        url="upload/uploadAvatar"
-                                                       on-upload-finished="onUpload(url)"></alex-uploader>
+                                                       on-upload-finished="onUpload(url)" max-size="128"></alex-uploader>
                                     </div>
                                 </div>
                             </div>
@@ -275,7 +275,7 @@
 
 
                     <!-- HOUR PANEL -->
-                    <label class="blue-title f-14">Prix d'une heure de cours : <a href="#"
+                    <label class="blue-title f-14">{{'myprofile.hourrate.label' | translate}}<a href="#"
                                                                                   editable-number="profile.hourRate"
                                                                                   e-min="0" onaftersave="save()">{{
                         profile.hourRate || '...'
@@ -375,7 +375,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div id="photos-viewer">
                                     <div id="photos-selected">
-                                        <alex-uploader id="accomodationUploadBtn" text="Image"
+                                        <alex-uploader id="accomodationUploadBtn" text="{{'myprofile.accomodation.image.button' | translate}}"
                                                        icon="fa fa-cloud-upload"
                                                        on-upload-finished="onUploadAccomodation(url)"
                                                        url="upload/uploadAccomodationPhoto"
@@ -416,7 +416,7 @@
 
                             <!-- EQUIPMENT PANEL -->
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                                <h5>Equipements</h5>
+                                <h5>{{'myprofile.accomodation.equipements' | translate}}</h5>
                                 <ui-select multiple ng-model="profile.equipments" theme="bootstrap"
                                            on-select="save()"
                                            on-remove="save()">
@@ -427,7 +427,7 @@
                                     </ui-select-choices>
                                 </ui-select>
 
-                                <h5>Service</h5>
+                                <h5>{{'myprofile.accomodation.services' | translate}}</h5>
                                 <ui-select multiple ng-model="profile.services" theme="bootstrap" on-select="save()"
                                            on-remove="save()">
                                     <ui-select-match placeholder="Select equipments...">{{$item.name[profileLang]}}
@@ -436,7 +436,7 @@
                                         <div ng-bind-html="service.name[profileLang] | highlight: $select.search"></div>
                                     </ui-select-choices>
                                 </ui-select>
-                                <h5>Adresse</h5>
+                                <h5>{{'myprofile.accomodation.address' | translate}}</h5>
 
 
                                 <!-- LOCATION -->

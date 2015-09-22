@@ -7,11 +7,16 @@
   "header.register": "Inscription",
   "header.language": "Language",
   "header.report.bug": "Signaler un bug",
-  "header.myprofile": "Mon profile",
+  "header.myprofile": "Mon profil",
   "header.parameters": "Paramètres",
   "header.logout": "Se déconnecter",
   "header.login.email": "E-mail",
   "header.login.password": "Mot de passe",
+
+
+
+
+
   "footer.home": "Accueil",
   "footer.learn": "Apprendre",
   "footer.teach": "Enseigner",
@@ -20,8 +25,15 @@
   "footer.mentions": "Mentions légales",
   "footer.contact": "Contact",
   "footer.informations": "Qui sommes nous ?",
+  "footer.realisation": "Réalisation ",
   "search.dispo": "Disponibilités",
+  "search.city": "Ville",
   "login.title": "Connexion",
+
+
+
+
+
   "home.learn.title": "Apprendre",
   "home.teach.title": "Enseigner",
   "home.teach.btn.info": "d'infos",
@@ -36,6 +48,11 @@
   "home.teach.1": "Toofrench vous permet d’ enseigner le français librement.",
   "home.teach.2": "Vous êtes enseignant de Français Langue Étrangère, Toofrench vous met en relation directe avec des apprenants. Adaptez votre enseignement à vos envies. Créez vos propres formations et proposez-les.",
   "home.concept": "TooFrench met en relation directe les personnes souhaitant apprendre le Français et les enseignants de Français langue Etrangère pour faciliter les échanges et aider à l’organisation de cours efficaces et personnalisés.",
+
+
+
+
+
   "register.teacher": "Je suis professeur",
   "register.student": "Je suis étudiant",
   "register.learn": "Apprendre",
@@ -45,6 +62,19 @@
   "register.teacher.text.1": "2 solutions: vous pouvez vous inscrire sans éditer de profil pour avoir accès au site en tant  que simple membre OU vous pouvez éditer un profil complet qui est mis en ligne après vérification de certaines conditions.",
   "register.teacher.text.2": "L’inscription en tant que simple membre vous permet d’avoir accès aux forums de discussion",
   "register.teacher.text.3": "Si vous voulez proposer des formations, cliquez sur éditer un profil et remplissez le formulaire pré rempli. L’envoi de vos diplômes est l’autre condition à la mise en ligne de votre profil.",
+  "register.title": "Inscription",
+  "register.firstname": "Prénom",
+  "register.pseudo": "Pseudo",
+  "register.city": "Ville",
+  "register.mail": "E-mail",
+  "register.mail.confirmation": "Confirmation mail",
+  "register.mail.confirmation.error": "Les adresses mail ne correspondent pas",
+  "register.password": "Mot de passe",
+  "register.button": "> Enregistrer <",
+
+
+
+
   "learn.title": "Apprendre le français",
   "learn.subtitle": "avec TooFrench.com",
   "learn.block.title": "Pourquoi vous inscrire sur toofrench ?",
@@ -67,6 +97,11 @@
   "learn.content.text2": "Remplissez le formulaire le plus précisément possible, établissez votre profil et décrivez le type de formation que vous souhaitez proposer, ainsi que vos tarifs et disponibilités. Précisez si vous désirez fournir un hébergement. N’oubliez pas de joindre les documents demandés.",
   "learn.content.text2.1": "Cliquez sur Envoyer. Après vérification par l'équipe de Toofrench, votre profil est mis en ligne.",
   "learn.content.text3": "Les visiteurs du site ont accès à votre profil. Un étudiant intéressé par une formation vous contacte directement via la messagerie interne (seules les personnes inscrites sur le site peuvent vous contacter). Vous êtes en relation directe avec l'apprenant, ce qui vous permet d'organiser et de définir les modalités de la formation ensemble.",
+
+
+
+
+
   "teach.title": "Enseigner le français",
   "teach.subtitle": "avec TooFrench.com",
   "teach.block.title": "Pourquoi vous inscrire sur TooFrench ?",
@@ -87,15 +122,11 @@
   "teach.content.text3.1": "Pour vous inscrire et pouvoir contacter un professeur de votre choix, c'est très simple. Cliquez sur “inscription” et remplissez la fiche.",
   "teach.content.text3.2": "En tant que simple visiteur du site, vous avez accès au profil public des enseignants, qui donne des informations sur le type de formation proposée et sur la ville où celle-ci peut se dérouler. En tant que membre, vous pouvez contacter les enseignants de votre choix et, ensemble, décider du type de cours ou de formation qui vous convient. Vous avez également accès au forum de TooFrench, qui vous permet d’échanger avec les autres membres et avec les enseignants.",
   "teach.content.text4.1": "Mettez-vous d’accord avec l’enseignant sur les modalités de la formation : lieu, horaires, contenu, modalités de paiement.",
-  "register.title": "Inscription",
-  "register.firstname": "Prénom",
-  "register.pseudo": "Pseudo",
-  "register.city": "Ville",
-  "register.mail": "E-mail",
-  "register.mail.confirmation": "Confirmation mail",
-  "register.mail.confirmation.error": "Les adresses mail ne correspondent pas",
-  "register.password": "Mot de passe",
-  "register.button": "> Enregistrer <",
+
+
+
+
+
   "myprofile.language": "Langue",
   "myprofile.calendar": "Calendrier",
   "myprofile.calendar.legend.am": "Disponible l'après-midi",
@@ -119,20 +150,46 @@
   "myprofile.accomodation.cancel" : "Retirer cet hébergement",
   "myprofile.accomodation.address" : "Adresse",
   "myprofile.completion.formation" : "Proposer au moins une formation",
-  "myprofile.completion.photo" : "Utiliser une photo de profile",
+  "myprofile.completion.photo" : "Utiliser une photo de profil",
   "myprofile.completion.xp" : "Saisir ses motivations",
   "myprofile.completion.price" : "Renseigner le prix d'une heure de cours",
+  "myprofile.photo.button" : "Photo",
+  "myprofile.hourrate.label" : "Prix d'une heure de cours : ",
+  "myprofile.accomodation.equipements" : "Équipements",
+  "myprofile.accomodation.services" : "Services",
+  "myprofile.accomodation.address" : "Adresse",
+  "myprofile.accomodation.image.button" : "Image",
+
+
+
+
+
   "profile.services": "Services",
   "profile.services.empty": "Non renseigné",
   "profile.equipements.empty": "Non renseigné",
   "profile.equipements": "Équipements",
   "profile.location": "Localisation",
+  "profile.favorit.button": "Favoris",
+  "profile.contact.button": "Contacter",
+  "profile.reserve.button": "Réserver",
+  "profile.formations": "Formations proposées",
+  "profile.hourrate": "Prix d'une heure de cours : ",
+  "profile.formula.reserve": "Réserver",
+  "profile.accomodation": "Hébergement",
+
+
+
+
   "search.result.label2": "Enseignants à ",
   "search.result.recommandation": "Recommandations",
   "search.result.utillink": "Liens utiles",
   "search.result.seemore": "Voir +",
   "search.result.price": "L'heure de cours",
   "search.result.accomodation": "Propose un hébergement",
+  "search.result.formations": "Formations proposées",
+
+
+
   "recommandation.title": "Recommandations",
   "messagerie.title": "Messagerie",
   "messagerie.nomsg": "Vous n'avez aucun message.",
@@ -140,6 +197,11 @@
   "messagerie.msg.send": "Envoyer",
   "contact.dlg.title": "Contacter",
   "contact.dlg.send": "Envoyer",
+
+
+
+
+
   "diploma.not.uploaded": "Vous devez faire valider votre diplôme pour apparaître dans la recherche.",
   "diploma.not.uploaded.link": "Cliquez ici",
   "diploma.label.upload": "Faite valider votre diplôme.",
@@ -147,6 +209,10 @@
   "diploma.label.validated": "Votre diplôme a été validé !",
   "diploma.btn.select": "Fichier",
   "diploma.btn.upload": "Soumettre",
+
+
+
+
   "contact.title": "Contact",
   "contact.form.title": "Afin que votre demande soit traitée avec efficacité, merci de bien renseigner les champs ci-dessous.",
   "contact.form.username.placeholder": "Votre nom",
@@ -155,7 +221,10 @@
   "contact.form.message.placeholder": "Message",
   "contact.form.send": "Envoyer le message",
   "contact.form.succcess": "Votre message a bien été envoyé !",
-  "mentions.title": "Mentions légales",
+
+
+
+
   "faq.title": "F.A.Q",
   "uploader.title": "Envoyer une image",
   "uploader.crop": "Recadrer votre image",
@@ -165,8 +234,12 @@
   "uploader.browse": "Parcourir...",
   "parameters.title": "Paramètres",
   "myteachers.title": "Mes professeurs favoris",
-  "myprofile.title": "Mon profile",
+  "myprofile.title": "Mon profil",
   "informations.title": "Qui sommes nous ?",
+
+
+
+
   "forum.title": "Forum",
   "forum.teacher.title": "Forum Professeur",
   "forum.general.title": "Forum Général",
@@ -188,6 +261,10 @@
   "forum.post.comm.add": "Commenter",
   "forum.post.comm.add.success": "Votre commentaire a bien été ajouté.",
   "forum.post.comm.add.error": "Une erreur est survenue, votre commentaire n'a pas été ajouté.",
+
+
+
+
   "reservation.title": "Réservation",
   "reservation.form.title": "Demande de réservation à ",
   "reservation.form.formula": "Formule sélectionnée",
@@ -212,6 +289,10 @@
   "reservation.warning.duration": "Vous devez sélectionner une durée.",
   "reservation.warning.accomodation": "Vous devez renseigner ce champs.",
   "reservation.warning.activity": "Vous devez renseigner ce champs.",
+
+
+
+
   "planning.title": "Mon planning",
   "planning.reservations.empty": "Vous n'avez aucune réservation pour le moment.",
   "planning.reservations.formula": "Formule",
@@ -230,5 +311,23 @@
   "planning.reservations.status.cancel": "Annuler",
   "planning.reservations.status.canceled": "Réservation annulée",
   "planning.reservations.contact": "Contacter",
-  "myteachers.remove": "Retirer de la liste"
+
+
+
+  "myteachers.remove": "Retirer de la liste",
+
+
+
+  "mentions.title": "Mentions légales",
+  "mentions.1.content":"L'utilisation de TooFrench est soumise à l'acceptation des présentes Conditions Générales. En accédant à TooFrench, vous vous engagez à vous référer à la dernière version des Conditions Générales disponible sur TooFrench. En cas de désaccord avec ces conditions, TooFrench se réserve le droit d'interdire l'accès au Site.",
+  "mentions.2.title" : "Description du Site",
+  "mentions.2.content" : "<p>TooFrench est un support de saisie et de diffusion en ligne de petites annonces visant à mettre en relation des enseignants de FLE (Français langue étrangère) et des apprenants. TooFrench permet également aux enseignants de déposer et de télécharger des cours en ligne. Des forums permettent aux membres d’entrer en contact les uns avec les autres et de partager leurs expériences.</p><p>TooFrench n'intervient pas dans les transactions entre les enseignants et les apprenants. Les annonces sont mises en ligne par les enseignants. La responsabilité de TooFrench ne saurait être engagée directement ou indirectement dans les transactions entre élèves et professeurs pour le règlement des cours particuliers.</p><p>TooFrench est réservé aux particuliers qui doivent créer un profil pour l’utiliser. Les utilisateurs s'engagent à ne créer qu'un seul profil sur le site.</p><p>Ce profil peut être modifié et administré depuis le tableau de bord mis à disposition des utilisateurs, il peut également être supprimé sur simple demande mail.</p><p>TooFrench rappelle à ses utilisateurs qu’ils sont soumis au droit du travail et des sociétés et aux versements et aux taxes induits</p>",
+  "mentions.3.title" : "Dépôt d'annonces et diffusion",
+  "mentions.3.content" : "<p>La création d’un profil et la mise en ligne d’une offre de formation par les enseignants sont gratuites. TooFrench s’engage à vérifier les qualifications des enseignants (ceux-ci doivent envoyer une copie de leurs diplômes pour que l’annonce soit validée et apparaisse dans la recherche).TooFrench ne saurait être tenu responsable d’informations erronées publiées par un enseignant. Il appartient aux apprenants de vérifier les informations publiées par les enseignants.</p>",
+  "mentions.4.title" :"Mise en relation",
+  "mentions.4.content" :"<p>Si un apprenant souhaite contacter un enseignant, il doit d’abord s’inscrire sur TooFrench .L’inscription est gratuite. Une fois inscrit, il peut contacter les enseignants de son choix. TooFrench permet aux deux parties, enseignants et apprenants, de communiquer mais n’intervient pas au delà de mise en relation. TooFrench ne saurait donc être tenu pour responsable en cas d’annulation d’une des deux parties.</p>",
+  "mentions.5.title" :"Utilisation du tableau de bord",
+  "mentions.5.content" :"Le tableau de bord permet aux enseignants de contrôler et de modifier toutes les informations de leur profil : disponibilités, tarifs, offres de formations, hébergement. Il permet également de suivre les demandes de formations des étudiants et de gérer les contacts avec eux, par le biais de la messagerie interne.",
+  "mentions.6.title" :"Forum",
+  "mentions.6.content" :"TooFrench met à disposition de ses membres deux forums : un forum général accessible à toute personne inscrite et un forum réservé aux enseignants."
 }

@@ -34,6 +34,9 @@ var jsFilesToInject = [
   'js/**/*.js'
 ];
 
+var jsVendorsFilesToInject = [
+  'js/vendors/*.js'
+];
 
 // Client-side HTML templates are injected using the sources below
 // The ordering of these templates shouldn't matter.
@@ -57,6 +60,9 @@ module.exports.cssFilesToInject = cssFilesToInject.map(function(path) {
   return '.tmp/public/' + path;
 });
 module.exports.jsFilesToInject = jsFilesToInject.map(function(path) {
+  return '.tmp/public/' + path;
+});
+module.exports.jsVendorsFilesToInject = jsVendorsFilesToInject.map(function(path) {
   return '.tmp/public/' + path;
 });
 module.exports.templateFilesToInject = templateFilesToInject.map(function(path) {

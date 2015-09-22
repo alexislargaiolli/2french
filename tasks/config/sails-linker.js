@@ -57,6 +57,20 @@ module.exports = function(grunt) {
 			}
 		},
 
+		prodVendorsJs: {
+			options: {
+				startTag: '<!--SCRIPTS VENDORS-->',
+				endTag: '<!--SCRIPTS VENDORS END-->',
+				fileTmpl: '<script src="%s"></script>',
+				appRoot: '.tmp/public'
+			},
+			files: {
+				'.tmp/public/**/*.html': ['.tmp/public/min/production-vendors.min.js'],
+				'views/**/*.html': ['.tmp/public/min/production-vendors.min.js'],
+				'views/**/*.ejs': ['.tmp/public/min/production-vendors.min.js']
+			}
+		},
+
 		prodJsRelative: {
 			options: {
 				startTag: '<!--SCRIPTS-->',

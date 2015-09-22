@@ -32,7 +32,8 @@ var tooFrenchApp = angular.module('tooFrenchApp', [
     'vAccordion',
     'anim-in-out',
     'bootstrapLightbox',
-    'angular-carousel'
+    'angular-carousel',
+    'bm.bsTour'
 ]);
 
 
@@ -460,8 +461,7 @@ tooFrenchApp.directive(
     }
 );
 
-var tooFrenchControllers = angular.module('tooFrenchCtrl', ['ngRoute', 'ui.router', 'xeditable', 'uiGmapgoogle-maps', 'pascalprecht.translate', 'tooFrenchService', 'angularFi' +
-'leUpload', 'ui.select', 'ui.bootstrap', 'dialogs.main', 'google.places', 'ngImgCrop', 'multipleDatePicker', 'vcRecaptcha', 'angular-carousel']);
+var tooFrenchControllers = angular.module('tooFrenchCtrl', ['ngRoute', 'ui.router', 'xeditable', 'uiGmapgoogle-maps', 'pascalprecht.translate', 'tooFrenchService', 'angularFileUpload', 'ui.select', 'ui.bootstrap', 'dialogs.main', 'google.places', 'ngImgCrop', 'multipleDatePicker', 'vcRecaptcha', 'angular-carousel']);
 tooFrenchControllers.config(function (uiSelectConfig) {
     //================================================
     // Angular ui components

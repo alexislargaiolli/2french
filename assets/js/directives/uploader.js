@@ -11,9 +11,10 @@ tooFrench.directive('alexUploader', function() {
 	return {
 		restrict: 'E',
 		require: 'angularFileUpload',
-		templateUrl: 'scripts/directives/uploader.html',
+		templateUrl: 'js/directives/uploader.html',
 		scope: {
 			text: '@',
+			maxSize: '@',
 			icon: '@',
 			uploadUrl: '@url',
 			onUploadFinished: '&'
@@ -43,6 +44,9 @@ tooFrench.directive('alexUploader', function() {
 						}
 						else{
 							$scope.resultSize = w;
+						}
+						if($scope.maxSize && $scope.resultSize > $scope.maxSize){
+							$scope.resultSize = $scope.maxSize;
 						}
 					}
 					$scope.$apply(function($scope) {
