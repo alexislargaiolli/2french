@@ -32,8 +32,7 @@ var tooFrenchApp = angular.module('tooFrenchApp', [
     'vAccordion',
     'anim-in-out',
     'bootstrapLightbox',
-    'angular-carousel',
-    'bm.bsTour'
+    'angular-carousel'
 ]);
 
 
@@ -472,9 +471,9 @@ tooFrenchControllers.config(function (uiSelectConfig) {
 angular.module('tooFrenchService', ['ngRoute', 'ngResource']);
 
 
-tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope', '$window', '$state', '$timeout', 'AUTH_EVENTS', 'MESSAGE_EVENTS', 'AuthService', 'Session', 'Profile', 'Messagerie', 'Reservation', 'UserFavList',
+tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope', '$window', '$state', '$timeout', 'AUTH_EVENTS', 'MESSAGE_EVENTS', 'AuthService', 'Session', 'Profile', 'Messagerie', 'Reservation', 'UserFavList', '$translate',
 
-    function ($rootScope, $scope, $window, $state, $timeout, AUTH_EVENTS, MESSAGE_EVENTS, AuthService, Session, Profile, Messagerie, Reservation, UserFavList) {
+    function ($rootScope, $scope, $window, $state, $timeout, AUTH_EVENTS, MESSAGE_EVENTS, AuthService, Session, Profile, Messagerie, Reservation, UserFavList, $translate) {
         $rootScope.userfavlist = UserFavList;
 
         $scope.logout = function () {
@@ -483,24 +482,28 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
             });
         }
 
-       /* $scope.$on(MESSAGE_EVENTS.read, function (event, args) {
-            $timeout(function () {
-                var count = args.count;
-                $scope.unseenMsgCount -= count;
-            }, 10);
-        });
+        /* $scope.$on(MESSAGE_EVENTS.read, function (event, args) {
+         $timeout(function () {
+         var count = args.count;
+         $scope.unseenMsgCount -= count;
+         }, 10);
+         });
 
-        $scope.$on(MESSAGE_EVENTS.update, function (event, args) {
-            Messagerie.getUnseenMsgCount().then(function (count) {
-                $scope.unseenMsgCount = count;
-            }, function () {
-                $scope.unseenMsgCount = -1;
-            });
-        });*/
+         $scope.$on(MESSAGE_EVENTS.update, function (event, args) {
+         Messagerie.getUnseenMsgCount().then(function (count) {
+         $scope.unseenMsgCount = count;
+         }, function () {
+         $scope.unseenMsgCount = -1;
+         });
+         });*/
 
         $scope.$on(AUTH_EVENTS.loginSuccess, function (event, args) {
             Session.create(args.data);
-            console.log(args.data);
+
+            if(!Session.user.tour && $rootScope.isTeacher){
+                tour.init();
+                tour.start();
+            }
             $rootScope.userfavlist.getFavList();
             $rootScope.$broadcast(AUTH_EVENTS.sessionCreated);
         });
@@ -538,6 +541,64 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
             var bodyMinSize = pageHeight - headerHeight - footerHeight;
             angular.element('#main-container').css('min-height', bodyMinSize);
         }
+
+        var tour;
+        $rootScope.$on('$translateChangeSuccess', function () {
+
+            tour = new Tour({
+                name: "tour6",
+                debug: true,
+                storage: false,
+                onEnd: function (tour) {
+                    $state.go('myprofile');
+                },
+                template: "<div class='popover tour'>" +
+                "<div class='arrow'></div>" +
+                "<h3 class='popover-title'></h3>" +
+                "<div class='popover-content'></div>" +
+                "<div class='popover-navigation'>" +
+                "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +
+                "<span class='next-btn fa fa-arrow-circle-right' data-role='next'></span>" +
+                "</div>" +
+                "</nav>" +
+                "</div>",
+                steps: [
+                    {
+                        element: "#logo",
+                        title: $translate.instant('tour.1.title'),
+                        content: $translate.instant('tour.2.content'),
+                        placement: 'right',
+                        backdrop: true,
+                        template: "<div class='popover tour'>" +
+                        "<div class='arrow'></div>" +
+                        "<h3 class='popover-title'></h3>" +
+                        "<div class='popover-content'></div>" +
+                        "<div class='popover-navigation'>" +
+                        "<span class='next-btn fa fa-arrow-circle-right' data-role='next'></span>" +
+                        "</div>" +
+                        "</nav>" +
+                        "</div>"
+                    },
+                    {
+                        element: "#link-myprofile",
+                        title: $translate.instant('tour.2.title'),
+                        content: $translate.instant('tour.2.content'),
+                        backdrop: true,
+                        placement: 'left',
+                        template: "<div class='popover tour'>" +
+                        "<div class='arrow'></div>" +
+                        "<h3 class='popover-title'></h3>" +
+                        "<div class='popover-content'></div>" +
+                        "<div class='popover-navigation'>" +
+                        "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +
+                        "<span class='next-btn fa fa-arrow-circle-right' data-role='end'></span>" +
+                        "</div>" +
+                        "</nav>" +
+                        "</div>"
+                    }
+                ]
+            });
+        });
 
         /*socket.on('test', function(data){
          console.log('SOCKET : ' + data);

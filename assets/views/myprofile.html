@@ -262,7 +262,7 @@
                     </div>
                 </div>
 
-                <div ng-if="isTeacher">
+                <div id="profile-formulas-panel" ng-if="isTeacher">
 
 
                     <!-- FORMULAS PANEL -->
@@ -346,7 +346,7 @@
 
                 <!-- ACCOMODATION PANEL -->
 
-                <div class="mt-35" ng-if="isTeacher">
+                <div id="profile-accomodation-panel" class="mt-35" ng-if="isTeacher">
 
                     <div ng-if="!profile.activeAccomodation" id="activeAccomodation"
                          ng-click="activeAccomodation()">

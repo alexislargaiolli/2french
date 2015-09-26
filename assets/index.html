@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css"/>
     <link rel="stylesheet" href="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css">
     <link rel="stylesheet" href="bower_components/angular-carousel/dist/angular-carousel.css">
-    <link rel="stylesheet" href="bower_components/bootstrap-tour/build/css/bootstrap-tour.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-tour/build/css/bootstrap-tour.css">
 
     <!--STYLES-->
     <link rel="stylesheet" href="styles/global.css">
@@ -167,7 +167,7 @@
                     <a ui-sref="teach" class="basic-link" ui-sref-active="active">{{'header.teach' | translate}}</a>
                 </li>
                 <li>
-                    <a ui-sref="forum" class="basic-link" ui-sref-active="active">{{'header.forum' | translate}}</a>
+                    <a ui-sref="forum" id="link-forum" class="basic-link" ui-sref-active="active">{{'header.forum' | translate}}</a>
                 </li>
                 <li>
                     <a ui-sref="admin" class="basic-link" ui-sref-active="active" ng-if="isAdmin">{{'header.admin' |
@@ -236,7 +236,7 @@
             <ul id="user-menu" class="nav navbar-nav navbar-right" ng-if="session.authenticated"
                 ng-controller="NotificationCtrl">
                 <li>
-                    <a ui-sref="myteachers" title="{{'myteachers.title' | translate}}">
+                    <a id="link-myteachers" ui-sref="myteachers" title="{{'myteachers.title' | translate}}">
                         <i class="fa fa-star"></i>
                     </a>
                 </li>
@@ -348,14 +348,6 @@
     </div>
 </nav>
 
-
-<!-- Bootstrap tour -->
-<div tour placement="top">
-    <div element="#search-btn" tour-step title="Main Menu" content="Test" order="0">
-
-    </div>
-</div>
-
 <div ui-view id="main-container" class="anim-in-out anim-fade" data-anim-speed="500" data-anim-sync="true"></div>
 
 <div id="footer" class="footer">
@@ -431,6 +423,7 @@
 <script src="bower_components/angular/angular.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+<script src="bower_components/bootstrap-tour/build/js/bootstrap-tour.js"></script>
 <!--SCRIPTS VENDORS-->
 <script src="bower_components/cloudinary_js/js/jquery.cloudinary.js"></script>
 <script src="bower_components/angular-translate/angular-translate.js"></script>
@@ -443,9 +436,6 @@
 <script src="bower_components/angular-touch/angular-touch.js"></script>
 <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
 <!--SCRIPTS VENDORS END-->
-
-<script src="bower_components/bootstrap-tour/build/js/bootstrap-tour.js"></script>
-<script src="bower_components/angular-bootstrap-tour/dist/angular-bootstrap-tour.js"></script>
 
 <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
 <script src="bower_components/lodash/lodash.js"></script>

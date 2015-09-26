@@ -10,7 +10,7 @@ var util = require('util'),
     _ = require('sails/node_modules/lodash');
 
 module.exports = {
-	find : function(req, res){
+    find: function (req, res) {
         // Look up the model
         var Model = actionUtil.parseModel(req);
 
@@ -19,16 +19,16 @@ module.exports = {
         // to grab the particular instance with its primary key === the value
         // of the `id` param.   (mainly here for compatibility for 0.9, where
         // there was no separate `findOne` action)
-        if ( actionUtil.parsePk(req) ) {
-            return require('./findOne')(req,res);
+        if (actionUtil.parsePk(req)) {
+            return require('./findOne')(req, res);
         }
 
         // Lookup for records that match the specified criteria
         var query = Model.find()
-            .where( actionUtil.parseCriteria(req) )
-            .limit( actionUtil.parseLimit(req) )
-            .skip( actionUtil.parseSkip(req) )
-            .sort( actionUtil.parseSort(req) );
+            .where(actionUtil.parseCriteria(req))
+            .limit(actionUtil.parseLimit(req))
+            .skip(actionUtil.parseSkip(req))
+            .sort(actionUtil.parseSort(req));
         // TODO: .populateEach(req.options);
         //query = actionUtil.populateEach(query, req);
         query.exec(function found(err, matchingRecords) {
@@ -38,7 +38,9 @@ module.exports = {
             // `autoWatch` is enabled.
             if (req._sails.hooks.pubsub && req.isSocket) {
                 Model.subscribe(req, matchingRecords);
-                if (req.options.autoWatch) { Model.watch(req); }
+                if (req.options.autoWatch) {
+                    Model.watch(req);
+                }
                 // Also subscribe to instances of all associated models
                 _.each(matchingRecords, function (record) {
                     actionUtil.subscribeDeep(req, record);
@@ -46,6 +48,16 @@ module.exports = {
             }
 
             res.ok(matchingRecords);
+        });
+    },
+
+    userEndTour: function (req, res) {
+        User.update({id: req.user.id}, {tour: true}).exec(function (err, data) {
+            if (err) {
+                return res.serverError(err);
+            } else {
+                res.send(200);
+            }
         });
     }
 };

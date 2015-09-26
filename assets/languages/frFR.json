@@ -329,5 +329,32 @@
   "mentions.5.title" :"Utilisation du tableau de bord",
   "mentions.5.content" :"Le tableau de bord permet aux enseignants de contrôler et de modifier toutes les informations de leur profil : disponibilités, tarifs, offres de formations, hébergement. Il permet également de suivre les demandes de formations des étudiants et de gérer les contacts avec eux, par le biais de la messagerie interne.",
   "mentions.6.title" :"Forum",
-  "mentions.6.content" :"TooFrench met à disposition de ses membres deux forums : un forum général accessible à toute personne inscrite et un forum réservé aux enseignants."
+  "mentions.6.content" :"TooFrench met à disposition de ses membres deux forums : un forum général accessible à toute personne inscrite et un forum réservé aux enseignants.",
+
+
+  "tour.1.title" : "Bienvenue s TooFrench.net !",
+  "tour.1.content" : "Laissez-vous guider à travers un tour de présentation.",
+  "tour.2.title" : "Votre profile",
+  "tour.2.content" : "Avant toute chose, éditez votre profile et les services que vous proposez.",
+  "tour.3.title" : "Informations",
+  "tour.3.content" : "Tout d'abord dites en un peu plus sur vous. Présentez vos expériences et motivations, les services que vous proposez et ajoutez une photo de profile.",
+  "tour.4.title" : "Vos services",
+  "tour.4.content" : "Renseignez votre taux horaires et proposez vos propres formules !",
+  "tour.5.title" : "Hébergement",
+  "tour.5.content" : "Vous pouvez également proposer un hébergement.",
+  "tour.6.title" : "Disponibilités",
+  "tour.6.content" : "Renseignez ici vos disponibilités.",
+  "tour.7.title" : "Validation du profile",
+  "tour.7.content" : "Une fois votre profile complété, vous serez visible dans le moteur de recherche.",
+  "tour.8.title" : "Liste des réservations",
+  "tour.8.content" : "Répondez ici aux personnes qui demandes vos services.",
+  "tour.9.title" : "Messagerie",
+  "tour.9.content" : "Échangez avec des apprenants ou des professeurs via le service de messagerie.",
+  "tour.10.title" : "Professeurs favoris",
+  "tour.10.content" : "Ajoutez des professeurs dans votre liste de favoris et retrouvez les ici facilement.",
+  "tour.11.title" : "Forum",
+  "tour.11.content" : "Échanger avec d'autres utilisateurs et partagez des documents entre professeurs grâce au forum.",
+  "tour.12.title" : "TooFrench.net !",
+  "tour.12.content" : "Vous savez maintenant comment utiliser TooFrench.net ! <br/><br/> Nous vous souhaitons un agréable moment sur TooFrench.net."
+
 }

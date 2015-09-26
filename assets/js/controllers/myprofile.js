@@ -1,7 +1,8 @@
 var tooFrenchControllers = angular.module('tooFrenchCtrl');
-tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Session', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Extra', 'Service', 'FormationLevel', 'UserFavList', '$translate', '$upload', '$timeout', 'Lightbox',
+tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Session', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Extra', 'Service', 'FormationLevel', 'UserFavList', '$translate', '$upload', '$timeout', 'Lightbox', '$http', '$translate',
 
-    function ($rootScope, $scope, Session, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Extra, Service, FormationLevel, UserFavList, $translate, $upload, $timeout, Lightbox) {
+    function ($rootScope, $scope, Session, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Extra, Service, FormationLevel, UserFavList, $translate, $upload, $timeout, Lightbox, $http, $translate) {
+
 
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////              COMMON            ////////////////////////////////
@@ -15,6 +16,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
         $scope.period = moment().date(10).format('MM-YYYY');
         $scope.scheduleIndex = -1;
         $scope.needSave = false;
+        var tour;
 
         var findShedule = function (period) {
             if ($scope.profile.schedules.length == 0) {
@@ -45,6 +47,10 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                 if ($scope.scheduleIndex == -1) {
                     var schedule = {period: $scope.period, dayoff: [], undispos: []};
                     $scope.scheduleIndex = $scope.profile.schedules.push(schedule) - 1;
+                }
+                if ($rootScope.isTeacher && !Session.user.tour) {
+                    tour.init();
+                    tour.start();
                 }
             }
         });
@@ -94,7 +100,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             $scope.selectedPhotoIndex = 0;
 
             var handleDiplomaSelect = function (evt) {
-                $timeout(function(){
+                $timeout(function () {
                     $scope.diplomaFile = evt.currentTarget.files[0];
                 });
             };
@@ -118,8 +124,8 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                 });
             }
 
-            $scope.isProfileComplete = function(){
-                return $scope.profile.photo && $scope.profile.motivation && $scope.profile.hourRate && $scope.profile.formations.length > 0 && ($rootScope.session.diplomagit  && $rootScope.session.diploma.diplomaValidated);
+            $scope.isProfileComplete = function () {
+                return $scope.profile.photo && $scope.profile.motivation && $scope.profile.hourRate && $scope.profile.formations.length > 0 && ($rootScope.session.diplomagit && $rootScope.session.diploma.diplomaValidated);
             }
 
             $timeout(function () {
@@ -128,12 +134,12 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                 elts.on('change', handleDiplomaSelect);
             });
 
-            $scope.activeAccomodation = function(){
+            $scope.activeAccomodation = function () {
                 $scope.profile.activeAccomodation = true;
                 $scope.save();
             }
 
-            $scope.cancelAccomodation = function(){
+            $scope.cancelAccomodation = function () {
                 $scope.profile.activeAccomodation = false;
                 $scope.save();
             }
@@ -178,19 +184,19 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                     updateMap();
                     $scope.editLocation = false;
                 }
-                else{
+                else {
                     $scope.editLocation = true;
                 }
             }
 
             $scope.$on('g-places-autocomplete:select', function (event, args) {
-                if(!$scope.profile.accomodationCoords){
+                if (!$scope.profile.accomodationCoords) {
                     $scope.profile.accomodationCoords = {};
                 }
                 $scope.profile.accomodationCoords.lat = args.geometry.location.lat();
                 $scope.profile.accomodationCoords.lng = args.geometry.location.lng();
                 updateMap();
-                $timeout(function(){
+                $timeout(function () {
                     $scope.save();
                     angular.element('#editLocationBtn').click();
                 }, 10);
@@ -205,12 +211,12 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                     lat = $scope.profile.accomodationCoords.lat;
                     lon = $scope.profile.accomodationCoords.lng;
                 }
-                else{
+                else {
                     lat = 48.856614;
                     lon = 2.3522219000000177;
                 }
 
-                if(lat){
+                if (lat) {
                     $scope.map = {
                         center: {
                             latitude: lat,
@@ -219,7 +225,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                         zoom: 14
                     };
                     $scope.map.markers = [{
-                        "id" : '1',
+                        "id": '1',
                         "latitude": lat,
                         "longitude": lon,
                         "distance": "585m",
@@ -296,7 +302,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             }
 
 
-
             var findUndispo = function (date) {
                 if ($scope.profile.schedules[$scope.scheduleIndex].undispos.length == 0) {
                     return -1;
@@ -344,7 +349,108 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             };
 
         }
-
+        tour = new Tour({
+            name: "myprofile",
+            debug: true,
+            storage: false,
+            onEnd: function (tour) {
+                Session.user.tour = true;
+                $http.get('/user/userEndTour');
+            },
+            template: "<div class='popover tour'>" +
+            "<div class='arrow'></div>" +
+            "<h3 class='popover-title'></h3>" +
+            "<div class='popover-content'></div>" +
+            "<div class='popover-navigation'>" +
+            "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +
+            "<span class='next-btn fa fa-arrow-circle-right' data-role='next'></span>" +
+            "</div>" +
+            "</nav>" +
+            "</div>",
+            steps: [
+                {
+                    element: "#profile-header",
+                    title: $translate.instant('tour.3.title'),
+                    content: $translate.instant('tour.3.content'),
+                    placement: 'bottom',
+                    placement: 'left',
+                    backdrop: true
+                },
+                {
+                    element: "#profile-formulas-panel",
+                    title: $translate.instant('tour.4.title'),
+                    content: $translate.instant('tour.4.content'),
+                    placement: 'left',
+                    backdrop: true
+                },
+                {
+                    element: "#profile-accomodation-panel",
+                    title: $translate.instant('tour.5.title'),
+                    content: $translate.instant('tour.5.content'),
+                    placement: 'left',
+                    backdrop: true
+                },
+                {
+                    element: "#profile-left",
+                    title: $translate.instant('tour.6.title'),
+                    content: $translate.instant('tour.6.content'),
+                    placement: 'right',
+                    backdrop: true
+                },
+                {
+                    element: "#profile-completion-wrapper",
+                    title: $translate.instant('tour.7.title'),
+                    content: $translate.instant('tour.7.content'),
+                    placement: 'bottom',
+                    backdrop: true
+                },
+                {
+                    element: "#link-planning",
+                    title: $translate.instant('tour.8.title'),
+                    content: $translate.instant('tour.8.content'),
+                    backdrop: true,
+                    placement: 'left'
+                },
+                {
+                    element: "#link-message",
+                    title: $translate.instant('tour.9.title'),
+                    content: $translate.instant('tour.9.content'),
+                    backdrop: true,
+                    placement: 'left'
+                },
+                {
+                    element: "#link-myteachers",
+                    title: $translate.instant('tour.10.title'),
+                    content: $translate.instant('tour.10.content'),
+                    backdrop: true,
+                    placement: 'left'
+                },
+                {
+                    element: "#link-forum",
+                    title: $translate.instant('tour.11.title'),
+                    content: $translate.instant('tour.11.content'),
+                    backdrop: true,
+                    placement: 'left'
+                },
+                {
+                    element: "#logo",
+                    title: $translate.instant('tour.12.title'),
+                    content: $translate.instant('tour.12.content'),
+                    placement: 'right',
+                    backdrop: true,
+                    template: "<div class='popover tour'>" +
+                    "<div class='arrow'></div>" +
+                    "<h3 class='popover-title'></h3>" +
+                    "<div class='popover-content'></div>" +
+                    "<div class='popover-navigation'>" +
+                    "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +
+                    "<span class='next-btn fa fa-arrow-circle-right' data-role='end'></span>" +
+                    "</div>" +
+                    "</nav>" +
+                    "</div>"
+                }
+            ]
+        });
     }
-])
-;
+
+]);

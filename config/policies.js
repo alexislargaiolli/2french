@@ -30,7 +30,8 @@ module.exports.policies = {
 
   UserController : {
     '*' : [ 'passport', 'sessionAuth', 'admin'],
-    findOne : ['passport', 'sessionAuth', 'adminOrOwner']
+    findOne : ['passport', 'sessionAuth', 'adminOrOwner'],
+    userEndTour : ['passport']
   },
 
   UserFavListController : {

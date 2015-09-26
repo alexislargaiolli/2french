@@ -25,6 +25,12 @@ var User = {
         conversations: {
             collection: 'conversation',
             via: 'owner'
+        },
+        /**
+         * True if user has already done the bootstrap tour
+         */
+        tour:{
+            type: 'boolean'
         }
     },
     sendMessage: function (user, recipient, messageContent, callback) {
