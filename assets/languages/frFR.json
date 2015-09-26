@@ -355,6 +355,22 @@
   "tour.11.title" : "Forum",
   "tour.11.content" : "Échanger avec d'autres utilisateurs et partagez des documents entre professeurs grâce au forum.",
   "tour.12.title" : "TooFrench.net !",
-  "tour.12.content" : "Vous savez maintenant comment utiliser TooFrench.net ! <br/><br/> Nous vous souhaitons un agréable moment sur TooFrench.net."
+  "tour.12.content" : "Vous savez maintenant comment utiliser TooFrench.net ! <br/><br/> Nous vous souhaitons un agréable moment sur TooFrench.net.",
+
+
+  "tour.student.1.title" : "Bienvenue s TooFrench.net !",
+  "tour.student.1.content" : "Laissez-vous guider à travers un tour de présentation.",
+  "tour.student.2.title" : "Recherche",
+  "tour.student.2.content" : "Recherchez un professeur près de chez vous et créez une réservation avec lui.",
+  "tour.student.3.title" : "Liste des réservations",
+  "tour.student.3.content" : "Gérez ici vos reservations en cours.",
+  "tour.student.4.title" : "Messagerie",
+  "tour.student.4.content" : "Échangez avec des apprenants ou des professeurs via le service de messagerie.",
+  "tour.student.5.title" : "Professeurs favoris",
+  "tour.student.5.content" : "Ajoutez des professeurs dans votre liste de favoris et retrouvez les ici facilement.",
+  "tour.student.6.title" : "Forum",
+  "tour.student.6.content" : "Échanger avec d'autres utilisateurs grâce au forum.",
+  "tour.student.7.title" : "TooFrench.net !",
+  "tour.student.7.content" : "Vous savez maintenant comment utiliser TooFrench.net ! <br/><br/> Nous vous souhaitons un agréable moment sur TooFrench.net."
 
 }

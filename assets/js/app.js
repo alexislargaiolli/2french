@@ -500,9 +500,15 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
         $scope.$on(AUTH_EVENTS.loginSuccess, function (event, args) {
             Session.create(args.data);
 
-            if(!Session.user.tour && $rootScope.isTeacher){
-                tour.init();
-                tour.start();
+            if (!Session.user.tour) {
+                if ($rootScope.isTeacher) {
+                    tour.init();
+                    tour.start();
+                }
+                else {
+                    tourStudent.init();
+                    tourStudent.start();
+                }
             }
             $rootScope.userfavlist.getFavList();
             $rootScope.$broadcast(AUTH_EVENTS.sessionCreated);
@@ -543,10 +549,11 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
         }
 
         var tour;
+        var tourStudent;
         $rootScope.$on('$translateChangeSuccess', function () {
 
             tour = new Tour({
-                name: "tour6",
+                name: "tourteacher",
                 debug: true,
                 storage: false,
                 onEnd: function (tour) {
@@ -585,6 +592,95 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
                         content: $translate.instant('tour.2.content'),
                         backdrop: true,
                         placement: 'left',
+                        template: "<div class='popover tour'>" +
+                        "<div class='arrow'></div>" +
+                        "<h3 class='popover-title'></h3>" +
+                        "<div class='popover-content'></div>" +
+                        "<div class='popover-navigation'>" +
+                        "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +
+                        "<span class='next-btn fa fa-arrow-circle-right' data-role='end'></span>" +
+                        "</div>" +
+                        "</nav>" +
+                        "</div>"
+                    }
+                ]
+            });
+
+            tourStudent = new Tour({
+                name: "tourstudent",
+                debug: true,
+                storage: false,
+                onEnd: function (tour) {
+                    Session.user.tour = true;
+                    $http.get('/user/userEndTour');
+                },
+                template: "<div class='popover tour'>" +
+                "<div class='arrow'></div>" +
+                "<h3 class='popover-title'></h3>" +
+                "<div class='popover-content'></div>" +
+                "<div class='popover-navigation'>" +
+                "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +
+                "<span class='next-btn fa fa-arrow-circle-right' data-role='next'></span>" +
+                "</div>" +
+                "</nav>" +
+                "</div>",
+                steps: [
+                    {
+                        element: "#logo",
+                        title: $translate.instant('tour.student.1.title'),
+                        content: $translate.instant('tour.student.1.content'),
+                        placement: 'right',
+                        backdrop: true,
+                        template: "<div class='popover tour'>" +
+                        "<div class='arrow'></div>" +
+                        "<h3 class='popover-title'></h3>" +
+                        "<div class='popover-content'></div>" +
+                        "<div class='popover-navigation'>" +
+                        "<span class='next-btn fa fa-arrow-circle-right' data-role='next'></span>" +
+                        "</div>" +
+                        "</nav>" +
+                        "</div>"
+                    },
+                    {
+                        element: "#searchBar",
+                        title: $translate.instant('tour.student.2.title'),
+                        content: $translate.instant('tour.student.2.content'),
+                        backdrop: true,
+                        placement: 'bottom'
+                    },
+                    {
+                        element: "#link-planning",
+                        title: $translate.instant('tour.student.3.title'),
+                        content: $translate.instant('tour.student.3.content'),
+                        backdrop: true,
+                        placement: 'bottom'
+                    },
+                    {
+                        element: "#link-message",
+                        title: $translate.instant('tour.student.4.title'),
+                        content: $translate.instant('tour.student.4.content'),
+                        backdrop: true,
+                        placement: 'bottom'
+                    },
+                    {
+                        element: "#link-myteachers",
+                        title: $translate.instant('tour.student.5.title'),
+                        content: $translate.instant('tour.student.5.content'),
+                        backdrop: true,
+                        placement: 'bottom'
+                    },
+                    {
+                        element: "#link-forum",
+                        title: $translate.instant('tour.student.6.title'),
+                        content: $translate.instant('tour.student.6.content'),
+                        backdrop: true,
+                        placement: 'bottom'
+                    }, {
+                        element: "#logo",
+                        title: $translate.instant('tour.student.7.title'),
+                        content: $translate.instant('tour.student.7.content'),
+                        backdrop: true,
+                        placement: 'bottom',
                         template: "<div class='popover tour'>" +
                         "<div class='arrow'></div>" +
                         "<h3 class='popover-title'></h3>" +
