@@ -1,8 +1,8 @@
 {
   "name": "TooFrench",
   "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
+  "version": "0.1.0",
+  "description": "TooFrench",
   "keywords": [],
   "dependencies": {
     "angular-recaptcha": "^1.0.1",
@@ -37,7 +37,7 @@
     "validator": "^3.34.0"
   },
   "scripts": {
-    "start": "sails lift --prod",
+    "start": "sails lift",
     "postinstall": "bower install",
     "debug": "node debug app.js"
   },
