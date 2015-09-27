@@ -4,4 +4,12 @@
 		<button type="button" ng-click="selectEdit(u)" data-toggle="modal" data-target="#dlgAddEquipment" class="btn btn-default">Edit</button>
 		<button type="button" ng-click="deleteUser(u)" class="btn btn-default">Remove</button>
 	</li>
+
+	<div class="data-loader" ng-if="loading">
+		<i class="fa fa-circle-o-notch fa-spin"></i>
+	</div>
+	<div class="paginator-wrapper center" ng-class="{'hidden': (loading || count < pageSize)}">
+		<pagination total-items="count" items-per-page="pageSize" ng-model="pageIndex"
+					ng-change="pageChanged()"></pagination>
+	</div>
 </ul>

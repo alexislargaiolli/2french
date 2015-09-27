@@ -17,7 +17,6 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
         $scope.pageIndex = 1;
         $scope.count = 0;
         $scope.loading = true;
-        ;
         $scope.period = moment().date(10).format('MM-YYYY');
         $scope.scheduleIndex = -1;
         $scope.scheduleLoading = false;

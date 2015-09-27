@@ -8,8 +8,29 @@
  */
 var ctrl = angular.module('tooFrenchCtrl');
 ctrl.controller('AdminUserCtrl', ['$scope', 'User', 'dialogs', function($scope, User, dialogs) {
-	$scope.users = User.query();
+	$scope.users = [];
 	$scope.user = null;
+	$scope.pageSize = 10;
+	$scope.pageIndex = 1;
+	$scope.count = 0;
+	$scope.loading = true;
+
+	$scope.pageChanged = function () {
+		$scope.loading = true;
+		$http.get('/user/adminSearch', {
+			params: {
+				count: 0,
+				pageSize: $scope.pageSize,
+				pageIndex: $scope.pageIndex
+			}
+		}).success(function (users) {
+			$scope.loading = false;
+			$scope.users = users;
+		}).error(function (data, status, headers, config) {
+
+		});
+	}
+	$scope.pageChanged();
 
 	$scope.saveUser = function() {
 		if ($scope.user.id) {

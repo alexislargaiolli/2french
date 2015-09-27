@@ -123,11 +123,9 @@
     <div class="animated-container">
 
         <div class="messaging">
-
-            <h1>
-                <i class="fa fa-graduation-cap"></i>TooFrench.net
-            </h1>
-
+            <div class="p-20">
+                <img src="images/logo.png">
+            </div>
             <i id="loader" class="fa fa-circle-o-notch fa-spin"></i>
         </div>
 
@@ -170,7 +168,7 @@
                     <a ui-sref="teach" class="basic-link" ui-sref-active="active">{{'header.teach' | translate}}</a>
                 </li>
                 <li>
-                    <a ui-sref="forum" id="link-forum" class="basic-link" ui-sref-active="active">{{'header.forum' | translate}}</a>
+                    <a ui-sref="forum" id="link-forum" class="basic-link" ui-sref-active="active" ng-if="session.authenticated">{{'header.forum' | translate}}</a>
                 </li>
                 <li>
                     <a ui-sref="admin" class="basic-link" ui-sref-active="active" ng-if="isAdmin">{{'header.admin' |

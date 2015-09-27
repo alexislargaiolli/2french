@@ -140,12 +140,18 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
                 url: '/forum',
                 controller: 'ForumCtrl',
                 templateUrl: 'views/forum/forum.html',
+                data: {
+                    auth: true,
+                }
             })
 
             .state('forum.post', {
                 url: '/:postId',
                 controller: 'ForumPostCtrl',
                 templateUrl: 'views/forum/forum-post.html',
+                data: {
+                    auth: true,
+                }
             })
 
             .state('forum.create', {

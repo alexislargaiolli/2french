@@ -8,8 +8,21 @@
 @green: #00db05;
 @light-green: #00ff06;
 @red: #d20b0b;
+@font-face {
+  font-family: oswald-bold;
+  src : url('../images/fonts/Oswald-Bold.ttf') format('truetype');
+}
+@font-face {
+  font-family: oswald-light;
+  src : url('../images/fonts/Oswald-Light.ttf') format('truetype');
+}
+@font-face {
+  font-family: oswald-regular;
+  src : url('../images/fonts/Oswald-Regular.ttf') format('truetype');
+}
 @police1: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 @police2: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
+
 
 /* Bootsrap overrides*/
 @btn-border-radius-base : 0;
@@ -59,7 +72,7 @@ body {
     margin-top: 12px;
   }
   .navbar-brand {
-    padding: 5px !important;
+    padding: 7px !important;
   }
   .basic-link {
     color: @dark-gray;
@@ -86,10 +99,15 @@ body {
   }
   #language-dropdown {
     min-width: 60px;
+    li{
+      a{
+        padding: 5px 26px!important;
+      }
+    }
   }
 
   #left li a {
-    padding: 25px 20px 15px 20px;
+    padding: 22px 20px 15px 20px;
   }
 
   #user-menu {
@@ -243,6 +261,10 @@ body {
   background: #000;
 }
 
+#blackBar h1{
+  font-family: oswald-regular;
+}
+
 #blackBar h1, #blackBar p {
   text-align: center;
   color: #fff;
@@ -348,7 +370,7 @@ body {
 .reportBugBtn {
   background: none;
   border: none;
-  padding: 25px 10px 10px 0;
+  padding: 22px 10px 10px 0;
 }
 
 /* LOGIN */

@@ -51,6 +51,27 @@ module.exports = {
         });
     },
 
+    adminSearch: function (req, res) {
+        var count = req.allParams().count;
+        var pageSize = req.allParams().pageSize;
+        var pageIndex = req.allParams().pageIndex;
+        if (!pageSize) {
+            pageSize = 10;
+        }
+        if (!pageIndex) {
+            pageIndex = 1;
+        }
+        var skip = pageSize * (pageIndex - 1);
+        var query = {};
+        query["where"] = {};
+        query["skip"] = skip;
+        query["limit"] = pageSize;
+        User[count ? 'count' : 'find'](query)
+            .exec(function (err, users) {
+                callback(err, users);
+            });
+    },
+
     userEndTour: function (req, res) {
         User.update({id: req.user.id}, {tour: true}).exec(function (err, data) {
             if (err) {
