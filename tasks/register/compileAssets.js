@@ -5,6 +5,7 @@ module.exports = function (grunt) {
 		'less:dev',
 		'copy:dev',
 		'coffee:dev',
-		'bowercopy:jsLibs'
+		'bowercopy:jsLibs',
+		'bowercopy:cssLibs'
 	]);
 };

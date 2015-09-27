@@ -52,7 +52,6 @@ tooFrenchControllers.controller('ReservationCtrl', ['$scope', '$stateParams', 'P
         }
 
         var findUndispo = function (date) {
-            console.log($scope.profile.schedules);
             if ($scope.profile.schedules[$scope.scheduleIndex].undispos.length == 0) {
                 return -1;
             }
@@ -113,7 +112,6 @@ tooFrenchControllers.controller('ReservationCtrl', ['$scope', '$stateParams', 'P
                 $scope.reservation.teacher = $scope.profile.id;
                 $scope.reservation.status = 'pending';
                 $scope.reservation.$save(function () {
-                    console.log('success');
                     $timeout(function(){
                         $scope.status = 1;
                     })

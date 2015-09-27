@@ -7,6 +7,7 @@ module.exports = function (grunt) {
 		'sails-linker:prodJs',
 		'sails-linker:prodVendorsJs',
 		'sails-linker:prodStyles',
+		'sails-linker:prodVendorsStyles',
 		'sails-linker:devTpl',
 		'sails-linker:prodJsJade',
 		'sails-linker:prodStylesJade',

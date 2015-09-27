@@ -24,6 +24,10 @@ module.exports = function(grunt) {
 		css: {
 			src: require('../pipeline').cssFilesToInject,
 			dest: '.tmp/public/concat/production.css'
+		},
+		cssVendors: {
+			src: require('../pipeline').csVendorssFilesToInject,
+			dest: '.tmp/public/concat/production-vendors.css'
 		}
 	});
 

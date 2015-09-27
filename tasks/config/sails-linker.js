@@ -51,9 +51,9 @@ module.exports = function(grunt) {
 				appRoot: '.tmp/public'
 			},
 			files: {
-				'.tmp/public/**/*.html': ['.tmp/public/min/production.min.js'],
-				'views/**/*.html': ['.tmp/public/min/production.min.js'],
-				'views/**/*.ejs': ['.tmp/public/min/production.min.js']
+				'.tmp/public/**/*.html': ['.tmp/public/min/production.min-'+ require('../pipeline').version +'.js'],
+				'views/**/*.html': ['.tmp/public/min/production.min-' + require('../pipeline').version +'.js'],
+				'views/**/*.ejs': ['.tmp/public/min/production.min-' + require('../pipeline').version +'.js']
 			}
 		},
 
@@ -128,6 +128,20 @@ module.exports = function(grunt) {
 				'.tmp/public/index.html': ['.tmp/public/min/production.min.css'],
 				'views/**/*.html': ['.tmp/public/min/production.min.css'],
 				'views/**/*.ejs': ['.tmp/public/min/production.min.css']
+			}
+		},
+
+		prodVendorsStyles: {
+			options: {
+				startTag: '<!--STYLES VENDORS-->',
+				endTag: '<!--STYLES VENDORS END-->',
+				fileTmpl: '<link rel="stylesheet" href="%s">',
+				appRoot: '.tmp/public'
+			},
+			files: {
+				'.tmp/public/index.html': ['.tmp/public/min/production-vendors.min.css'],
+				'views/**/*.html': ['.tmp/public/min/production-vendors.min.css'],
+				'views/**/*.ejs': ['.tmp/public/min/production-vendors.min.css']
 			}
 		},
 

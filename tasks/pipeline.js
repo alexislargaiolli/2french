@@ -8,7 +8,7 @@
  * for matching multiple files.)
  */
 
-
+var version  = "0-1-0";
 
 // CSS files to inject in order
 //
@@ -16,6 +16,10 @@
 //  to change `assets/styles/importer.less` instead.)
 var cssFilesToInject = [
   'styles/**/*.css'
+];
+
+var csVendorssFilesToInject = [
+  'vendors/css/*.css'
 ];
 
 
@@ -35,7 +39,7 @@ var jsFilesToInject = [
 ];
 
 var jsVendorsFilesToInject = [
-  'vendors/*.js'
+  'vendors/js/*.js'
 ];
 
 // Client-side HTML templates are injected using the sources below
@@ -59,6 +63,9 @@ var templateFilesToInject = [
 module.exports.cssFilesToInject = cssFilesToInject.map(function(path) {
   return '.tmp/public/' + path;
 });
+module.exports.csVendorssFilesToInject = csVendorssFilesToInject.map(function(path) {
+  return '.tmp/public/' + path;
+});
 module.exports.jsFilesToInject = jsFilesToInject.map(function(path) {
   return '.tmp/public/' + path;
 });
@@ -68,3 +75,4 @@ module.exports.jsVendorsFilesToInject = jsVendorsFilesToInject.map(function(path
 module.exports.templateFilesToInject = templateFilesToInject.map(function(path) {
   return 'assets/' + path;
 });
+module.exports.version = version;

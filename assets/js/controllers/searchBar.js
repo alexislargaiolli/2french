@@ -7,7 +7,6 @@ tooFrenchControllers.controller('SearchBarCtrl', ['$scope', '$state', 'Profile',
             types: ['(regions)']
         };
         $scope.search = function () {
-            console.log($scope.city);
             if ($scope.city) {
                 var city = $scope.city.address_components[0].short_name;
                 var lvl2 = null;

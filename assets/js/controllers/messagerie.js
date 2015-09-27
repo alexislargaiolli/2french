@@ -46,8 +46,7 @@ tooFrenchControllers.controller('MessagerieCtrl', ['$scope', '$stateParams','Mes
 		}
 
 		$scope.contactTeacher = function(user, message){
-			console.log(user);
-			console.log(message);
+
 		}
 
         $scope.binded = false;

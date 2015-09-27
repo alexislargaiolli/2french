@@ -13,7 +13,7 @@ module.exports = function (grunt) {
         jsLibs: {
             options: {
                 runBower: false,
-                destPrefix: '.tmp/public/vendors'
+                destPrefix: '.tmp/public/vendors/js'
             },
             files: {
                 '01.js': 'jquery/dist/jquery.js',
@@ -27,12 +27,9 @@ module.exports = function (grunt) {
                 '7.angular-sanitize.js': 'angular-sanitize/angular-sanitize.js',
                 '8.angular-touch.js': 'angular-touch/angular-touch.js',
                 '9.angular-ui-router.js': 'angular-ui-router/release/angular-ui-router.js',
-
                 '10.js': 'bootstrap/dist/js/bootstrap.js',
                 '11.js': 'bootstrap-tour/build/js/bootstrap-tour.js',
                 '12.cloudinary.js': 'cloudinary_js/js/jquery.cloudinary.js',
-
-
                 '14.js': 'angular-xeditable/dist/js/xeditable.js',
                 '15.js': 'lodash/lodash.js',
                 '16.js': 'angular-google-maps/dist/angular-google-maps.js',
@@ -50,6 +47,26 @@ module.exports = function (grunt) {
                 '29.js': 'angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js',
                 '30.js': 'angular-carousel/dist/angular-carousel.js',
                 '31.js': 'angular-dialog-service/dist/dialogs.js',
+            }
+        },
+        cssLibs: {
+            options: {
+                runBower: false,
+                destPrefix: '.tmp/public/vendors/css'
+            },
+            files: {
+                '1.css': 'bootstrap/dist/css/bootstrap.css',
+                '3.css': 'angular-xeditable/dist/css/xeditable.css',
+                '4.css': 'angular-ui-select/dist/select.css',
+                '5.css': 'angular-dialog-service/dist/dialogs.css',
+                '6.css': 'angular-google-places-autocomplete/src/autocomplete.css',
+                '7.css': 'ng-img-crop/compile/unminified/ng-img-crop.css',
+                '8.css': '../libs/multiple-date-picker/dist/multiple-date-picker.css',
+                '9.css': 'v-accordion/dist/v-accordion.css',
+                '10.css': 'angular-ui-router-anim-in-out/css/anim-in-out.css',
+                '11.css': 'angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css',
+                '12.css': 'angular-carousel/dist/angular-carousel.css',
+                '13.css': 'bootstrap-tour/build/css/bootstrap-tour.css'
             }
         }
     });
