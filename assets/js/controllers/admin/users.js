@@ -7,8 +7,8 @@
  * Controller of the tooFrenchApp
  */
 var ctrl = angular.module('tooFrenchCtrl');
-ctrl.controller('AdminUserCtrl', ['$scope', 'User', 'dialogs', function($scope, User, dialogs) {
-	$scope.users = [];
+ctrl.controller('AdminUserCtrl', ['$scope', 'User', 'dialogs', '$http', function($scope, User, dialogs, $http) {
+	$scope.users = User.query();
 	$scope.user = null;
 	$scope.pageSize = 10;
 	$scope.pageIndex = 1;
@@ -19,18 +19,30 @@ ctrl.controller('AdminUserCtrl', ['$scope', 'User', 'dialogs', function($scope, 
 		$scope.loading = true;
 		$http.get('/user/adminSearch', {
 			params: {
-				count: 0,
+				count: 1,
 				pageSize: $scope.pageSize,
 				pageIndex: $scope.pageIndex
 			}
-		}).success(function (users) {
-			$scope.loading = false;
-			$scope.users = users;
-		}).error(function (data, status, headers, config) {
+		}).
+			success(function (count, status, headers, config) {
+				$scope.count = count.count;
+				$http.get('/user/adminSearch', {
+					params: {
+						count: 0,
+						pageSize: $scope.pageSize,
+						pageIndex: $scope.pageIndex
+					}
+				}).success(function (users) {
+					$scope.loading = false;
+					$scope.users = users;
+				}).error(function (data, status, headers, config) {
 
-		});
+				});
+			}).
+			error(function (data, status, headers, config) {
+
+			});
 	}
-	$scope.pageChanged();
 
 	$scope.saveUser = function() {
 		if ($scope.user.id) {

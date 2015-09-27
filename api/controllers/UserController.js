@@ -28,7 +28,7 @@ module.exports = {
             .where(actionUtil.parseCriteria(req))
             .limit(actionUtil.parseLimit(req))
             .skip(actionUtil.parseSkip(req))
-            .sort(actionUtil.parseSort(req));
+            .sort(actionUtil.parseSort(req)).populate('profile');
         // TODO: .populateEach(req.options);
         //query = actionUtil.populateEach(query, req);
         query.exec(function found(err, matchingRecords) {
@@ -63,12 +63,14 @@ module.exports = {
         }
         var skip = pageSize * (pageIndex - 1);
         var query = {};
-        query["where"] = {};
         query["skip"] = skip;
         query["limit"] = pageSize;
         User[count ? 'count' : 'find'](query)
             .exec(function (err, users) {
-                callback(err, users);
+                if(err){
+                    return serverError(err);
+                }
+                res.send(200, users);
             });
     },
 
