@@ -16,7 +16,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
         $scope.period = moment().date(10).format('MM-YYYY');
         $scope.scheduleIndex = -1;
         $scope.needSave = false;
-        var tour;
+        var tourProfile;
 
         var findShedule = function (period) {
             if ($scope.profile.schedules.length == 0) {
@@ -118,6 +118,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                     $rootScope.session.diploma = data;
                     $scope.diplomaUploading = false;
                 }).error(function (data, status, headers, config) {
+                    console.log('error ' + data);
                     $scope.diplomaUploading = false;
                 });
             }
@@ -177,6 +178,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
              * Event call after change location to update google map component
              */
             $scope.updateLocation = function () {
+                console.log('updateLocation');
                 if ($scope.editLocation) {
                     updateMap();
                     $scope.editLocation = false;
