@@ -23,7 +23,7 @@
                 <accordion-group ng-repeat="n in [] | range:1:11" is-open="teacherStatus[n].open">
                     <accordion-heading>
                         {{'faq.teacher.' + n + '.question' | translate}}
-                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': teacherStatus[n].open, 'glyphicon-chevron-right': !teacherStatus[n].open}"></i>
+                        <i class="pull-right fa" ng-class="{'fa-chevron-up': teacherStatus[n].open, 'fa-chevron-down': !teacherStatus[n].open}"></i>
                     </accordion-heading>
                     <div ng-bind-html="'faq.teacher.' + n + '.awnser' | translate"></div>
                 </accordion-group>
@@ -33,7 +33,7 @@
                 <accordion-group ng-repeat="n in [] | range:1:5">
                     <accordion-heading>
                         {{'faq.student.' + n + '.question' | translate}}
-                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': studentStatus[n].open, 'glyphicon-chevron-right': !studentStatus[n].open}"></i>
+                        <i class="pull-right fa" ng-class="{'fa-chevron-up': studentStatus[n].open, 'fa-chevron-down': !studentStatus[n].open}"></i>
                     </accordion-heading>
                     <div ng-bind-html="'faq.student.' + n + '.awnser' | translate"></div>
                 </accordion-group>

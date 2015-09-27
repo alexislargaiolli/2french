@@ -53,19 +53,15 @@
 
             <p>{{'learn.content.title0.1'| translate}}</p>
 
-            <div class="subpanel center">
-                <h2><span class="roundedNumber">1</span></h2>
-                <h2>{{'learn.content.title1'| translate}}</h2>
-
-                <hr/>
-
-                <h2><span class="roundedNumber">2</span></h2>
-                <h2>{{'learn.content.title2'| translate}}</h2>
-
-                <hr/>
-
-                <h2><span class="roundedNumber">3</span></h2>
-                <h2>{{'learn.content.title3'| translate}}</h2>
+            <div class="subpanel center" ng-controller="TeachCtrl">
+                <div ng-repeat="n in [] | range:1:4">
+                    <div ng-click="toggled[n] = !toggled[n]" class="learnItem">
+                        <h2><span class="roundedNumber">{{n}}</span></h2><h2 class="learnTitle">{{'learn.content.title' + n |translate}}</span><span ng-class="{'fa-chevron-up' : !toggled[n], 'fa-chevron-down' : toggled[n]}" class="fa fa-pl5 fright"></span></h2>
+                    </div>
+                    <div collapse="toggled[n]" ng-bind-html="'learn.content.text' + n | translate">
+                    </div>
+                    <hr/>
+                </div>
             </div>
         </div>
     </div>

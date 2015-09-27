@@ -307,6 +307,16 @@ body {
   }
 }
 
+.learnItem:hover{
+  cursor: pointer;
+  h2, .learnTitle{
+      color:#666!important;
+  }
+  .roundedNumber{
+      border-color: #666;
+  }
+}
+
 #container-concept {
   background-color: #000;
   color: #fff;
@@ -452,6 +462,9 @@ body {
 #learn-container {
   background-color: #fff;
   padding-bottom: 50px;
+  .learnTitle{
+    padding-left: 20px;
+  }
   #learn-header {
     width: 80%;
     min-height: 200px;
@@ -462,6 +475,7 @@ body {
     h2 {
       margin-top: 15px;
       padding-left: 70px;
+
     }
     #vignet {
       float: left;
@@ -492,22 +506,6 @@ body {
     text-align: center;
 
   }
-}
-
-.learnTitle{
-  opacity: 1;
-}
-
-.learnContent{
-  opacity: 0;
-}
-
-.learnTitle:hover{
-  opacity: 0;
-}
-
-.learnContent:hover{
-  opacity: 1;
 }
 
 #learn-teach-wrapper {
@@ -1337,12 +1335,15 @@ hr {
 
 /* FAQ*/
 .accordion-faq {
+  .panel{
+    margin-bottom: 10px;
+  }
   .panel-heading {
     background: #fff;
     padding: 0;
     a{
       display: block;
-      padding: 12px;
+      padding: 20px;
     }
     a:hover{
       text-decoration: none;
@@ -1930,6 +1931,10 @@ hr {
   text-align: right;
 }
 
+.justify {
+  text-align: justify;
+}
+
 .inline {
   display: inline-block;
 }
@@ -1944,6 +1949,10 @@ hr {
 
 .fa-pr5:before {
   padding-right: 5px;
+}
+
+.fa-pl5:before {
+  padding-left: 5px;
 }
 
 .p-0 {
