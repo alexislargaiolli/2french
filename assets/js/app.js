@@ -481,9 +481,9 @@ tooFrenchControllers.config(function (uiSelectConfig) {
 angular.module('tooFrenchService', ['ngRoute', 'ngResource']);
 
 
-tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope', '$window', '$state', '$timeout', 'AUTH_EVENTS', 'MESSAGE_EVENTS', 'AuthService', 'Session', 'Profile', 'Messagerie', 'Reservation', 'UserFavList', '$translate',
+tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope', '$window', '$state', '$timeout', 'AUTH_EVENTS', 'MESSAGE_EVENTS', 'AuthService', 'Session', 'Profile', 'Messagerie', 'Reservation', 'UserFavList', '$translate', '$http',
 
-    function ($rootScope, $scope, $window, $state, $timeout, AUTH_EVENTS, MESSAGE_EVENTS, AuthService, Session, Profile, Messagerie, Reservation, UserFavList, $translate) {
+    function ($rootScope, $scope, $window, $state, $timeout, AUTH_EVENTS, MESSAGE_EVENTS, AuthService, Session, Profile, Messagerie, Reservation, UserFavList, $translate, $http) {
         $rootScope.userfavlist = UserFavList;
 
         $scope.logout = function () {
@@ -542,8 +542,16 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
         $(window).resize(function () {
             $scope.$apply(function () {
                 $rootScope.updateFooter(window.innerHeight);
+                if($rootScope.currentState == 'home'){
+                    $rootScope.updateCarousel();
+                }
             });
         });
+
+        $rootScope.updateCarousel = function(){
+            var h = angular.element('.carousel-image').height();
+            angular.element('#homeCarousel').height(h);
+        }
 
         $scope.$watch(function () {
             return $window.innerHeight;
