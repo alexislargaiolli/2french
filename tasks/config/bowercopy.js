@@ -13,7 +13,7 @@ module.exports = function(grunt) {
         jsLibs: {
             options: {
                 runBower : false,
-                destPrefix: '.tmp/public/js/vendors'
+                destPrefix: '.tmp/public/vendors'
             },
             files: {
                 '2.cloudinary.js' : 'cloudinary_js/js/jquery.cloudinary.js',

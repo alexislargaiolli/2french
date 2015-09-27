@@ -49,8 +49,8 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                     $scope.scheduleIndex = $scope.profile.schedules.push(schedule) - 1;
                 }
                 if ($rootScope.isTeacher && !Session.user.tour) {
-                    tour.init();
-                    tour.start();
+                    tourProfile.init();
+                    tourProfile.start();
                 }
             }
         });
@@ -349,11 +349,11 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             };
 
         }
-        tour = new Tour({
+        tourProfile = new Tour({
             name: "myprofile",
             debug: true,
             storage: false,
-            onEnd: function (tour) {
+            onEnd: function (tourr) {
                 Session.user.tour = true;
                 $http.get('/user/userEndTour');
             },

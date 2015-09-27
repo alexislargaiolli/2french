@@ -35,7 +35,7 @@ var jsFilesToInject = [
 ];
 
 var jsVendorsFilesToInject = [
-  'js/vendors/*.js'
+  'vendors/*.js'
 ];
 
 // Client-side HTML templates are injected using the sources below

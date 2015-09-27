@@ -371,6 +371,38 @@
   "tour.student.6.title" : "Forum",
   "tour.student.6.content" : "Échanger avec d'autres utilisateurs grâce au forum.",
   "tour.student.7.title" : "TooFrench.net !",
-  "tour.student.7.content" : "Vous savez maintenant comment utiliser TooFrench.net ! <br/><br/> Nous vous souhaitons un agréable moment sur TooFrench.net."
+  "tour.student.7.content" : "Vous savez maintenant comment utiliser TooFrench.net ! <br/><br/> Nous vous souhaitons un agréable moment sur TooFrench.net.",
+
+
+  "faq.teacher.1.question" : "Quelles sont les conditions pour pouvoir s’inscrire sur TooFrench ?",
+  "faq.teacher.1.awnser" : "<p>TooFrench est ouvert à tous les enseignants de FLE titulaire d’un MASTER 1 (ou équivalent) mention Français Langue Etrangère (voir d’une licence mais pouvant justifier d’une expérience conséquente).</p><p>Dans tous les cas, TooFrench vous demande de faire parvenir une copie électronique de vos diplômes.</p>",
+  "faq.teacher.2.question" : "A quoi sert le calendrier et comment l’administrer ?",
+  "faq.teacher.2.awnser" : "<p>Quand un étudiant clique sur votre profil, il peut immédiatement voir vos disponibilités sur le calendrier. C’est la raison pour laquelle il est recommandé de l'actualiser régulièrement.</p><p>Pour accéder à votre calendrier, il vous suffit de vous connecter et à partir de votre tableau de bord, vous pouvez modifier vos disponibilités. Vous pouvez ainsi choisir précisément les jours/semaines/mois où vous souhaitez proposer vos formations.</p>",
+  "faq.teacher.3.question" : "Comment calculer un prix équitable pour ma formation ?",
+  "faq.teacher.3.awnser" : "<p>Vous êtes libre de proposer les tarifs de votre choix. Pour vous faire une idée des tarifs pratiqués, vous pouvez par exemple regarder les offres similaires à la vôtre dans votre ville/région.</p><p>Nous vous demandons toutefois de proposer des tarifs crédibles et en rapport avec les formations proposées. Nous vous conseillons par exemple de ne pas proposer des tarifs trop bas, c'est-à-dire inférieur au taux horaire en cours dans notre profession.</p><p>Pour les formations plus complexes (visite culturelle, hébergement, formation sur une ou plusieurs semaines, etc), vous pouvez proposer un tarif forfaitaire ou détailler le prix des différentes prestations.</p>",
+  "faq.teacher.4.question" : "L’étudiant peut-il me demander une facture ?",
+  "faq.teacher.4.awnser" : "<p>Oui, étant donné que l’étudiant et l’enseignant constituent les deux parties du contrat, vous pouvez délivrer une facture du montant total de la formation à l’étudiant, si celui-ci vous la demande.</p><p>Vous pouvez trouver des matrices de facture sur le site <a href='http://www.lautoentrepreneur.fr' target='_blank'>www.lautoentrepreneur.fr</a> .</p><p>Ceci est valable pour la France mais vous devez vous mettre en conformité avec la législation du pays dans lequel vous proposez des formations.</p>",
+  "faq.teacher.5.question" : "Puis-je annuler une formation acceptée ?",
+  "faq.teacher.5.awnser" : "<p>En principe non, toutefois il se peut que vous ne puissiez plus assurée cette formation pour des raisons qui vous appartiennent.</p><p>Dans ce cas, contactez l’apprenant le plus rapidement possible et voyez avec lui quelles solutions de remplacement peuvent être envisagées.</p>",
+  "faq.teacher.6.question" : "Comment et quand suis-je payé ?",
+  "faq.teacher.6.awnser" : "<p>Il vous appartient de décider, en accord avec l’étudiant, des modalités du paiement. TooFrench n’intervient pas dans la transaction.</p>",
+  "faq.teacher.7.question" : "Comment rédiger mon offre ?",
+  "faq.teacher.7.awnser" : "<p>Lors de votre inscription, vous remplissezr un formulaire qui vous permet de détailler certains points importants de votre offre (tarifs, formation, hébergement, …).</p><p>Répondez le plus précisément possible aux questions du formulaire. Dans ce formulaire, en cliquant sur l’icône Aide, vous trouverez des exemples d’offres rédigées.</p>",
+  "faq.teacher.8.question" : "Suis-je obliger d’accepter toutes les demandes ?",
+  "faq.teacher.8.awnser" : "<p>Bien évidemment non. Les décisions vous reviennent toujours, et il vous appartient d’accepter ou non les demandes qui vous sont faites.</p>",
+  "faq.teacher.9.question" : "Où ont lieu les cours ?",
+  "faq.teacher.9.awnser" : "<p>C’est à vous de le décider avec l’apprenant. Ils peuvent se dérouler chez vous ou ailleurs.</p>",
+  "faq.teacher.10.question" : "Quelles activités puis-je proposer ?",
+  "faq.teacher.10.awnser" : "<p>Vous êtes libre de proposer les activités de votre choix, en fonction de vos centres d’intérêts ou de vos envies.</p><p>Nous vous encourageons vivement à faire preuve de créativité, par exemple en proposant de découvrir votre ville ou votre région, de visiter des endroits connus ou moins connus. Vous pouvez également proposer des sorties sportives, gastronomiques, culturelles… bref tous ce que vous avez envie de partager.</p>",
+
+  "faq.student.1.question" : "Où se déroule la formation ?",
+  "faq.student.1.awnser" : "<p>Vous décidez du lieu ou se passera le cours avec votre professeur.</p><p>Certains enseignants peuvent vous proposer des cours à domicile (chez lui ou chez vous si vous disposez d’un appartement dans la ville), d’autres  peuvent vous proposer des cours dans une salle, à l’extérieur, ou dans tous types de lieux qui vous sembleront appropriés…</p>",
+  "faq.student.2.question" : "Les activités culturelles ?",
+  "faq.student.2.awnser" : "<p>Il s’agit d’activités que l'enseignant vous propose de partager, en plus des cours. Les enseignants sont libres d’en proposer ou non sur leur profil. Il peut s’agir de dégustations (vins ou produits régionaux), d’activité sportives, culturelles, etc.</p><p>Ces activités doivent vous permettre de pratiquer la langue dans un contexte non scolaire tout en vous permettant de découvrir la culture de la ville que vous avez choisie.</p>",
+  "faq.student.3.question" : "Comment et quand dois-je payer ma formation ?",
+  "faq.student.3.awnser" : "<p>TooFrench n’intervient pas dans le paiement, il vous appartient donc de décider, en accord avec votre enseignant, des modalités du paiement.</p>",
+  "faq.student.4.question" : "Puis-je annuler ma formation ?",
+  "faq.student.4.awnser" : "<p>Il se peut que vous ne soyez plus en mesure de suivre des cours ou une formation que vous aviez réservés pour des raisons personnelles. Dans ce cas, il vous appartient de prévenir l’enseignant et d’annuler la réservation.</p>"
+
 
 }

@@ -4,66 +4,40 @@
     </div>
 </div>
 <div class="container">
-    <div id="learn-teach-wrapper" class="vm-30 center">
-        <div class="panel-group" id="accordion-faq" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingOne">
-                    <h4 class="panel-title" role="button" data-toggle="collapse" data-parent="#accordion"
-                        href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        Anim pariatur cliche reprehenderit ? <i class="fa fa-angle-down"></i>
-                    </h4>
-                </div>
-                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
-                        coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
-                        anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-                        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
-                        of them accusamus labore sustainable VHS.
-                    </div>
-                </div>
+    <div id="learn-teach-wrapper" class="vm-30 center" ng-controller="FaqCtrl">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <label class="blue-btn center-block p-10 border-radius-3">
+                    <input type="radio" ng-model="toggleStudentTeacher" value="1"/><span class="m-10">{{'register.student' | translate}}</span>
+                </label>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingTwo">
-                    <h4 class="panel-title" class="collapsed" role="button" data-toggle="collapse"
-                        data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                        Enim eiusmod high life ? <i class="fa fa-angle-down"></i>
-                    </h4>
-                </div>
-                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-                    <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
-                        coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
-                        anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-                        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
-                        of them accusamus labore sustainable VHS.
-                    </div>
-                </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <label class="blue-btn center-block p-10 border-radius-3">
+                    <input type="radio" ng-model="toggleStudentTeacher" value="0"/><span class="m-10">{{'register.teacher' | translate}}</span>
+                </label>
             </div>
-            <div class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingThree">
-                    <h4 class="panel-title" class="collapsed" role="button" data-toggle="collapse"
-                        data-parent="#accordion" href="#collapseThree" aria-expanded="false"
-                        aria-controls="collapseThree">
-                        Nihil anim keffiyeh helvetica ? <i class="fa fa-angle-down"></i>
-                    </h4>
-                </div>
-                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
-                    <div class="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid.
-                        3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt
-                        laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin
-                        coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes
-                        anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings
-                        occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard
-                        of them accusamus labore sustainable VHS.
-                    </div>
-                </div>
-            </div>
+        </div>
+
+        <div class="mt-20">
+            <accordion class="accordion-faq" ng-if="toggleStudentTeacher == 0">
+                <accordion-group ng-repeat="n in [] | range:1:11" is-open="teacherStatus[n].open">
+                    <accordion-heading>
+                        {{'faq.teacher.' + n + '.question' | translate}}
+                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': teacherStatus[n].open, 'glyphicon-chevron-right': !teacherStatus[n].open}"></i>
+                    </accordion-heading>
+                    <div ng-bind-html="'faq.teacher.' + n + '.awnser' | translate"></div>
+                </accordion-group>
+            </accordion>
+
+            <accordion class="accordion-faq" ng-if="toggleStudentTeacher == 1">
+                <accordion-group ng-repeat="n in [] | range:1:5">
+                    <accordion-heading>
+                        {{'faq.student.' + n + '.question' | translate}}
+                        <i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': studentStatus[n].open, 'glyphicon-chevron-right': !studentStatus[n].open}"></i>
+                    </accordion-heading>
+                    <div ng-bind-html="'faq.student.' + n + '.awnser' | translate"></div>
+                </accordion-group>
+            </accordion>
         </div>
     </div>
 </div>

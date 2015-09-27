@@ -460,6 +460,16 @@ tooFrenchApp.directive(
     }
 );
 
+tooFrenchApp.filter('range', function() {
+    return function(input, min, max) {
+        min = parseInt(min); //Make string input int
+        max = parseInt(max);
+        for (var i=min; i<max; i++)
+            input.push(i);
+        return input;
+    };
+});
+
 var tooFrenchControllers = angular.module('tooFrenchCtrl', ['ngRoute', 'ui.router', 'xeditable', 'uiGmapgoogle-maps', 'pascalprecht.translate', 'tooFrenchService', 'angularFileUpload', 'ui.select', 'ui.bootstrap', 'dialogs.main', 'google.places', 'ngImgCrop', 'multipleDatePicker', 'vcRecaptcha', 'angular-carousel']);
 tooFrenchControllers.config(function (uiSelectConfig) {
     //================================================
