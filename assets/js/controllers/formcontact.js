@@ -14,7 +14,6 @@ tooFrenchControllers.controller('FormContactCtrl', ['$scope', '$http', 'vcRecapt
             $scope.success = false;
             $scope.error = null;
             if ($scope.response) {
-                var response = vcRecaptchaService.getResponse();
                 $http.post('contact', {message: $scope.message, recaptcha: $scope.response}).success(function (data) {
                     $scope.success = true;
                 }).error(function (data) {
