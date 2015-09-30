@@ -30,7 +30,7 @@ module.exports = {
                                 msgCcontent : message.content
                             },
                             {
-                                to: "alexis.largaiolli@gmail.com",
+                                to: "toofrench.website@gmail.com",
                                 subject: "Formulaire de contact"
                             },
                             function (err) {
