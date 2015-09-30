@@ -31,6 +31,7 @@
     "rc": "~0.5.0",
     "request": "^2.58.0",
     "sails": "^0.10.5",
+    "sails-hook-email": "^0.12.1",
     "sails-mongo": "~0.10.5",
     "shortid": "^2.2.2",
     "skipper-gridfs": "^0.5.3",
