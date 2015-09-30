@@ -323,7 +323,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
                 }
             })
             .state('contact', {
-                url: '/contact',
+                url: '/contact/:theme',
                 templateUrl: 'views/contact.html',
                 controller: 'FormContactCtrl'
             })

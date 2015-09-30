@@ -12,27 +12,37 @@
 
 module.exports = {
 
-  /***************************************************************************
-   * Set the default database connection for models in the production        *
-   * environment (see config/connections.js and config/models.js )           *
-   ***************************************************************************/
+    /***************************************************************************
+     * Set the default database connection for models in the production        *
+     * environment (see config/connections.js and config/models.js )           *
+     ***************************************************************************/
 
-  models: {
-     connection: 'mongoProd' //Careful, used in DiplomaController directly
-  },
+    models: {
+        connection: 'mongoProd' //Careful, used in DiplomaController directly
+    },
 
-  /***************************************************************************
-   * Set the port in the production environment to 80                        *
-   ***************************************************************************/
+    /***************************************************************************
+     * Set the port in the production environment to 80                        *
+     ***************************************************************************/
 
-  //port: 80
+    //port: 80
 
-  /***************************************************************************
-   * Set the log level in production environment to "silent"                 *
-   ***************************************************************************/
+    /***************************************************************************
+     * Set the log level in production environment to "silent"                 *
+     ***************************************************************************/
 
-   log: {
-     level: "info"
-   }
+    log: {
+        level: "info"
+    },
+
+    email: {
+        service: 'Postmark',
+        auth: {
+            user: '3cf353ad-1e6b-4fb9-b6bb-cd9168af4f30',
+            pass: '3cf353ad-1e6b-4fb9-b6bb-cd9168af4f30'
+        },
+        from: 'contact@toofrench.net',
+        templateDir: 'views/emailTemplates'
+    }
 
 };

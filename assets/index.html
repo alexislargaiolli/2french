@@ -5,6 +5,7 @@
     <title></title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
+    <meta name="google-site-verification" content="FuXdS9LJrGkr4bqRye3L_p698wyudQhKbYOJ6ye-c0c" />
 
     <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css">
     <!--STYLES VENDORS-->
@@ -192,46 +193,9 @@
 
 
             <!-- Report bug button trigger modal -->
-            <button type="button" class="reportBugBtn" data-toggle="modal" data-target="#reportBug"
-                    ng-if="session.authenticated">
+            <a ui-sref="contact({theme : 'bug'})" class="reportBugBtn" ng-if="session.authenticated">
                 {{'header.report.bug' | translate}}
-            </button>
-
-
-            <!-- Report bug Modal -->
-            <div class="modal fade" id="reportBug" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
-                            <h4 class="modal-title left" id="myModalLabel">{{'header.report.bug' | translate}}</h4>
-                        </div>
-                        <div class="modal-body reportBugPanel">
-                            <div class="input-group p-10">
-                                <span class="input-group-addon" id="basic-addon1">Nom</span>
-                                <input type="text" name="name" class="form-control" placeholder="Nom"
-                                       aria-describedby="basic-addon1">
-                            </div>
-                            <div class="input-group p-10">
-                                <span class="input-group-addon" id="basic-addon2">E-mail</span>
-                                <input type="text" name="mail" class="form-control" placeholder="E-mail"
-                                       aria-describedby="basic-addon2">
-                            </div>
-                            <div class="input-group p-10">
-                                <div class="form-group">
-                                        <textarea class="form-control" placeholder="Description du bug" rows="6"
-                                                  name="descritpion"></textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary">Envoyer</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            </a>
 
             <!-- AUTHENTICATED HEADER PANEL -->
             <ul id="user-menu" class="nav navbar-nav navbar-right" ng-if="session.authenticated"

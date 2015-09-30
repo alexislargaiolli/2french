@@ -220,10 +220,14 @@
   "contact.form.title": "Afin que votre demande soit traitée avec efficacité, merci de bien renseigner les champs ci-dessous.",
   "contact.form.username.placeholder": "Votre nom",
   "contact.form.email.placeholder": "Votre e-mail",
-  "contact.form.theme.placeholder": "Thème du message",
+  "contact.form.theme.placeholder": "Thème du message...",
   "contact.form.message.placeholder": "Message",
   "contact.form.send": "Envoyer le message",
   "contact.form.succcess": "Votre message a bien été envoyé !",
+  "contact.theme.0" : "Demande d'information",
+  "contact.theme.0.key" : "info",
+  "contact.theme.1" : "Signaler un problème",
+  "contact.theme.1.key" : "bug",
 
 
 
