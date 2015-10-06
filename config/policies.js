@@ -37,7 +37,8 @@ module.exports.policies = {
   UserFavListController : {
     '*' : ['passport', 'sessionAuth', 'favListOwner'],
     find : ['passport', 'sessionAuth', 'admin'],
-    findOne : ['passport', 'sessionAuth']
+    findOne : ['passport', 'sessionAuth'],
+    create : ['passport', 'sessionAuth'] //Check directly in method
   },
 
   ProfileController : {

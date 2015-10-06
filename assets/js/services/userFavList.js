@@ -12,7 +12,7 @@ tooFrenchServices.factory('UserFavList', ['$resource', '$http', '$q', 'Session',
                     var UserFavList = this.getResource();
                     if (Session.favlistId) {
                         this.list = UserFavList.get({id: Session.favlistId}, function (favlist) {
-                            deferred.resolve(this.list);
+                            deferred.resolve(favlist);
                         });
                     }
                     else {
@@ -70,9 +70,14 @@ tooFrenchServices.factory('UserFavList', ['$resource', '$http', '$q', 'Session',
                 });
             },
             isInFav: function (profileId) {
-                for (var i = 0; i < this.list.favorits.length; i++) {
-                    if (this.list.favorits[i].id == profileId) {
-                        return true;
+                if (this.list) {
+                    if (this.list.favorits) {
+                        for (var i = 0; i < this.list.favorits.length; i++) {
+                            if (this.list.favorits[i].id == profileId) {
+
+                                return true;
+                            }
+                        }
                     }
                 }
                 return false;

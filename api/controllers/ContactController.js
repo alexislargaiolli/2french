@@ -31,7 +31,7 @@ module.exports = {
                             },
                             {
                                 to: "toofrench.website@gmail.com",
-                                subject: "Formulaire de contact"
+                                subject: "Formulaire de contact envoyé par " + message.username
                             },
                             function (err) {
                                 if(err){
