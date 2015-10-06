@@ -89,7 +89,7 @@
             <h3>{{'home.concept.subtitle' | translate}}</h3>
 
             <button id="register-btn" type="button" class="btn btn-default green-btn center-block" ui-sref="register"
-                    ng-if="session.authenticated">{{'home.concept.button' | translate}}
+                    ng-if="!session.authenticated">{{'home.concept.button' | translate}}
             </button>
         </div>
     </div>
