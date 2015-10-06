@@ -67,6 +67,7 @@ module.exports = {
                     }
                     cs.forEach(function(c){
                         c.interlocutorId = c.interlocutor.id;
+                        c.interlocutorProfileId = c.interlocutor.profile.id;
                         c.photo = c.interlocutor.profile.photo;
                         c.interlocutor = c.interlocutor.profile.firstname;
                     });
