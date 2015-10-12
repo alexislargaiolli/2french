@@ -78,6 +78,10 @@ module.exports = {
         },
         schedules: {
             type: 'json'
+        },
+        validate : {
+            type: 'boolean',
+            defaultsTo : false
         }
     },
     beforeCreate: function (values, next) {
@@ -90,8 +94,29 @@ module.exports = {
     afterCreate: function (profile, next) {
         next();
     },
+    beforeUpdate: function (profile, next) {
+        if (profile) {
+            if (profile.photo && profile.hourRate && profile.motivation && profile.formations && profile.formations.length > 0) {
+                Diploma.findOne({'owner': profile.owner}).exec(function (err, diploma) {
+                    if (diploma && diploma.diplomaValidated) {
+                        profile.validate = true;
+                    }
+                    else{
+                        profile.validate = false;
+                    }
+                    next();
+                });
+            }
+            else {
+                next();
+            }
+        }
+        else {
+            next();
+        }
+    },
     afterDestroy: function (profiles, next) {
-        if(profiles.length == 0){
+        if (profiles.length == 0) {
             return next();
         }
         profiles.forEach(function (profile, i) {
@@ -103,7 +128,7 @@ module.exports = {
                     {teacher: profile.id},
                 ]
             }).exec(function (err) {
-                if(err){
+                if (err) {
                     return next(err);
                 }
                 sails.log.info('destroy shedule');
@@ -111,13 +136,13 @@ module.exports = {
                 sails.models.schedule.destroy({
                     profile: profile.id
                 }).exec(function (err) {
-                    if(err){
+                    if (err) {
                         return next(err);
                     }
                     sails.log.info('update fav lists');
                     //Remove from other user fav list
                     UserFavList.update({}, {$pull: {favorits: profile.id}}).exec(function (err) {
-                        if(err){
+                        if (err) {
                             return next(err);
                         }
 
@@ -126,7 +151,7 @@ module.exports = {
                         sails.models.post.destroy({
                             author: profile.id
                         }).exec(function (err) {
-                            if(err){
+                            if (err) {
                                 sails.log.info('error destroying posts');
                                 return next(err);
                             }

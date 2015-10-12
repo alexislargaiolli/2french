@@ -4,6 +4,7 @@ function buildQuery(skip, pageSize, location, days, periods) {
     query["skip"] = skip;
     query["limit"] = pageSize;
     query["where"] = {
+        "validate" : true,
         "city.address_components": {
             $elemMatch: {
                 short_name: location
@@ -12,6 +13,7 @@ function buildQuery(skip, pageSize, location, days, periods) {
     };
     if (days && days.length > 0) {
         query["where"] = {
+            "validate" : true,
             "city.address_components": {
                 $elemMatch: {
                     short_name: location

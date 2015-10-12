@@ -24,6 +24,7 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
 
         $scope.search = function () {
             $scope.loading = true;
+            $scope.results= [];
             $http.get('/profile/search', {
                 params: {
                     count: 1,
@@ -139,6 +140,7 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
 
         $scope.pageChanged = function () {
             $scope.loading = true;
+            $scope.results = [];
             $http.get('/profile/search', {
                 params: {
                     count: 0,
