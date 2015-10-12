@@ -8,7 +8,7 @@
  */
 var ctrl = angular.module('tooFrenchCtrl');
 ctrl.controller('HomeCtrl', ['$scope', '$rootScope', '$timeout', function ($scope, $rootScope, $timeout) {
-    $scope.interval = 500;
+    $scope.interval = 5000;
     var slides = $scope.slides = [{
         image: 'https://res.cloudinary.com/hmn3vaygs/image/upload/v1444153962/diapo0_ux9jrb.jpg'
     },{
