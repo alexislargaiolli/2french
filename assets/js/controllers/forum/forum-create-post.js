@@ -10,7 +10,12 @@ var ctrl = angular.module('tooFrenchCtrl');
 ctrl.controller('ForumCreatePostCtrl', ['$scope', '$timeout', 'Post', 'PostCategory', 'Session', '$state' , '$upload', '$stateParams', function($scope, $timeout, Post, PostCategory, Session, $state, $upload, $stateParams) {
     var p = Post.getResource();
     $scope.post = new p();
-    $scope.categories = PostCategory.query();
+    if($stateParams.teacher == 1) {
+        $scope.categories = PostCategory.query({teacher : true});
+    }
+    else{
+        $scope.categories = PostCategory.query({teacher : false});
+    }
     $scope.attachedFiles = [];
     $scope.uploading = false;
     $scope.uploadingFiles = [];
@@ -88,7 +93,7 @@ ctrl.controller('ForumCreatePostCtrl', ['$scope', '$timeout', 'Post', 'PostCateg
     }
 
     var submitPost = function(){
-        $scope.post.teacher = $stateParams.teacher;
+        $scope.post.teacher = $stateParams.teacher == 1;
         if(!$scope.isTeacher){
             $scope.post.teacher = false;
         }

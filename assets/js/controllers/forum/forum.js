@@ -9,6 +9,8 @@
 var ctrl = angular.module('tooFrenchCtrl');
 ctrl.controller('ForumCtrl', ['$scope', 'Post', 'PostCategory', '$timeout', function ($scope, Post, PostCategory, $timeout) {
     $scope.categories = PostCategory.query();
+    $scope.teacherCategories = PostCategory.query({teacher : true});
+    $scope.generalCategories = PostCategory.query({teacher : false});
     $scope.pageSize = 5;
 
     $scope.teacherPostsByCategory = [];

@@ -10,6 +10,10 @@ module.exports = {
   attributes: {
     name:{
       type : 'json'
+    },
+    teacher: {
+      type: 'boolean',
+      defaultsTo: false
     }
   }
 };
