@@ -466,11 +466,11 @@ tooFrenchApp.directive(
     }
 );
 
-tooFrenchApp.filter('range', function() {
-    return function(input, min, max) {
+tooFrenchApp.filter('range', function () {
+    return function (input, min, max) {
         min = parseInt(min); //Make string input int
         max = parseInt(max);
-        for (var i=min; i<max; i++)
+        for (var i = min; i < max; i++)
             input.push(i);
         return input;
     };
@@ -527,7 +527,7 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
                 }
             }
             (function updateNotification() {
-                if($rootScope.session.authenticated) {
+                if ($rootScope.session.authenticated) {
                     Messagerie.getUnseenMsgCount().then(function (count) {
                         $rootScope.notifMsgCount = count;
                         $timeout(updateNotification, 3000);
@@ -559,13 +559,13 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
         $(window).resize(function () {
             $scope.$apply(function () {
                 $rootScope.updateFooter(window.innerHeight);
-                if($rootScope.currentState == 'home'){
+                if ($rootScope.currentState == 'home') {
                     $rootScope.updateCarousel();
                 }
             });
         });
 
-        $rootScope.updateCarousel = function(){
+        $rootScope.updateCarousel = function () {
             var h = angular.element('.carousel-image').height();
             angular.element('#homeCarousel').height(h);
         }
@@ -588,15 +588,23 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
         $rootScope.$on('$translateChangeSuccess', function () {
 
             tour = new Tour({
-                name: "tourteacher",
+                name: "tourteacher2",
                 debug: true,
                 storage: false,
                 onEnd: function (tour) {
-                    $state.go('myprofile');
+                    if (tour.notOver == 1) {
+                        console.log('not over');
+                        $state.go('myprofile');
+                    }
+                    else {
+                        Session.user.tour = true;
+                        $http.get('/user/userEndTour');
+                    }
                 },
                 template: "<div class='popover tour'>" +
                 "<div class='arrow'></div>" +
                 "<h3 class='popover-title'></h3>" +
+                "<span class='fa fa-times-circle endTourBtn' data-role='end'></span>" +
                 "<div class='popover-content'></div>" +
                 "<div class='popover-navigation'>" +
                 "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +
@@ -614,6 +622,7 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
                         template: "<div class='popover tour'>" +
                         "<div class='arrow'></div>" +
                         "<h3 class='popover-title'></h3>" +
+                        "<span class='fa fa-times-circle endTourBtn' data-role='end'></span>" +
                         "<div class='popover-content'></div>" +
                         "<div class='popover-navigation'>" +
                         "<span class='next-btn fa fa-arrow-circle-right' data-role='next'></span>" +
@@ -627,13 +636,18 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
                         content: $translate.instant('tour.2.content'),
                         backdrop: true,
                         placement: 'left',
+                        onNext: function (tour) {
+                            tour.notOver = 1;
+                            tour.end();
+                        },
                         template: "<div class='popover tour'>" +
                         "<div class='arrow'></div>" +
                         "<h3 class='popover-title'></h3>" +
+                        "<span class='fa fa-times-circle endTourBtn' data-role='end'></span>" +
                         "<div class='popover-content'></div>" +
                         "<div class='popover-navigation'>" +
                         "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +
-                        "<span class='next-btn fa fa-arrow-circle-right' data-role='end'></span>" +
+                        "<span class='next-btn fa fa-arrow-circle-right' data-role='next'></span>" +
                         "</div>" +
                         "</nav>" +
                         "</div>"
@@ -652,6 +666,7 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
                 template: "<div class='popover tour'>" +
                 "<div class='arrow'></div>" +
                 "<h3 class='popover-title'></h3>" +
+                "<span class='fa fa-times-circle endTourBtn' data-role='end'></span>" +
                 "<div class='popover-content'></div>" +
                 "<div class='popover-navigation'>" +
                 "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +
@@ -669,6 +684,7 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
                         template: "<div class='popover tour'>" +
                         "<div class='arrow'></div>" +
                         "<h3 class='popover-title'></h3>" +
+                        "<span class='fa fa-times-circle endTourBtn' data-role='end'></span>" +
                         "<div class='popover-content'></div>" +
                         "<div class='popover-navigation'>" +
                         "<span class='next-btn fa fa-arrow-circle-right' data-role='next'></span>" +
@@ -719,10 +735,10 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
                         template: "<div class='popover tour'>" +
                         "<div class='arrow'></div>" +
                         "<h3 class='popover-title'></h3>" +
+                        "<span class='fa fa-times-circle endTourBtn' data-role='end'></span>" +
                         "<div class='popover-content'></div>" +
                         "<div class='popover-navigation'>" +
                         "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +
-                        "<span class='next-btn fa fa-arrow-circle-right' data-role='end'></span>" +
                         "</div>" +
                         "</nav>" +
                         "</div>"

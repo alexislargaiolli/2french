@@ -359,6 +359,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             template: "<div class='popover tour'>" +
             "<div class='arrow'></div>" +
             "<h3 class='popover-title'></h3>" +
+            "<span class='fa fa-times-circle endTourBtn' data-role='end'></span>"+
             "<div class='popover-content'></div>" +
             "<div class='popover-navigation'>" +
             "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +
@@ -439,10 +440,10 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                     template: "<div class='popover tour'>" +
                     "<div class='arrow'></div>" +
                     "<h3 class='popover-title'></h3>" +
+                    "<span class='fa fa-times-circle endTourBtn' data-role='end'></span>"+
                     "<div class='popover-content'></div>" +
                     "<div class='popover-navigation'>" +
                     "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +
-                    "<span class='next-btn fa fa-arrow-circle-right' data-role='end'></span>" +
                     "</div>" +
                     "</nav>" +
                     "</div>"
