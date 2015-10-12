@@ -1193,73 +1193,72 @@ hr {
     line-height: 200px;
     text-align: center;
   }
+}
 
-  .arrow {
-    border-radius: 4px;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    -o-border-radius: 4px;
-    position: relative;
-    background: #ffffff;
-    border: 1px solid @very-light-gray;
-  }
+.arrow {
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -o-border-radius: 4px;
+  position: relative;
+  background: #ffffff;
+  border: 1px solid @very-light-gray;
+}
 
-  .arrow.left {
-    margin-left: 10px;
-  }
+.arrow.left {
+  margin-left: 10px;
+}
 
-  .arrow.right {
-    text-align: left;
-    margin-right: 30px;
-    color: #818181;
-  }
+.arrow.right {
+  text-align: left;
+  margin-right: 30px;
+  color: #818181;
+}
 
-  .arrow:after, .arrow:before {
-    top: 50%;
-    border: solid transparent;
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
-  }
+.arrow:after, .arrow:before {
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
 
-  .arrow.left:after, .arrow.left:before {
-    right: 100%;
-  }
+.arrow.left:after, .arrow.left:before {
+  right: 100%;
+}
 
-  .arrow.right:after, .arrow.right:before {
-    left: 100%;
-  }
+.arrow.right:after, .arrow.right:before {
+  left: 100%;
+}
 
-  .arrow:after {
-    border-color: rgba(255, 255, 255, 0);
-    border-width: 5px;
-    margin-top: -5px;
-  }
+.arrow:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-width: 5px;
+  margin-top: -5px;
+}
 
-  .arrow.left:after {
-    border-right-color: #ffffff;
-  }
+.arrow.left:after {
+  border-right-color: #ffffff;
+}
 
-  .arrow.right:after {
-    border-left-color: #ffffff;
-  }
+.arrow.right:after {
+  border-left-color: #ffffff;
+}
 
-  .arrow:before {
-    border-color: rgba(4, 191, 198, 0);
-    border-width: 8px;
-    margin-top: -6px;
-  }
+.arrow:before {
+  border-color: rgba(4, 191, 198, 0);
+  border-width: 8px;
+  margin-top: -6px;
+}
 
-  .arrow.left:before {
-    border-right-color: @very-light-gray;
-  }
+.arrow.left:before {
+  border-right-color: @very-light-gray;
+}
 
-  .arrow.right:before {
-    border-left-color: @very-light-gray;
-  }
-
+.arrow.right:before {
+  border-left-color: @very-light-gray;
 }
 
 .popover.tour {

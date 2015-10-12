@@ -131,7 +131,7 @@ module.exports = {
      */
     totalUnseenMessageCount: function (req, res) {
         var userId = req.user.id;
-        Conversation.find({owner: userId}).exec(function (err, conversations) {
+        Conversation.find({owner: userId, count : {'>' : 0}}).exec(function (err, conversations) {
             if (err) {
                 res.send(500, "Error while fetching conversations");
             }

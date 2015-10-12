@@ -526,6 +526,17 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
                     tourStudent.start();
                 }
             }
+            (function updateNotification() {
+                if($rootScope.session.authenticated) {
+                    Messagerie.getUnseenMsgCount().then(function (count) {
+                        $rootScope.notifMsgCount = count;
+                        $timeout(updateNotification, 3000);
+                    }, function () {
+                        $rootScope.notifMsgCount = 0;
+                        $timeout(updateNotification, 3000);
+                    });
+                }
+            })();
             $rootScope.userfavlist.getFavList();
             $rootScope.$broadcast(AUTH_EVENTS.sessionCreated);
         });
