@@ -22,7 +22,8 @@
                 <p>{{'register.student.text.1'|translate}}</p>
             </div>
             <div class="center">
-                <a ui-sref="learn">{{'register.moreinfo'|translate}}</a>
+                <a ui-sref="learn" ng-if="registerType == 2">{{'register.moreinfo'|translate}}</a>
+                <a ui-sref="teach" ng-if="registerType == 1">{{'register.moreinfo'|translate}}</a>
             </div>
         </div>
         <div id="right" class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
