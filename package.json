@@ -41,6 +41,7 @@
   "scripts": {
     "start": "sails lift",
     "postinstall": "bower install --prod",
+    "test": "mocha test/bootstrap.test.js test/unit/**/*.test.js",
     "debug": "node debug app.js"
   },
   "main": "app.js",

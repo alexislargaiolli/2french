@@ -7,7 +7,7 @@ describe.only('UsersModel', function() {
         it('should check find function', function (done) {
             User.find()
                 .then(function(results) {
-                    // some tests
+                    sails.log.info('test user');
                     done();
                 })
                 .catch(done);
