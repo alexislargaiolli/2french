@@ -8,6 +8,6 @@ module.exports.email = {
         user : '3cf353ad-1e6b-4fb9-b6bb-cd9168af4f30',
         pass : '3cf353ad-1e6b-4fb9-b6bb-cd9168af4f30'
     },
-    from : 'contact@toofrench.net',
+    from : 'notification@toofrench.net',
     templateDir : 'views/emailTemplates'
 };

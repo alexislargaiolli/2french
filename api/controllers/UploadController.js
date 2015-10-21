@@ -43,7 +43,7 @@ module.exports = {
 					message: sails.__('file.upload.success'),
 					url : result.secure_url
 				});
-			});
+			}, {folder : 'profiles/avatars'});
 
 			/*var filePath = files[0].fd;
 			var fileName = filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);
@@ -79,7 +79,7 @@ module.exports = {
 					message: sails.__('file.upload.success'),
 					url : result.secure_url
 				});
-			});
+			}, {folder : 'profiles/accomodations'});
 
 			/*var filePath = files[0].fd;
 			var fileName = filePath.substring(filePath.lastIndexOf('/') + 1, filePath.length);

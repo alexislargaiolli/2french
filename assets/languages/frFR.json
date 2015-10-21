@@ -46,7 +46,7 @@
   "home.carousel.caption2": "quand vous voulez, comme vous voulez !",
   "home.learn.1": "Toofrench, ou comment apprendre le français à votre façon !",
   "home.learn.2": "Toofrench met à votre disposition un professeur. Trouvez la solution qui vous convient et profitez d’un apprentissage convivial, économique et personnalisé.",
-  "home.teach.1": "Toofrench vous permet d’ enseigner le français librement.",
+  "home.teach.1": "Toofrench vous permet d’enseigner le français librement.",
   "home.teach.2": "Vous êtes enseignant de Français Langue Étrangère, Toofrench vous met en relation directe avec des apprenants. Adaptez votre enseignement à vos envies. Créez vos propres formations et proposez-les.",
   "home.concept": "TooFrench met en relation directe les personnes souhaitant apprendre le Français et les enseignants de Français Langue Etrangère pour faciliter les échanges et aider à l’organisation de cours efficaces et personnalisés.",
 
@@ -337,6 +337,8 @@
   "mentions.5.content" :"Le tableau de bord permet aux enseignants de contrôler et de modifier toutes les informations de leur profil : disponibilités, tarifs, offres de formations, hébergement. Il permet également de suivre les demandes de formations des étudiants et de gérer les contacts avec eux, par le biais de la messagerie interne.",
   "mentions.6.title" :"Forum",
   "mentions.6.content" :"TooFrench met à disposition de ses membres deux forums : un forum général accessible à toute personne inscrite et un forum réservé aux enseignants.",
+  "mentions.7.title" : "Mentions légales",
+  "mentions.7.content" : "<p>TooFrench.net est un site édité par Com&Sens, SIRET 52963949400010</p><p>TooFrench.net est un site hébergé par Heroku Privacy, 650 7th St, San Francisco, CA 94103.</p>",
 
 
   "tour.1.title" : "Bienvenue sur TooFrench.net !",
