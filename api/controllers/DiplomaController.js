@@ -18,13 +18,13 @@ module.exports = {
             }
         });
     },
-    adminFind: function(req, res){
-        Diploma.find({diplomaUploaded:true, diplomaValidated : false}).exec(function(err, diplomas){
-            if(err){
+    adminFind: function (req, res) {
+        Diploma.find({diplomaUploaded: true, diplomaValidated: false}).exec(function (err, diplomas) {
+            if (err) {
                 res.send(500, 'Error while fetching diplomas');
             }
-            else{
-                if(diplomas && diplomas.length > 0) {
+            else {
+                if (diplomas && diplomas.length > 0) {
                     sails.services['util'].populateDeep('diploma', diplomas, 'owner.profile', function (err, diplomas) {
                         if (err) {
                             return res.sendError("error while populating diplomas");
@@ -36,25 +36,41 @@ module.exports = {
                         res.send(200, diplomas);
                     });
                 }
-                else{
+                else {
                     res.send(200, diplomas);
                 }
             }
         });
     },
-    validate : function(req, res){
+    validate: function (req, res) {
         var diplomaId = req.allParams().diplomadId;
-        if(diplomaId) {
+        if (diplomaId) {
             Diploma.update({id: diplomaId}, {diplomaValidated: true}).exec(function (err, diploma) {
                 if (err) {
-                    res.send(500, "Error while validating diploma");
+                    return res.send(500, "Error while validating diploma");
                 }
-                else {
-                    res.send(200, diploma);
-                }
+                Profile.findOne({owner: diploma.owner}).populate('formations').exec(function (err, profile) {
+                    if (err) {
+                        return res.send(500, "Error while validating diploma");
+                    }
+                    if (profile) {
+                        if (profile.photo && profile.hourRate && profile.motivation && profile.formations && profile.formations.length > 0) {
+                            profile.validate = true;
+                            profile.save(function(){
+                                res.send(200, diploma);
+                            });
+                        }
+                        else {
+                            res.send(200, diploma);
+                        }
+                    }
+                    else {
+                        res.send(200, diploma);
+                    }
+                });
             });
         }
-        else{
+        else {
             res.send(500, "Missing argument");
         }
     },

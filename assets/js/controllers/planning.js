@@ -3,7 +3,7 @@ tooFrenchControllers.controller('PlanningCtrl', ['$rootScope', '$scope', 'Reserv
 
     function ($rootScope, $scope, Reservation, $timeout, AUTH_EVENTS) {
         $scope.resas = [];
-
+        $scope.todayDate = new Date();
         if($scope.isTeacher){
 
             Reservation.teacherResa().then(function(resas){
@@ -19,6 +19,10 @@ tooFrenchControllers.controller('PlanningCtrl', ['$rootScope', '$scope', 'Reserv
         else{
             Reservation.studentResa().then(function(resas){
                 $scope.resas = resas;
+                for(var i =0; i<$scope.resas.length;i++){
+                    var d = new Date($scope.resas[i].date);
+                    $scope.resas[i].done = d < $scope.todayDate;
+                }
             });
         }
 

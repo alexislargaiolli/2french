@@ -414,7 +414,24 @@
   "faq.student.4.awnser" : "<p>Il se peut que vous ne soyez plus en mesure de suivre des cours ou une formation que vous aviez réservés pour des raisons personnelles. Dans ce cas, il vous appartient de prévenir l’enseignant et d’annuler la réservation.</p>",
 
 
-  "whoarewe.content" : "<p>Apprenez ou enseignez le français où vous voulez, quand vous voulez, comme vous voulez!</p><p>Nous sommes deux enseignants de Français Langue Etrangère et, suite à diverses expériences à l’étranger et en France, nous voulons trouver les meilleures solutions pour satisfaire à la fois les apprenants et les enseignants.</p><p>Pour cela, nous avons pensé les mettre directement en contact pour que chacun puisse trouver son bonheur, au niveau des prix comme des conditions de travail, suivant ses intérêts et préférences méthodologiques.</p><p>Le principe de fonctionnement du site est simple :L’enseignant propose les formations de son choix, l’étudiant choisit la formation qu’il veut en fonction du lieu et selon ses besoins langagiers. TooFrench permet aux apprenants de contacter les enseignants pour adapter les formations en fonction de leurs disponibilités et de leurs attentes.</p><p>Le site a la vocation de réunir un maximum d’enseignants et d’étudiants, en France et dans le monde, pour devenir une plate-forme, un catalogue de formules d’apprentissages diverses et personnalisées.</p><p>La qualité des formations est assurée  grâce aux vérifications des diplômes des enseignants par l’équipe de TooFrench, et par le biais des commentaires et évaluations.</p><p>A nous de jouer ! </p>"
+  "whoarewe.content" : "<p>Apprenez ou enseignez le français où vous voulez, quand vous voulez, comme vous voulez!</p><p>Nous sommes deux enseignants de Français Langue Etrangère et, suite à diverses expériences à l’étranger et en France, nous voulons trouver les meilleures solutions pour satisfaire à la fois les apprenants et les enseignants.</p><p>Pour cela, nous avons pensé les mettre directement en contact pour que chacun puisse trouver son bonheur, au niveau des prix comme des conditions de travail, suivant ses intérêts et préférences méthodologiques.</p><p>Le principe de fonctionnement du site est simple :L’enseignant propose les formations de son choix, l’étudiant choisit la formation qu’il veut en fonction du lieu et selon ses besoins langagiers. TooFrench permet aux apprenants de contacter les enseignants pour adapter les formations en fonction de leurs disponibilités et de leurs attentes.</p><p>Le site a la vocation de réunir un maximum d’enseignants et d’étudiants, en France et dans le monde, pour devenir une plate-forme, un catalogue de formules d’apprentissages diverses et personnalisées.</p><p>La qualité des formations est assurée  grâce aux vérifications des diplômes des enseignants par l’équipe de TooFrench, et par le biais des commentaires et évaluations.</p><p>A nous de jouer ! </p>",
 
 
+
+
+
+
+  "planning.reservations.add.review": "Donnez votre avis",
+  "add.review.title": "Partager avec la communauté votre avis sur ",
+  "add.review.mark.label":"Comment évaluez-vous votre expérience ?",
+  "add.review.mark.required.message":"Vous devez choisir une note",
+  "add.review.comment.label":"Votre avis est important, partagez le avec la communauté :",
+  "add.review.comment.placeholder":"Comment s'est passé votre formation (ponctualité, qualité etc.) ? Recommanderiez-vous ce membre à la communauté ?",
+  "add.review.comment.required":"Vous devez préciser un message",
+  "add.review.submit":"Valider",
+  "add.review.message.success":"Votre avis a bien été pris en compte.",
+  "add.review.message.back.btn":"Retour",
+
+  "profile.teacher.reviews.title":"Avis reçus",
+  "profile.teacher.reviews.empty":"Aucun avis"
 }

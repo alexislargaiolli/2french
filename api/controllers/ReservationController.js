@@ -6,46 +6,79 @@
  */
 
 module.exports = {
-    studentResa: function (req, res) {
-        var userId = req.user.id;
-        Profile.findOne({owner: userId}).exec(function (err, profile) {
-            Reservation.find({student: profile.id}).populate('teacher').exec(function (err, resas) {
-                if (err) {
-                    return res.sendError("Unable to find resas");
+    findOne : function(req, res){
+        Reservation.findOne({id : req.allParams().id}).exec(function(err, resa){
+            if(err) {
+                return serverError(err);
+            }
+            if(req.user.profile == resa.teacher || req.user.profile == resa.student || req.user.role == 'admin'){
+                if(req.user.profile == resa.teacher){
+                    Profile.findOne({where : {id : resa.student}, select : ['firstname', 'photo', 'city']}).exec(function(err, student){
+                        if(err) {
+                            return serverError(err);
+                        }
+                        resa.student = student;
+                        res.send(200, resa);
+                    });
                 }
-                resas.forEach(function (r) {
-                    r.teacherId = r.teacher.id;
-                    r.owner = r.teacher.owner;
-                    r.photo = r.teacher.photo;
-                    r.city = r.teacher.city;
-                    r.student = r.teacher.firstname;
-                });
-                res.send(resas);
+                else if(req.user.profile == resa.student){
+                    sails.log.info('student');
+                    Profile.findOne({where : {id : resa.teacher}, select : ['firstname', 'photo', 'city']}).exec(function(err, teacher){
+                        if(err) {
+                            return serverError(err);
+                        }
+                        sails.log.info('teacher found   ');
+                        resa.teacher = teacher;
+                        res.send(200, resa);
+                    });
+                }
+                else{
+                    return res.send(200, resa);
+                }
+            }
+            else{
+                return res.forbidden();
+            }
+        });
+    },
+
+    studentResa: function (req, res) {
+        Reservation.find({student: req.user.profile}).populate('teacher').populate('review').exec(function (err, resas) {
+            if (err) {''
+                return res.sendError("Unable to find resas");
+            }
+            resas.forEach(function (r) {
+                r.teacherId = r.teacher.id;
+                r.owner = r.teacher.owner;
+                r.photo = r.teacher.photo;
+                r.city = r.teacher.city;
+                r.student = r.teacher.firstname;
             });
+            res.send(resas);
         });
     },
     teacherResa: function (req, res) {
-        var userId = req.user.id;
-        Profile.findOne({owner: userId}).exec(function (err, profile) {
-            Reservation.find({teacher: profile.id}).populate('student').exec(function (err, resas) {
-                if (err) {
-                    return res.sendError("Unable to find resas");
-                }
-                resas.forEach(function (r) {
-                    r.studentId = r.student.id;
-                    r.owner = r.student.owner;
-                    r.photo = r.student.photo;
-                    r.city = r.student.city;
-                    r.student = r.student.firstname;
-                });
-                res.send(resas);
+        Reservation.find({teacher: req.user.profile}).populate('student').populate('review').exec(function (err, resas) {
+            if (err) {
+                return res.sendError("Unable to find resas");
+            }
+            resas.forEach(function (r) {
+                r.studentId = r.student.id;
+                r.owner = r.student.owner;
+                r.photo = r.student.photo;
+                r.city = r.student.city;
+                r.student = r.student.firstname;
             });
+            res.send(resas);
         });
     },
     notifCount: function (req, res) {
         var userId = req.user.id;
         Profile.findOne({owner: userId}).exec(function (err, profile) {
-            Reservation.count({ $or : [{teacher: profile.id}, {student: profile.id}] , status: 'pending'}).exec(function (err, count) {
+            Reservation.count({
+                $or: [{teacher: profile.id}, {student: profile.id}],
+                status: 'pending'
+            }).exec(function (err, count) {
                 if (err) {
                     return res.sendError("Unable to find resas");
                 }
@@ -116,6 +149,41 @@ module.exports = {
                 });
             });
         });
+    },
+
+    addReview: function (req, res) {
+        var resaId = req.allParams().resaId;
+        var mark = req.allParams().mark;
+        var comment = req.allParams().comment;
+
+        Reservation.findOne({
+            id: resaId,
+            student: req.user.profile
+        }).exec(function (err, resa) {
+            if (err) {
+                return res.serverError("Unable to find resas");
+            }
+            if (!resa) {
+                return res.notFound('not found');
+            }
+            sails.log.info(resa.date);
+            if(resa.date > new Date()){
+                return res.forbidden("Unable to add review on a futur reservation");
+            }
+            Review.create({mark : mark, comment : comment, teacher : resa.teacher, student : resa.student, reservation : resa}).exec(function(err, review){
+                if(err){
+                    return res.serverError(err);
+                }
+                resa.review = review;
+                resa.save(function(err){
+                    if(err){
+                        return res.serverError(err);
+                    }
+                    res.send(200, review);
+                });
+            });
+        });
+
     }
 };
 

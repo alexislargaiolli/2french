@@ -6,6 +6,19 @@
  */
 
 module.exports = {
+    viewProfile: function (req, res) {
+        Profile.findOne({
+            where: {id: req.id},
+            select: ['firstname', 'photo', 'motivation', 'hourRate', 'city', 'activeAccomodation', 'location', 'accomodationCoords', 'photos', 'accomodationDescription', 'averageMark', 'schedules']
+        })
+            .populate('formation').populate('extras').populate('formulas').populate('equipments').populate('services')
+            .exec(function (err, profile) {
+                if (err) {
+                    return res.serverError(err);
+                }
+            });
+    },
+
     getMonthSchedule: function (req, res) {
         var profileId = req.allParams().profileId;
         var month = req.allParams().month;
@@ -193,6 +206,28 @@ module.exports = {
                     });
             }
         }
+    },
+
+    teacherReviews: function (req, res) {
+        Review.find({
+            where: {teacher: req.allParams().teacherId},
+            select: ['mark', 'comment', 'student']
+        }).exec(function (err, reviews) {
+            if(err){
+                return res.serverError(err);
+            }
+            reviews.forEach(function (review, index) {
+                Profile.findOne({where: {id: review.student}, select: ['firstname', 'photo']}).exec(function (err, student) {
+                    if(err){
+                        return res.serverError(err);
+                    }
+                    reviews[index].student = student;
+                    if (index === reviews.length - 1) {
+                        res.send(reviews);
+                    }
+                });
+            });
+        });
     }
 };
 

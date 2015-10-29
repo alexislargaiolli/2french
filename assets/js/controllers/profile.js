@@ -1,7 +1,7 @@
 var tooFrenchControllers = angular.module('tooFrenchCtrl');
-tooFrenchControllers.controller('ProfileCtrl', ['$scope', '$stateParams', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Service', 'FormationLevel', 'Lightbox',
+tooFrenchControllers.controller('ProfileCtrl', ['$scope', '$stateParams', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Service', 'FormationLevel', 'Lightbox', 'Review',
 
-    function ($scope, $stateParams, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Service, FormationLevel, Lightbox) {
+    function ($scope, $stateParams, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Service, FormationLevel, Lightbox, Review) {
         $scope.period = moment().date(10).format('MM-YYYY');
         $scope.scheduleIndex = -1;
         $scope.selectedPhotoIndex = 0;
@@ -23,15 +23,15 @@ tooFrenchControllers.controller('ProfileCtrl', ['$scope', '$stateParams', 'uiGma
             id: $stateParams.profileId
         }, function () {
             //If schedules is not empty, searches for a schedules for the current pediod
-            if($scope.profile.schedules && $scope.profile.schedules.length > 0){
+            if ($scope.profile.schedules && $scope.profile.schedules.length > 0) {
                 $scope.scheduleIndex = findShedule($scope.period);
             }
-            else{
+            else {
                 $scope.profile.schedules = [];
             }
             //If none schedule found, creates one
-            if($scope.scheduleIndex == -1){
-                var schedule = {period : $scope.period, dayoff : [], undispos: []};
+            if ($scope.scheduleIndex == -1) {
+                var schedule = {period: $scope.period, dayoff: [], undispos: []};
                 $scope.scheduleIndex = $scope.profile.schedules.push(schedule) - 1;
             }
 
@@ -50,7 +50,7 @@ tooFrenchControllers.controller('ProfileCtrl', ['$scope', '$stateParams', 'uiGma
                     zoom: 14
                 };
                 $scope.map.markers = [{
-                    "id" : '1',
+                    "id": '1',
                     "latitude": lat,
                     "longitude": lon,
                     "title": $scope.profile.location.formatted_address,
@@ -65,6 +65,12 @@ tooFrenchControllers.controller('ProfileCtrl', ['$scope', '$stateParams', 'uiGma
             }
         });
 
+        $scope.reviews = [];
+
+        Review.getTeacherReviews($stateParams.profileId).then(function (reviews) {
+            $scope.reviews = reviews;
+        });
+
         $scope.dayClick = function (event, date) {
             event.preventDefault() // prevent the select to happen
         }
@@ -72,8 +78,8 @@ tooFrenchControllers.controller('ProfileCtrl', ['$scope', '$stateParams', 'uiGma
         $scope.onMonthChanged = function (newMonth, oldMonth) {
             $scope.period = newMonth.format('MM-YYYY');
             $scope.scheduleIndex = findShedule($scope.period);
-            if($scope.scheduleIndex == -1){
-                var schedule = {period : $scope.period, dayoff : [], undispos: []};
+            if ($scope.scheduleIndex == -1) {
+                var schedule = {period: $scope.period, dayoff: [], undispos: []};
                 $scope.scheduleIndex = $scope.profile.schedules.push(schedule) - 1;
             }
         };
@@ -82,12 +88,12 @@ tooFrenchControllers.controller('ProfileCtrl', ['$scope', '$stateParams', 'uiGma
 
         });
 
-        $scope.selectPhoto = function(index){
+        $scope.selectPhoto = function (index) {
             $scope.selectedPhotoIndex = index;
         }
 
         $scope.openLightboxModal = function () {
-            if($scope.profile.photos[$scope.selectedPhotoIndex]){
+            if ($scope.profile.photos[$scope.selectedPhotoIndex]) {
                 Lightbox.openModal($scope.profile.photos, $scope.selectedPhotoIndex);
             }
         };

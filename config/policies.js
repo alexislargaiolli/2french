@@ -115,7 +115,13 @@ module.exports.policies = {
   },
   ReservationController:{
     '*':[ 'passport', 'sessionAuth'],
-    'myresa' : ['passport', 'sessionAuth']
+    'studentResa' : ['passport', 'sessionAuth', 'student'],
+    'teacherResa' : ['passport', 'sessionAuth', 'teacher'],
+    'create' : ['passport', 'sessionAuth', 'student']
+  },
+  ReviewsController:{
+    '*':[ 'passport', 'sessionAuth', 'admin'],
+    'teacherReviews':['passport', 'sessionAuth']
   }
 
   /***************************************************************************

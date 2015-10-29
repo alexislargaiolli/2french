@@ -18,7 +18,8 @@ module.exports = {
             type: 'json'
         },
         date: {
-            type: 'date'
+            type: 'date',
+            required : true
         },
         message: {
             type: 'string'
@@ -28,8 +29,34 @@ module.exports = {
         },
         status: {
             type: 'string',
-            enum: ['pending', 'validated', 'refused', 'canceled']
+            enum: ['pending', 'validated', 'refused', 'canceled'],
+            defaultsTo : 'pending'
+        },
+        review:{
+            model: 'Review'
+        },
+
+        isDone : function(){
+            return this.status == 'validated' && this.date < new Date();
         }
+    },
+
+    afterDestroy: function (reservations, next) {
+        if (reservations.length == 0) {
+            return next();
+        }
+        reservations.forEach(function (reservation, i) {
+            //Remove reviews
+            sails.log.info('destroy reviews');
+            sails.models.review.destroy({
+                reservation: reservation.id
+            }).exec(function (err) {
+                if (err) {
+                    return next(err);
+                }
+                next();
+            });
+        });
     }
 };
 

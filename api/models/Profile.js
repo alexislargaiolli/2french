@@ -82,6 +82,23 @@ module.exports = {
         validate : {
             type: 'boolean',
             defaultsTo : false
+        },
+
+        /**
+         * Average reviews mark
+         */
+        averageMark : {
+            type : 'float',
+            min: 0,
+            max: 5
+        },
+
+        /**
+         * Reviews added by students
+         */
+        reviews: {
+            collection: 'review',
+            via: 'teacher'
         }
     },
     beforeCreate: function (values, next) {

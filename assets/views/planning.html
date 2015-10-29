@@ -86,6 +86,7 @@
                 <div class="cancel-wrapper pending" ng-if="resa.status != 'pending'">
                     <span ng-if="resa.status == 'validated'">{{'planning.reservations.status.validated' | translate}}</span>
                     <span ng-if="resa.status == 'refused'">{{'planning.reservations.status.refused' | translate}}</span>
+                    <span ng-if="resa.status == 'canceled'">{{'planning.reservations.status.canceled' | translate}}</span>
                 </div>
             </div>
         </div>
@@ -191,9 +192,12 @@
                     </button>
                 </div>
                 <div class="cancel-wrapper pending" ng-if="resa.status != 'pending'">
-                    <span ng-if="resa.status == 'validated'">{{'planning.reservations.status.validated' | translate}}</span>
+                    <span ng-if="resa.status == 'validated' && !resa.done">{{'planning.reservations.status.validated' | translate}}</span>
                     <span ng-if="resa.status == 'refused'">{{'planning.reservations.status.refused' | translate}}</span>
                     <span ng-if="resa.status == 'canceled'">{{'planning.reservations.status.canceled' | translate}}</span>
+
+                    <a ui-sref="addReview({reservationId : resa.id})" ng-if="resa.done && resa.status == 'validated' && !resa.review">{{'planning.reservations.add.review' | translate}}</a>
+                    <span ng-if="resa.review">{{resa.review.comment}}</span>
                 </div>
             </div>
         </div>

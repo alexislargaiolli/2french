@@ -205,6 +205,15 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
                 }
             })
 
+            .state('addReview', {
+                url: '/addreview/:reservationId',
+                controller: 'AddReviewCtrl',
+                templateUrl: 'views/add-review.html',
+                data: {
+                    auth: true
+                }
+            })
+
             .state('admin', {
                 url: '/admin',
                 templateUrl: 'views/admin.html',

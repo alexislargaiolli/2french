@@ -10,19 +10,21 @@
 @red: #d20b0b;
 @font-face {
   font-family: oswald-bold;
-  src : url('../images/fonts/Oswald-Bold.ttf') format('truetype');
+  src: url('../images/fonts/Oswald-Bold.ttf') format('truetype');
 }
+
 @font-face {
   font-family: oswald-light;
-  src : url('../images/fonts/Oswald-Light.ttf') format('truetype');
+  src: url('../images/fonts/Oswald-Light.ttf') format('truetype');
 }
+
 @font-face {
   font-family: oswald-regular;
-  src : url('../images/fonts/Oswald-Regular.ttf') format('truetype');
+  src: url('../images/fonts/Oswald-Regular.ttf') format('truetype');
 }
+
 @police1: Arial, 'Helvetica Neue', Helvetica, sans-serif;
 @police2: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif;
-
 
 /* Bootsrap overrides*/
 @btn-border-radius-base : 0;
@@ -99,9 +101,9 @@ body {
   }
   #language-dropdown {
     min-width: 60px;
-    li{
-      a{
-        padding: 5px 26px!important;
+    li {
+      a {
+        padding: 5px 26px !important;
       }
     }
   }
@@ -261,7 +263,7 @@ body {
   background: #000;
 }
 
-#blackBar h1{
+#blackBar h1 {
   font-family: oswald-regular;
 }
 
@@ -329,13 +331,13 @@ body {
   }
 }
 
-.learnItem:hover{
+.learnItem:hover {
   cursor: pointer;
-  h2, .learnTitle{
-      color:#666!important;
+  h2, .learnTitle {
+    color: #666 !important;
   }
-  .roundedNumber{
-      border-color: #666;
+  .roundedNumber {
+    border-color: #666;
   }
 }
 
@@ -371,6 +373,7 @@ body {
   padding: 20px 5px;
   display: inline-block;
 }
+
 .reportBugBtn:hover {
   text-decoration: none;
 }
@@ -486,7 +489,7 @@ body {
 #learn-container {
   background-color: #fff;
   padding-bottom: 50px;
-  .learnTitle{
+  .learnTitle {
     padding-left: 20px;
   }
   #learn-header {
@@ -582,7 +585,21 @@ body {
   margin: 0 5px 3px 0;
 }
 
+.teacher-profile-rating {
+  height: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  .glyphicon {
+    font-size: 15px;
+  }
+  .glyphicon-star {
+    color: @light-blue;
+  }
+  outline: none;
+}
+
 #myprofile-container {
+
   #profile-completion {
     padding: 0 20px;
   }
@@ -1269,29 +1286,29 @@ hr {
     font-weight: bold;
   }
 
-  .prev-btn, .next-btn{
+  .prev-btn, .next-btn {
     font-size: 2em;
   }
-  .prev-btn:hover, .next-btn:hover{
-    color:#666;
+  .prev-btn:hover, .next-btn:hover {
+    color: #666;
   }
-  .prev-btn{
+  .prev-btn {
   }
-  .next-btn{
-    float:right;
+  .next-btn {
+    float: right;
   }
-  .popover-navigation{
+  .popover-navigation {
     min-height: 46px;
   }
-  .endTourBtn{
-    float:right;
+  .endTourBtn {
+    float: right;
     margin-top: -27px;
     margin-right: 5px;
     color: #fff;
     font-size: 1.5em;
   }
-  .endTourBtn:hover{
-    color:#eeeeee;
+  .endTourBtn:hover {
+    color: #eeeeee;
     cursor: pointer;
   }
 }
@@ -1369,17 +1386,17 @@ hr {
 
 /* FAQ*/
 .accordion-faq {
-  .panel{
+  .panel {
     margin-bottom: 10px;
   }
   .panel-heading {
     background: #fff;
     padding: 0;
-    a{
+    a {
       display: block;
       padding: 20px;
     }
-    a:hover{
+    a:hover {
       text-decoration: none;
       background-color: #eee;
     }
@@ -1621,6 +1638,10 @@ hr {
   label {
     font-weight: normal;
   }
+  .profile-pins {
+    margin-left: -1%;
+    margin-top: -2%;
+  }
 
   #resaForm {
     width: 70%;
@@ -1713,6 +1734,19 @@ hr {
       }
     }
   }
+}
+
+.teacher-rating {
+  height: 30px;
+  display: inline-block;
+  vertical-align: middle;
+  .glyphicon {
+    font-size: 30px;
+  }
+  .glyphicon-star {
+    color: @light-blue;
+  }
+  outline: none;
 }
 
 /* FOOTER */
@@ -2043,6 +2077,11 @@ hr {
   margin-top: 10px;
 }
 
+.mb-5 {
+  margin-bottom: 5px !important;
+}
+
+
 .mb-10 {
   margin-bottom: 10px !important;
 }
@@ -2061,6 +2100,10 @@ hr {
 
 .mt-40 {
   margin-top: 40px;
+}
+
+.mr-10{
+  margin-right:10px!important;
 }
 
 .vm-5 {

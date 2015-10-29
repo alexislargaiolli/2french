@@ -1,0 +1,82 @@
+<div id="blackBar" class="small">
+    <div class="container">
+        <h1>{{'add.review.title' | translate}}
+            {{reservation.teacher.firstname}}</h1>
+    </div>
+</div>
+<div id="resaContainer" class="container">
+    <div class="row">
+        <div class="col-md-1 col-lg-1">
+
+        </div>
+        <div class="col-xs-12 col-sm-12 col-md-10 col-lg-10">
+            <div class="bordered-block">
+                <div>
+                    <div id="studentCol">
+
+                    </div>
+                    <div id="teacherCol">
+                        <div id="teacherPhoto" class="profilePhoto">
+                            <img class="profile-pins" ng-src="/images/pins.png" ng-show="reservation.teacher.photo"/>
+                            <img class="profile-photo" ng-src="{{reservation.teacher.photo}}"
+                                 ng-show="reservation.teacher.photo"/>
+                            <i class="fa fa-user" ng-show="!reservation.teacher.photo"></i>
+                        </div>
+                        <div id="teacherInfo">
+                            <h3 class="f-20">{{reservation.teacher.firstname}}</h3>
+                            <span class="light-title">
+                                {{reservation.teacher.city.address_components[0].long_name}} ({{reservation.teacher.city.address_components[3].long_name}})
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="bordered-block">
+                <div class="p-20">
+                    <form id="resaForm" ng-submit="addReview()" ng-if="status != 1 && reservation.review == null">
+                        <div class="form-group">
+                            <label>{{'add.review.mark.label' | translate}}</label>
+
+                            <div>
+                                <rating ng-model="mark" on-hover="hoveringOver(value)" class="teacher-rating"></rating>
+
+                                <span class="label"
+                                      ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}"
+                                      ng-show="overStar">{{markMessage}}</span>
+                            </div>
+                            <div class="alert alert-warning" role="alert" ng-if="submitted && mark == 0">
+                                {{'add.review.mark.required.message' | translate}}
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{'add.review.comment.label' | translate}}</label>
+                            <textarea class="form-control" ng-model="$parent.reviewMessage" rows="4" placeholder="{{'add.review.comment.placeholder' | translate}}">
+                            </textarea>
+                        </div>
+
+                        <div class="alert alert-warning" role="alert" ng-if="submitted && reviewMessage == null">
+                            {{'add.review.comment.required' | translate}}
+                        </div>
+
+                        <button type="submit" class="btn btn-default blue-btn p-10 center-block">
+                            <i class="fa fa-check"></i>
+                            <span class="lm-10">{{'add.review.submit' | translate}}</span>
+                        </button>
+                    </form>
+                    <div ng-if="status == 1 || reservation.review != null">
+                        <div class="alert alert-success m-0" role="alert">
+                            {{'add.review.message.success' | translate}}
+                        </div>
+                        <button ui-sref="planning" class="btn btn-default blue-btn p-10 mt-10 center-block">
+                            <i class="fa fa-arrow-circle-o-left"></i>
+                            <span class="lm-10">{{'add.review.message.back.btn' | translate}}</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-1 col-lg-1">
+        </div>
+    </div>
+</div>
