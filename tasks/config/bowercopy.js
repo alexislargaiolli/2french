@@ -55,7 +55,6 @@ module.exports = function (grunt) {
                 destPrefix: '.tmp/public/vendors/css'
             },
             files: {
-                '1.css': 'bootstrap/dist/css/bootstrap.css',
                 '3.css': 'angular-xeditable/dist/css/xeditable.css',
                 '4.css': 'angular-ui-select/dist/select.css',
                 '5.css': 'angular-dialog-service/dist/dialogs.css',

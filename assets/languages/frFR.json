@@ -433,5 +433,7 @@
   "add.review.message.back.btn":"Retour",
 
   "profile.teacher.reviews.title":"Avis reçus",
-  "profile.teacher.reviews.empty":"Aucun avis"
+  "profile.teacher.reviews.empty":"Aucun avis",
+  "myprofile.validation.message":"Champs obligatoires pour apparaître dans le moteur de recherche."
+
 }

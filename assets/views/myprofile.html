@@ -5,7 +5,8 @@
 
             <!-- COMPLETION PANEL -->
 
-            <div id="profile-completion-wrapper">
+            <div id="profile-completion-wrapper" ng-if="!profile.validate">
+                <p>{{'myprofile.validation.message' | translate}}</p>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-6 vm-10">
                         <div class="row">
