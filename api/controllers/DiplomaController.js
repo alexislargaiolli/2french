@@ -49,20 +49,14 @@ module.exports = {
                 if (err) {
                     return res.send(500, "Error while validating diploma");
                 }
-                Profile.findOne({owner: diploma.owner}).populate('formations').exec(function (err, profile) {
+                Profile.findOne({owner: diploma.owner}).exec(function (err, profile) {
                     if (err) {
                         return res.send(500, "Error while validating diploma");
                     }
                     if (profile) {
-                        if (profile.photo && profile.hourRate && profile.motivation && profile.formations && profile.formations.length > 0) {
-                            profile.validate = true;
-                            profile.save(function(){
-                                res.send(200, diploma);
-                            });
-                        }
-                        else {
+                        profile.save(function(){
                             res.send(200, diploma);
-                        }
+                        });
                     }
                     else {
                         res.send(200, diploma);
