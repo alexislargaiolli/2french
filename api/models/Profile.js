@@ -125,7 +125,6 @@ module.exports = {
                 });
             }
             else {
-                profile.validate = false;
                 next();
             }
         }
