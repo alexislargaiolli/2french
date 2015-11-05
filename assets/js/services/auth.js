@@ -106,6 +106,7 @@ tooFrenchServices.service('Session', function ($rootScope, AUTH_EVENTS, MESSAGE_
         this.diploma = data.diploma;
         this.authenticated = true;
         $rootScope.isTeacher = (this.role == "teacher") || (this.role == "admin");
+        $rootScope.isStudent = (this.role == "student");
         $rootScope.isAdmin = this.role == "admin";
         $rootScope.$broadcast(MESSAGE_EVENTS.update);
         $rootScope.session = this;
@@ -120,6 +121,7 @@ tooFrenchServices.service('Session', function ($rootScope, AUTH_EVENTS, MESSAGE_
         this.diploma = null;
         this.authenticated = false;
         $rootScope.isTeacher = false;
+        $rootScope.isStudent = false;
         $rootScope.isAdmin = false;
         $rootScope.session = this;
     };

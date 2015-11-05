@@ -11,9 +11,6 @@ module.exports = {
 		name: {
 			type:'json'
 		},
-		description: {
-			type:'json'
-		},
 		icon: 'string'
 	}
 };

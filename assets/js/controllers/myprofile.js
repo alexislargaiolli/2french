@@ -418,13 +418,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                     placement: 'left'
                 },
                 {
-                    element: "#link-myteachers",
-                    title: $translate.instant('tour.10.title'),
-                    content: $translate.instant('tour.10.content'),
-                    backdrop: true,
-                    placement: 'left'
-                },
-                {
                     element: "#link-forum",
                     title: $translate.instant('tour.11.title'),
                     content: $translate.instant('tour.11.content'),

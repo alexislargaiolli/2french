@@ -434,6 +434,8 @@
 
   "profile.teacher.reviews.title":"Avis reçus",
   "profile.teacher.reviews.empty":"Aucun avis",
-  "myprofile.validation.message":"Champs obligatoires pour apparaître dans le moteur de recherche."
+  "myprofile.validation.message":"Champs obligatoires pour apparaître dans le moteur de recherche.",
+  "myprofile.accomodation.equipements.select" : "Sélectionner des équipements",
+  "myprofile.calendar.legend.unvalailable" : "Indisponible"
 
 }

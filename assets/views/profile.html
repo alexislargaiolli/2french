@@ -79,7 +79,7 @@
                                     <button ng-controller="FavListCtrl" type="button"
                                             class="fav-btn btn btn-default blue-btn fa fa-star"
                                             ng-click="addFavorit(profile.id)"
-                                            ng-class="{favorit : favlist.indexOf(profile.id) != -1}">
+                                            ng-class="{favorit : favlist.indexOf(profile.id) != -1}" ng-if="isStudent">
                                         <span class="hidden-xs .hidden-sm lm-5">{{'profile.favorit.button' | translate}}</span>
                                     </button>
                                     <button type="button" class="btn btn-default green2-btn fa fa-envelope"
@@ -87,7 +87,7 @@
                                             data-target="#contactDlg">{{'profile.contact.button' | translate}}
                                     </button>
                                     <a ui-sref="reservation({profileId : profile.id})"
-                                       class="btn btn-default green2-btn fa fa-chevron-right">
+                                       class="btn btn-default green2-btn fa fa-chevron-right" ng-if="isStudent">
                                         {{'profile.reserve.button' | translate}}
                                     </a>
                                 </div>
@@ -130,7 +130,7 @@
 
                     <p class="grey-text">{{formula.description[currentLg]}}, {{formula.price}}€</p>
 
-                    <div class="formuleBtns" ng-if="session.authenticated">
+                    <div class="formuleBtns" ng-if="session.authenticated && isStudent">
                         <a ui-sref="reservation({profileId : profile.id, formula : $index})"
                            class="btn btn-default green2-btn">{{'profile.formula.reserve' | translate}}</a>
                     </div>

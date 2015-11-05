@@ -45,22 +45,31 @@ module.exports = {
     validate: function (req, res) {
         var diplomaId = req.allParams().diplomadId;
         if (diplomaId) {
-            Diploma.update({id: diplomaId}, {diplomaValidated: true}).exec(function (err, diploma) {
-                if (err) {
-                    return res.send(500, "Error while validating diploma");
-                }
-                Profile.findOne({owner: diploma.owner}).exec(function (err, profile) {
+            Diploma.findOne({id: diplomaId}).exec(function (err, diploma) {
+                diploma.diplomaValidated = true;
+                diploma.save(function () {
                     if (err) {
                         return res.send(500, "Error while validating diploma");
                     }
-                    if (profile) {
-                        profile.save(function(){
+                    Profile.findOne({owner: diploma.owner}).populate('formations').exec(function (err, profile) {
+                        if (err) {
+                            return res.send(500, "Error while validating diploma");
+                        }
+                        if (profile) {
+                            if (profile.photo && profile.hourRate && profile.motivation && profile.formations && profile.formations.length > 0) {
+                                profile.validate = true;
+                            }
+                            else {
+                                profile.validate = false;
+                            }
+                            profile.save(function () {
+                                res.send(200, diploma);
+                            });
+                        }
+                        else {
                             res.send(200, diploma);
-                        });
-                    }
-                    else {
-                        res.send(200, diploma);
-                    }
+                        }
+                    });
                 });
             });
         }

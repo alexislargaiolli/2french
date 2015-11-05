@@ -131,6 +131,9 @@
                         <div class="left p-10">
                             <img src="../images/am.png" class="legend-images"><span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
                         </div>
+                        <div class="left p-10">
+                            <span class="legend-images"></span><span class="legend-text">{{'myprofile.calendar.legend.unvalailable' | translate}}</span>
+                        </div>
                         <button id="profile-save-btn" ng-click="save()" type="button" ng-if="needSave"
                                 class="btn btn-default green2-btn mt-10"><span class="fa fa-floppy-o"></span>
                             {{'myprofile.calendar.save' |
@@ -217,9 +220,6 @@
                                         </ui-select-match>
                                         <ui-select-choices repeat="formation in formations">
                                             <div ng-bind-html="formation.name[profileLang] | highlight: $select.search"></div>
-                                            <small>
-                                                {{formation.description[profileLang]}}
-                                            </small>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
@@ -256,7 +256,7 @@
                                 </h4>
                             </div>
                             <p editable-textarea="profile.motivation[profileLang]" e-form="textBtnForm" e-rows="7"
-                               e-style="width:100%" onaftersave="save()">
+                               e-style="width:100%" onaftersave="save()" e-ng-blur="textBtnForm.$save()">
                                 {{ profile.motivation[profileLang] || ('myprofile.motivation.empty' | translate) }}
                             </p>
                         </div>
@@ -272,15 +272,6 @@
                         <span class="fa fa-plus edit-icon" ng-click="createFormula()" data-toggle="modal"
                               data-target="#dlgAddFormula"></span>
                     </h3>
-                    <hr/>
-
-
-                    <!-- HOUR PANEL -->
-                    <label class="blue-title f-14">{{'myprofile.hourrate.label' | translate}}<a href="#"
-                                                                                  editable-number="profile.hourRate"
-                                                                                  e-min="0" onaftersave="save()">{{
-                        profile.hourRate || '...'
-                        }}</a>€</label>
 
 
                     <div ng-repeat="formula in profile.formulas">
@@ -292,10 +283,17 @@
                             <span class="fa fa-trash-o edit-icon red" ng-click="deleteFormula(formula)"></span>
                         </h4>
 
-                        <p class="grey-text">{{formula.description[profileLang]}}, {{formula.price}}€</p>
+                        <p class="grey-text">{{formula.description[profileLang]}}<span ng-if="formula.price">, {{formula.price}}€</span></p>
                     </div>
                     <hr/>
 
+                    <!-- HOUR PANEL -->
+                    <label class="blue-title f-14">{{'myprofile.hourrate.label' | translate}}<a href="#"
+                                                                                                editable-number="profile.hourRate"
+                                                                                                e-min="0" onaftersave="save()">{{
+                        profile.hourRate || '...'
+                        }}</a>€</label>
+                    <hr/>
 
                     <!-- ADD FORMULA DLG -->
                     <div class="modal fade" id="dlgAddFormula" tabindex="-1" role="dialog"
@@ -326,7 +324,7 @@
                                             <label for="formulaPrice">Prix</label>
                                             <input type="number" ng-model="formulaToAdd.price" min="0"
                                                    class="form-control" id="formulaPrice"
-                                                   placeholder="Prix de la formule" ng-required="true">
+                                                   placeholder="Prix de la formule">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -421,22 +419,13 @@
                                 <ui-select multiple ng-model="profile.equipments" theme="bootstrap"
                                            on-select="save()"
                                            on-remove="save()">
-                                    <ui-select-match placeholder="Select equipments...">{{$item.name[profileLang]}}
+                                    <ui-select-match placeholder="{{'myprofile.accomodation.equipements.select' | translate}}">{{$item.name[profileLang]}}
                                     </ui-select-match>
                                     <ui-select-choices repeat="equipment in equipments">
                                         <div ng-bind-html="equipment.name[profileLang] | highlight: $select.search"></div>
                                     </ui-select-choices>
                                 </ui-select>
 
-                                <h5>{{'myprofile.accomodation.services' | translate}}</h5>
-                                <ui-select multiple ng-model="profile.services" theme="bootstrap" on-select="save()"
-                                           on-remove="save()">
-                                    <ui-select-match placeholder="Select equipments...">{{$item.name[profileLang]}}
-                                    </ui-select-match>
-                                    <ui-select-choices repeat="service in services">
-                                        <div ng-bind-html="service.name[profileLang] | highlight: $select.search"></div>
-                                    </ui-select-choices>
-                                </ui-select>
                                 <h5>{{'myprofile.accomodation.address' | translate}}</h5>
 
 

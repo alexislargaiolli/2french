@@ -101,6 +101,26 @@ module.exports = {
             via: 'teacher'
         }
     },
+    checkValidation : function(profileId, next){
+        Profile.findOne({owner: profileId}).exec(function (err, profile) {
+            if (profile.photo && profile.hourRate && profile.motivation && profile.formations && profile.formations.length > 0) {
+                Diploma.findOne({'owner': profile.owner}).exec(function (err, diploma) {
+                    if (diploma && diploma.diplomaValidated) {
+                        profile.validate = true;
+                    }
+                    else {
+                        profile.validate = false;
+                    }
+                    profile.save(function(){
+                        next();
+                    });
+                });
+            }
+            else {
+                next();
+            }
+        });
+    },
     beforeCreate: function (values, next) {
         /*values.accommodation = {};
          values.accommodation.equipments = new Array();

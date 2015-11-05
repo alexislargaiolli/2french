@@ -2,7 +2,6 @@ var tooFrenchControllers = angular.module('tooFrenchCtrl');
 tooFrenchControllers.controller('NotificationCtrl', ['$rootScope', '$scope', 'Reservation', '$timeout', 'AUTH_EVENTS', 'AuthService', 'Messagerie', 'MESSAGE_EVENTS',
 
     function ($rootScope, $scope, Reservation, $timeout, AUTH_EVENTS, AuthService, Messagerie, MESSAGE_EVENTS) {
-        $scope.notifResaCount = 0;
         $rootScope.notifMsgCount = 0;
 
         Reservation.notifCount().then(function (count) {

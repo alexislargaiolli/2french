@@ -546,6 +546,16 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
                     });
                 }
             })();
+
+            (function updateNotificationResa() {
+                if ($rootScope.session.authenticated) {
+                    Reservation.notifCount().then(function (count) {
+                        $rootScope.notifResaCount = count;
+                        $timeout(updateNotificationResa, 3000);
+                    });
+                }
+            })();
+
             $rootScope.userfavlist.getFavList();
             $rootScope.$broadcast(AUTH_EVENTS.sessionCreated);
         });
