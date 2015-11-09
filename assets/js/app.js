@@ -62,7 +62,7 @@ tooFrenchApp.constant('LOCALE_EVENTS', {
     localeChange: 'locale-change'
 });
 
-tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider, $translateProvider, USER_ROLES, uiGmapGoogleMapApiProvider) {
+tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider, $translateProvider, USER_ROLES, uiGmapGoogleMapApiProvider, uiSelectConfig) {
 
 
         //================================================
@@ -380,6 +380,8 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             v: '3.17',
             libraries: 'weather,geometry,visualization'
         });
+
+        uiSelectConfig.theme = 'bootstrap';
     }
 );
 
@@ -387,7 +389,6 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
 tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache',
     function ($rootScope, $state, $window, AUTH_EVENTS, AuthService, editableOptions, $templateCache) {
         editableOptions.theme = 'bs3';
-        $templateCache.remove('index.html');
 
         $rootScope.$on('$viewContentLoaded',
             function (event) {
@@ -395,9 +396,6 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
             });
 
         $rootScope.$on('$stateChangeSuccess', function (event, toState) {
-            if (typeof(current) !== 'undefined') {
-                $templateCache.remove(current.templateUrl);
-            }
             $rootScope.currentState = toState.name;
         });
 
@@ -436,62 +434,7 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
     }
 ]);
 
-// This CSS class-based directive controls the pre-bootstrap loading screen. By
-// default, it is visible on the screen; but, once the application loads, we'll
-// fade it out and remove it from the DOM.
-// --
-// NOTE: Normally, I would probably just jQuery to fade-out the container; but,
-// I thought this would be a nice moment to learn a bit more about AngularJS
-// animation. As such, I'm using the ng-leave workflow to learn more about the
-// ngAnimate module.
-tooFrenchApp.directive(
-    "mAppLoading",
-    function ($animate, $timeout) {
-
-        // Return the directive configuration.
-        return ({
-            link: link,
-            restrict: "C"
-        });
-
-
-        // I bind the JavaScript events to the scope.
-        function link(scope, element, attributes) {
-
-            $animate.leave(element.children().eq(1)).then(
-                function cleanupAfterAnimation() {
-
-                    // Remove the root directive element.
-                    element.remove();
-
-                    // Clear the closed-over variable references.
-                    scope = element = attributes = null;
-
-                }
-            );
-
-        }
-
-    }
-);
-
-tooFrenchApp.filter('range', function () {
-    return function (input, min, max) {
-        min = parseInt(min); //Make string input int
-        max = parseInt(max);
-        for (var i = min; i < max; i++)
-            input.push(i);
-        return input;
-    };
-});
-
 var tooFrenchControllers = angular.module('tooFrenchCtrl', ['ngRoute', 'ui.router', 'xeditable', 'uiGmapgoogle-maps', 'pascalprecht.translate', 'tooFrenchService', 'angularFileUpload', 'ui.select', 'ui.bootstrap', 'dialogs.main', 'google.places', 'ngImgCrop', 'multipleDatePicker', 'vcRecaptcha', 'angular-carousel']);
-tooFrenchControllers.config(function (uiSelectConfig) {
-    //================================================
-    // Angular ui components
-    //================================================
-    uiSelectConfig.theme = 'œ';
-});
 
 angular.module('tooFrenchService', ['ngRoute', 'ngResource']);
 
@@ -506,21 +449,6 @@ tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope'
 
             });
         }
-
-        /* $scope.$on(MESSAGE_EVENTS.read, function (event, args) {
-         $timeout(function () {
-         var count = args.count;
-         $scope.unseenMsgCount -= count;
-         }, 10);
-         });
-
-         $scope.$on(MESSAGE_EVENTS.update, function (event, args) {
-         Messagerie.getUnseenMsgCount().then(function (count) {
-         $scope.unseenMsgCount = count;
-         }, function () {
-         $scope.unseenMsgCount = -1;
-         });
-         });*/
 
         $scope.$on(AUTH_EVENTS.loginSuccess, function (event, args) {
             Session.create(args.data);
