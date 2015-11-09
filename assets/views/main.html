@@ -2,7 +2,7 @@
     <div id="home-header" ng-controller="HomeCtrl">
         <ul id="homeCarousel" rn-carousel class="image" rn-carousel-auto-slide rn-carousel-transition="fadeAndSlide" rn-carousel-easing="easeOutQuad" rn-carousel-duration="600" rn-carousel-controls-allow-loop="true">
             <li ng-repeat="slide in slides">
-                <img class="carousel-image" src="{{slide.image}}"/>
+                <img class="carousel-image" ng-src="{{slide.image}}"/>
                 <div class="carousel-caption">
                     <p>
                         {{'home.carousel.caption' | translate}}
