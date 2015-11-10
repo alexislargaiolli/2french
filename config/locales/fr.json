@@ -13,5 +13,12 @@
   "Error.Passport.Password.Missing": "Mot de passe manquant.",
   "Error.Passport.Generic": "Erreur lors de l'authentification.",
   "file.upload.error": "Une erreur est survenue pendant l'upload du fichier...",
-  "file.upload.success": "Fichier uploadé !"
+  "file.upload.success": "Fichier uploadé !",
+  "mail.generaL.click.here" : "ici",
+  "mail.general.footer.1":"L'équipe TooFrench",
+  "mail.general.footer.2":"Si vous ne désirez plus recevoir ces messages cliquez <a href='%s'>ici</a>",
+  "mail.message.new.subject":"Vous avez reçu un message de %s",
+  "mail.message.new.title":"Vous avez reçu un message de %s",
+  "mail.message.new.content":"<p>Bounjour %s,</p><p>Vous avez reçu un message de %s.</p>",
+  "mail.message.new.footer":"Pour le consulter, cliquez <a href='%s'>ici</a>"
 }

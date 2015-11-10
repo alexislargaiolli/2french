@@ -31,6 +31,10 @@ var User = {
          */
         tour:{
             type: 'boolean'
+        },
+        defaultLocale:{
+            type: 'string',
+            defaultsTo:'fr'
         }
     },
     sendMessage: function (user, recipient, messageContent, callback) {
@@ -58,6 +62,7 @@ var User = {
             conv.unseenCount++;
             conv.messages.add({author: sender, recipient: user, content: messageContent, conversation: conv});
             conv.save(callback);
+            sails.services['mail'].sendMessageReceived(user, 'test', 'test2', messageContent);
         });
     },
     afterCreate: function (user, next) {

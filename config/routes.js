@@ -35,6 +35,9 @@ module.exports.routes = {
   'get /': {
     view: 'index'
   },
+  'get /testmail': {
+    view: 'emailTemplates/test'
+  },
 
   /////////////////////////////////////////////
   ///////////    AuthController    ////////////

@@ -122,6 +122,10 @@ module.exports.policies = {
   ReviewsController:{
     '*':[ 'passport', 'sessionAuth', 'admin'],
     'teacherReviews':['passport', 'sessionAuth']
+  },
+  NotificationSettingsController:{
+    '*' : ['passport', 'sessionAuth', 'admin'],
+    'update' : ['passport', 'sessionAuth']
   }
 
   /***************************************************************************
