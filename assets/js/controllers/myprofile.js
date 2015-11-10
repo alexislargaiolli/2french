@@ -1,7 +1,7 @@
-var tooFrenchControllers = angular.module('tooFrenchCtrl');
-tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Session', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Extra', 'Service', 'FormationLevel', 'UserFavList', '$translate', '$upload', '$timeout', 'Lightbox', '$http',
+var tooFrenchControllers = angular.module('tooFrenchApp');
+tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Session', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Extra', 'Service', 'FormationLevel', 'UserFavList', '$translate', '$upload', '$timeout', 'Lightbox', '$http', 'Tour', 'AUTH_EVENTS',
 
-    function ($rootScope, $scope, Session, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Extra, Service, FormationLevel, UserFavList, $translate, $upload, $timeout, Lightbox, $http) {
+    function ($rootScope, $scope, Session, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Extra, Service, FormationLevel, UserFavList, $translate, $upload, $timeout, Lightbox, $http, Tour, AUTH_EVENTS) {
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,28 +31,30 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             return -1;
         }
 
-        $scope.profile = Profile.get({
-            id: Session.user.profile
-        }, function () {
-            if ($scope.isTeacher) {
-                updateMap();
-                //If schedules is not empty, searches for a schedules for the current pediod
-                if ($scope.profile.schedules && $scope.profile.schedules.length > 0) {
-                    $scope.scheduleIndex = findShedule($scope.period);
+        $scope.loginRequest.promise.then(function() {
+            $scope.profile = Profile.get({
+                id: Session.user.profile
+            }, function () {
+                if ($scope.isTeacher) {
+                    updateMap();
+                    //If schedules is not empty, searches for a schedules for the current pediod
+                    if ($scope.profile.schedules && $scope.profile.schedules.length > 0) {
+                        $scope.scheduleIndex = findShedule($scope.period);
+                    }
+                    else {
+                        $scope.profile.schedules = [];
+                    }
+                    //If none schedule found, creates one
+                    if ($scope.scheduleIndex == -1) {
+                        var schedule = {period: $scope.period, dayoff: [], undispos: []};
+                        $scope.scheduleIndex = $scope.profile.schedules.push(schedule) - 1;
+                    }
+                    if ($rootScope.isTeacher && !Session.user.tour) {
+                        Tour.startProfileTour();
+                    }
                 }
-                else {
-                    $scope.profile.schedules = [];
-                }
-                //If none schedule found, creates one
-                if ($scope.scheduleIndex == -1) {
-                    var schedule = {period: $scope.period, dayoff: [], undispos: []};
-                    $scope.scheduleIndex = $scope.profile.schedules.push(schedule) - 1;
-                }
-                if ($rootScope.isTeacher && !Session.user.tour) {
-                    tourProfile.init();
-                    tourProfile.start();
-                }
-            }
+            });
+
         });
 
         /**
@@ -348,101 +350,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             };
 
         }
-        tourProfile = new Tour({
-            name: "myprofile",
-            debug: true,
-            storage: false,
-            onEnd: function (tourr) {
-                Session.user.tour = true;
-                $http.get('/user/userEndTour');
-            },
-            template: "<div class='popover tour'>" +
-            "<div class='arrow'></div>" +
-            "<h3 class='popover-title'></h3>" +
-            "<span class='fa fa-times-circle endTourBtn' data-role='end'></span>"+
-            "<div class='popover-content'></div>" +
-            "<div class='popover-navigation'>" +
-            "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +
-            "<span class='next-btn fa fa-arrow-circle-right' data-role='next'></span>" +
-            "</div>" +
-            "</nav>" +
-            "</div>",
-            steps: [
-                {
-                    element: "#profile-header",
-                    title: $translate.instant('tour.3.title'),
-                    content: $translate.instant('tour.3.content'),
-                    placement: 'left',
-                    backdrop: true
-                },
-                {
-                    element: "#profile-formulas-panel",
-                    title: $translate.instant('tour.4.title'),
-                    content: $translate.instant('tour.4.content'),
-                    placement: 'left',
-                    backdrop: true
-                },
-                {
-                    element: "#profile-accomodation-panel",
-                    title: $translate.instant('tour.5.title'),
-                    content: $translate.instant('tour.5.content'),
-                    placement: 'left',
-                    backdrop: true
-                },
-                {
-                    element: "#profile-left",
-                    title: $translate.instant('tour.6.title'),
-                    content: $translate.instant('tour.6.content'),
-                    placement: 'right',
-                    backdrop: true
-                },
-                {
-                    element: "#profile-completion-wrapper",
-                    title: $translate.instant('tour.7.title'),
-                    content: $translate.instant('tour.7.content'),
-                    placement: 'bottom',
-                    backdrop: true
-                },
-                {
-                    element: "#link-planning",
-                    title: $translate.instant('tour.8.title'),
-                    content: $translate.instant('tour.8.content'),
-                    backdrop: true,
-                    placement: 'left'
-                },
-                {
-                    element: "#link-message",
-                    title: $translate.instant('tour.9.title'),
-                    content: $translate.instant('tour.9.content'),
-                    backdrop: true,
-                    placement: 'left'
-                },
-                {
-                    element: "#link-forum",
-                    title: $translate.instant('tour.11.title'),
-                    content: $translate.instant('tour.11.content'),
-                    backdrop: true,
-                    placement: 'left'
-                },
-                {
-                    element: "#logo",
-                    title: $translate.instant('tour.12.title'),
-                    content: $translate.instant('tour.12.content'),
-                    placement: 'right',
-                    backdrop: true,
-                    template: "<div class='popover tour'>" +
-                    "<div class='arrow'></div>" +
-                    "<h3 class='popover-title'></h3>" +
-                    "<span class='fa fa-times-circle endTourBtn' data-role='end'></span>"+
-                    "<div class='popover-content'></div>" +
-                    "<div class='popover-navigation'>" +
-                    "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +
-                    "</div>" +
-                    "</nav>" +
-                    "</div>"
-                }
-            ]
-        });
     }
 
 ]);

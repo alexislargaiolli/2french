@@ -1,4 +1,4 @@
-var tooFrench = angular.module('tooFrenchCtrl');
+var tooFrench = angular.module('tooFrenchApp');
 
 tooFrench.controller('TranslateCtrl', ['$translate', '$scope', '$rootScope', 'LOCALE_EVENTS',
 	function($translate, $scope, $rootScope, LOCALE_EVENTS) {

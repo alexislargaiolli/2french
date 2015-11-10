@@ -6,7 +6,7 @@
  * # AdminCtrl
  * Controller of the tooFrenchApp
  */
-var ctrl = angular.module('tooFrenchCtrl');
+var ctrl = angular.module('tooFrenchApp');
 ctrl.controller('AdminUserCtrl', ['$scope', 'User', 'dialogs', '$http', function($scope, User, dialogs, $http) {
 	$scope.users = User.query();
 	$scope.user = null;

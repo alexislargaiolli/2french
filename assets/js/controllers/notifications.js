@@ -1,4 +1,4 @@
-var tooFrenchControllers = angular.module('tooFrenchCtrl');
+var tooFrenchControllers = angular.module('tooFrenchApp');
 tooFrenchControllers.controller('NotificationCtrl', ['$rootScope', '$scope', 'Reservation', '$timeout', 'AUTH_EVENTS', 'AuthService', 'Messagerie', 'MESSAGE_EVENTS',
 
     function ($rootScope, $scope, Reservation, $timeout, AUTH_EVENTS, AuthService, Messagerie, MESSAGE_EVENTS) {

@@ -1,4 +1,4 @@
-var tooFrenchServices = angular.module('tooFrenchService');
+var tooFrenchServices = angular.module('tooFrenchApp');
 tooFrenchServices.factory('UserFavList', ['$resource', '$http', '$q', 'Session',
     function ($resource, $http, $q, Session) {
         return {

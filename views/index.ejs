@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="/styles/uploader.css">
     <!--STYLES END-->
 </head>
-<body ng-app="tooFrenchApp" ng-controller="ApplicationController">
+<body ng-app="tooFrenchApp">
 
 
 <!--
@@ -186,7 +186,7 @@
                 </li>
             </ul>
 
-
+<span>
             <!-- Login input fields -->
             <login-input></login-input>
 
@@ -197,8 +197,7 @@
             </a>
 
             <!-- AUTHENTICATED HEADER PANEL -->
-            <ul id="user-menu" class="nav navbar-nav navbar-right" ng-if="session.authenticated"
-                ng-controller="NotificationCtrl">
+            <ul id="user-menu" class="nav navbar-nav navbar-right" ng-if="session.authenticated">
                 <li ng-if="isStudent">
                     <a id="link-myteachers" ui-sref="myteachers" title="{{'myteachers.title' | translate}}">
                         <i class="fa fa-star"></i>
@@ -231,10 +230,11 @@
                         <li><a ui-sref="myprofile">{{'header.myprofile' | translate}}</a></li>
                         <li><a ui-sref="parameters">{{'header.parameters' | translate}}</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a ng-click="logout()">{{'header.logout' | translate}}</a></li>
+                        <li ng-controller="LoginCtrl"><a ng-click="logout()">{{'header.logout' | translate}}</a></li>
                     </ul>
                 </li>
             </ul>
+        </span>
         </div>
     </div>
 
@@ -492,6 +492,7 @@
 <script src="/js/services/schedule.js"></script>
 <script src="/js/services/service.js"></script>
 <script src="/js/services/socket.js"></script>
+<script src="/js/services/tour.js"></script>
 <script src="/js/services/userFavList.js"></script>
 <script src="/js/services/users.js"></script>
 <script src="/js/services/utillink.js"></script>

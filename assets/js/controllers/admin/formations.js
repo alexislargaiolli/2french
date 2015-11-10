@@ -6,7 +6,7 @@
  * # AdminCtrl
  * Controller of the tooFrenchApp
  */
-var ctrl = angular.module('tooFrenchCtrl');
+var ctrl = angular.module('tooFrenchApp');
 ctrl.controller('AdminFormationCtrl', ['$scope', 'Formation', 'dialogs', function($scope, Formation, dialogs) {
 	$scope.formations = Formation.query();
 	$scope.formation = new Formation;

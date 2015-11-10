@@ -6,7 +6,7 @@
  * # ForumCtrl
  * Controller of the tooFrenchApp
  */
-var ctrl = angular.module('tooFrenchCtrl');
+var ctrl = angular.module('tooFrenchApp');
 ctrl.controller('ForumPostCtrl', ['$scope', 'Post', '$stateParams', 'Session', '$timeout', function ($scope, Post, $stateParams, Session, $timeout) {
     $scope.pageSize = 5;
     $scope.pageIndex = 1;

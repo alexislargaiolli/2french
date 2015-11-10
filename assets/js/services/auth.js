@@ -7,15 +7,17 @@
  * # auth
  * Service in the tooFrenchApp.
  */
-var tooFrenchServices = angular.module('tooFrenchService');
+var tooFrenchServices = angular.module('tooFrenchApp');
 
 tooFrenchServices.factory('AuthService', ['$http', '$rootScope', '$q', 'Session', 'AUTH_EVENTS', function ($http, $rootScope, $q, Session, AUTH_EVENTS) {
     return {
         getUser: function () {
             var deferred = $q.defer();
+            $rootScope.loginRequest = deferred;
             // Make an AJAX call to check if the user is logged in
             $http.get('/loggedin').success(function (data) {
                 if (data != 0 && data.user !== null) {
+                    $rootScope.session.create(data);
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, {data: data});
                     deferred.resolve(data.user);
                 }
@@ -33,6 +35,7 @@ tooFrenchServices.factory('AuthService', ['$http', '$rootScope', '$q', 'Session'
                 password: credential.pwd
             }).success(function (data, status, headers, config) {
                 if (data.status == 2) {
+                    $rootScope.session.create(data);
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, {data: data});
                     deferred.resolve(data.user);
                 }
@@ -48,6 +51,7 @@ tooFrenchServices.factory('AuthService', ['$http', '$rootScope', '$q', 'Session'
         logout: function () {
             var deferred = $q.defer();
             $http.get('/logout').success(function (data, status, headers, config) {
+                $rootScope.session.destroy();
                 $rootScope.$broadcast(AUTH_EVENTS.logoutSuccess);
                 deferred.resolve();
             }).
@@ -110,6 +114,7 @@ tooFrenchServices.service('Session', function ($rootScope, AUTH_EVENTS, MESSAGE_
         $rootScope.isAdmin = this.role == "admin";
         $rootScope.$broadcast(MESSAGE_EVENTS.update);
         $rootScope.session = this;
+        $rootScope.$broadcast(AUTH_EVENTS.sessionCreated);
     };
     this.destroy = function () {
         this.id = null;

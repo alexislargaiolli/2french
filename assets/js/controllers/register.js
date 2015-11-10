@@ -7,7 +7,7 @@
  * # LoginCtrl
  * Controller of the tooFrenchApp
  */
-var tooFrenchControllers = angular.module('tooFrenchCtrl');
+var tooFrenchControllers = angular.module('tooFrenchApp');
 tooFrenchControllers.controller('RegisterCtrl', ['$scope', '$state', 'AuthService',
 	function($scope, $state, authService) {
 		$scope.registerType = 2;

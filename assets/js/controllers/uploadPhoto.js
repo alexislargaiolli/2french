@@ -1,4 +1,4 @@
-var tooFrenchControllers = angular.module('tooFrenchCtrl');
+var tooFrenchControllers = angular.module('tooFrenchApp');
 tooFrenchControllers.controller('UploadPhotoCtrl', ['$scope', '$upload', '$timeout', function($scope, $upload, $timeout) {
 	
 	$scope.$watch('files', function () {

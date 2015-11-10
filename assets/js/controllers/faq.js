@@ -1,7 +1,7 @@
 /**
  * Created by alex on 27/09/15.
  */
-var tooFrenchControllers = angular.module('tooFrenchCtrl');
+var tooFrenchControllers = angular.module('tooFrenchApp');
 tooFrenchControllers.controller('FaqCtrl', ['$rootScope', '$scope',
 
     function ($rootScope, $scope) {

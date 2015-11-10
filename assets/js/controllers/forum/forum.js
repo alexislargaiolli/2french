@@ -6,7 +6,7 @@
  * # ForumCtrl
  * Controller of the tooFrenchApp
  */
-var ctrl = angular.module('tooFrenchCtrl');
+var ctrl = angular.module('tooFrenchApp');
 ctrl.controller('ForumCtrl', ['$scope', 'Post', 'PostCategory', '$timeout', function ($scope, Post, PostCategory, $timeout) {
     $scope.categories = PostCategory.query();
     $scope.teacherCategories = PostCategory.query({teacher : true});

@@ -6,7 +6,7 @@
  * # AdminPostCategoryCtrl
  * Controller of the tooFrenchApp
  */
-var ctrl = angular.module('tooFrenchCtrl');
+var ctrl = angular.module('tooFrenchApp');
 ctrl.controller('AdminPostCategoryCtrl', ['$scope', 'PostCategory', 'dialogs', function($scope, PostCategory, dialogs) {
 	$scope.categorys = PostCategory.query();
 	$scope.category = new PostCategory;

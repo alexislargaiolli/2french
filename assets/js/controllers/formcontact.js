@@ -1,4 +1,4 @@
-var tooFrenchControllers = angular.module('tooFrenchCtrl');
+var tooFrenchControllers = angular.module('tooFrenchApp');
 tooFrenchControllers.controller('FormContactCtrl', ['$scope', '$http', 'vcRecaptchaService', '$translate', '$stateParams',
 
     function ($scope, $http, vcRecaptchaService, $translate, $stateParams) {

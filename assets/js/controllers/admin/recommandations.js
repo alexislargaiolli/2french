@@ -6,7 +6,7 @@
  * # AdminCtrl
  * Controller of the tooFrenchApp
  */
-var ctrl = angular.module('tooFrenchCtrl');
+var ctrl = angular.module('tooFrenchApp');
 ctrl.controller('AdminRecommandationCtrl', ['$scope', 'Recommandation', 'dialogs', function($scope, Recommandation, dialogs) {
 	$scope.recommandations = Recommandation.query();
 	$scope.optionsCity = {

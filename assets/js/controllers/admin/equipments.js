@@ -6,7 +6,7 @@
  * # AdminCtrl
  * Controller of the tooFrenchApp
  */
-var ctrl = angular.module('tooFrenchCtrl');
+var ctrl = angular.module('tooFrenchApp');
 ctrl.controller('AdminEquipmentCtrl', ['$scope', 'Equipment', 'dialogs', function($scope, Equipment, dialogs) {
 	$scope.equipments = Equipment.query();
 	$scope.equipment = new Equipment;

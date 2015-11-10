@@ -6,7 +6,7 @@
  * # AdminCtrl
  * Controller of the tooFrenchApp
  */
-var ctrl = angular.module('tooFrenchCtrl');
+var ctrl = angular.module('tooFrenchApp');
 ctrl.controller('AdminUtilLinkCtrl', ['$scope', 'UtilLink', 'dialogs', function($scope, UtilLink, dialogs) {
 	$scope.utillinks = UtilLink.query();
 	$scope.optionsCity = {

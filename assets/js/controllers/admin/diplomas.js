@@ -6,7 +6,7 @@
  * # AdminCtrl
  * Controller of the tooFrenchApp
  */
-var ctrl = angular.module('tooFrenchCtrl');
+var ctrl = angular.module('tooFrenchApp');
 ctrl.controller('AdminDiplomaCtrl', ['$scope', 'Diploma' ,'dialogs', function($scope, Diploma, dialogs) {
     $scope.diplomas = [];
     Diploma.getWithProfile().then(function(diplomas){

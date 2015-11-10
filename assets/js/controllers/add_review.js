@@ -1,4 +1,4 @@
-var tooFrenchControllers = angular.module('tooFrenchCtrl');
+var tooFrenchControllers = angular.module('tooFrenchApp');
 tooFrenchControllers.controller('AddReviewCtrl', ['$scope', '$stateParams', 'Reservation', 'Session',
 
     function ($scope, $stateParams, Reservation, Session) {

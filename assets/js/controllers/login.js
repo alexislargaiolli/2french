@@ -7,7 +7,7 @@
  * # LoginCtrl
  * Controller of the tooFrenchApp
  */
-var tooFrenchControllers = angular.module('tooFrenchCtrl');
+var tooFrenchControllers = angular.module('tooFrenchApp');
 tooFrenchControllers.controller('LoginCtrl', ['$scope', '$state', 'AuthService', function($scope, $state, AuthService){
 	$scope.credential = {};
 	$scope.message;
@@ -19,5 +19,11 @@ tooFrenchControllers.controller('LoginCtrl', ['$scope', '$state', 'AuthService',
 			$scope.message = msg;
 		});
 	};
+
+	$scope.logout = function () {
+		AuthService.logout().then(function () {
+			$state.go('home');
+		});
+	}
 
 }]);

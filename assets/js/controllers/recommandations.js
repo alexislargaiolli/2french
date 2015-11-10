@@ -1,4 +1,4 @@
-var tooFrenchControllers = angular.module('tooFrenchCtrl');
+var tooFrenchControllers = angular.module('tooFrenchApp');
 tooFrenchControllers.controller('RecommandationCtrl', ['$scope', '$stateParams', '$state', '$http', '$timeout',
 
     function ($scope, $stateParams, $state, $http, $timeout) {

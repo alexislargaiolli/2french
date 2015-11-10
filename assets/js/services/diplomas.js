@@ -1,4 +1,4 @@
-var tooFrenchServices = angular.module('tooFrenchService');
+var tooFrenchServices = angular.module('tooFrenchApp');
 tooFrenchServices.factory('Diploma', ['$resource', '$http', '$q',
     function ($resource, $http, $q) {
         return {

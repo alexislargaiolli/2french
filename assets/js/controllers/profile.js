@@ -1,4 +1,4 @@
-var tooFrenchControllers = angular.module('tooFrenchCtrl');
+var tooFrenchControllers = angular.module('tooFrenchApp');
 tooFrenchControllers.controller('ProfileCtrl', ['$scope', '$stateParams', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Service', 'FormationLevel', 'Lightbox', 'Review',
 
     function ($scope, $stateParams, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Service, FormationLevel, Lightbox, Review) {

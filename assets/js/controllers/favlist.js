@@ -1,4 +1,4 @@
-var tooFrenchControllers = angular.module('tooFrenchCtrl');
+var tooFrenchControllers = angular.module('tooFrenchApp');
 tooFrenchControllers.controller('FavListCtrl', ['$rootScope', '$scope', 'UserFavList',
 
     function ($rootScope, $scope, UserFavList) {

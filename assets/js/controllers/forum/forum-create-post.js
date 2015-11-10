@@ -6,7 +6,7 @@
  * # ForumCtrl
  * Controller of the tooFrenchApp
  */
-var ctrl = angular.module('tooFrenchCtrl');
+var ctrl = angular.module('tooFrenchApp');
 ctrl.controller('ForumCreatePostCtrl', ['$scope', '$timeout', 'Post', 'PostCategory', 'Session', '$state' , '$upload', '$stateParams', function($scope, $timeout, Post, PostCategory, Session, $state, $upload, $stateParams) {
     var p = Post.getResource();
     $scope.post = new p();

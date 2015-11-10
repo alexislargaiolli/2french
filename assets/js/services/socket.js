@@ -1,4 +1,4 @@
-var tooFrenchServices = angular.module('tooFrenchService');
+var tooFrenchServices = angular.module('tooFrenchApp');
 tooFrenchServices.factory('socket', function ($rootScope) {
     var socket = io.connect();
     return {

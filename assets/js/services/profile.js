@@ -1,4 +1,4 @@
-var tooFrenchServices = angular.module('tooFrenchService');
+var tooFrenchServices = angular.module('tooFrenchApp');
 tooFrenchServices.factory('Profile', ['$resource',
 	function($resource){
    		return $resource('/profile/:id', {id:'@id'},  { 'update': {method: 'PUT'}});
