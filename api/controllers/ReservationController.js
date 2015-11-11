@@ -44,7 +44,7 @@ module.exports = {
 
     studentResa: function (req, res) {
         Reservation.find({student: req.user.profile}).populate('teacher').populate('review').exec(function (err, resas) {
-            if (err) {''
+            if (err) {
                 return res.sendError("Unable to find resas");
             }
             resas.forEach(function (r) {
@@ -115,10 +115,17 @@ module.exports = {
                 if (['pending', 'validated', 'refused', 'canceled'].indexOf(status) == -1) {
                     return res.send(500);
                 }
+                if(resa.status != "validated" && status == "validated"){
+                    sails.services['mail'].sendReservationValidated(resa.id);
+                }
+                if(resa.status != "refused" && status == "refused"){
+                    sails.services['mail'].sendReservationRefused(resa.id);
+                }
                 Reservation.update({id: resaId}, {status: status}).exec(function (err, r) {
                     if (err) {
                         return res.sendError("Unable to update status");
                     }
+
                     res.send(200, r);
                 });
             });
@@ -141,6 +148,7 @@ module.exports = {
                 if (!resa) {
                     return res.send('not found');
                 }
+                sails.services['mail'].sendReservationCanceled(resa.id);
                 Reservation.update({id: resaId}, {status: 'canceled'}).exec(function (err, r) {
                     if (err) {
                         return res.sendError("Unable to update status");

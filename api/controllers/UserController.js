@@ -67,7 +67,7 @@ module.exports = {
         query["limit"] = pageSize;
         User[count ? 'count' : 'find'](query)
             .exec(function (err, users) {
-                if(err){
+                if (err) {
                     return serverError(err);
                 }
                 res.send(200, users);
@@ -82,6 +82,52 @@ module.exports = {
                 res.send(200);
             }
         });
+    },
+
+    userChangeLocale: function (req, res) {
+        var locale = req.allParams().locale;
+        if (['fr', 'en', 'es'].indexOf(locale) >= 0) {
+            User.update({id: req.user.id}, {defaultLocale: locale}).exec(function (err, data) {
+                if (err) {
+                    return res.serverError(err);
+                } else {
+                    res.send(200);
+                }
+            });
+        }
+    },
+
+    notificationSettings: function (req, res) {
+        NotificationSettings.findOne({owner: req.user.id}).exec(function (err, settings) {
+            if (err) {
+                return res.serverError(err);
+            }
+            res.send(200, settings);
+        });
+    },
+
+    updateNotificationSettings: function (req, res) {
+        var settings = req.allParams().settings;
+        NotificationSettings.update({owner: req.user.id}, {
+            newReservation: settings.newReservation,
+            reservationValidated: settings.reservationValidated,
+            reservationCanceled: settings.reservationCanceled,
+            reservationRefused : settings.reservationRefused,
+            reviewToAdd : settings.reviewToAdd,
+            reviewAdded: settings.reviewAdded,
+            newMessage: settings.newMessage
+        }).exec(function (err, settings) {
+            if (err) {
+                return res.serverError(err);
+            }
+            res.send(200, settings);
+        });
+    },
+
+    changePassword: function(req, res){
+        var oldPass = req.allParams().old;
+        var newPass = req.allParams().new;
+
     }
 };
 

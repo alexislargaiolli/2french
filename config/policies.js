@@ -31,7 +31,10 @@ module.exports.policies = {
   UserController : {
     '*' : [ 'passport', 'sessionAuth', 'admin'],
     findOne : ['passport', 'sessionAuth', 'adminOrOwner'],
-    userEndTour : ['passport']
+    userEndTour : ['passport'],
+    userChangeLocale : ['passport', 'sessionAuth' ],
+    notificationSettings: ['passport', 'sessionAuth' ],
+    updateNotificationSettings : ['passport', 'sessionAuth' ]
   },
 
   UserFavListController : {
@@ -122,10 +125,6 @@ module.exports.policies = {
   ReviewsController:{
     '*':[ 'passport', 'sessionAuth', 'admin'],
     'teacherReviews':['passport', 'sessionAuth']
-  },
-  NotificationSettingsController:{
-    '*' : ['passport', 'sessionAuth', 'admin'],
-    'update' : ['passport', 'sessionAuth']
   }
 
   /***************************************************************************

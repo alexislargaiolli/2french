@@ -29,12 +29,12 @@ var User = {
         /**
          * True if user has already done the bootstrap tour
          */
-        tour:{
+        tour: {
             type: 'boolean'
         },
-        defaultLocale:{
+        defaultLocale: {
             type: 'string',
-            defaultsTo:'fr'
+            defaultsTo: 'fr'
         }
     },
     sendMessage: function (user, recipient, messageContent, callback) {
@@ -62,23 +62,27 @@ var User = {
             conv.unseenCount++;
             conv.messages.add({author: sender, recipient: user, content: messageContent, conversation: conv});
             conv.save(callback);
-            sails.services['mail'].sendMessageReceived(user, 'test', 'test2', messageContent);
+            sails.services['mail'].sendMessageReceived(user, sender, messageContent);
         });
     },
     afterCreate: function (user, next) {
+        NotificationSettings.create({owner: user.id}).exec(function () {
+        });
         next();
     },
     afterDestroy: function (users, next) {
-        if(users.length == 0){
+        if (users.length == 0) {
             return next();
         }
         users.forEach(function (user, i) {
             //TODO clean all datas
             sails.log.info('destroy user ' + user.id);
+            NotificationSettings.destroy({owner: user.id}).exec(function () {
+            });
             sails.models.profile.destroy({
                 id: user.profile
             }).exec(function (err) {
-                if(err){
+                if (err) {
                     return next(err);
                 }
                 sails.log.info('destroy profile');
@@ -86,7 +90,7 @@ var User = {
                 UserFavList.destroy({
                     owner: user.id
                 }).exec(function (err) {
-                    if(err){
+                    if (err) {
                         return next(err);
                     }
                     sails.log.info('destroy fav list');
@@ -97,7 +101,7 @@ var User = {
                             {interlocutor: user.id}
                         ]
                     }).exec(function (err) {
-                        if(err){
+                        if (err) {
                             sails.log.info('error destroying convs');
                             return next(err);
                         }
@@ -106,7 +110,7 @@ var User = {
                         sails.models.diploma.destroy({
                             owner: user.id
                         }).exec(function (err) {
-                            if(err){
+                            if (err) {
                                 return next(err);
                             }
                             next();

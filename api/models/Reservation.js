@@ -41,6 +41,11 @@ module.exports = {
         }
     },
 
+    afterCreate: function(reservation, next){
+        sails.services['mail'].sendReservationCreated(reservation.id);
+        next();
+    },
+
     afterDestroy: function (reservations, next) {
         if (reservations.length == 0) {
             return next();

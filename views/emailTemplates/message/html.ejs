@@ -1,43 +1,13 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        h1 {
-            color: #333;
-        }
+<% include ../header.ejs %>
 
-        p {
-            color: #444;
-        }
+<p><%- __('mail.message.new.content', authorName) %></p>
 
-        h1, p {
-            font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
-        }
-    </style>
-</head>
-<body>
-<div style="max-width:600px;margin:0 auto;">
-    <div style="text-align:center;">
-        <img src="https://toofrench.herokuapp.com/images/logo.png">
-    </div>
-    <div style="height:40px;background:#04bfc6;">
-
-    </div>
-    <div style="padding:10px;">
-        <h1><%= __('mail.message.new.title', authorName) %></h1>
-
-        <%- __('mail.message.new.content', userName, authorName) %>
-
-        <div style="border:1px solid #aaa;padding:5px;border-radius:3px;">
-            <%= messageContent %>
-        </div>
-        <p><%- __('mail.message.new.footer', 'https://toofrench.herokuapp.com/') %></p>
-    </div>
-    <div style="padding:10px;">
-        <p><%= __('mail.general.footer.1') %></p>
-    </div>
-    <div style="background:#eee;padding:10px;">
-        <p><%- __('mail.general.footer.2', 'https://toofrench.herokuapp.com/') %></p>
-    </div>
+<div style="border:1px solid #aaa;padding:5px;border-radius:3px;">
+    <%= messageContent %>
 </div>
-</body>
+<p><%- __('mail.message.new.footer', 'https://toofrench.herokuapp.com/') %></p>
+
+
+
+
+<% include ../footer.ejs %>

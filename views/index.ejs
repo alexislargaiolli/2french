@@ -228,7 +228,7 @@
                         <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li><a ui-sref="myprofile">{{'header.myprofile' | translate}}</a></li>
-                        <li><a ui-sref="parameters">{{'header.parameters' | translate}}</a></li>
+                        <li><a ui-sref="parameters.notifications">{{'header.parameters' | translate}}</a></li>
                         <li role="separator" class="divider"></li>
                         <li ng-controller="LoginCtrl"><a ng-click="logout()">{{'header.logout' | translate}}</a></li>
                     </ul>
@@ -458,7 +458,8 @@
 <script src="/js/controllers/messagerie.js"></script>
 <script src="/js/controllers/myprofile.js"></script>
 <script src="/js/controllers/notifications.js"></script>
-<script src="/js/controllers/parameters.js"></script>
+<script src="/js/controllers/parameters/parametersNotifications.js"></script>
+<script src="/js/controllers/parameters/parametersPassword.js"></script>
 <script src="/js/controllers/planning.js"></script>
 <script src="/js/controllers/profile.js"></script>
 <script src="/js/controllers/recommandations.js"></script>
@@ -483,6 +484,7 @@
 <script src="/js/services/formation.js"></script>
 <script src="/js/services/formationlevel.js"></script>
 <script src="/js/services/messagerie.js"></script>
+<script src="/js/services/notificationsSettings.js"></script>
 <script src="/js/services/post.js"></script>
 <script src="/js/services/postcategory.js"></script>
 <script src="/js/services/profile.js"></script>

@@ -19,6 +19,10 @@ module.exports = {
       type: 'boolean',
       defaultsTo : true
     },
+    reservationRefused : {
+      type: 'boolean',
+      defaultsTo : true
+    },
     reservationCanceled : {
       type: 'boolean',
       defaultsTo : true

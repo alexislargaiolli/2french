@@ -14,11 +14,25 @@
   "Error.Passport.Generic": "Erreur lors de l'authentification.",
   "file.upload.error": "Une erreur est survenue pendant l'upload du fichier...",
   "file.upload.success": "Fichier uploadé !",
-  "mail.generaL.click.here" : "ici",
+
+
+  "mail.general.header" : "Bounjour %s,",
   "mail.general.footer.1":"L'équipe TooFrench",
   "mail.general.footer.2":"Si vous ne désirez plus recevoir ces messages cliquez <a href='%s'>ici</a>",
-  "mail.message.new.subject":"Vous avez reçu un message de %s",
-  "mail.message.new.title":"Vous avez reçu un message de %s",
-  "mail.message.new.content":"<p>Bounjour %s,</p><p>Vous avez reçu un message de %s.</p>",
-  "mail.message.new.footer":"Pour le consulter, cliquez <a href='%s'>ici</a>"
+  "mail.message.new.subject":"Vous avez reçu un message de {{name}}",
+  "mail.message.new.content":"vous avez reçu un message de %s.",
+  "mail.message.new.footer":"Pour consulter vos messages, cliquez <a href='%s'>ici</a>",
+  "mail.resa.created.subject":"Vous avez reçu une demande de réservation {{name}}",
+  "mail.resa.created.content":"<p>vous avez reçu une demande de réservation de {{name}}</p><p>Pour consulter vos réservations, cliquez <a href='{{link}}'>ici</a>.</p>",
+  "mail.resa.created.student.subject":"Votre demande de réservation avec {{name}} a été prise en compte",
+  "mail.resa.created.student.content":"<p>votre demande de réservation avec {{name}} a bien été prise en compte. </p><p>Pour consulter vos réservations, cliquez <a href='{{link}}'>ici</a>.</p>",
+  "mail.resa.created.footer":"Pour consulter vos réservations, cliquez <a href='%s'>ici</a>",
+  "mail.resa.validated.subject":"Votre réservation avec {{name}} a été validée",
+  "mail.resa.validated.content":"<p>{{name}} a validé votre réservation</p><p>Pour consulter vos réservations, cliquez <a href='{{link}}'>ici</a>.</p>",
+  "mail.resa.validated.student.subject":"Vous avez validé votre réservation avec {{name}}",
+  "mail.resa.validated.student.content":"<p>vous avez validé votre réservation avec {{name}}</p><p>Pour consulter vos réservations, cliquez <a href='{{link}}'>ici</a>.</p>",
+  "mail.resa.canceled.subject":"Votre réservation avec {{name}} a été annulée",
+  "mail.resa.canceled.content":"<p>votre réservation avec {{name}} a été annulée.</p><p>Pour consulter vos réservations, cliquez <a href='{{link}}'>ici</a>.</p>",
+  "mail.resa.refused.subject":"Votre demande de réservation avec {{name}} a été refusée",
+  "mail.resa.refused.content":"<p>{{name}} a refusé votre demande de réservation.</p><p>Pour consulter vos réservations, cliquez <a href='{{link}}'>ici</a>.</p>"
 }
