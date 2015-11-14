@@ -108,16 +108,18 @@ module.exports.policies = {
     popularPosts : [],
     popularFilePosts:[],
     postGeneralByCategory : [],
-    save : ['passport', 'sessionAuth', 'teacherPost']
+    save : ['passport', 'sessionAuth', 'teacherPost'],
+    destroy : [ 'passport', 'sessionAuth', 'admin']
   },
   PostCategoryController:{
     '*' : [ 'passport', 'sessionAuth', 'admin'],
     find : []
   },
   CommentController:{
-    '*':[ 'passport', 'sessionAuth'],
-    find : [],
-    postComments : []
+    '*':[ 'passport', 'sessionAuth', 'admin'],
+    'create' : ['passport', 'sessionAuth'],
+    find : ['passport', 'sessionAuth'],
+    postComments : ['passport', 'sessionAuth']
   },
   ReservationController:{
     '*':[ 'passport', 'sessionAuth'],

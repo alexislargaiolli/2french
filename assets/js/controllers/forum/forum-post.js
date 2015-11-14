@@ -7,7 +7,7 @@
  * Controller of the tooFrenchApp
  */
 var ctrl = angular.module('tooFrenchApp');
-ctrl.controller('ForumPostCtrl', ['$scope', 'Post', '$stateParams', 'Session', '$timeout', function ($scope, Post, $stateParams, Session, $timeout) {
+ctrl.controller('ForumPostCtrl', ['$scope', 'Post', '$stateParams', 'Session', '$timeout', 'dialogs', '$translate', '$state', function ($scope, Post, $stateParams, Session, $timeout, dialogs, $translate, $state) {
     $scope.pageSize = 5;
     $scope.pageIndex = 1;
     $scope.post = null;
@@ -17,6 +17,32 @@ ctrl.controller('ForumPostCtrl', ['$scope', 'Post', '$stateParams', 'Session', '
     $scope.count = 0;
     Post.findOne($stateParams.postId).then(function (post) {
         $scope.post = post;
+
+
+        if (Session.isAdmin) {
+            $scope.removePost = function () {
+                var dlg = dialogs.confirm($translate.instant('common.confirmation.title'), $translate.instant('post.remove.confirm.message'));
+                dlg.result.then(function (btn) {
+                    Post.getResource().remove({id: $stateParams.postId}, function () {
+                        $state.go('forum');
+                    });
+                }, function (btn) {
+
+                });
+            }
+
+            $scope.removeComment = function (comment) {
+                var dlg = dialogs.confirm($translate.instant('common.confirmation.title'), $translate.instant('post.comment.remove.confirm.message'));
+                dlg.result.then(function (btn) {
+                    Post.getCommentResource().remove({id: comment.id}, function () {
+                        var index = $scope.comments.indexOf(comment);
+                        $scope.comments.splice(index, 1);
+                    });
+                }, function (btn) {
+
+                });
+            }
+        }
     });
 
     Post.getComments($stateParams.postId, 1, $scope.pageSize, $scope.pageIndex).then(function (count) {
@@ -26,7 +52,7 @@ ctrl.controller('ForumPostCtrl', ['$scope', 'Post', '$stateParams', 'Session', '
         $scope.pageChanged();
     });
 
-    var goToLast = function(){
+    var goToLast = function () {
         $scope.loading = true;
         Post.getComments($stateParams.postId, 1, $scope.pageSize, $scope.pageIndex).then(function (count) {
             $scope.count = count.count;

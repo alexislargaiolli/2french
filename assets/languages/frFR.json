@@ -471,6 +471,10 @@
   "reset.password.label":"Nouveau mot de passe",
   "reset.password.confirm.label":"Confirmez le mot de passe",
   "reset.password.password.not.match":"Les mots de passe fournis ne correspondent pas.",
-  "reset.password.btn":"Changer de mot de passe"
+  "reset.password.btn":"Changer de mot de passe",
+
+  "common.confirmation.title":"Confirmation",
+  "post.remove.confirm.message" : "Êtes-vous sur de vouloir supprimer ce post ? Tous les commentaires associès ainsi que les pièces jointes seront supprimés.",
+  "post.comment.remove.confirm.message" : "Êtes-vous sur de vouloir supprimer ce commentaire ?"
 
 }

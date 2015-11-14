@@ -10,10 +10,14 @@ module.exports = {
         var id = req.allParams().id;
         Post.findOne({id: id}).populate('category').populate('author').populate('comments').exec(function (err, post) {
             if (err) {
-                return res.sendError("Unable to find post");
+                sails.log.error(err);
+                return res.send(500, "Unable to find post");
             }
             else {
-                if(post.comments && post.comments.length > 0) {
+                if (!post) {
+                    return res.send(500, "Unable to find post");
+                }
+                if (post.comments && post.comments.length > 0) {
                     sails.services['util'].populateDeep('post', post, 'comments.author', function (e, p) {
                         if (e) {
                             return res.sendError("Error while fetching comments");
@@ -30,11 +34,11 @@ module.exports = {
                         }
                     });
                 }
-                else{
+                else {
                     res.send(200, post);
                 }
                 var count = post.seenCount + 1;
-                Post.update({id : id}, {seenCount : count}).exec(function(err, p){
+                Post.update({id: id}, {seenCount: count}).exec(function (err, p) {
 
                 });
             }
@@ -61,9 +65,13 @@ module.exports = {
         });
     },
     recentPosts: function (req, res) {
-        var teacher = req.user  && (req.user.role == 'admin' || req.user.role == 'teacher');
+        var teacher = req.user && (req.user.role == 'admin' || req.user.role == 'teacher');
+        var where = {};
+        if (!teacher) {
+            where.teacher = false;
+        }
         Post.find({
-            where: {teacher: teacher},
+            where: where,
             limit: 3,
             sort: 'date DESC'
         }).populate('category').exec(function (err, posts) {
@@ -77,8 +85,12 @@ module.exports = {
     },
     popularPosts: function (req, res) {
         var teacher = req.user && (req.user.role == 'admin' || req.user.role == 'teacher');
+        var where = {};
+        if (!teacher) {
+            where.teacher = false;
+        }
         Post.find({
-            where: {teacher: teacher},
+            where: where,
             limit: 3,
             sort: 'seenCount ASC'
         }).populate('category').exec(function (err, posts) {
@@ -91,9 +103,14 @@ module.exports = {
         });
     },
     popularFilePosts: function (req, res) {
-        var teacher = req.user  && (req.user.role == 'admin' || req.user.role == 'teacher');
+        var teacher = req.user && (req.user.role == 'admin' || req.user.role == 'teacher');
+        var where = {};
+        if (!teacher) {
+            where.teacher = false;
+        }
+        where.files = {$exists: true, $not: {$size: 0}};
         Post.find({
-            where: {teacher: teacher, files: {$exists: true, $not: {$size: 0}}},
+            where: where,
             limit: 3,
             sort: 'downloadCount ASC'
         }).populate('category').exec(function (err, posts) {
@@ -113,7 +130,7 @@ module.exports = {
         if (!category) {
             return res.sendError("Missing params");
         }
-        if(count && count == 1){
+        if (count && count == 1) {
             Post.count({
                 where: {teacher: true, category: category},
                 sort: 'seenCount ASC'
@@ -121,20 +138,20 @@ module.exports = {
                 if (err) {
                     return res.sendError("Unable to find posts");
                 }
-                res.send(200, {count : count});
+                res.send(200, {count: count});
             });
         }
-        else{
-            if(!pageSize){
+        else {
+            if (!pageSize) {
                 pageSize = 10;
             }
-            if(!pageIndex){
+            if (!pageIndex) {
                 pageIndex = 1;
             }
             var skip = pageSize * (pageIndex - 1);
             Post.find({
                 where: {teacher: true, category: category},
-                skip : skip,
+                skip: skip,
                 limit: pageSize,
                 sort: 'seenCount ASC'
             }).exec(function (err, posts) {
@@ -153,7 +170,7 @@ module.exports = {
         if (!category) {
             return res.sendError("Missing params");
         }
-        if(count && count == 1){
+        if (count && count == 1) {
             Post.count({
                 where: {teacher: false, category: category},
                 sort: 'seenCount ASC'
@@ -161,20 +178,20 @@ module.exports = {
                 if (err) {
                     return res.sendError("Unable to find posts");
                 }
-                res.send(200, {count : count});
+                res.send(200, {count: count});
             });
         }
-        else{
-            if(!pageSize){
+        else {
+            if (!pageSize) {
                 pageSize = 10;
             }
-            if(!pageIndex){
+            if (!pageIndex) {
                 pageIndex = 1;
             }
             var skip = pageSize * (pageIndex - 1);
             Post.find({
                 where: {teacher: false, category: category},
-                skip : skip,
+                skip: skip,
                 limit: pageSize,
                 sort: 'seenCount ASC'
             }).exec(function (err, posts) {
@@ -208,7 +225,7 @@ module.exports = {
                     else {
                         var fileName = uploadedFiles[0].filename;
                         var fd = uploadedFiles[0].fd
-                        res.send(200, {name : fileName, fd : fd});
+                        res.send(200, {name: fileName, fd: fd});
                     }
                 });
         }
@@ -247,13 +264,13 @@ module.exports = {
                     }
                 });
 
-                Post.findOne({id : postId}).exec(function(err, post){
-                    if(err){
+                Post.findOne({id: postId}).exec(function (err, post) {
+                    if (err) {
                         sails.log.error('Enable to increment download count');
                     }
-                    else{
+                    else {
                         var count = post.downloadCount + 1;
-                        Post.update({id : postId}, {downloadCount : count}).exec(function(err, p){
+                        Post.update({id: postId}, {downloadCount: count}).exec(function (err, p) {
 
                         });
                     }

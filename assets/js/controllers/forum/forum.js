@@ -35,7 +35,9 @@ ctrl.controller('ForumCtrl', ['$scope', 'Post', 'PostCategory', '$timeout', func
     $scope.onOpenCategory = function (category) {
         if (!$scope.teacherPostsByCategory[category.id]) {
             $scope.teacherPostsByCategory[category.id] = {};
+            $scope.teacherPostsByCategory[category.id].values = [];
             $scope.teacherPostsByCategory[category.id].loading = true;
+            $scope.teacherPostsByCategory[category.id] = [];
             Post.getPostTeacherByCategory(category.id, 1).then(function (count) {
                 $scope.teacherPostsByCategory[category.id].count = count.count;
                 $scope.teacherPostsByCategory[category.id].pageCount = Math.ceil(count / $scope.pageSize);
@@ -59,6 +61,7 @@ ctrl.controller('ForumCtrl', ['$scope', 'Post', 'PostCategory', '$timeout', func
     $scope.onOpenGeneralCategory = function (category) {
         if (!$scope.generalPostsByCategory[category.id]) {
             $scope.generalPostsByCategory[category.id] = {};
+            $scope.generalPostsByCategory[category.id].posts = [];
             $scope.generalPostsByCategory[category.id].loading = true;
             Post.getPostGeneralByCategory(category.id, 1).then(function (count) {
                 $scope.generalPostsByCategory[category.id].count = count.count;
