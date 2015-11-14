@@ -241,6 +241,14 @@ module.exports = {
                                     return res.send(500, 'reset.password.error');
                                 }
                             }
+                            sails.services['mail'].resetPasswordConfirm(user.id, function(){
+
+                            });
+                            user.resetPasswordToken = null;
+                            user.resetPasswordExpires = null;
+                            user.save(function(err){
+
+                            });
                             return res.send(200, req.__('user.change.password.success'));
                         });
                     });

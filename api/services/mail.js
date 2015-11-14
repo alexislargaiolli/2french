@@ -364,7 +364,7 @@ function sendMessageReceived(userId, senderId, messageContent) {
 
 function forgottenPassword(token, email, next) {
 
-    User.find({email: email}).exec(function (err, user) {
+    User.findOne({email: email}).exec(function (err, user) {
         if (err) {
             sails.log.error(err);
             return next(err);
@@ -375,12 +375,12 @@ function forgottenPassword(token, email, next) {
             phrase: 'mail.forgotten.password.subject',
             locale: locale
         });
-
+        var link = "https://toofrench.herokuapp.com/#/resetPassword/" + token;
         var content = sails.__({
             phrase: 'mail.forgotten.password.content',
             locale: locale
         }, {
-            token: token
+            link: link
         });
         sails.hooks.email.send(
             'forgottenPassword',
@@ -402,6 +402,50 @@ function forgottenPassword(token, email, next) {
     });
 }
 
+function resetPasswordConfirm(userId, next) {
+    User.findOne({id: userId}).exec(function (err, user) {
+        if (err) {
+            sails.log.error(err);
+            return next(err);
+        }
+        var locale = user.defaultLocale != null ? user.defaultLocale : 'fr';
+
+        var subject = sails.__({
+            phrase: 'mail.forgotten.confirm.subject',
+            locale: locale
+        });
+
+        var content = sails.__({
+            phrase: 'mail.forgotten.confirm.content',
+            locale: locale
+        });
+        Profile.findOne({id: user.profile}).exec(function (err, profile) {
+            if (err) {
+                sails.log.error(err);
+                return next(err);
+            }
+            sails.hooks.email.send(
+                'general',
+                {
+                    content: content,
+                    userName: profile.firstname
+                },
+                {
+                    to: user.email,
+                    subject: subject
+                },
+                function (err) {
+                    if (err) {
+                        sails.log.error(err);
+                        return next(err);
+                    }
+                    return next();
+                }
+            )
+        });
+    });
+}
+
 module.exports = {
     sendAccountCreated: sendAccountCreated,
     sendContactForm: sendContactForm,
@@ -410,5 +454,6 @@ module.exports = {
     sendReservationValidated: sendReservationValidated,
     sendReservationCanceled: sendReservationCanceled,
     sendReservationRefused: sendReservationRefused,
-    forgottenPassword : forgottenPassword
+    forgottenPassword : forgottenPassword,
+    resetPasswordConfirm : resetPasswordConfirm
 }

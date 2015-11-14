@@ -36,7 +36,9 @@
   "mail.resa.refused.subject":"Votre demande de réservation avec {{name}} a été refusée",
   "mail.resa.refused.content":"<p>{{name}} a refusé votre demande de réservation.</p><p>Pour consulter vos réservations, cliquez <a href='{{link}}'>ici</a>.</p>",
   "mail.forgotten.password.subject":"Mot de passe oublié",
-  "mail.forgotten.password.content":"<p>Vous recevez cet email parce vous (ou quelqu'un d'autre) a demandé à réinitialiser votre mot de passe.</p><p>Cliquez sur le lien suivant pour continuer.</p><a href='http://localhost:1337/#/resetPassword/{{token}}'>http://localhost:1337/#/resetPassword/{{token}}</a><p>Si vous n'avez pas demandé à réinitialiser votre mot de passe, ignorez cet email.</p>",
+  "mail.forgotten.password.content":"<p>Vous recevez cet email parce vous (ou quelqu'un d'autre) a demandé à réinitialiser votre mot de passe.</p><p>Cliquez sur le lien suivant pour continuer.</p><a href='{{link}}'>{{link}}</a><p>Si vous n'avez pas demandé à réinitialiser votre mot de passe, ignorez cet email.</p>",
+  "mail.forgotten.confirm.subject":"Votre mot de passe a été mis à jour",
+  "mail.forgotten.confirm.content":"<p>nous vous confirmons que votre mot de passe a bien été mis à jour.</p>",
 
   "user.change.password.success" : "Votre mot de passe a bien été mis à jour.",
   "user.change.password.wrong" : "Mot de passe incorrecte.",
