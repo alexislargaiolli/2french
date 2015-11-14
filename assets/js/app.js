@@ -168,6 +168,18 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
                 templateUrl: 'views/login.html'
             })
 
+            .state('forgottenPassword', {
+                url: '/forgottenPassword',
+                controller: 'ForgottenPasswordCtrl',
+                templateUrl: 'views/forgottenPassword.html'
+            })
+
+            .state('resetPassword', {
+                url: '/resetPassword/:token',
+                controller: 'ResetPasswordCtrl',
+                templateUrl: 'views/resetPassword.html'
+            })
+
             .state('register', {
                 url: '/register',
                 controller: 'RegisterCtrl',

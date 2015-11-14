@@ -437,11 +437,6 @@ body {
   }
 }
 
-.formLogin {
-  width: 50%;
-  margin: 0 auto;
-}
-
 /* REGISTER */
 
 #registerPanel {
@@ -1796,6 +1791,19 @@ hr {
 
 /* UTILS */
 
+.badge{
+  background-color: #ff7108;
+}
+
+.nav-pills > li > a{
+    color:@gray;
+}
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus{
+  border-color: @light-blue;
+  background-color: @light-blue;
+}
+
 .no-radius {
   border-radius: 0;
   -webkit-border-radius: 0;
@@ -1907,19 +1915,19 @@ hr {
   -webkit-box-shadow: none;
 }
 
-.blue-btn {
+.blue-btn, .btn-primary {
   color: #fff;
   border-color: @light-blue;
   background-color: @light-blue;
 }
 
-.blue-btn:hover {
+.blue-btn:hover, .btn-primary:hover {
   color: #fff;
   border-color: @light-blue;
   background-color: lighten(@light-blue, 2%);
 }
 
-.blue-btn.active {
+.blue-btn.active, .btn-primary.active {
   color: @light-blue;
   border-color: @light-blue;
   background-color: #fff;

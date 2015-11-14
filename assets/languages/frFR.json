@@ -452,7 +452,25 @@
   "parameters.notif.reviewAdded":"Un avis vous a été laissé",
   "parameters.notif.save":"Enregistrer",
 
-  "parameters.password.title":"Changer de mot de passe"
 
+  "parameters.password.validate":"Changer de mot de passe",
+  "parameters.password.dont.match":"Le mot de passe de confirmation ne correspond pas au mot de passe.",
+  "parameters.password.old":"Mot de passe actuel",
+  "parameters.password.new":"Nouveau mot de passe",
+  "parameters.password.confirm":"Confirmez le mot de passe",
+  "parameters.password.title":"Changer de mot de passe",
+
+  "header.forgottenPassword":"Mot de passe oublié ?",
+  "forgotten.password.title":"Récupération de mot de passe",
+  "forgotten.password.info":"Récupération de mot de passe",
+  "forgotten.password.email.label":"Adresse email",
+  "forgotten.password.email.placeholder":"exemple@gmail.com",
+  "forgotten.password.validate":"Valider",
+
+  "reset.password.notoken":"Ce lien de réinitialisation est invalide ou a expiré.",
+  "reset.password.label":"Nouveau mot de passe",
+  "reset.password.confirm.label":"Confirmez le mot de passe",
+  "reset.password.password.not.match":"Les mots de passe fournis ne correspondent pas.",
+  "reset.password.btn":"Changer de mot de passe"
 
 }

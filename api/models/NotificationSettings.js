@@ -4,7 +4,6 @@
 * @description :: notification configuration of a user
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
-
 module.exports = {
 
   attributes: {

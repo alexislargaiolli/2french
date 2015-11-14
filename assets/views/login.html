@@ -3,26 +3,35 @@
         <h1>{{'login.title' | translate}}</h1>
     </div>
 </div>
-<div class="container pt-20">
+<div class="container">
+    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs"></div>
+    <div class="p-10 col-lg-6 col-md-6 col-sm-12 col-xs-12">
+        <form name="formLogin" role="form">
 
-    <form name="formLogin" role="form" class="formLogin">
+            <div class="input-group form-group">
+                <span class="input-group-addon" id="basic-addon1">{{'header.login.email' | translate}}</span>
+                <input ng-model="credential.email" type="text" name="username" class="form-control"
+                       placeholder="{{'header.login.email' | translate}}"
+                       aria-describedby="basic-addon1" ng-required="true">
+                <span class="error" ng-show="formLogin.username.$error.required"/>
+            </div>
 
-        <div class="input-group form-group">
-            <span class="input-group-addon" id="basic-addon1">{{'header.login.email' | translate}}</span>
-            <input ng-model="credential.email" type="text" name="username" class="form-control" placeholder="{{'header.login.email' | translate}}"
-                   aria-describedby="basic-addon1" ng-required="true">
-	        <span class="error" ng-show="formLogin.username.$error.required" />
-        </div>
-
-        <div class="input-group form-group">
-            <span class="input-group-addon">{{'header.login.password' | translate}}</span>
-            <input ng-model="credential.pwd" type="password" name="password" class="form-control" placeholder="{{'header.login.password' | translate}}"
-                   aria-describedby="basic-addon1" ng-required="true">
-		    <span class="error" ng-show="formLogin.password.$error.required" />
-        </div>
-        <div class="alert alert-danger" role="alert" ng-show="message">{{message}}</div>
-        <button class="btn btn-primary center-block" ng-click="login()" type="submit" ng-disabled="!formLogin.$valid">
-            {{'header.login.btn' | translate}}
-        </button>
-    </form>
+            <div class="input-group form-group">
+                <span class="input-group-addon">{{'header.login.password' | translate}}</span>
+                <input ng-model="credential.pwd" type="password" name="password" class="form-control"
+                       placeholder="{{'header.login.password' | translate}}"
+                       aria-describedby="basic-addon1" ng-required="true">
+                <span class="error" ng-show="formLogin.password.$error.required"/>
+            </div>
+            <div class="alert alert-danger" role="alert" ng-show="message">
+                <span>{{message}}</span>
+            </div>
+            <a ui-sref="forgottenPassword" ng-show="message">{{'header.forgottenPassword' | translate}}</a>
+            <button class="btn btn-primary center-block" ng-click="login()" type="submit"
+                    ng-disabled="!formLogin.$valid">
+                {{'header.login.btn' | translate}}
+            </button>
+        </form>
+    </div>
+    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs"></div>
 </div>

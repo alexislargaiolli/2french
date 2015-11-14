@@ -10,6 +10,7 @@
 	</div>
 	<button id="login-btn" ng-click="login()" type="submit" class="btn"><i class="fa fa-unlock-alt"></i></button>
 	<div class="alert alert-danger" role="alert" ng-show="message">{{message}}</div>
+	<a ui-sref="forgottenPassword" ng-show="message">{{'header.forgottenPassword' | translate}}</a>
 	
 	<button id="register-btn" ng-if="!session.authenticated" type="button" ui-sref="register" class="btn btn-default orange-btn" ui-sref-active="active">{{'header.register' | translate}}</button>
 	

@@ -35,6 +35,12 @@ var User = {
         defaultLocale: {
             type: 'string',
             defaultsTo: 'fr'
+        },
+        resetPasswordToken : {
+            type: 'string'
+        },
+        resetPasswordExpires : {
+            type : 'date'
         }
     },
     sendMessage: function (user, recipient, messageContent, callback) {

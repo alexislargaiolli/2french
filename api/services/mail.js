@@ -362,12 +362,53 @@ function sendMessageReceived(userId, senderId, messageContent) {
     });
 }
 
+function forgottenPassword(token, email, next) {
+
+    User.find({email: email}).exec(function (err, user) {
+        if (err) {
+            sails.log.error(err);
+            return next(err);
+        }
+        var locale = user.defaultLocale != null ? user.defaultLocale : 'fr';
+
+        var subject = sails.__({
+            phrase: 'mail.forgotten.password.subject',
+            locale: locale
+        });
+
+        var content = sails.__({
+            phrase: 'mail.forgotten.password.content',
+            locale: locale
+        }, {
+            token: token
+        });
+        sails.hooks.email.send(
+            'forgottenPassword',
+            {
+                content: content
+            },
+            {
+                to: email,
+                subject: subject
+            },
+            function (err) {
+                if (err) {
+                    sails.log.error(err);
+                    return next(err);
+                }
+                return next();
+            }
+        )
+    });
+}
+
 module.exports = {
     sendAccountCreated: sendAccountCreated,
     sendContactForm: sendContactForm,
     sendMessageReceived: sendMessageReceived,
     sendReservationCreated: sendReservationCreated,
     sendReservationValidated: sendReservationValidated,
-    sendReservationCanceled : sendReservationCanceled,
-    sendReservationRefused:sendReservationRefused
+    sendReservationCanceled: sendReservationCanceled,
+    sendReservationRefused: sendReservationRefused,
+    forgottenPassword : forgottenPassword
 }

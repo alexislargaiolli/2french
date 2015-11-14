@@ -34,7 +34,10 @@ module.exports.policies = {
     userEndTour : ['passport'],
     userChangeLocale : ['passport', 'sessionAuth' ],
     notificationSettings: ['passport', 'sessionAuth' ],
-    updateNotificationSettings : ['passport', 'sessionAuth' ]
+    updateNotificationSettings : ['passport', 'sessionAuth' ],
+    forgot: [],
+    checkResetToken: [],
+    resetPassword: []
   },
 
   UserFavListController : {

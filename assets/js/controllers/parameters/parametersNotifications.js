@@ -16,7 +16,6 @@ tooFrenchControllers.controller('ParametersNotificationsCtrl', ['$scope', 'Notif
             $http.post('/user/updateNotificationSettings', {
                 settings: $scope.settings
             }).success(function (data, status, headers, config) {
-
             }).error(function (data, status, headers, config) {
 
             });

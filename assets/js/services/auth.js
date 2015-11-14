@@ -95,6 +95,44 @@ tooFrenchServices.factory('AuthService', ['$http', '$rootScope', '$q', 'Session'
                     deferred.reject(data.message);
                 });
             return deferred.promise;
+        },
+        forgot: function (email) {
+            var deferred = $q.defer();
+            $http.post('/user/forgot', {
+                email: email
+            }).success(function (data, status, headers, config) {
+                deferred.resolve(data);
+            }).
+                error(function (data, status, headers, config) {
+                    deferred.reject(data);
+                });
+            return deferred.promise;
+        },
+        checkToken: function (token) {
+            var deferred = $q.defer();
+            $http.post('/user/checkResetToken', {
+                token: token
+            }).success(function (data, status, headers, config) {
+                deferred.resolve(data);
+            }).
+                error(function (data, status, headers, config) {
+                    deferred.reject(data);
+                });
+            return deferred.promise;
+        },
+        resetPassword: function (token, password, confirm) {
+            var deferred = $q.defer();
+            $http.post('/user/resetPassword', {
+                token: token,
+                password: password,
+                confirm: confirm
+            }).success(function (data, status, headers, config) {
+                deferred.resolve(data);
+            }).
+                error(function (data, status, headers, config) {
+                    deferred.reject(data);
+                });
+            return deferred.promise;
         }
     }
 }]);

@@ -7,7 +7,9 @@
 
 var util = require('util'),
     actionUtil = require('sails/lib/hooks/blueprints/actionUtil'),
-    _ = require('sails/node_modules/lodash');
+    _ = require('sails/node_modules/lodash'),
+    bcrypt = require('bcryptjs'),
+    crypto = require('crypto');
 
 module.exports = {
     find: function (req, res) {
@@ -112,8 +114,8 @@ module.exports = {
             newReservation: settings.newReservation,
             reservationValidated: settings.reservationValidated,
             reservationCanceled: settings.reservationCanceled,
-            reservationRefused : settings.reservationRefused,
-            reviewToAdd : settings.reviewToAdd,
+            reservationRefused: settings.reservationRefused,
+            reviewToAdd: settings.reviewToAdd,
             reviewAdded: settings.reviewAdded,
             newMessage: settings.newMessage
         }).exec(function (err, settings) {
@@ -124,10 +126,130 @@ module.exports = {
         });
     },
 
-    changePassword: function(req, res){
+    changePassword: function (req, res) {
         var oldPass = req.allParams().old;
         var newPass = req.allParams().new;
+        Passport.findOne({user: req.user.id}).exec(function (err, passport) {
+            if (oldPass) {
+                passport.validatePassword(oldPass, function (err, result) {
+                    if (err) {
+                        return res.send(500, req.__('user.change.password.wrong'));
+                    }
 
+                    if (!result) {
+                        return res.send(500, req.__('user.change.password.wrong'));
+                    } else {
+                        passport.password = newPass;
+                        passport.save(function (err) {
+                            if (err) {
+                                if (err.code === 'E_VALIDATION') {
+                                    sails.log.info('invalid password');
+                                    return res.send(500, req.__('Error.Passport.Password.Invalid.minlength', 8));
+                                }
+                                else{
+                                    return res.send(500, 'reset.password.error');
+                                }
+                            }
+                            return res.send(200, req.__('user.change.password.success'));
+                        });
+                    }
+                });
+            } else {
+                res.send(500, req.__('user.change.password.error'));
+            }
+
+        });
+    },
+
+    forgot: function (req, res) {
+        var email = req.allParams('email').email;
+        if (!email) {
+            return res.send(500, req.__('reset.password.error'));
+        }
+        User.findOne({email: email}).exec(function (err, user) {
+            if (err) {
+                sails.log.error(err);
+                return res.send(500, req.__('reset.password.error'));
+            }
+            if (!user) {
+                sails.log.error('user not found');
+                return res.send(500, req.__('reset.password.notfound'));
+            }
+            crypto.randomBytes(20, function (err, buf) {
+                var token = buf.toString('hex');
+                user.resetPasswordToken = token;
+                user.resetPasswordExpires = new Date(Date.now() + 3600000);
+                user.save(function (err) {
+                    if (err) {
+                        sails.log.error(err);
+                        return res.serverError(req.__('reset.password.error'));
+                    }
+                    sails.services['mail'].forgottenPassword(token, email, function (err) {
+                        if (err) {
+                            return res.res.send(500, req.__('reset.password.success'));
+                        }
+                        res.send(200, req.__('reset.password.success'));
+                    });
+                });
+
+            });
+        });
+    },
+
+    checkResetToken: function (req, res) {
+        var token = req.allParams().token;
+        User.findOne({resetPasswordToken: token, resetPasswordExpires: {$gt: new Date(Date.now())}}, function (err, user) {
+            if (!user) {
+                return res.send(500, req.__('reset.password.expired'));
+            }
+            res.send(200);
+        });
+    },
+
+    resetPassword: function (req, res) {
+        var token = req.allParams().token;
+        var password = req.allParams().password;
+        var passwordConfirm = req.allParams().confirm;
+        if (password && passwordConfirm) {
+            if (password != passwordConfirm) {
+                return req.send(500, req.__('reset.password.password.not.match'));
+            }
+            else {
+                User.findOne({
+                    resetPasswordToken: token,
+                    resetPasswordExpires: {$gt: new Date(Date.now())}
+                }, function (err, user) {
+                    if (!user) {
+                        return res.send(500, req.__('reset.password.expired'));
+                    }
+
+                    Passport.findOne({user: user.id}).exec(function (err, passport) {
+                        if(err){
+                            return res.send(500, 'reset.password.error');
+                        }
+                        if(!passport){
+                            return res.send(500, 'reset.password.error');
+                        }
+                        passport.password = password;
+                        passport.save(function(err){
+                            if (err) {
+                                if (err.code === 'E_VALIDATION') {
+                                    sails.log.info('invalid password');
+                                    return res.send(500, req.__('Error.Passport.Password.Invalid.minlength', 8));
+                                }
+                                else{
+                                    return res.send(500, 'reset.password.error');
+                                }
+                            }
+                            return res.send(200, req.__('user.change.password.success'));
+                        });
+                    });
+                });
+            }
+        } else {
+            return res.send(500, req.__('reset.password.password.notfound'));
+        }
     }
 };
+
 
