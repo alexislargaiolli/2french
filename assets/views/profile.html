@@ -3,61 +3,11 @@
         <div class="row">
 
 
-            <!-- Left panel -->
-            <div id="profile-left" class="col-sm-3 col-md-3 col-lg-3">
-                <div class="panel panel-default">
-                    <div class="panel-heading block-title1 center">{{'myprofile.calendar' | translate}}</div>
-                    <div class="panel-body p-0">
-                        <multiple-date-picker class="without-select" day-click="dayClick"
-                                              highlight-days="profile.schedules[scheduleIndex].undispos"
-                                              month-changed="onMonthChanged"/>
-                    </div>
-                    <div id="schedule-legend" class="panel-footer">
-                        <div class="left p-10">
-                            <img src="../images/am.png" class="legend-images"><span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
-                        </div>
-                        <div class="left p-10">
-                            <img src="../images/pm.png" class="legend-images pm"><span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
-                        </div>
-                        <div class="left p-10">
-                            <div class="legend-images day"></div>
-                            <span class="legend-text">{{'myprofile.calendar.legend.day' | translate}}</span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="panel panel-default">
-                    <div class="panel-heading block-title1 center">{{'profile.teacher.reviews.title' | translate}}</div>
-                    <div class="panel-body p-0">
-                        <p ng-if="reviews.length == 0" class="p-10 center">{{'profile.teacher.reviews.empty' |
-                            translate}}</p>
-
-                        <div ng-repeat="review in reviews" class="p-10">
-                            <div>
-                                <p class="inline middle justify">
-                                    <a ui-sref="profile({profileId:review.student.interlocutorProfileId})" class="fleft mr-10 mb-5">
-                                        <img class="user-photo-profile" ng-src="{{review.student.photo}}"
-                                             ng-show="review.student.photo"/>
-                                        <i class="fa fa-user user-photo-profile" ng-show="!review.student.photo"></i>
-                                    </a>
-
-                                    <rating ng-model="review.mark" readonly="true"
-                                            class="teacher-profile-rating"></rating>
-                                    <br/>
-                                    {{review.comment}}
-                                </p>
-                                <div class="right">
-                                    {{review.date | date:'mediumDate' }}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
 
             <!-- Right panel -->
-            <div id="profile-right" class="col-sm-9 col-md-9 col-lg-9">
+            <div id="profile-right" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-md-push-3 col-lg-push-3">
                 <div id="profile-header" class="bordered-block">
                     <div>
                         <div class="row">
@@ -197,6 +147,61 @@
                             <h5 class="block-title2 f-16 mt-0">{{'profile.location'| translate}}</h5>
 
                             <p>{{profile.accomodationDescription[currentLg]}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Left panel -->
+            <div id="profile-left" class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-md-pull-9 col-lg-pull-9" >
+                <div class="panel panel-default">
+                    <div class="panel-heading block-title1 center">{{'myprofile.calendar' | translate}}</div>
+                    <div class="panel-body p-0">
+                        <multiple-date-picker class="without-select" day-click="dayClick"
+                                              highlight-days="profile.schedules[scheduleIndex].undispos"
+                                              month-changed="onMonthChanged"/>
+                    </div>
+                    <div id="schedule-legend" class="panel-footer">
+                        <div class="left p-10">
+                            <img src="../images/am.png" class="legend-images"><span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
+                        </div>
+                        <div class="left p-10">
+                            <img src="../images/pm.png" class="legend-images pm"><span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
+                        </div>
+                        <div class="left p-10">
+                            <div class="legend-images day"></div>
+                            <span class="legend-text">{{'myprofile.calendar.legend.day' | translate}}</span>
+                        </div>
+                        <div class="left p-10">
+                            <span class="legend-images"></span><span class="legend-text">{{'myprofile.calendar.legend.unvalailable' | translate}}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading block-title1 center">{{'profile.teacher.reviews.title' | translate}}</div>
+                    <div class="panel-body p-0">
+                        <p ng-if="reviews.length == 0" class="p-10 center">{{'profile.teacher.reviews.empty' |
+                            translate}}</p>
+
+                        <div ng-repeat="review in reviews" class="p-10">
+                            <div>
+                                <p class="inline middle justify">
+                                    <a ui-sref="profile({profileId:review.student.interlocutorProfileId})" class="fleft mr-10 mb-5">
+                                        <img class="user-photo-profile" ng-src="{{review.student.photo}}"
+                                             ng-show="review.student.photo"/>
+                                        <i class="fa fa-user user-photo-profile" ng-show="!review.student.photo"></i>
+                                    </a>
+
+                                    <rating ng-model="review.mark" readonly="true"
+                                            class="teacher-profile-rating"></rating>
+                                    <br/>
+                                    {{review.comment}}
+                                </p>
+                                <div class="right">
+                                    {{review.date | date:'mediumDate' }}
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

@@ -499,6 +499,34 @@
                         </button>
                     </div>
                 </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading block-title1 center">{{'profile.teacher.reviews.title' | translate}}</div>
+                    <div class="panel-body p-0">
+                        <p ng-if="reviews.length == 0" class="p-10 center">{{'profile.teacher.reviews.empty' |
+                            translate}}</p>
+
+                        <div ng-repeat="review in reviews" class="p-10">
+                            <div>
+                                <p class="inline middle justify">
+                                    <a ui-sref="profile({profileId:review.student.interlocutorProfileId})" class="fleft mr-10 mb-5">
+                                        <img class="user-photo-profile" ng-src="{{review.student.photo}}"
+                                             ng-show="review.student.photo"/>
+                                        <i class="fa fa-user user-photo-profile" ng-show="!review.student.photo"></i>
+                                    </a>
+
+                                    <rating ng-model="review.mark" readonly="true"
+                                            class="teacher-profile-rating"></rating>
+                                    <br/>
+                                    {{review.comment}}
+                                </p>
+                                <div class="right">
+                                    {{review.date | date:'mediumDate' }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -7,7 +7,6 @@
 
 module.exports = {
     teacherReviews: function (req, res) {
-        sails.log.info('---->teacherReviews');
         Review.find({
             where: {teacher: req.allParams().teacherId},
             select: ['mark', 'comment', 'student']
