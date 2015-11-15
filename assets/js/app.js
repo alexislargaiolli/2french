@@ -414,6 +414,11 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
 tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache', 'Session', 'Messagerie', '$timeout', 'Reservation', 'Tour','Notification','UserFavList',
     function ($rootScope, $state, $window, AUTH_EVENTS, AuthService, editableOptions, $templateCache, Session, Messagerie, $timeout, Reservation, Tour, Notification,UserFavList) {
         editableOptions.theme = 'bs3';
+
+        $rootScope.$on('$viewContentLoaded', function() {
+            $templateCache.removeAll();
+        });
+
         $rootScope.userfavlist = UserFavList;
         $rootScope.$on('$viewContentLoaded',
             function (event) {
