@@ -310,6 +310,88 @@ function sendReservationRefused(reservationId) {
     });
 }
 
+function sendProfileValidated(userId) {
+    NotificationSettings.findOrCreate({owner: userId}, {owner: userId}).populate('owner').exec(function (err, settings) {
+        Profile.findOne({'owner': userId}).exec(function (err, profile) {
+            if (err) {
+                sails.log.error(err);
+            }
+            else {
+                if (profile) {
+                    var locale = settings.owner.defaultLocale;
+
+                    var subject = sails.__({
+                        phrase: 'mail.profile.validated.subject',
+                        locale: locale
+                    });
+
+                    var content = sails.__({
+                        phrase: 'mail.profile.validated.content',
+                        locale: locale
+                    });
+                    sails.hooks.email.send(
+                        'general',
+                        {
+                            content: content,
+                            userName: profile.firstname
+                        },
+                        {
+                            to: settings.owner.email,
+                            subject: subject
+                        },
+                        function (err) {
+                            if (err) {
+                                sails.log.error(err);
+                            }
+                        }
+                    )
+                }
+            }
+        });
+    });
+}
+
+function sendDiplomaValidated(userId) {
+    NotificationSettings.findOrCreate({owner: userId}, {owner: userId}).populate('owner').exec(function (err, settings) {
+        Profile.findOne({'owner': userId}).exec(function (err, profile) {
+            if (err) {
+                sails.log.error(err);
+            }
+            else {
+                if (profile) {
+                    var locale = settings.owner.defaultLocale;
+
+                    var subject = sails.__({
+                        phrase: 'mail.diploma.validated.subject',
+                        locale: locale
+                    });
+
+                    var content = sails.__({
+                        phrase: 'mail.diploma.validated.content',
+                        locale: locale
+                    });
+                    sails.hooks.email.send(
+                        'general',
+                        {
+                            content: content,
+                            userName: profile.firstname
+                        },
+                        {
+                            to: settings.owner.email,
+                            subject: subject
+                        },
+                        function (err) {
+                            if (err) {
+                                sails.log.error(err);
+                            }
+                        }
+                    )
+                }
+            }
+        });
+    });
+}
+
 function sendReviewToAdd(user, reservation) {
 
 }
@@ -454,6 +536,8 @@ module.exports = {
     sendReservationValidated: sendReservationValidated,
     sendReservationCanceled: sendReservationCanceled,
     sendReservationRefused: sendReservationRefused,
-    forgottenPassword : forgottenPassword,
-    resetPasswordConfirm : resetPasswordConfirm
+    forgottenPassword: forgottenPassword,
+    resetPasswordConfirm: resetPasswordConfirm,
+    sendProfileValidated: sendProfileValidated,
+    sendDiplomaValidated:sendDiplomaValidated
 }

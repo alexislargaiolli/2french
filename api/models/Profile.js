@@ -132,10 +132,16 @@ module.exports = {
         next();
     },
     beforeUpdate: function (profile, next) {
-        if (profile) {
+        next();
+    },
+    afterUpdate : function(profile, next){
+        if (profile && !profile.validate) {
             if (profile.photo && profile.hourRate && profile.motivation && profile.formations && profile.formations.length > 0) {
                 Diploma.findOne({'owner': profile.owner}).exec(function (err, diploma) {
                     if (diploma && diploma.diplomaValidated) {
+                        if(profile.validate == false){
+                            sails.services['mail'].sendProfileValidated(profile.owner);
+                        }
                         profile.validate = true;
                     }
                     else{

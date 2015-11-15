@@ -39,6 +39,10 @@
   "mail.forgotten.password.content":"<p>Vous recevez cet email parce vous (ou quelqu'un d'autre) a demandé à réinitialiser votre mot de passe.</p><p>Cliquez sur le lien suivant pour continuer.</p><a href='{{link}}'>{{link}}</a><p>Si vous n'avez pas demandé à réinitialiser votre mot de passe, ignorez cet email.</p>",
   "mail.forgotten.confirm.subject":"Votre mot de passe a été mis à jour",
   "mail.forgotten.confirm.content":"<p>nous vous confirmons que votre mot de passe a bien été mis à jour.</p>",
+  "mail.profile.validated.subject":"Votre profil est validé !",
+  "mail.profile.validated.content":"<p>nous vous informons que votre profil a été validé. Vous apparaissez maintenant dans les recherches sur TooFrench.</p><p>Les utilisateurs peuvent désormais vous faire des demandes de réservation.</p>",
+  "mail.diploma.validated.subject":"Votre diplôme est validé !",
+  "mail.diploma.validated.content":"<p>nous vous informons que votre diplôme a été validé.</p>",
 
   "user.change.password.success" : "Votre mot de passe a bien été mis à jour.",
   "user.change.password.wrong" : "Mot de passe incorrecte.",

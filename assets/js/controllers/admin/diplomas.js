@@ -13,10 +13,10 @@ ctrl.controller('AdminDiplomaCtrl', ['$scope', 'Diploma' ,'dialogs', function($s
         $scope.diplomas = diplomas;
     });
 
-    $scope.validate = function(diplomaId){
+    $scope.validate = function(diploma){
         var dlg = dialogs.confirm('Validation', 'Êtes-vous sur de vouloir valider ce diplôme ?');
         dlg.result.then(function(btn) {
-            Diploma.validate(diplomaId).then(function(diploma){
+            Diploma.validate(diploma.id).then(function(d){
                 var index = $scope.diplomas.indexOf(diploma);
                 $scope.diplomas.splice(index, 1);
             },function(){

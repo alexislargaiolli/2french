@@ -51,17 +51,12 @@ module.exports = {
                     if (err) {
                         return res.send(500, "Error while validating diploma");
                     }
+                    sails.services['mail'].sendDiplomaValidated(diploma.owner);
                     Profile.findOne({owner: diploma.owner}).populate('formations').exec(function (err, profile) {
                         if (err) {
                             return res.send(500, "Error while validating diploma");
                         }
                         if (profile) {
-                            if (profile.photo && profile.hourRate && profile.motivation && profile.formations && profile.formations.length > 0) {
-                                profile.validate = true;
-                            }
-                            else {
-                                profile.validate = false;
-                            }
                             profile.save(function () {
                                 res.send(200, diploma);
                             });
