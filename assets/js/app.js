@@ -415,9 +415,7 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
     function ($rootScope, $state, $window, AUTH_EVENTS, AuthService, editableOptions, $templateCache, Session, Messagerie, $timeout, Reservation, Tour, Notification,UserFavList) {
         editableOptions.theme = 'bs3';
 
-        $rootScope.$on('$viewContentLoaded', function() {
-            $templateCache.removeAll();
-        });
+        $templateCache.remove('views/*');
 
         $rootScope.userfavlist = UserFavList;
         $rootScope.$on('$viewContentLoaded',
@@ -451,7 +449,18 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
                 }
             }
         }
+
+        $rootScope.$on('$routeChangeStart', function(event, next, current) {
+            console.log('change');
+            if (typeof(current) !== 'undefined'){
+                $templateCache.remove(current.templateUrl);
+            }
+        });
+
         $rootScope.$on('$stateChangeStart', function (event, next) {
+            if (typeof(current) !== 'undefined'){
+                $templateCache.remove(next.templateUrl);
+            }
             if ($rootScope.sessionInitialized) {
                 processChange(event, next);
             }
