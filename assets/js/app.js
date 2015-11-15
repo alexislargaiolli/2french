@@ -411,10 +411,10 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
 );
 
 
-tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache', 'Session', 'Messagerie', '$timeout', 'Reservation', 'Tour','Notification',
-    function ($rootScope, $state, $window, AUTH_EVENTS, AuthService, editableOptions, $templateCache, Session, Messagerie, $timeout, Reservation, Tour, Notification) {
+tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache', 'Session', 'Messagerie', '$timeout', 'Reservation', 'Tour','Notification','UserFavList',
+    function ($rootScope, $state, $window, AUTH_EVENTS, AuthService, editableOptions, $templateCache, Session, Messagerie, $timeout, Reservation, Tour, Notification,UserFavList) {
         editableOptions.theme = 'bs3';
-
+        $rootScope.userfavlist = UserFavList;
         $rootScope.$on('$viewContentLoaded',
             function (event) {
                 $rootScope.updateFooter($window.innerHeight);
@@ -486,6 +486,7 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
 
         $rootScope.$on(AUTH_EVENTS.loginSuccess, function (event, args) {
             Notification.init();
+            $rootScope.userfavlist.getFavList();
             if (!Session.user.tour) {
                 if ($rootScope.isTeacher) {
                     Tour.startTeacherTour();

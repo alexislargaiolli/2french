@@ -197,7 +197,7 @@ body {
 }
 
 #homeCarousel .carousel-caption {
-  font-size: 2em;
+  font-size: 1em;
   font-weight: bold;
   background: rgba(255, 255, 255, 0.7);
   border-radius: 5px;
@@ -383,10 +383,10 @@ body {
 
   .btn-wrapper {
     //width: 350px;
+    display: inline-block;
     border: 1px solid @very-light-gray;
     background-color: #fff;
     border-radius: 5px;
-    border-radius: 5px 0 0 5px;
   }
   #input-email:-webkit-autofill, #input-pwd:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
@@ -412,9 +412,8 @@ body {
   #login-btn {
     border-radius: 0 3px 3px 0;
     margin: 0 !important;
-    position: relative;
-    left: -35px;
-    height: 36px;
+    height: 34px;
+    float: right;
     .blue-btn;
   }
   #login-btn:hover {
@@ -424,6 +423,8 @@ body {
   #register-btn {
     margin-left: 20px;
     padding: 9px 20px;
+    display: inline-block;
+    vertical-align: top;
   }
   .fa-user {
     float: left;
@@ -1344,9 +1345,8 @@ hr {
 
 /* Contact form */
 #contact-wrapper {
-  display: block;
-  width: 70%;
-  margin: 20px auto;
+  margin-top:20px;
+  padding:0;
   .bordered-block;
   #contact-header {
     padding: 20px;
@@ -1357,11 +1357,6 @@ hr {
     font-size: 15px;
   }
   #contact-content {
-    padding: 20px;
-    form {
-      width: 60%;
-      margin: 0 auto;
-    }
     .input-group, .btn-group {
       width: 100%;
       input {
@@ -1370,9 +1365,6 @@ hr {
       input, button {
         color: @light-gray;
       }
-    }
-    .row {
-      margin-bottom: 20px;
     }
     #btn-theme {
       width: 100%;
@@ -1654,8 +1646,6 @@ hr {
   }
 
   #resaForm {
-    width: 70%;
-    margin: 0 auto;
     .alert-warning {
       padding: 5px 10px;
       margin-top: 5px;

@@ -26,8 +26,8 @@
                         aria-haspopup="true" aria-expanded="false">
                     {{selectedConv.interlocutor}} <span class="caret"></span>
                 </button>
-                <ul class="dropdown-menu">
-                    <li ng-repeat="conv in conversations">{{conv.interlocutor}}</li>
+                <ul class="dropdown-menu" style="width: 100%;">
+                    <li ng-repeat="conv in conversations" class="p-10 center" ng-class="{'active' : conv.id == selectedConv.id }" ng-click="selectConversation(conv)">{{conv.interlocutor}}</li>
                 </ul>
             </div>
         </div>
