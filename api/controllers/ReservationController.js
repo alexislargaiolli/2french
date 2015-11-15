@@ -43,7 +43,16 @@ module.exports = {
     },
 
     studentResa: function (req, res) {
-        Reservation.find({student: req.user.profile}).populate('teacher').populate('review').exec(function (err, resas) {
+        var history = req.allParams().history;
+        var where = {student: req.user.profile};
+        if(history){
+            where.date = {$lt: new Date(Date.now() + 3600000)};
+        }
+        else{
+            where.date = {$gt: new Date(Date.now() + 3600000)};
+            where.status = { '!' : ['canceled', 'refused']};
+        }
+        Reservation.find(where).populate('teacher').populate('review').exec(function (err, resas) {
             if (err) {
                 return res.sendError("Unable to find resas");
             }
@@ -58,9 +67,19 @@ module.exports = {
         });
     },
     teacherResa: function (req, res) {
-        Reservation.find({teacher: req.user.profile}).populate('student').populate('review').exec(function (err, resas) {
+        var history = req.allParams().history;
+        var where = {teacher: req.user.profile};
+        if(history){
+            where.date = {$lt: new Date(Date.now() + 3600000)};
+        }
+        else{
+            where.date = {$gt: new Date(Date.now() + 3600000)};
+            where.status = { '!' : ['canceled', 'refused']};
+        }
+        Reservation.find(where).populate('student').populate('review').exec(function (err, resas) {
             if (err) {
-                return res.sendError("Unable to find resas");
+                sails.log.error(err);
+                return res.send(500,"Unable to find resas");
             }
             resas.forEach(function (r) {
                 r.studentId = r.student.id;
@@ -77,7 +96,8 @@ module.exports = {
         Profile.findOne({owner: userId}).exec(function (err, profile) {
             Reservation.count({
                 $or: [{teacher: profile.id}, {student: profile.id}],
-                status: 'pending'
+                status: 'pending',
+                date: {$gt: new Date(Date.now() + 3600000)}
             }).exec(function (err, count) {
                 if (err) {
                     return res.sendError("Unable to find resas");
@@ -89,7 +109,7 @@ module.exports = {
     newTeacherResaCount: function (req, res) {
         var userId = req.user.id;
         Profile.findOne({owner: userId}).exec(function (err, profile) {
-            Reservation.count({teacher: profile.id, status: 'pending'}).exec(function (err, count) {
+            Reservation.count({teacher: profile.id, status: 'pending', date: {$gt: new Date(Date.now() + 3600000)}}).exec(function (err, count) {
                 if (err) {
                     return res.sendError("Unable to find resas");
                 }

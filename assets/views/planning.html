@@ -4,7 +4,12 @@
     </div>
 </div>
 <div id="planningContainer" class="container">
-    <div class="resa-item row" ng-repeat="resa in resas" ng-if="isTeacher">
+    <ul class="nav nav-pills vm-10">
+        <li role="presentation" ng-class="{active : !history}"><a ng-click="loadResa(false)">{{'planning.menu.actual' | translate}}</a></li>
+        <li role="presentation" ng-class="{active : history}"><a ng-click="loadResa(true)">{{'planning.menu.history' | translate}}</a></li>
+    </ul>
+
+    <div class="resa-item row" ng-repeat="resa in resas" ng-if="isTeacher && !loading">
         <div class="col-md-7 col-lg-7">
 
             <div class="profilePhoto">
@@ -115,7 +120,7 @@
         </div>
     </div>
 
-    <div class="resa-item row" ng-repeat="resa in resas" ng-if="!isTeacher">
+    <div class="resa-item row" ng-repeat="resa in resas" ng-if="!isTeacher && !loading">
         <div class="col-md-7 col-lg-7">
 
             <div class="profilePhoto">
@@ -226,7 +231,11 @@
         </div>
     </div>
 
-    <div ng-if="reservations.length == 0" id="no-reservations">
+    <div ng-if="resas.length == 0 && !loading" id="no-reservations">
         {{'planning.reservations.empty' | translate}}
+    </div>
+
+    <div ng-if="loading" class="center p-10">
+        <span class="fa fa-circle-o-notch fa-spin"></span>
     </div>
 </div>

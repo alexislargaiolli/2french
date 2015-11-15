@@ -475,6 +475,9 @@
 
   "common.confirmation.title":"Confirmation",
   "post.remove.confirm.message" : "Êtes-vous sur de vouloir supprimer ce post ? Tous les commentaires associès ainsi que les pièces jointes seront supprimés.",
-  "post.comment.remove.confirm.message" : "Êtes-vous sur de vouloir supprimer ce commentaire ?"
+  "post.comment.remove.confirm.message" : "Êtes-vous sur de vouloir supprimer ce commentaire ?",
 
+
+  "planning.menu.history" : "Historique",
+  "planning.menu.actual" : "En cours"
 }

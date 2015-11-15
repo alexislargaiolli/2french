@@ -5,18 +5,26 @@ tooFrenchServices.factory('Reservation', ['$resource', '$http', '$q', 'Session',
             getResource: function () {
                 return $resource('/reservation/:id', {id: '@id'}, {'update': {method: 'PUT'}, });
             },
-            teacherResa : function(){
+            teacherResa : function(history){
                 var deferred = $q.defer();
-                $http.get('/reservation/teacherResa').success(function (data, status, headers, config) {
+                var params =  {history : history};
+                if(history){
+                    params.history = true;
+                }
+                $http.get('/reservation/teacherResa', {params : params}).success(function (data, status, headers, config) {
                     deferred.resolve(data);
                 }).error(function (data, status, headers, config) {
                     deferred.reject();
                 });
                 return deferred.promise;
             },
-            studentResa : function(){
+            studentResa : function(history){
                 var deferred = $q.defer();
-                $http.get('/reservation/studentResa').success(function (data, status, headers, config) {
+                var params =  {history : history};
+                if(history){
+                    params.history = true;
+                }
+                $http.get('/reservation/studentResa', {params : params}).success(function (data, status, headers, config) {
                     deferred.resolve(data);
                 }).error(function (data, status, headers, config) {
                     deferred.reject();
@@ -26,15 +34,6 @@ tooFrenchServices.factory('Reservation', ['$resource', '$http', '$q', 'Session',
             notifCount : function(){
                 var deferred = $q.defer();
                 $http.get('/reservation/notifCount').success(function (data, status, headers, config) {
-                    deferred.resolve(data.count);
-                }).error(function (data, status, headers, config) {
-                    deferred.reject();
-                });
-                return deferred.promise;
-            },
-            newTeacherResaCount : function(){
-                var deferred = $q.defer();
-                $http.get('/reservation/newTeacherResaCount').success(function (data, status, headers, config) {
                     deferred.resolve(data.count);
                 }).error(function (data, status, headers, config) {
                     deferred.reject();
