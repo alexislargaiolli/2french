@@ -106,17 +106,6 @@ module.exports = {
             });
         });
     },
-    newTeacherResaCount: function (req, res) {
-        var userId = req.user.id;
-        Profile.findOne({owner: userId}).exec(function (err, profile) {
-            Reservation.count({teacher: profile.id, status: 'pending', date: {$gt: new Date(Date.now() + 3600000)}}).exec(function (err, count) {
-                if (err) {
-                    return res.sendError("Unable to find resas");
-                }
-                res.send({count: count});
-            });
-        });
-    },
     teacherChangeStatus: function (req, res) {
         var userId = req.user.id;
         var resaId = req.allParams().resaId;

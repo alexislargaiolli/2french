@@ -143,9 +143,15 @@ module.exports = {
                             sails.services['mail'].sendProfileValidated(profile.owner);
                         }
                         profile.validate = true;
+                        Profile.update({id : profile.id}, {validate : true}).exec(function(err, profile){
+
+                        });
                     }
                     else{
                         profile.validate = false;
+                        Profile.update({id : profile.id}, {validate : false}).exec(function(err, profile){
+
+                        });
                     }
                     next();
                 });

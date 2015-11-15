@@ -125,7 +125,11 @@ module.exports.policies = {
     '*':[ 'passport', 'sessionAuth'],
     'studentResa' : ['passport', 'sessionAuth', 'student'],
     'teacherResa' : ['passport', 'sessionAuth', 'teacher'],
-    'create' : ['passport', 'sessionAuth', 'student']
+    'create' : ['passport', 'sessionAuth', 'student'],
+    'notifCount' : ['passport', 'sessionAuth'],
+    'destroy' : ['passport', 'sessionAuth', 'admin'],
+    'teacherChangeStatus' : ['passport', 'sessionAuth', 'teacher'],
+    'cancelReservation': ['passport', 'sessionAuth']
   },
   ReviewsController:{
     '*':[ 'passport', 'sessionAuth', 'admin'],
