@@ -44,7 +44,6 @@ var User = {
         }
     },
     sendMessage: function (user, recipient, messageContent, callback) {
-
         Conversation.findOrCreate({owner: user, interlocutor: recipient}, {
             owner: user,
             interlocutor: recipient
@@ -68,6 +67,9 @@ var User = {
             conv.unseenCount++;
             conv.messages.add({author: sender, recipient: user, content: messageContent, conversation: conv});
             conv.save(callback);
+            sails.services['notification'].createNewMessageNotification(user, conv.id, function(err, notif){
+
+            });
             sails.services['mail'].sendMessageReceived(user, sender, messageContent);
         });
     },

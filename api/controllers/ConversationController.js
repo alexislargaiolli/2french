@@ -87,10 +87,19 @@ module.exports = {
             if (err) {
                 res.send(500, "Error while fetching conversation");
             }
+            if(!conversation){
+                res.send(200);
+            }
             else if (conversation.owner != req.user.id) {
                 res.forbidden('You are not permitted to perform this action.');
             }
             else {
+                sails.services['notification'].removeMessageNotification(req.user.id, conversationId, function(err){
+                    if(err){
+                        sails.log.error('Error while removing message notification');
+                        sails.log.error(err);
+                    }
+                });
                 sails.services['util'].populateDeep('conversation', conversation, 'interlocutor.profile', function (err, c) {
                     if (err) {
                         sails.log.error("ERR:", err);

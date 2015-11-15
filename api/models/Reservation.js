@@ -43,6 +43,18 @@ module.exports = {
 
     afterCreate: function(reservation, next){
         sails.services['mail'].sendReservationCreated(reservation.id);
+        sails.log.info(reservation.teacher);
+        User.findOne({profile :reservation.teacher}).exec(function (err, user) {
+            if(err){
+                return;
+            }
+            if(!user){
+                return;
+            }
+            sails.services['notification'].createResaNotification(user.id, reservation.id, function(err,notif){
+
+            });
+        });
         next();
     },
 

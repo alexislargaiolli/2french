@@ -206,13 +206,13 @@
                 <li>
                     <a ui-sref="planning" id="link-planning" title="{{'planning.title' | translate}}">
                         <i class="fa fa-pencil-square-o"></i>
-                        <span class="badge" ng-show="notifResaCount > 0">{{notifResaCount}}</span>
+                        <span class="badge" ng-show="notificationResaCount > 0">{{notificationResaCount}}</span>
                     </a>
                 </li>
                 <li>
                     <a ui-sref="messagerie" id="link-message" title="{{'messagerie.title' | translate}}">
                         <i class="fa fa-envelope-o"></i>
-                        <span class="badge" ng-show="notifMsgCount > 0">{{notifMsgCount}}</span>
+                        <span class="badge" ng-show="notificationMessageCount > 0">{{notificationMessageCount}}</span>
                     </a>
                 </li>
                 <li>
@@ -486,6 +486,7 @@
 <script src="/js/services/formation.js"></script>
 <script src="/js/services/formationlevel.js"></script>
 <script src="/js/services/messagerie.js"></script>
+<script src="/js/services/notifications.js"></script>
 <script src="/js/services/notificationsSettings.js"></script>
 <script src="/js/services/post.js"></script>
 <script src="/js/services/postcategory.js"></script>

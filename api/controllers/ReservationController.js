@@ -22,12 +22,10 @@ module.exports = {
                     });
                 }
                 else if(req.user.profile == resa.student){
-                    sails.log.info('student');
                     Profile.findOne({where : {id : resa.teacher}, select : ['firstname', 'photo', 'city']}).exec(function(err, teacher){
                         if(err) {
                             return serverError(err);
                         }
-                        sails.log.info('teacher found   ');
                         resa.teacher = teacher;
                         res.send(200, resa);
                     });
@@ -57,6 +55,9 @@ module.exports = {
                 return res.sendError("Unable to find resas");
             }
             resas.forEach(function (r) {
+                sails.services['notification'].removeResaNotification(req.user.id, r.id,function(err){
+
+                });
                 r.teacherId = r.teacher.id;
                 r.owner = r.teacher.owner;
                 r.photo = r.teacher.photo;
@@ -82,6 +83,9 @@ module.exports = {
                 return res.send(500,"Unable to find resas");
             }
             resas.forEach(function (r) {
+                sails.services['notification'].removeResaNotification(req.user.id, r.id,function(err){
+
+                });
                 r.studentId = r.student.id;
                 r.owner = r.student.owner;
                 r.photo = r.student.photo;
@@ -94,6 +98,14 @@ module.exports = {
     notifCount: function (req, res) {
         var userId = req.user.id;
         Profile.findOne({owner: userId}).exec(function (err, profile) {
+            var where = {$or: [{teacher: profile.id}, {student: profile.id}]};
+            where.date = {$gt: new Date(Date.now() + 3600000)};
+            if(req.user.role == 'student'){
+                where.status= ['validated', 'refused'];
+            }
+            else{
+                where.status= 'pending';
+            }
             Reservation.count({
                 $or: [{teacher: profile.id}, {student: profile.id}],
                 status: 'pending',
@@ -124,12 +136,26 @@ module.exports = {
                 if (['pending', 'validated', 'refused', 'canceled'].indexOf(status) == -1) {
                     return res.send(500);
                 }
+
+                //Send notif by mail
                 if(resa.status != "validated" && status == "validated"){
                     sails.services['mail'].sendReservationValidated(resa.id);
                 }
                 if(resa.status != "refused" && status == "refused"){
                     sails.services['mail'].sendReservationRefused(resa.id);
                 }
+                //Create notification
+                User.findOne({profile :resa.student}).exec(function (err, u) {
+                    if(err){
+                        return;
+                    }
+                    if(!u){
+                        return;
+                    }
+                    sails.services['notification'].createResaNotification(u.id, resa.id, function(err,notif){
+
+                    });
+                });
                 Reservation.update({id: resaId}, {status: status}).exec(function (err, r) {
                     if (err) {
                         return res.sendError("Unable to update status");
@@ -158,6 +184,26 @@ module.exports = {
                     return res.send('not found');
                 }
                 sails.services['mail'].sendReservationCanceled(resa.id);
+
+                var userToNotify;
+                if(resa.student == profile.id){
+                    userToNotify = resa.teacher;
+                }
+                else{
+                    userToNotify = resa.student;
+                }
+                //Create notification
+                User.findOne({profile :userToNotify}).exec(function (err, user) {
+                    if(err){
+                        return;
+                    }
+                    if(!user){
+                        return;
+                    }
+                    sails.services['notification'].createResaNotification(user.id, resa.id, function(err,notif){
+
+                    });
+                });
                 Reservation.update({id: resaId}, {status: 'canceled'}).exec(function (err, r) {
                     if (err) {
                         return res.sendError("Unable to update status");

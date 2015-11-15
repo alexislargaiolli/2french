@@ -56,6 +56,11 @@ tooFrenchApp.constant('MESSAGE_EVENTS', {
     update: 'msg-update'
 });
 
+tooFrenchApp.constant('NOTIFICATION_EVENTS', {
+    messageUpdate: 'messageUpdate',
+    resaUpdate: 'resaUpdate'
+});
+
 tooFrenchApp.constant('LOCALE_EVENTS', {
     localeChange: 'locale-change'
 });
@@ -406,8 +411,8 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
 );
 
 
-tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache', 'Session', 'Messagerie', '$timeout', 'Reservation', 'Tour',
-    function ($rootScope, $state, $window, AUTH_EVENTS, AuthService, editableOptions, $templateCache, Session, Messagerie, $timeout, Reservation, Tour) {
+tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache', 'Session', 'Messagerie', '$timeout', 'Reservation', 'Tour','Notification',
+    function ($rootScope, $state, $window, AUTH_EVENTS, AuthService, editableOptions, $templateCache, Session, Messagerie, $timeout, Reservation, Tour, Notification) {
         editableOptions.theme = 'bs3';
 
         $rootScope.$on('$viewContentLoaded',
@@ -480,6 +485,7 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
         }
 
         $rootScope.$on(AUTH_EVENTS.loginSuccess, function (event, args) {
+            Notification.init();
             if (!Session.user.tour) {
                 if ($rootScope.isTeacher) {
                     Tour.startTeacherTour();
@@ -488,28 +494,7 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
                     Tour.startStudentTour();
                 }
             }
-            (function updateNotification() {
-                if ($rootScope.session.authenticated) {
-                    Messagerie.getUnseenMsgCount().then(function (count) {
-                        $rootScope.notifMsgCount = count;
-                        $timeout(updateNotification, 3000);
-                    }, function () {
-                        $rootScope.notifMsgCount = 0;
-                        $timeout(updateNotification, 3000);
-                    });
-                }
-            })();
-
-            (function updateNotificationResa() {
-                if ($rootScope.session.authenticated) {
-                    Reservation.notifCount().then(function (count) {
-                        $rootScope.notifResaCount = count;
-                        $timeout(updateNotificationResa, 3000);
-                    });
-                }
-            })();
         });
-
     }
 ]);
 
