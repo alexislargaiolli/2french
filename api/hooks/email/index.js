@@ -2,8 +2,8 @@
  * Module dependencies
  */
 
-var nodemailer = require('nodemailer');
-var htmlToText = require('nodemailer-html-to-text').htmlToText;
+var nodemailer = require('sails-hook-email/node_modules/nodemailer');
+var htmlToText = require('sails-hook-email/node_modules/nodemailer-html-to-text').htmlToText;
 var ejs = require('ejs');
 var fs = require('fs');
 var path = require('path');
