@@ -19,7 +19,7 @@ ctrl.controller('ForumPostCtrl', ['$scope', 'Post', '$stateParams', 'Session', '
         $scope.post = post;
 
 
-        if (Session.isAdmin) {
+        if ($scope.isAdmin) {
             $scope.removePost = function () {
                 var dlg = dialogs.confirm($translate.instant('common.confirmation.title'), $translate.instant('post.remove.confirm.message'));
                 dlg.result.then(function (btn) {
