@@ -8,7 +8,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
         ////////////////////////////              COMMON            ////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////
         $scope.profileLocale = $translate.preferredLanguage();
-        $scope.profileLang = $translate.preferredLanguage().substring(0, 2);
         $scope.editCity = false;
         $scope.optionsCity = {
             types: ['(regions)']
@@ -78,7 +77,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
              */
             $scope.changeProfileLanguage = function (lang) {
                 $scope.profileLocale = lang;
-                $scope.profileLang = lang.substring(0, 2);
             };
 
             /**

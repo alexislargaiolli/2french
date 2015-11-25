@@ -114,7 +114,7 @@
             </div>
 
             <!-- RIGHT PANEL -->
-            <div id="profile-right" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-md-push-3 col-lg-push-3">
+            <div id="profile-right" ng-class="{'col-md-9 col-lg-9 col-md-push-3 col-lg-push-3' : isTeacher}" class="col-xs-12 col-sm-12">
 
                 <div id="profile-header" class="bordered-block">
                     <div>
@@ -153,10 +153,12 @@
                                                 class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a ng-click="changeProfileLanguage('frFR')"><img
-                                                    src="images/languages/frFR.png"/></a></li>
-                                            <li><a ng-click="changeProfileLanguage('enUS')"><img
-                                                    src="images/languages/enUS.png"/></a></li>
+                                            <li><a ng-click="changeProfileLanguage('fr')"><img
+                                                    src="images/languages/fr.png"/></a></li>
+                                            <li><a ng-click="changeProfileLanguage('en')"><img
+                                                    src="images/languages/en.png"/></a></li>
+                                            <li><a ng-click="changeProfileLanguage('es')"><img
+                                                    src="images/languages/es.png"/></a></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -186,10 +188,10 @@
                                                on-select="save()" on-remove="save()">
                                         <ui-select-match
                                                 placeholder="{{'myprofile.formations.placeholder' | translate}}">
-                                            {{$item.name[profileLang]}}
+                                            {{$item.name[profileLocale]}}
                                         </ui-select-match>
                                         <ui-select-choices repeat="formation in formations">
-                                            <div ng-bind-html="formation.name[profileLang] | highlight: $select.search"></div>
+                                            <div ng-bind-html="formation.name[profileLocale] | highlight: $select.search"></div>
                                         </ui-select-choices>
                                     </ui-select>
                                 </div>
@@ -202,12 +204,12 @@
                                                on-remove="save()">
                                         <ui-select-match
                                                 placeholder="{{'myprofile.extras.placeholder' | translate}}">
-                                            {{$item.name[profileLang]}}
+                                            {{$item.name[profileLocale]}}
                                         </ui-select-match>
                                         <ui-select-choices repeat="extra in extras">
-                                            <div ng-bind-html="extra.name[profileLang] | highlight: $select.search"></div>
+                                            <div ng-bind-html="extra.name[profileLocale] | highlight: $select.search"></div>
                                             <small>
-                                                {{extra.description[profileLang]}}
+                                                {{extra.description[profileLocale]}}
                                             </small>
                                         </ui-select-choices>
                                     </ui-select>
@@ -225,9 +227,9 @@
                                           ng-hide="textBtnForm.$visible"></span>
                                 </h4>
                             </div>
-                            <p editable-textarea="profile.motivation[profileLang]" e-form="textBtnForm" e-rows="7"
+                            <p editable-textarea="profile.motivation[profileLocale]" e-form="textBtnForm" e-rows="7"
                                e-style="width:100%" onaftersave="save()" e-ng-blur="textBtnForm.$save()">
-                                {{ profile.motivation[profileLang] || ('myprofile.motivation.empty' | translate) }}
+                                {{ profile.motivation[profileLocale] || ('myprofile.motivation.empty' | translate) }}
                             </p>
                         </div>
                     </div>
@@ -247,13 +249,13 @@
                     <div ng-repeat="formula in profile.formulas">
                         <hr/>
                         <h4 class="blue-title f-14">
-                            {{formula.name[profileLang]}}
+                            {{formula.name[profileLocale]}}
                             <span class="fa fa-pencil edit-icon" ng-click="editFormula(formula)" data-toggle="modal"
                                   data-target="#dlgAddFormula"></span>
                             <span class="fa fa-trash-o edit-icon red" ng-click="deleteFormula(formula)"></span>
                         </h4>
 
-                        <p class="grey-text">{{formula.description[profileLang]}}<span ng-if="formula.price">, {{formula.price}}€</span>
+                        <p class="grey-text">{{formula.description[profileLocale]}}<span ng-if="formula.price">, {{formula.price}}€</span>
                         </p>
                     </div>
                     <hr/>
@@ -281,14 +283,14 @@
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="formulaName">Nom</label>
-                                            <input type="text" ng-model="formulaToAdd.name[profileLang]"
+                                            <input type="text" ng-model="formulaToAdd.name[profileLocale]"
                                                    class="form-control" id="formulaName"
                                                    placeholder="Nom de la formule"
                                                    ng-required="true">
                                         </div>
                                         <div class="form-group">
                                             <label for="formulaDesc">Description</label>
-                                            <textarea id="formulaDesc" ng-model="formulaToAdd.description[profileLang]"
+                                            <textarea id="formulaDesc" ng-model="formulaToAdd.description[profileLocale]"
                                                       placeholder="Description de la formule" class="form-control"
                                                       rows="3" ng-required="true"></textarea>
                                         </div>
@@ -394,10 +396,10 @@
                                            on-remove="save()">
                                     <ui-select-match
                                             placeholder="{{'myprofile.accomodation.equipements.select' | translate}}">
-                                        {{$item.name[profileLang]}}
+                                        {{$item.name[profileLocale]}}
                                     </ui-select-match>
                                     <ui-select-choices repeat="equipment in equipments">
-                                        <div ng-bind-html="equipment.name[profileLang] | highlight: $select.search"></div>
+                                        <div ng-bind-html="equipment.name[profileLocale] | highlight: $select.search"></div>
                                     </ui-select-choices>
                                 </ui-select>
 
@@ -450,10 +452,10 @@
                                 </h4>
 
                                 <p id="accomodationDesc" e-name="accomodationDescBtn"
-                                   editable-textarea="profile.accomodationDescription[profileLang]" e-rows="7"
+                                   editable-textarea="profile.accomodationDescription[profileLocale]" e-rows="7"
                                    e-style="width:100%;resize: none;" blur="submit" class="bg-animate"
                                    onaftersave="save()">
-                                    {{ profile.accomodationDescription[profileLang] ||
+                                    {{ profile.accomodationDescription[profileLocale] ||
                                     ('myprofile.accomodation.description.empty' | translate) }}
                                 </p>
                             </div>
@@ -467,7 +469,8 @@
             </div>
 
             <!-- LEFT PANEL -->
-            <div id="profile-left" class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-md-pull-9 col-lg-pull-9" ng-if="isTeacher">
+            <div id="profile-left" ng-class="{'col-md-3 col-lg-3 col-md-pull-9 col-lg-pull-9' : isTeacher}" class="col-xs-12 col-sm-12"
+                 ng-if="isTeacher">
 
 
                 <!-- CALENDAR PANEL -->
@@ -509,7 +512,8 @@
                         <div ng-repeat="review in reviews" class="p-10">
                             <div>
                                 <p class="inline middle justify">
-                                    <a ui-sref="profile({profileId:review.student.interlocutorProfileId})" class="fleft mr-10 mb-5">
+                                    <a ui-sref="profile({profileId:review.student.interlocutorProfileId})"
+                                       class="fleft mr-10 mb-5">
                                         <img class="user-photo-profile" ng-src="{{review.student.photo}}"
                                              ng-show="review.student.photo"/>
                                         <i class="fa fa-user user-photo-profile" ng-show="!review.student.photo"></i>

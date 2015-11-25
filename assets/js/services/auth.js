@@ -84,6 +84,7 @@ tooFrenchServices.factory('AuthService', ['$http', '$rootScope', '$q', 'Session'
                 city: city
             }).success(function (data, status, headers, config) {
                 if (data.status == 2) {
+                    $rootScope.session.create(data);
                     $rootScope.$broadcast(AUTH_EVENTS.loginSuccess, {data: data});
                     deferred.resolve(data.user);
                 }

@@ -1134,12 +1134,6 @@ body {
   }
 }
 
-button.favorit {
-  background-color: #fff;
-  border-color: @light-blue;
-  color: @light-blue;
-}
-
 hr {
   border-top: 1px solid @very-light-gray;
 }
@@ -1930,10 +1924,12 @@ hr {
   -webkit-box-shadow: none;
 }
 
-.blue-btn, .btn-primary {
+.blue-btn, .btn-primary{
   color: #fff;
   border-color: @light-blue;
   background-color: @light-blue;
+  box-shadow: none!important;
+  outline: none!important;
 }
 
 .blue-btn:hover, .btn-primary:hover {
@@ -1947,6 +1943,12 @@ hr {
   border-color: @light-blue;
   background-color: #fff;
   .no-box-shadow;
+}
+
+button.favorit {
+  background-color: #fff!important;
+  border-color: @light-blue!important;
+  color: @light-blue!important;
 }
 
 .orange-btn {

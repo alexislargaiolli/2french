@@ -10,8 +10,6 @@ tooFrenchControllers.controller('ParametersPasswordCtrl', ['$scope', 'Session', 
         $scope.success = -1;
 
         $scope.changePassword = function () {
-            console.log($scope.cred.password);
-            console.log($scope.cred.confirmPassword);
             if ($scope.cred.password !== $scope.cred.confirmPassword) {
                 $scope.message = $translate.instant('parameters.password.dont.match');
             }

@@ -26,10 +26,10 @@
 
                                 <!-- Resa / contact buttons panel -->
                                 <div id="btns-wrapper" ng-if="session.authenticated">
-                                    <button ng-controller="FavListCtrl" type="button"
+                                    <button type="button"
                                             class="fav-btn btn btn-default blue-btn fa fa-star"
-                                            ng-click="addFavorit(profile.id)"
-                                            ng-class="{favorit : favlist.indexOf(profile.id) != -1}" ng-if="isStudent">
+                                            ng-click="userfavlist.addFavorit(profile.id)"
+                                            ng-class="{favorit : userfavlist.isInFav(profile.id)}" ng-if="isStudent">
                                         <span class="hidden-xs .hidden-sm lm-5">{{'profile.favorit.button' | translate}}</span>
                                     </button>
                                     <button type="button" class="btn btn-default green2-btn fa fa-envelope"

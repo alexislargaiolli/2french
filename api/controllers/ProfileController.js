@@ -44,7 +44,6 @@ module.exports = {
         var periods = req.query['periods'];
 
         if (days && days.length > 0) {
-            sails.log.info('search with days ');
             days = JSON.parse(days);
             periods = JSON.parse(periods);
         }

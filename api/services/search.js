@@ -77,7 +77,6 @@ function searchByCountry(count, skip, pageSize, country, days, periods, callback
 }
 
 function fullSearch(count, skip, pageSize, city, lvl2, lvl1, country, days, periods, callback) {
-    sails.log.info('search by city ' + city);
     searchByCity(count, skip, pageSize, city, days, periods, function (err, profiles) {
         if (err) {
             return callback(err, profiles);
@@ -89,7 +88,6 @@ function fullSearch(count, skip, pageSize, city, lvl2, lvl1, country, days, peri
             return callback(err, profiles);
         }
         else {
-            sails.log.info('search by lvl2 ' + lvl2);
             searchByLvl2(count, skip, pageSize, lvl2, days, periods, function (err, profiles) {
                 if (err) {
                     return callback(err, profiles);
@@ -101,7 +99,6 @@ function fullSearch(count, skip, pageSize, city, lvl2, lvl1, country, days, peri
                     return callback(err, profiles);
                 }
                 else {
-                    sails.log.info('search by lvl1 ' + lvl1);
                     searchByLvl1(count, skip, pageSize, lvl1, days, periods, function (err, profiles) {
                         if (err) {
                             return callback(err, profiles);
@@ -113,7 +110,6 @@ function fullSearch(count, skip, pageSize, city, lvl2, lvl1, country, days, peri
                             return callback(err, profiles);
                         }
                         else {
-                            sails.log.info('search by country ' + country);
                             searchByCountry(count, skip, pageSize, country, days, periods, function (err, profiles) {
                                 return callback(err, profiles);
                             });

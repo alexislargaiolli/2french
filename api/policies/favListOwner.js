@@ -11,10 +11,19 @@ module.exports = function(req, res, next) {
 
     // User is allowed, proceed to the next policy,
     // or if this is the last policy, the controller
-    if (req.user.id == req.body.owner.id || req.user.role == 'admin') {
+    if (req.user.role == 'admin') {
         return next();
     }
-    // User is not allowed
-    // (default res.forbidden() behavior can be overridden in `config/403.js`)
-    return res.send(403);//res.forbidden('You are not permitted to perform this action.');
+    var id = req.allParams().id;
+    UserFavList.findOne({id : id, owner : req.user.id}).exec(function(err, favList){
+        if(err){
+            return res.send('500');
+        }
+        if(favList){
+            return next();
+        }
+        else{
+            return res.send(403);
+        }
+    });
 };

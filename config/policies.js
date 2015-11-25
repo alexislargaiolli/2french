@@ -35,6 +35,7 @@ module.exports.policies = {
     userChangeLocale : ['passport', 'sessionAuth' ],
     notificationSettings: ['passport', 'sessionAuth' ],
     updateNotificationSettings : ['passport', 'sessionAuth' ],
+    changePassword : ['passport', 'sessionAuth'],
     forgot: [],
     checkResetToken: [],
     resetPassword: []
@@ -43,8 +44,12 @@ module.exports.policies = {
   UserFavListController : {
     '*' : ['passport', 'sessionAuth', 'favListOwner'],
     find : ['passport', 'sessionAuth', 'admin'],
-    findOne : ['passport', 'sessionAuth'],
-    create : ['passport', 'sessionAuth'] //Check directly in method
+    findOne : ['passport', 'sessionAuth', 'favListOwner'],
+    update : ['passport', 'sessionAuth', 'favListOwner'],
+    create : ['passport', 'sessionAuth'],
+    userList : ['passport', 'sessionAuth'],
+    addToList: ['passport', 'sessionAuth'],
+    removeFromList : ['passport', 'sessionAuth']
   },
 
   ProfileController : {

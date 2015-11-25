@@ -8,14 +8,14 @@ var util = require('util'),
     actionUtil = require('sails/lib/hooks/blueprints/actionUtil'),
     _ = require('sails/node_modules/lodash');
 module.exports = {
-    findOne : function(req, res){
+    findOne: function (req, res) {
         var pk = actionUtil.requirePk(req);
         var query = UserFavList.findOne(pk);
         query = actionUtil.populateEach(query, req);
         query.exec(function found(err, matchingRecord) {
             if (err) return res.serverError(err);
-            if(!matchingRecord) return res.notFound('No record found with the specified `id`.');
-            if(matchingRecord.owner.id != req.user.id){
+            if (!matchingRecord) return res.notFound('No record found with the specified `id`.');
+            if (matchingRecord.owner.id != req.user.id) {
                 res.forbidden();
             }
             if (sails.hooks.pubsub && req.isSocket) {
@@ -23,7 +23,7 @@ module.exports = {
                 actionUtil.subscribeDeep(req, matchingRecord);
             }
 
-            matchingRecord.favorits.forEach(function(favorit){
+            matchingRecord.favorits.forEach(function (favorit) {
                 delete favorit.city;
                 delete favorit.createdAt;
                 delete favorit.updatedAt;
@@ -44,7 +44,7 @@ module.exports = {
         });
     },
 
-    create : function(req, res){
+    create: function (req, res) {
         var Model = actionUtil.parseModel(req);
 
         // Create data object (monolithic combination of all parameters)
@@ -53,7 +53,7 @@ module.exports = {
 
 
         // Create new instance of model using data from params
-        Model.create(data).exec(function created (err, newInstance) {
+        Model.create(data).exec(function created(err, newInstance) {
 
             // Differentiate between waterline-originated validation errors
             // and serious underlying issues. Respond with badRequest if a
@@ -75,6 +75,72 @@ module.exports = {
             res.status(201);
             res.ok(newInstance.toJSON());
         });
+    },
+
+    userList: function (req, res) {
+        UserFavList.findOne({owner: req.user.id}).populate('favorits').exec(function (err, favList) {
+            if (err) return res.serverError(err);
+            if (favList) {
+                favList.favorits.forEach(function (favorit) {
+                    delete favorit.city;
+                    delete favorit.createdAt;
+                    delete favorit.updatedAt;
+                    delete favorit.motivation;
+                    delete favorit.accomodation;
+                    delete favorit.accomodationCoords;
+                    delete favorit.accomodationDescription;
+                    delete favorit.activeAccomodation;
+                    delete favorit.formulas;
+                    delete favorit.location;
+                    delete favorit.photos;
+                    delete favorit.schedules;
+                    delete favorit.hourRate;
+                    delete favorit.averageMark;
+                    delete favorit.validate;
+                });
+                return res.send(200, favList.favorits);
+            }
+            else {
+                return res.send(200, []);
+            }
+        });
+    },
+
+    addToList: function (req, res) {
+        var profileId = req.allParams().profileId;
+        if (profileId) {
+            UserFavList.findOne({owner: req.user.id}).exec(function (err, favList) {
+                if (err) return res.serverError(err);
+                favList.favorits.add(profileId);
+                favList.save(function (err, list) {
+                    if (err) return res.serverError(err);
+                    return res.send(200, list.favorits);
+                });
+            });
+        }
+        else{
+            return res.serverError('Missing params');
+        }
+    },
+
+    removeFromList: function (req, res) {
+        var profileId = req.allParams().profileId;
+        if (profileId) {
+            UserFavList.findOne({owner: req.user.id}).exec(function (err, favList) {
+                if (err) return res.serverError(err);
+                favList.favorits.remove(profileId);
+                favList.save(function (err, list) {
+                    if (err) return res.serverError(err);
+                    return res.send(200, list.favorits);
+                });
+
+            });
+        }
+        else{
+            return res.serverError('Missing params');
+        }
     }
+
+
 };
 

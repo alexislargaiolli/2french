@@ -30,7 +30,8 @@ var User = {
          * True if user has already done the bootstrap tour
          */
         tour: {
-            type: 'boolean'
+            type: 'boolean',
+            defaultsTo: false
         },
         defaultLocale: {
             type: 'string',

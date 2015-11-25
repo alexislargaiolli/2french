@@ -6,8 +6,8 @@ tooFrenchApp.service('Tour', function ($translate, $state, $http, Session) {
         this.startTeacherTour = function () {
             var tour;
             tour = new Tour({
-                name: "tourteacher2",
-                debug: true,
+                name: "tourteacher",
+                debug: false,
                 storage: false,
                 onEnd: function (tour) {
                     if (tour.notOver == 1) {
@@ -79,7 +79,7 @@ tooFrenchApp.service('Tour', function ($translate, $state, $http, Session) {
             var tourStudent;
             tourStudent = new Tour({
                 name: "tourstudent",
-                debug: true,
+                debug: false,
                 storage: false,
                 onEnd: function (tour) {
                     Session.user.tour = true;
@@ -174,7 +174,7 @@ tooFrenchApp.service('Tour', function ($translate, $state, $http, Session) {
         this.startProfileTour = function(){
             var tourProfile = new Tour({
                 name: "myprofile",
-                debug: true,
+                debug: false,
                 storage: false,
                 onEnd: function (tourr) {
                     Session.user.tour = true;

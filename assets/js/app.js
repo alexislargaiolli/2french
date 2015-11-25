@@ -447,7 +447,6 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
         }
 
         $rootScope.$on('$routeChangeStart', function(event, next, current) {
-            console.log('change');
             if (typeof(current) !== 'undefined'){
                 $templateCache.remove(current.templateUrl);
             }
@@ -496,8 +495,8 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
 
         $rootScope.$on(AUTH_EVENTS.loginSuccess, function (event, args) {
             Notification.init();
-            $rootScope.userfavlist.getFavList();
-            if (!Session.user.tour) {
+            $rootScope.userfavlist.initialize();
+            if (!$rootScope.session.user.tour) {
                 if ($rootScope.isTeacher) {
                     Tour.startTeacherTour();
                 }
@@ -508,65 +507,3 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
         });
     }
 ]);
-
-/*var tooFrenchControllers = angular.module('tooFrenchCtrl', ['ngRoute', 'ui.router', 'xeditable', 'uiGmapgoogle-maps', 'pascalprecht.translate', 'tooFrenchService', 'angularFileUpload', 'ui.select', 'ui.bootstrap', 'dialogs.main', 'google.places', 'ngImgCrop', 'multipleDatePicker', 'vcRecaptcha', 'angular-carousel']);*/
-
-/*angular.module('tooFrenchService', ['ngRoute', 'ngResource']);*/
-
-
-/*tooFrenchControllers.controller('ApplicationController', ['$rootScope', '$scope', '$window', '$state', '$timeout', 'AUTH_EVENTS', 'MESSAGE_EVENTS', 'AuthService', 'Session', 'Profile', 'Messagerie', 'Reservation', 'UserFavList', '$translate', '$http',
-
-    function ($rootScope, $scope, $window, $state, $timeout, AUTH_EVENTS, MESSAGE_EVENTS, AuthService, Session, Profile, Messagerie, Reservation, UserFavList, $translate, $http) {
-        $rootScope.userfavlist = UserFavList;
-
-        $scope.$on(AUTH_EVENTS.loginSuccess, function (event, args) {
-            Session.create(args.data);
-
-            if (!Session.user.tour) {
-                if ($rootScope.isTeacher) {
-                    tour.init();
-                    tour.start();
-                }
-                else {
-                    tourStudent.init();
-                    tourStudent.start();
-                }
-            }
-            (function updateNotification() {
-                if ($rootScope.session.authenticated) {
-                    Messagerie.getUnseenMsgCount().then(function (count) {
-                        $rootScope.notifMsgCount = count;
-                        $timeout(updateNotification, 3000);
-                    }, function () {
-                        $rootScope.notifMsgCount = 0;
-                        $timeout(updateNotification, 3000);
-                    });
-                }
-            })();
-
-            (function updateNotificationResa() {
-                if ($rootScope.session.authenticated) {
-                    Reservation.notifCount().then(function (count) {
-                        $rootScope.notifResaCount = count;
-                        $timeout(updateNotificationResa, 3000);
-                    });
-                }
-            })();
-
-            $rootScope.userfavlist.getFavList();
-            $rootScope.$broadcast(AUTH_EVENTS.sessionCreated);
-        });
-
-        $scope.$on(AUTH_EVENTS.notAuthenticated, function () {
-            console.log('not authenticated');
-        });
-        $scope.$on(AUTH_EVENTS.notAuthorized, function () {
-            console.log('not authorized');
-        });
-
-
-
-
-
-    }
-]);*/
