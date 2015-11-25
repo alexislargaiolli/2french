@@ -30,7 +30,8 @@ var tooFrenchApp = angular.module('tooFrenchApp', [
     'vAccordion',
     'anim-in-out',
     'bootstrapLightbox',
-    'angular-carousel'
+    'angular-carousel',
+    'ngImgCrop'
 ]);
 
 

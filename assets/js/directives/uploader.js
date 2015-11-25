@@ -48,6 +48,7 @@ tooFrench.directive('alexUploader', function() {
 						if($scope.maxSize && $scope.resultSize > $scope.maxSize){
 							$scope.resultSize = $scope.maxSize;
 						}
+						$scope.resultSize = $scope.maxSize;
 					}
 					$scope.$apply(function($scope) {
 						$scope.myImage = evt.target.result;
