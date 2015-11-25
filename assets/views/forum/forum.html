@@ -18,7 +18,7 @@
 
                         <v-pane ng-repeat="category in teacherCategories">
                             <v-pane-header class="category-item" ng-click="onOpenCategory(category)">
-                                <i class="fa fa-folder-open"></i> {{category.name[currentLg]}}
+                                <i class="fa fa-folder-open"></i> {{category.name[currentLocale]}}
                             </v-pane-header>
 
                             <v-pane-content>
@@ -56,7 +56,7 @@
 
                         <v-pane ng-repeat="category in generalCategories">
                             <v-pane-header class="category-item" ng-click="onOpenGeneralCategory(category)">
-                                <i class="fa fa-folder-open"></i> {{category.name[currentLg]}}
+                                <i class="fa fa-folder-open"></i> {{category.name[currentLocale]}}
                             </v-pane-header>
 
                             <v-pane-content>
@@ -94,7 +94,7 @@
                     <a ui-sref="forum.post({postId : post.id})" class="list-group-item" ng-repeat="post in recentPosts">
                         <h4 class="list-group-item-heading">{{post.title}}</h4>
 
-                        <p class="list-group-item-text">{{post.category.name[currentLg]}}</p>
+                        <p class="list-group-item-text">{{post.category.name[currentLocale]}}</p>
                     </a>
                 </div>
                 <div class="panel-body p-0" ng-if="recentPosts.length == 0">
@@ -111,7 +111,7 @@
                     <a ui-sref="forum.post({postId : post.id})" class="list-group-item" ng-repeat="post in popularPosts">
                         <h4 class="list-group-item-heading">{{post.title}}</h4>
 
-                        <p class="list-group-item-text">{{post.category.name[currentLg]}}</p>
+                        <p class="list-group-item-text">{{post.category.name[currentLocale]}}</p>
                     </a>
                 </div>
                 <div class="panel-body p-0" ng-if="popularPosts.length == 0">
@@ -128,7 +128,7 @@
                     <a ui-sref="forum.post({postId : post.id})" class="list-group-item" ng-repeat="post in popularFilePosts">
                         <h4 class="list-group-item-heading">{{post.title}}</h4>
 
-                        <p class="list-group-item-text">{{post.category.name[currentLg]}}</p>
+                        <p class="list-group-item-text">{{post.category.name[currentLocale]}}</p>
                     </a>
                 </div>
                 <div class="panel-body p-0" ng-if="popularFilePosts.length == 0">

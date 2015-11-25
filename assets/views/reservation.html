@@ -46,9 +46,9 @@
                         <div ng-if="reservation.formula != null" id="formula-wrapper">
                             <label>{{'reservation.form.formula' | translate}}</label>
                             <div>
-                                <h4 class="blue-title f-14">{{reservation.formula.name[currentLg]}}</h4>
+                                <h4 class="blue-title f-14">{{reservation.formula.name[currentLocale]}}</h4>
 
-                                <p class="grey-text">{{reservation.formula.description[currentLg]}},
+                                <p class="grey-text">{{reservation.formula.description[currentLocale]}},
                                     {{reservation.formula.price}}€</p>
                             </div>
                         </div>
@@ -59,10 +59,10 @@
                                    theme="bootstrap"
                                    style="width: 100%;" ng-if="reservation.formula == null">
                             <ui-select-match placeholder="{{'reservation.form.formation' | translate}}">
-                                {{$select.selected.name[currentLg]}}
+                                {{$select.selected.name[currentLocale]}}
                             </ui-select-match>
                             <ui-select-choices repeat="formation in profile.formations track by $index">
-                                <div ng-bind-html="formation.name[currentLg]"></div>
+                                <div ng-bind-html="formation.name[currentLocale]"></div>
                             </ui-select-choices>
                         </ui-select>
 

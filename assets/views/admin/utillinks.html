@@ -3,7 +3,7 @@
 <i class="fa fa-plus"></i>
 </button>
 <ul class="list-group">
-	<li ng-repeat="e in utillinks" class="list-group-item">{{e.title[currentLg]}}
+	<li ng-repeat="e in utillinks" class="list-group-item">{{e.title[currentLocale]}}
 		<button type="button" ng-click="selectUtilLink(e)" data-toggle="modal" data-target="#dlgAddUtilLink" class="btn btn-default">Edit</button>
 		<button type="button" ng-click="deleteUtilLink(e)" class="btn btn-default">Remove</button>
 	</li>
@@ -19,7 +19,7 @@
 				<div class="modal-body">
 					<div class="form-group">
 						<label for="utillinkName">Nom</label>
-						<input type="text" ng-model="utillink.title[currentLg]" class="form-control" id="utillinkName" placeholder="Nom du lien util" ng-required="true">
+						<input type="text" ng-model="utillink.title[currentLocale]" class="form-control" id="utillinkName" placeholder="Nom du lien util" ng-required="true">
 
 						<div class="form-group">
 							<label for="utillinkLink">Lien</label>

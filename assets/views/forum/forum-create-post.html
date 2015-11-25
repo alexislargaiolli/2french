@@ -10,10 +10,10 @@
         <form ng-submit="createPost()" id="createPost">
             <ui-select ng-model="post.category" class="vm-10" ng-required="true" theme="bootstrap">
                 <ui-select-match placeholder="{{'forum.post.create.category.placeholder' | translate}}">
-                    {{$select.selected.name[currentLg]}}
+                    {{$select.selected.name[currentLocale]}}
                 </ui-select-match>
                 <ui-select-choices repeat="c in categories">
-                    <div ng-bind-html="c.name[currentLg] | highlight: $select.search"></div>
+                    <div ng-bind-html="c.name[currentLocale] | highlight: $select.search"></div>
                 </ui-select-choices>
             </ui-select>
 

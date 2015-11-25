@@ -17,7 +17,7 @@
                         <i class="fa fa-circle-o-notch fa-spin"></i>
                     </div>
                     <a href="http://{{r.link}}" target="_blank" class="list-group-item" ng-repeat="r in utillinks" ng-if="!utillinkLoading">
-                        <h4 class="list-group-item-heading">{{r.title[currentLg]}}</h4>
+                        <h4 class="list-group-item-heading">{{r.title[currentLocale]}}</h4>
                         <p class="list-group-item-text">{{r.link}}</p>
                     </a>
                 </ul>
@@ -33,9 +33,9 @@
             </div>
             <div ng-repeat="r in recommandations" class="recommandationPanel bordered-block" ng-if="!recommandationLoading">
                 <div class="p-10">
-                    <h2 class="m-0">{{r.title[currentLg]}}</h2>
+                    <h2 class="m-0">{{r.title[currentLocale]}}</h2>
                     <a href="{{r.link}}">{{r.link}}</a>
-                    <p>{{r.description[currentLg]}}</p>
+                    <p>{{r.description[currentLocale]}}</p>
                 </div>
             </div>
             <div class="paginator-wrapper center" ng-class="{'hidden': (recommandationLoading || recCount < recPageSize)}">

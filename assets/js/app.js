@@ -31,7 +31,8 @@ var tooFrenchApp = angular.module('tooFrenchApp', [
     'anim-in-out',
     'bootstrapLightbox',
     'angular-carousel',
-    'ngImgCrop'
+    'ngImgCrop',
+    'tmh.dynamicLocale'
 ]);
 
 
@@ -62,10 +63,6 @@ tooFrenchApp.constant('NOTIFICATION_EVENTS', {
     resaUpdate: 'resaUpdate'
 });
 
-tooFrenchApp.constant('LOCALE_EVENTS', {
-    localeChange: 'locale-change'
-});
-
 tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider, $translateProvider, USER_ROLES, uiGmapGoogleMapApiProvider, uiSelectConfig) {
 
 
@@ -88,7 +85,6 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
                     $state.go('login');
                 }
             });
-            console.log('check  log');
             return deferred.promise;
         };
 
@@ -395,8 +391,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             prefix: '/languages/',
             suffix: '.json'
         });
-        $translateProvider.preferredLanguage('frFR');
-
+        $translateProvider.preferredLanguage('fr');
 
         //================================================
         // Google api support
@@ -412,8 +407,8 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
 );
 
 
-tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache', 'Session', 'Messagerie', '$timeout', 'Reservation', 'Tour','Notification','UserFavList',
-    function ($rootScope, $state, $window, AUTH_EVENTS, AuthService, editableOptions, $templateCache, Session, Messagerie, $timeout, Reservation, Tour, Notification,UserFavList) {
+tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache', 'Session', 'Messagerie', '$timeout', 'Reservation', 'Tour','Notification','UserFavList', 'tmhDynamicLocale',
+    function ($rootScope, $state, $window, AUTH_EVENTS, AuthService, editableOptions, $templateCache, Session, Messagerie, $timeout, Reservation, Tour, Notification,UserFavList, tmhDynamicLocale) {
         editableOptions.theme = 'bs3';
 
         $templateCache.remove('views/*');

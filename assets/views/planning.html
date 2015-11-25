@@ -63,16 +63,16 @@
                 <label>{{'planning.reservations.formula' | translate}}</label>
 
                 <div class="formulaWrapper">
-                    <h4 class="blue-title f-14">{{resa.formula.name[currentLg]}}</h4>
+                    <h4 class="blue-title f-14">{{resa.formula.name[currentLocale]}}</h4>
 
-                    <p class="grey-text">{{resa.formula.description[currentLg]}},
+                    <p class="grey-text">{{resa.formula.description[currentLocale]}},
                         {{resa.formula.price}}€</p>
                 </div>
             </div>
             <div ng-if="resa.formula == null">
                 <div>
                     <label>{{'planning.reservations.formation' | translate}} : </label>
-                    {{resa.formation.name[currentLg]}}
+                    {{resa.formation.name[currentLocale]}}
                 </div>
                 <div>
                     <label>{{'planning.reservations.duration' | translate}} : </label>
@@ -174,16 +174,16 @@
                 <label>{{'planning.reservations.formula' | translate}}</label>
 
                 <div class="formulaWrapper">
-                    <h4 class="blue-title f-14">{{resa.formula.name[currentLg]}}</h4>
+                    <h4 class="blue-title f-14">{{resa.formula.name[currentLocale]}}</h4>
 
-                    <p class="grey-text">{{resa.formula.description[currentLg]}},
+                    <p class="grey-text">{{resa.formula.description[currentLocale]}},
                         {{resa.formula.price}}€</p>
                 </div>
             </div>
             <div ng-if="resa.formula == null">
                 <div>
                     <label>{{'planning.reservations.formation' | translate}} : </label>
-                    {{resa.formation.name[currentLg]}}
+                    {{resa.formation.name[currentLocale]}}
                 </div>
                 <div>
                     <label>{{'planning.reservations.duration' | translate}} : </label>
