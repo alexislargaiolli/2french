@@ -35,9 +35,9 @@ module.exports.routes = {
   'get /': {
     view: 'index'
   },
-  'get /testmail': {
-    view: 'emailTemplates/test'
-  },
+  'get /views/:view1': 'PartialsController.partialsLevel1',
+  'get /views/:view1/:view2': 'PartialsController.partialsLevel2',
+  'get /views/:view1/:view2/:views3': 'PartialsController.partialsLevel3',
 
   /////////////////////////////////////////////
   ///////////    AuthController    ////////////

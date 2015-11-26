@@ -10,7 +10,7 @@ var tooFrench = angular.module('tooFrenchApp');
 tooFrench.directive('contactTeacher', function() {
 	return {
 		restrict: 'E',
-		templateUrl: 'js/directives/contact-teacher.html',
+		templateUrl: 'views/directives/contact-teacher.html',
 		scope: {
 			text: '@',
 			icon: '@',

@@ -1,0 +1,164 @@
+<div class="container">
+
+    <div id="search-results" class="row">
+
+        <!-- Right panel -->
+        <div class="col-md-9 col-lg-9 hp-10 col-md-push-3 col-lg-push-3">
+
+
+            <!-- Results list -->
+            <div class="row result-item" ng-repeat="p in results" ng-class='{first:$first}' ng-if="!loading">
+
+                <div class="col-xs-8 col-sm-6 col-md-8 col-lg-8">
+                    <div class="left-photo-border"></div>
+                    <a ui-sref="profile({profileId: p.id})">
+                        <img class="photo" ng-src="{{p.photo}}" ng-show="p.photo"/>
+                    </a>
+
+                    <div class="photo-wrapper" ng-show="!p.photo">
+                        <i class="fa fa-user"></i>
+                    </div>
+
+                    <div class="info-wrapper">
+                        <a ui-sref="profile({profileId: p.id})" class="firstname middle mr-10">{{p.firstname}}</a>
+                        <rating ng-model="p.averageMark" readonly="true" class="teacher-profile-rating" ng-if="p.averageMark"></rating>
+                        <h4 class="f-12">{{'search.result.formations' | translate}}</h4>
+                        <ul class="formations">
+                            <li class="f-12" ng-repeat="formation in p.formations"> - {{formation.name[currentLocale]}}
+                            </li>
+                        </ul>
+                        <ul class="extras">
+                            <li ng-repeat="extra in p.extras" class="{{extra.icon}}"> {{extra.name[currentLocale]}}</li>
+                            <li class="fa fa-bed fa-pr5" ng-if="p.activeAccomodation">{{'search.result.accomodation' | translate}}</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-xs-4 col-sm-6 col-md-4 col-lg-4 right">
+
+                    <span class="dropdown" dropdown dropdown-append-to-body auto-close="outsideClick">
+                      <a href class="calendar-btn btn btn-default blue-btn fa fa-calendar dropdown-toggle"
+                         dropdown-toggle ng-click="initSchedule(p.id)">
+                      </a>
+                      <div class="dropdown-menu dropdown-calendar" ng-click="$event.stopPropagation()">
+                          <div class="dropdown-calendar-loader" ng-if="scheduleLoading">
+                              <i class="fa fa-circle-o-notch fa-spin"></i>
+                          </div>
+                          <div ng-if="!scheduleLoading">
+                              <multiple-date-picker class="without-select" day-click="dayClick"
+                                                    highlight-days="schedules[scheduleIndex].undispos"
+                                                    month-changed="onMonthChanged" disallow-back-past-months="true"/>
+                          </div>
+                          <div id="schedule-legend">
+                              <div class="left p-10">
+                                  <img src="../images/am.png" class="legend-images"><span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
+                              </div>
+                              <div class="left p-10">
+                                  <img src="../images/pm.png" class="legend-images pm"><span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
+                              </div>
+                              <div class="left p-10">
+                                  <div class="legend-images day"></div>
+                                  <span class="legend-text">{{'myprofile.calendar.legend.day' | translate}}</span>
+                              </div>
+                          </div>
+                      </div>
+                    </span>
+
+
+                    <button ng-if="session.authenticated" type="button"
+                            class="fav-btn btn blue-btn fa fa-star"
+                            ng-click="userfavlist.addFavorit(p.id)" ng-class="{favorit : userfavlist.isInFav(p.id)}">
+                        <span class="hidden-xs .hidden-sm lm-5">Favoris</span></button>
+                    <button ng-if="session.authenticated" type="button"
+                            class="contact-btn btn btn-default green2-btn fa fa-envelope" ng-click="setUserToContact(p)"
+                            data-toggle="modal"
+                            data-target="#contactDlg">
+                        <span class="hidden-xs .hidden-sm lm-5">Contacter</span>
+                    </button>
+                    <div class="hour-rate" ng-if="p.hourRate">{{p.hourRate}}€ {{'search.result.price' | translate}}
+                    </div>
+                </div>
+
+            </div>
+            <div class="data-loader" ng-if="loading">
+                <i class="fa fa-circle-o-notch fa-spin"></i>
+            </div>
+            <div class="paginator-wrapper center" ng-class="{'hidden': (loading || recCount < recPageSize)}">
+                <pagination total-items="recCount" items-per-page="recPageSize" ng-model="recPageIndex"
+                            ng-change="recPageChanged()"></pagination>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-lg-3 hp-10 col-md-pull-9 col-lg-pull-9">
+
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading"><span
+                        class="block-title1 bold">{{'search.result.utillink' | translate}}</span></div>
+                <!-- List group -->
+                <ul class="list-group">
+                    <a href="http://{{r.link}}" target="_blank" class="list-group-item" ng-repeat="r in utillinks">
+                        <h4 class="list-group-item-heading">{{r.title[currentLocale]}}</h4>
+
+                        <p class="list-group-item-text util-link">{{r.link}}</p>
+                    </a>
+                </ul>
+
+                <div class="panel-footer center">
+                    <br/>
+                </div>
+            </div>
+
+
+            <div class="panel panel-default">
+                <!-- Default panel contents -->
+                <div class="panel-heading"><span class="block-title1 bold">{{'search.result.recommandation' | translate}}</span>
+                </div>
+                <!-- List group -->
+                <ul id="list-recommandation" class="list-group">
+                    <li class="list-group-item" ng-repeat="r in recommandations">
+                        <h4 class="list-group-item-heading" data-toggle="collapse" href="#collapseExample"
+                            aria-expanded="false" aria-controls="collapseExample">{{r.title[currentLocale]}} <i
+                                class="fa fa-angle-down"></i></h4>
+
+                        <div class="collapse toggle-panel" id="collapseExample">
+                            <div class="well">
+                                {{r.description[currentLocale]}}
+                            </div>
+                        </div>
+                        <p class="list-group-item-text recommandation-link"><a href="http://{{r.link}}" target="_blank">{{r.link}}</a>
+                        </p>
+                    </li>
+                </ul>
+
+                <div class="panel-footer center">
+                    <a ui-sref="recommandations({city : '{{city}}', lvl1 : '{{lvl1}}', lvl2 : '{{lvl2}}', country : '{{country}}'})" class="see-more-link">{{'search.result.seemore' |
+                        translate}}</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="contactDlg" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">{{'contact.dlg.title' | translate}} {{userToContact.firstname}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form" ng-controller="ContactCtrl" ng-submit="sendMessage(userToContact.owner)">
+                            <textarea class="form-control" rows="3" ng-model="message.content"
+                                      ng-required="true"></textarea>
+
+                            <div class="center p-10">
+                                <button type="submit" class="btn btn-default">
+                                    <span class="fa fa-send"></span>{{'contact.dlg.send' | translate}}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

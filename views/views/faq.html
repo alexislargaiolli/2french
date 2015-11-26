@@ -1,0 +1,43 @@
+<div id="blackBar" class="small">
+    <div class="container">
+        <h1>{{'faq.title' | translate}}</h1>
+    </div>
+</div>
+<div class="container">
+    <div id="learn-teach-wrapper" class="vm-30 center" ng-controller="FaqCtrl">
+        <div class="row">
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <label class="blue-btn center-block p-10 border-radius-3">
+                    <input type="radio" ng-model="toggleStudentTeacher" value="1"/><span class="m-10">{{'register.student' | translate}}</span>
+                </label>
+            </div>
+            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <label class="blue-btn center-block p-10 border-radius-3">
+                    <input type="radio" ng-model="toggleStudentTeacher" value="0"/><span class="m-10">{{'register.teacher' | translate}}</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="mt-20">
+            <accordion class="accordion-faq" ng-if="toggleStudentTeacher == 0">
+                <accordion-group ng-repeat="n in [] | range:1:11" is-open="teacherStatus[n].open">
+                    <accordion-heading>
+                        {{'faq.teacher.' + n + '.question' | translate}}
+                        <i class="pull-right fa" ng-class="{'fa-chevron-up': teacherStatus[n].open, 'fa-chevron-down': !teacherStatus[n].open}"></i>
+                    </accordion-heading>
+                    <div ng-bind-html="'faq.teacher.' + n + '.awnser' | translate"></div>
+                </accordion-group>
+            </accordion>
+
+            <accordion class="accordion-faq" ng-if="toggleStudentTeacher == 1">
+                <accordion-group ng-repeat="n in [] | range:1:5">
+                    <accordion-heading>
+                        {{'faq.student.' + n + '.question' | translate}}
+                        <i class="pull-right fa" ng-class="{'fa-chevron-up': studentStatus[n].open, 'fa-chevron-down': !studentStatus[n].open}"></i>
+                    </accordion-heading>
+                    <div ng-bind-html="'faq.student.' + n + '.awnser' | translate"></div>
+                </accordion-group>
+            </accordion>
+        </div>
+    </div>
+</div>

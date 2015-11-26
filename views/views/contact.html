@@ -1,0 +1,75 @@
+<div id="blackBar" class="small">
+    <div class="container">
+        <h1>{{'contact.title' | translate}}</h1>
+    </div>
+</div>
+<div class="container">
+    <div class="hidden-xs col-sm-1 col-md-2 col-lg-3"></div>
+
+    <div id="contact-wrapper" class="col-xs-12 col-sm-10 col-md-8 col-lg-6">
+        <div id="contact-header">
+            {{'contact.form.title' | translate}}
+        </div>
+        <div id="contact-content">
+            <form ng-submit="sendMessage()">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group p-10">
+                            <input type="text" class="form-control" ng-model="message.username"
+                                   placeholder="{{'contact.form.username.placeholder' | translate}}"
+                                   aria-describedby="basic-addon1" ng-required="true">
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group p-10">
+                            <input type="email" class="form-control" ng-model="message.email"
+                                   placeholder="{{'contact.form.email.placeholder' | translate}}"
+                                   aria-describedby="basic-addon1" ng-required="true">
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-10">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <ui-select ng-model="message.theme" theme="bootstrap" ng-required="true">
+                            <ui-select-match placeholder="{{'contact.form.theme.placeholder' | translate}}">
+                                {{$select.selected.value}}
+                            </ui-select-match>
+                            <ui-select-choices repeat="theme in themes">
+                                <div ng-bind-html="theme.value"></div>
+                            </ui-select-choices>
+                        </ui-select>
+                    </div>
+                </div>
+                <div class="row p-10">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <div class="form-group">
+                            <textarea class="form-control" ng-model="message.content"
+                                      placeholder="{{'contact.form.message.placeholder' | translate}}" rows="6"
+                                      id="message" ng-required="true"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="center p-10">
+                    <div vc-recaptcha key="'6LevQwkTAAAAAA4JNfLATe3528-iLBZihJVQRtI-'"
+                         on-success="setResponse(response)" class="inline"></div>
+                </div>
+                <div class="row p-10">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center">
+                        <button id="send-button" type="submit" class="btn btn-default blue-btn p-20">
+                            <i class="fa fa-paper-plane"></i>
+                            <span class="lm-10">{{'contact.form.send' | translate}}</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="alert alert-success center" role="alert" ng-if="success">{{'contact.form.succcess' |
+                    translate}}
+                </div>
+                <div class="alert alert-danger center" role="alert" ng-if="error != null">{{error}}</div>
+            </form>
+        </div>
+    </div>
+
+    <div class="hidden-xs col-sm-1 col-md-2 col-lg-3"></div>
+</div>
+

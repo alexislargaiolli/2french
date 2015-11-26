@@ -1,0 +1,69 @@
+<div id="blackBar" class="small">
+    <div class="container">
+        <h1>{{'messagerie.title' | translate}}</h1>
+    </div>
+</div>
+<div class="container messagerie">
+    <div class="row" ng-if="conversations.length > 0">
+        <div class="hidden-xs hidden-sm col-md-3 col-lg-3 conversations">
+            <div ng-repeat="conv in conversations" class="conversation"
+                 ng-class="{selected : conv.id == selectedConv.id }" ng-click="selectConversation(conv)">
+                <a ui-sref="profile({profileId:conv.interlocutorProfileId})">
+                    <img class="user-photo-profile" ng-src="{{conv.photo}}" ng-show="conv.photo"/>
+                    <i class="fa fa-user user-photo-profile" ng-show="!conv.photo"></i>
+                </a>
+                <span class="name">
+                {{conv.interlocutor}}
+                </span>
+                <span class="badge" ng-show="conv.notifs > 0">
+                    {{conv.notifs}}
+                </span>
+            </div>
+        </div>
+        <div class="visible-xs visible-sm col-md-3 col-lg-3 center conversations-small">
+            <div class="btn-group">
+                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    {{selectedConv.interlocutor}} <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" style="width: 100%;">
+                    <li ng-repeat="conv in conversations" class="p-10 center" ng-class="{'active' : conv.id == selectedConv.id }" ng-click="selectConversation(conv)">{{conv.interlocutor}}</li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-9 col-lg-9" id="selected-conversation-wrapper">
+            <div id="selected-conversation">
+                <div ng-repeat="msg in selectedConv.messages">
+                    <div class="msg-wrapper" ng-class="{mymsg:msg.author == session.user.id}">
+                        <span class="sender" ng-if="msg.author != session.user.id">{{selectedConv.interlocutor}}</span>
+
+                        <div class="msg arrow" ng-class="msg.author == session.user.id ? 'right' :'left'">
+                            {{msg.content}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="send-msg-panel">
+                <form id="form-message" ng-submit="sendMessage()">
+                    <textarea id="msg-content-area" ng-model="message.content"
+                              placeholder="{{'messagerie.msg.content' | translate}}"
+                              class="form-control" rows="3" ng-required="true"></textarea>
+                    <button id="send-msg" class="btn btn-default" type="submit">
+                        <span class="fa fa-send"></span> <span class="hidden-xs hidden-sm">{{'messagerie.msg.send' | translate}}</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="nomsg-panel" ng-if="conversations.length == 0">
+        <span>{{'messagerie.nomsg' | translate}}</span>
+    </div>
+</div>
+
+<script type="text/javascript">
+    function scrollMessagePanel() {
+        var objDiv = document.getElementById("selected-conversation");
+        objDiv.scrollTop = objDiv.scrollHeight;
+    }
+
+</script>

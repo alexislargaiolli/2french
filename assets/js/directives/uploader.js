@@ -11,7 +11,7 @@ tooFrench.directive('alexUploader', function() {
 	return {
 		restrict: 'E',
 		require: 'angularFileUpload',
-		templateUrl: 'js/directives/uploader.html',
+		templateUrl: 'views/directives/uploader.html',
 		scope: {
 			text: '@',
 			maxSize: '@',
