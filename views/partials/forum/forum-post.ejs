@@ -9,8 +9,7 @@
                     </button>
                 </h1>
                 <hr/>
-                <div>
-                    <p>{{post.content}}</p>
+                <div ng-bind-html="post.content">
                 </div>
                 <div id="post-files" ng-if="post.files && post.files.length > 0">
                     <h4>{{'forum.post.files.title' | translate}}</h4>

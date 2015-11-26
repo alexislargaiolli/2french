@@ -20,7 +20,7 @@
     "ng-file-upload": "~3.2.4",
     "cloudinary_ng": "~0.1.2",
     "cloudinary_js": "~1.0.23",
-    "angular-ui-select": "~0.11.2",
+    "angular-ui-select": "~0.13.2",
     "angular-dialog-service": "~5.2.6",
     "ui-bootstrap": "~0.12.1",
     "angular-ui-bootstrap": "~0.12.1",
@@ -55,6 +55,7 @@
     "angular-animate": "~1.4.x",
     "bootstrap": "^3.2.0",
     "angular-route": "~1.4.x",
-    "jquery": "~2.0.3"
+    "jquery": "~2.0.3",
+    "angular-ui-select": "~0.11.2"
   }
 }

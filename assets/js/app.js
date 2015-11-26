@@ -32,7 +32,8 @@ var tooFrenchApp = angular.module('tooFrenchApp', [
     'bootstrapLightbox',
     'angular-carousel',
     'ngImgCrop',
-    'tmh.dynamicLocale'
+    'tmh.dynamicLocale',
+    'textAngular'
 ]);
 
 
