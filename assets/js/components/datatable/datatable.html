@@ -1,0 +1,11 @@
+<table class="table table-hover">
+	<tr>
+		<th>Id</th>
+		<th>Username</th>
+	</tr>
+	<tr ng-repeat="item in model.items">
+		<td>{{item.id}}</td>
+		<td>{{item.username}}</td>
+	</tr>
+</table>
+<pagination total-items="model.itemCount" items-per-page="model.pageSize" ng-model="model.currentPage" ng-change="model.load()"></pagination>

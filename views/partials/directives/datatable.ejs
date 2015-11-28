@@ -1,0 +1,20 @@
+<table class="table table-hover alex-datatable">
+    <thead>
+        <tr>
+            <th ng-repeat="column in model.columns" ng-click="model.sort(column.field)">
+                {{column.header}}
+                <span class="fa " ng-class="{'fa-sort' : column.field != model.sortField, 'fa-sort-asc' : (column.field == model.sortField) && model.isASC(), 'fa-sort-desc' : (column.field == model.sortField) && !model.isASC()}"></span>
+                <input type="text" ng-if="column.filter" ng-model="model.where[column.field]" ng-change="model.filter()" ng-model-options='{ debounce: 500 }'>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in model.items">
+            <td ng-repeat="column in model.columns">{{item[column.field]}}</td>
+        </tr>
+    </tbody>
+</table>
+<div class="center">
+    <pagination total-items="model.itemCount" items-per-page="model.pageSize"
+                ng-model="model.currentPage" ng-change="model.load()"></pagination>
+</div>
