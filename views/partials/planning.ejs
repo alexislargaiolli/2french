@@ -81,17 +81,17 @@
             </div>
             <div class="btn-wrapper">
                 <div ng-if="resa.status == 'pending'">
-                    <button type="button" class="btn btn-danger" ng-click="changeStatus(resa, 'refused')">
+                    <button type="button" class="btn btn-danger fa fa-remove fa-pr10" ng-click="changeStatus(resa, 'refused')">
                         {{'planning.reservations.status.refuse' | translate}}
                     </button>
-                    <button type="button" class="btn green2-btn" ng-click="changeStatus(resa, 'validated')">
+                    <button type="button" class="btn btn-success fa fa-check fa-pr10" ng-click="changeStatus(resa, 'validated')">
                         {{'planning.reservations.status.validate' | translate}}
                     </button>
                 </div>
-                <div class="cancel-wrapper pending" ng-if="resa.status != 'pending'">
-                    <span ng-if="resa.status == 'validated'">{{'planning.reservations.status.validated' | translate}}</span>
-                    <span ng-if="resa.status == 'refused'">{{'planning.reservations.status.refused' | translate}}</span>
-                    <span ng-if="resa.status == 'canceled'">{{'planning.reservations.status.canceled' | translate}}</span>
+                <div class="{{resa.status}}" ng-if="resa.status != 'pending'">
+                    <span ng-if="resa.status == 'validated'" class="p-10 label label-success fa fa-check fa-pr10 inline">{{'planning.reservations.status.validated' | translate}}</span>
+                    <span ng-if="resa.status == 'refused'" class="p-10 label label-danger fa fa-check fa-pr10 inline">{{'planning.reservations.status.refused' | translate}}</span>
+                    <span ng-if="resa.status == 'canceled'" class="p-10 label label-warning fa fa-check fa-pr10 inline">{{'planning.reservations.status.canceled' | translate}}</span>
                 </div>
             </div>
         </div>
@@ -192,17 +192,24 @@
             </div>
             <div class="btn-wrapper">
                 <div ng-if="resa.status == 'pending'">
-                    <button type="button" class="btn btn-danger" ng-click="cancelResa(resa)">
+                    <button type="button" class="btn btn-danger fa fa-remove fa-pr10" ng-click="cancelResa(resa)">
                         {{'planning.reservations.status.cancel' | translate}}
                     </button>
                 </div>
-                <div class="cancel-wrapper pending" ng-if="resa.status != 'pending'">
-                    <span ng-if="resa.status == 'validated' && !resa.done">{{'planning.reservations.status.validated' | translate}}</span>
-                    <span ng-if="resa.status == 'refused'">{{'planning.reservations.status.refused' | translate}}</span>
-                    <span ng-if="resa.status == 'canceled'">{{'planning.reservations.status.canceled' | translate}}</span>
+                <div class="cancel-wrapper" ng-if="resa.status != 'pending'">
+                    <span ng-if="resa.status == 'validated' && !resa.done" class="p-10 label label-success fa fa-check fa-pr10 inline">{{'planning.reservations.status.validated' | translate}}</span>
+                    <span ng-if="resa.status == 'refused'" class="p-10 label label-danger fa fa-ban fa-pr10 inline">{{'planning.reservations.status.refused' | translate}}</span>
+                    <span ng-if="resa.status == 'canceled'" class="p-10 label label-warning fa fa-remove fa-pr10 inline">{{'planning.reservations.status.canceled' | translate}}</span>
 
-                    <a ui-sref="addReview({reservationId : resa.id})" ng-if="resa.done && resa.status == 'validated' && !resa.review">{{'planning.reservations.add.review' | translate}}</a>
-                    <span ng-if="resa.review">{{resa.review.comment}}</span>
+                    <button ui-sref="addReview({reservationId : resa.id})" type="button" class="btn blue-btn fa fa-star-half-o fa-pr10" ng-if="resa.done && resa.status == 'validated' && !resa.review">
+                        {{'planning.reservations.add.review' | translate}}
+                    </button>
+
+                    <div class="rating-panel" ng-if="resa.review">
+                        <rating ng-model="resa.review.mark" readonly="true" class="teacher-rating"></rating>
+
+                        <span>{{resa.review.comment}}</span>
+                    </div>
                 </div>
             </div>
         </div>

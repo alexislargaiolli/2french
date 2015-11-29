@@ -61,7 +61,7 @@
                             <ui-select-match placeholder="{{'reservation.form.formation' | translate}}">
                                 {{$select.selected.name[currentLocale]}}
                             </ui-select-match>
-                            <ui-select-choices repeat="formation in profile.formations track by $index">
+                            <ui-select-choices repeat="formation in profile.formations">
                                 <div ng-bind-html="formation.name[currentLocale]"></div>
                             </ui-select-choices>
                         </ui-select>

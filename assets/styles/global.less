@@ -1625,6 +1625,10 @@ hr {
     border-color: #E4A342;
   }
 
+  .validated{
+
+  }
+
   .profileInfo {
     display: inline-block;
     vertical-align: middle;
@@ -1642,7 +1646,7 @@ hr {
   }
 
   .resa-message {
-    padding: 10px;
+    padding: 6px 10px;
     width: 60%;
     display: inline-block;
     vertical-align: middle;
@@ -1650,17 +1654,23 @@ hr {
 
   .btn-wrapper {
     button {
-      width: 120px;
+      min-width: 120px;
     }
     .contact-wrapper {
 
     }
-    .cancel-wrapper {
-      padding: 6px 12px;
-    }
     div {
       display: inline-block;
       vertical-align: middle;
+    }
+  }
+
+  .rating-panel{
+    .teacher-rating {
+      height:auto;
+      .glyphicon{
+        font-size:20px;
+      }
     }
   }
 }
@@ -2087,6 +2097,14 @@ button.favorit {
 
 .fa-pl5:before {
   padding-left: 5px;
+}
+
+.fa-pr10:before {
+  padding-right: 10px;
+}
+
+.fa-pl10:before {
+  padding-left: 10px;
 }
 
 .p-0 {
