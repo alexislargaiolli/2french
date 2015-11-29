@@ -43,6 +43,34 @@ body {
   border: none;
 }
 
+a{
+  color:@light-blue;
+}
+
+a:hover{
+  color:@blue-title2;
+}
+
+.nav-tabs.nav-justified a{
+
+}
+
+.nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:focus{
+  background: @light-blue;
+  color:#fff;
+  border-color:@light-blue;
+}
+
+.pagination > li > a, .pagination > li > span{
+  color:@light-blue;
+}
+
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
+  color:#fff;
+  background: @light-blue;
+  border-color:@light-blue;
+}
+
 /* HEADER */
 
 #btn-report-bug {
@@ -1408,6 +1436,15 @@ hr {
 }
 
 /* Admin */
+.alex-datatable tbody>tr.active>td, .alex-datatable tbody>tr.active:hover>td, .alex-datatable thead>tr>th{
+  background: @light-blue;
+  color:#fff;
+}
+
+.alex-datatable thead>tr>th:hover{
+  background: saturate(@light-blue, 30%);
+}
+
 #diplomas-list {
   .diploma-owner, .diploma-btn-wrapper {
     display: inline-block;
@@ -2213,4 +2250,13 @@ button.favorit {
 
 .f-25 {
   font-size: 25px;
+}
+
+.w-50{
+  width:50%;
+}
+
+md-icon {
+  height:28px;
+  line-height: 28px!important;
 }

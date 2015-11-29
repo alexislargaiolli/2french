@@ -1,4 +1,20 @@
+.alex-datatable thead>tr>th{
+    vertical-align: top;
+}
+
 .alex-datatable th:hover{
     background-color: #f5f5f5;
     cursor: pointer;
+}
+
+.alex-datatable .header-title{
+    padding:5px 0;
+}
+
+.alex-datatable tbody>tr>td:hover{
+    cursor: pointer;
+}
+
+.alex-datatable-paginator{
+    text-align: center;
 }

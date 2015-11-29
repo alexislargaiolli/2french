@@ -1,19 +1,16 @@
 <div id="admin-container">
 	<div class="container">
-		<ul class="nav nav-tabs nav-justified">
-			<li><a ui-sref="admin.users">Users</a></li>
-			<li><a ui-sref="admin.diplomas">Diplôme</a></li>
-			<li><a ui-sref="admin.formations">Formations</a></li>
-			<li><a ui-sref="admin.equipments">Equipements</a></li>
-			<li><a ui-sref="admin.extras">Extras</a></li>
-			<li><a ui-sref="admin.recommandations">Recommandations</a></li>
-			<li><a ui-sref="admin.utillinks">Liens utiles</a></li>
-			<li><a ui-sref="admin.forum">Forum</a></li>
+		<ul class="nav nav-tabs nav-justified vm-10">
+			<li ng-class="{'active' : currentState == 'admin.users'}"><a ui-sref="admin.users">Users</a></li>
+			<li ng-class="{'active' : currentState == 'admin.diplomas'}"><a ui-sref="admin.diplomas">Diplôme</a></li>
+			<li ng-class="{'active' : currentState == 'admin.formations'}"><a ui-sref="admin.formations">Formations</a></li>
+			<li ng-class="{'active' : currentState == 'admin.equipments'}"><a ui-sref="admin.equipments">Equipements</a></li>
+			<li ng-class="{'active' : currentState == 'admin.extras'}"><a ui-sref="admin.extras">Extras</a></li>
+			<li ng-class="{'active' : currentState == 'admin.recommandations'}"><a ui-sref="admin.recommandations">Recommandations</a></li>
+			<li ng-class="{'active' : currentState == 'admin.utillinks'}"><a ui-sref="admin.utillinks">Liens utiles</a></li>
+			<li ng-class="{'active' : currentState == 'admin.forum'}"><a ui-sref="admin.forum">Forum</a></li>
 		</ul>
 		
 		<div ui-view></div>
-	</div>
-	<div class="container">
-		<alex-table model="datatable" columns="columns"></alex-table>
 	</div>
 </div>

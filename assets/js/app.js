@@ -33,7 +33,8 @@ var tooFrenchApp = angular.module('tooFrenchApp', [
     'angular-carousel',
     'ngImgCrop',
     'tmh.dynamicLocale',
-    'textAngular'
+    'textAngular',
+    'ngMaterial'
 ]);
 
 
@@ -64,7 +65,7 @@ tooFrenchApp.constant('NOTIFICATION_EVENTS', {
     resaUpdate: 'resaUpdate'
 });
 
-tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider, $translateProvider, USER_ROLES, uiGmapGoogleMapApiProvider, uiSelectConfig) {
+tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider, $translateProvider, USER_ROLES, uiGmapGoogleMapApiProvider, uiSelectConfig, $mdIconProvider, $mdThemingProvider) {
 
 
         //================================================
@@ -404,6 +405,28 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
         });
 
         uiSelectConfig.theme = 'bootstrap';
+        $mdIconProvider.fontSet('fa', 'fontawesome');
+        $mdThemingProvider.definePalette('amazingPaletteName', {
+            '50': '04bfc6',
+            '100': '04bfc6',
+            '200': '04bfc6',
+            '300': '04bfc6',
+            '400': '04bfc6',
+            '500': '04bfc6',
+            '600': '0098be',
+            '700': '0098be',
+            '800': '0098be',
+            '900': '0098be',
+            'A100': '04bfc6',
+            'A200': '04bfc6',
+            'A400': '04bfc6',
+            'A700': '04bfc6',
+            'contrastDefaultColor': 'light',
+            'contrastDarkColors': ['50', '100', //hues which contrast should be 'dark' by default
+                '200', '300', '400', 'A100']
+        });
+        $mdThemingProvider.theme('default')
+            .primaryPalette('amazingPaletteName')
     }
 );
 

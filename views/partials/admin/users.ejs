@@ -1,7 +1,27 @@
-<h2>Users</h2>
-<ul class="list-group">
-	<li ng-repeat="u in users" class="list-group-item">{{u.email}} - {{u.role}} - {{u.profile.firstname}}
-		<button type="button" ng-click="selectEdit(u)" data-toggle="modal" data-target="#dlgAddEquipment" class="btn btn-default">Edit</button>
-		<button type="button" ng-click="deleteUser(u)" class="btn btn-default">Remove</button>
-	</li>
-</ul>
+<div layout="column">
+    <section layout="row" flex>
+        <md-content flex>
+            <alex-table model="datatable" columns="columns"></alex-table>
+        </md-content>
+        <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+            <md-toolbar class="md-theme-light">
+                <h1 class="md-toolbar-tools">{{selected.username}}</h1>
+            </md-toolbar>
+            <md-content layout-padding>
+                <div layout="column">
+                    <div flex class="center">
+                        <md-button ng-click="removeCurrent($event)" class="md-raised md-warn w-50">
+                            <md-icon md-font-icon="fa-trash" class="fa f-20"></md-icon>
+                            Supprimer
+                        </md-button>
+                    </div>
+                    <div flex class="center">
+                        <md-button ng-click="closeNavbar()" class="md-raised w-50">
+                            Annuler
+                        </md-button>
+                    </div>
+                </div>
+            </md-content>
+        </md-sidenav>
+    </section>
+</div>

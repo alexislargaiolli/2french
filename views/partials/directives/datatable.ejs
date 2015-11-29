@@ -1,20 +1,33 @@
 <table class="table table-hover alex-datatable">
     <thead>
-        <tr>
-            <th ng-repeat="column in model.columns" ng-click="model.sort(column.field)">
-                {{column.header}}
-                <span class="fa " ng-class="{'fa-sort' : column.field != model.sortField, 'fa-sort-asc' : (column.field == model.sortField) && model.isASC(), 'fa-sort-desc' : (column.field == model.sortField) && !model.isASC()}"></span>
-                <input type="text" ng-if="column.filter" ng-model="model.where[column.field]" ng-change="model.filter()" ng-model-options='{ debounce: 500 }'>
-            </th>
-        </tr>
+    <tr>
+        <th ng-repeat="column in model.columns" ng-click="model.sort(column.field)">
+            <div class="header-title">
+                <span>{{column.header}}</span>
+                <span class="fa"
+                      ng-class="{'fa-sort' : column.field != model.sortField, 'fa-sort-asc' : (column.field == model.sortField) && model.isASC(), 'fa-sort-desc' : (column.field == model.sortField) && !model.isASC()}"></span>
+            </div>
+            <div class="input-group" ng-if="column.filter">
+                <div class="input-group-addon fa fa-search"></div>
+                <input type="text" class="form-control" ng-click="$event.stopPropagation();"
+                       ng-model="model.where[column.field]" ng-change="model.filter()"
+                       ng-model-options='{ debounce: 500 }'>
+            </div>
+        </th>
+    </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="item in model.items">
-            <td ng-repeat="column in model.columns">{{item[column.field]}}</td>
-        </tr>
+    <tr ng-repeat="item in model.items" ng-click="model.toggleSelect(item)" ng-class="{'active' : model.isSelected(item)}">
+        <td ng-repeat="column in model.columns">{{item[column.field]}}</td>
+    </tr>
+    <tr ng-if="model.items.length == 0">
+        <td colspan="10">
+            Aucun élément trouvé...
+        </td>
+    </tr>
     </tbody>
 </table>
-<div class="center">
+<div class="alex-datatable-paginator">
     <pagination total-items="model.itemCount" items-per-page="model.pageSize"
                 ng-model="model.currentPage" ng-change="model.load()"></pagination>
 </div>

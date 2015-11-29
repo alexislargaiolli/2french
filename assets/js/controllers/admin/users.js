@@ -7,63 +7,62 @@
  * Controller of the tooFrenchApp
  */
 var ctrl = angular.module('tooFrenchApp');
-ctrl.controller('AdminUserCtrl', ['$scope', 'User', 'dialogs', '$http', function($scope, User, dialogs, $http) {
-	$scope.users = User.query();
-	$scope.user = null;
-	$scope.pageSize = 10;
-	$scope.pageIndex = 1;
-	$scope.count = 0;
-	$scope.loading = true;
+ctrl.controller('AdminUserCtrl', ['$scope', 'User', 'dialogs', '$http', 'DataTable', '$mdDialog', '$mdSidenav', '$mdToast', function($scope, User, dialogs, $http, DataTable, $mdDialog, $mdSidenav, $mdToast) {
+	$scope.menuOpen = false;
+	$scope.columns = [{
+		'header' : 'Email',
+		'field': 'email',
+		'filter' : 'contains'
+	}, {
+		'header' : 'Role',
+		'field': 'role'
+	}];
+	$scope.selected;
+	$scope.datatable = new DataTable('user', $scope.columns);
+	$scope.datatable.selectionType = 1;
+	$scope.datatable.load().then(function(){
 
-	$scope.pageChanged = function () {
-		$scope.loading = true;
-		$http.get('/user/adminSearch', {
-			params: {
-				count: 1,
-				pageSize: $scope.pageSize,
-				pageIndex: $scope.pageIndex
-			}
-		}).
-			success(function (count, status, headers, config) {
-				$scope.count = count.count;
-				$http.get('/user/adminSearch', {
-					params: {
-						count: 0,
-						pageSize: $scope.pageSize,
-						pageIndex: $scope.pageIndex
-					}
-				}).success(function (users) {
-					$scope.loading = false;
-					$scope.users = users;
-				}).error(function (data, status, headers, config) {
+	});
 
-				});
-			}).
-			error(function (data, status, headers, config) {
-
-			});
+	$scope.datatable.onSelect = function(elt){
+		$scope.selected = elt;
+		$mdSidenav('right').toggle();
+	}
+	$scope.datatable.onUnselect = function(elt){
+		$scope.selected = null;
+		$mdSidenav('right').toggle();
+	}
+	$scope.closeNavbar = function(){
+		$mdSidenav('right').close();
 	}
 
-	$scope.saveUser = function() {
-		if ($scope.user.id) {
-			$scope.user.$update();
-		} else {
-			$scope.user.$save(function() {
-				$scope.users.push($scope.user);
+	$scope.removeCurrent = function(ev){
+		var confirm = $mdDialog.confirm({
+			title: 'Attention',
+			content: 'Êtes-vous sur de vouloir supprimer cet utilisateur ?',
+			ok: 'Oui, supprimer',
+			cancel:'Non, annuler'
+		});
+		$mdDialog.show(confirm).then(function() {
+			User.remove({id : $scope.selected.id}, function(u){
+				$scope.datatable.toggleSelect(u);
+				$scope.datatable.load();
+
+				$mdToast.show(
+					$mdToast.simple()
+						.content("L'utilisateur " + u.username + " a été supprimé.")
+						.position('top right')
+						.hideDelay(3000)
+				);
+			}, function(err){
+				$mdToast.show(
+					$mdToast.simple()
+						.content("Une erreur c'est produite pendant la suppression... Veuillez réessayer")
+						.position('top right')
+						.hideDelay(3000)
+				);
 			});
-		}
-	}
-	$scope.selectUser = function(f) {
-		$scope.user = f;
-	}
-	$scope.deleteUser = function(f) {
-		var dlg = dialogs.confirm('Please Confirm', 'Is this awesome or what?');
-		dlg.result.then(function(btn) {
-			f.$delete(function() {
-				var index = $scope.users.indexOf(f);
-				$scope.users.splice(index, 1);
-			});
-		}, function(btn) {
+		}, function() {
 
 		});
 	}

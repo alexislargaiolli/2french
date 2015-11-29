@@ -71,6 +71,17 @@ tooFrench.factory('DataTable', function ($http, $q) {
          * Where condition of the request
          */
         this.where;
+        /**
+         * Indicates if no (0), single, (1), multiple (2) selection is active
+         * @type {number}
+         */
+        this.selectionType = 0;
+        /**
+         * List of selected items
+         */
+        this.selectedItems = [];
+        this.onSelect;
+        this.onUnselect;
     };
 
     DataTable.prototype = (function () {
@@ -125,13 +136,13 @@ tooFrench.factory('DataTable', function ($http, $q) {
             $http({
                 method: 'GET', url: url
             }).
-            success(function (data, status, headers, config) {
-                self.items = data;
-                deferred.resolve();
-            }).
-            error(function (data, status, headers, config) {
-                deferred.reject();
-            });
+                success(function (data, status, headers, config) {
+                    self.items = data;
+                    deferred.resolve();
+                }).
+                error(function (data, status, headers, config) {
+                    deferred.reject();
+                });
             return deferred.promise;
         }
 
@@ -152,13 +163,13 @@ tooFrench.factory('DataTable', function ($http, $q) {
             $http({
                 method: 'GET', url: url
             }).
-            success(function (data, status, headers, config) {
-                self.itemCount = data.count;
-                deferred.resolve();
-            }).
-            error(function (data, status, headers, config) {
-                deferred.reject();
-            });
+                success(function (data, status, headers, config) {
+                    self.itemCount = data.count;
+                    deferred.resolve();
+                }).
+                error(function (data, status, headers, config) {
+                    deferred.reject();
+                });
             return deferred.promise;
         }
 
@@ -208,19 +219,46 @@ tooFrench.factory('DataTable', function ($http, $q) {
             isASC: function () {
                 return this.sortOrder == ASC;
             },
-            filterBy: function (field, value) {
-                if (value && value.length > 0) {
-                    this.where[field] = value;
-                }
-                else {
-                    var i = this.where.indexOf(field);
-                    this.where.splice(i, 1);
-                }
-                console.log(this.where);
-            },
             filter: function () {
                 needUpdateCount = 1;
                 this.load();
+            },
+            /**
+             * Call when an element is selected or unselected
+             * @param elt
+             */
+            toggleSelect: function (elt) {
+                if (this.selectionType > 0) {
+                    var index = this.selectedItems.indexOf(elt);
+                    if (index > -1) {
+                        this.selectedItems.splice(index, 1);
+                        if (this.onUnselect) {
+                            this.onUnselect(elt);
+                        }
+                    }
+                    else {
+                        if (this.selectionType == 1) {
+                            this.selectedItems = [];
+                        }
+                        if (this.onSelect) {
+                            this.onSelect(elt);
+                        }
+                        this.selectedItems.push(elt);
+                    }
+                }
+            },
+            /**
+             * Indicates if an given element is selected
+             * @param elt element to check
+             */
+            isSelected: function (elt) {
+                return this.selectedItems.indexOf(elt) > -1;
+            },
+            isSelectionActive: function () {
+                return this.selectionType > 0;
+            },
+            hasSelectedItems: function () {
+                return this.selectedItems.length > 0;
             }
         };
     })();
