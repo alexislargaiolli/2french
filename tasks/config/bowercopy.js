@@ -57,7 +57,6 @@ module.exports = function (grunt) {
             files: {
                 '3.css': 'angular-xeditable/dist/css/xeditable.css',
                 '4.css': 'angular-ui-select/dist/select.css',
-                '5.css': 'angular-dialog-service/dist/dialogs.css',
                 '6.css': 'angular-google-places-autocomplete/src/autocomplete.css',
                 '7.css': 'ng-img-crop/compile/unminified/ng-img-crop.css',
                 '8.css': '../libs/multiple-date-picker/dist/multiple-date-picker.css',
