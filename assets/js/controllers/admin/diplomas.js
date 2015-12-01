@@ -7,22 +7,27 @@
  * Controller of the tooFrenchApp
  */
 var ctrl = angular.module('tooFrenchApp');
-ctrl.controller('AdminDiplomaCtrl', ['$scope', 'Diploma' ,'dialogs', function($scope, Diploma, dialogs) {
+ctrl.controller('AdminDiplomaCtrl', ['$scope', 'Diploma' ,'$mdDialog', function($scope, Diploma, $mdDialog) {
     $scope.diplomas = [];
     Diploma.getWithProfile().then(function(diplomas){
         $scope.diplomas = diplomas;
     });
 
     $scope.validate = function(diploma){
-        var dlg = dialogs.confirm('Validation', 'Êtes-vous sur de vouloir valider ce diplôme ?');
-        dlg.result.then(function(btn) {
+        var confirm = $mdDialog.confirm({
+            title: 'Attention',
+            content: 'Êtes-vous sur de vouloir valider ce diplôme ?',
+            ok: 'Oui, supprimer',
+            cancel:'Non, annuler'
+        });
+        $mdDialog.show(confirm).then(function() {
             Diploma.validate(diploma.id).then(function(d){
                 var index = $scope.diplomas.indexOf(diploma);
                 $scope.diplomas.splice(index, 1);
             },function(){
 
             });
-        }, function(btn) {
+        }, function() {
 
         });
     }

@@ -7,7 +7,7 @@
  * Controller of the tooFrenchApp
  */
 var ctrl = angular.module('tooFrenchApp');
-ctrl.controller('AdminRecommandationCtrl', ['$scope', 'Recommandation', 'dialogs', function($scope, Recommandation, dialogs) {
+ctrl.controller('AdminRecommandationCtrl', ['$scope', 'Recommandation', '$mdDialog', function($scope, Recommandation, $mdDialog) {
 	$scope.recommandations = Recommandation.query();
 	$scope.optionsCity = {
 		types: ['(regions)']
@@ -29,13 +29,18 @@ ctrl.controller('AdminRecommandationCtrl', ['$scope', 'Recommandation', 'dialogs
 		$scope.recommandation = f;
 	}
 	$scope.deleteRecommandation = function(f) {
-		var dlg = dialogs.confirm('Please Confirm', 'Is this awesome or what?');
-		dlg.result.then(function(btn) {
+		var confirm = $mdDialog.confirm({
+			title: 'Attention',
+			content: 'Êtes-vous sur de vouloir valider cette recommandation ?',
+			ok: 'Oui, supprimer',
+			cancel:'Non, annuler'
+		});
+		$mdDialog.show(confirm).then(function() {
 			f.$delete(function() {
 				var index = $scope.recommandations.indexOf(f);
 				$scope.recommandations.splice(index, 1);
 			});
-		}, function(btn) {
+		}, function() {
 
 		});
 

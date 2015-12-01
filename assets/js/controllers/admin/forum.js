@@ -7,7 +7,7 @@
  * Controller of the tooFrenchApp
  */
 var ctrl = angular.module('tooFrenchApp');
-ctrl.controller('AdminPostCategoryCtrl', ['$scope', 'PostCategory', 'dialogs', function($scope, PostCategory, dialogs) {
+ctrl.controller('AdminPostCategoryCtrl', ['$scope', 'PostCategory', '$mdDialog', function($scope, PostCategory, $mdDialog) {
 	$scope.categorys = PostCategory.query();
 	$scope.category = new PostCategory;
 	$scope.createPostCategory = function() {
@@ -26,16 +26,20 @@ ctrl.controller('AdminPostCategoryCtrl', ['$scope', 'PostCategory', 'dialogs', f
 		$scope.category = f;
 	}
 	$scope.deletePostCategory = function(f) {
-		var dlg = dialogs.confirm('Please Confirm', 'Is this awesome or what?');
-		dlg.result.then(function(btn) {
+		var confirm = $mdDialog.confirm({
+			title: 'Attention',
+			content: 'Êtes-vous sur de vouloir valider cette catégorie ?',
+			ok: 'Oui, supprimer',
+			cancel:'Non, annuler'
+		});
+		$mdDialog.show(confirm).then(function() {
 			f.$delete(function() {
 				var index = $scope.categorys.indexOf(f);
 				$scope.categorys.splice(index, 1);
 			});
-		}, function(btn) {
+		}, function() {
 
 		});
-
 	}
 
 

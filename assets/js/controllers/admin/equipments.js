@@ -7,7 +7,7 @@
  * Controller of the tooFrenchApp
  */
 var ctrl = angular.module('tooFrenchApp');
-ctrl.controller('AdminEquipmentCtrl', ['$scope', 'Equipment', 'dialogs', function($scope, Equipment, dialogs) {
+ctrl.controller('AdminEquipmentCtrl', ['$scope', 'Equipment', '$mdDialog', function($scope, Equipment, $mdDialog) {
 	$scope.equipments = Equipment.query();
 	$scope.equipment = new Equipment;
 	$scope.createEquipment = function() {
@@ -26,13 +26,18 @@ ctrl.controller('AdminEquipmentCtrl', ['$scope', 'Equipment', 'dialogs', functio
 		$scope.equipment = f;
 	}
 	$scope.deleteEquipment = function(f) {
-		var dlg = dialogs.confirm('Please Confirm', 'Is this awesome or what?');
-		dlg.result.then(function(btn) {
+		var confirm = $mdDialog.confirm({
+			title: 'Attention',
+			content: 'Êtes-vous sur de vouloir valider cet équipement ?',
+			ok: 'Oui, supprimer',
+			cancel:'Non, annuler'
+		});
+		$mdDialog.show(confirm).then(function() {
 			f.$delete(function() {
 				var index = $scope.equipments.indexOf(f);
 				$scope.equipments.splice(index, 1);
 			});
-		}, function(btn) {
+		}, function() {
 
 		});
 

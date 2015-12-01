@@ -7,7 +7,7 @@
  * Controller of the tooFrenchApp
  */
 var ctrl = angular.module('tooFrenchApp');
-ctrl.controller('ForumPostCtrl', ['$scope', 'Post', '$stateParams', 'Session', '$timeout', 'dialogs', '$translate', '$state', function ($scope, Post, $stateParams, Session, $timeout, dialogs, $translate, $state) {
+ctrl.controller('ForumPostCtrl', ['$scope', 'Post', '$stateParams', 'Session', '$timeout', '$mdDialog', '$translate', '$state', function ($scope, Post, $stateParams, Session, $timeout, $mdDialog, $translate, $state) {
     $scope.pageSize = 5;
     $scope.pageIndex = 1;
     $scope.post = null;
@@ -21,24 +21,34 @@ ctrl.controller('ForumPostCtrl', ['$scope', 'Post', '$stateParams', 'Session', '
 
         if ($scope.isAdmin) {
             $scope.removePost = function () {
-                var dlg = dialogs.confirm($translate.instant('common.confirmation.title'), $translate.instant('post.remove.confirm.message'));
-                dlg.result.then(function (btn) {
+                var confirm = $mdDialog.confirm({
+                    title: $translate.instant('common.confirmation.title'),
+                    content: $translate.instant('post.remove.confirm.message'),
+                    ok: 'Oui, supprimer',
+                    cancel:'Non, annuler'
+                });
+                $mdDialog.show(confirm).then(function() {
                     Post.getResource().remove({id: $stateParams.postId}, function () {
                         $state.go('forum');
                     });
-                }, function (btn) {
+                }, function() {
 
                 });
             }
 
             $scope.removeComment = function (comment) {
-                var dlg = dialogs.confirm($translate.instant('common.confirmation.title'), $translate.instant('post.comment.remove.confirm.message'));
-                dlg.result.then(function (btn) {
+                var confirm = $mdDialog.confirm({
+                    title: $translate.instant('common.confirmation.title'),
+                    content: $translate.instant('post.comment.remove.confirm.message'),
+                    ok: 'Oui, supprimer',
+                    cancel:'Non, annuler'
+                });
+                $mdDialog.show(confirm).then(function() {
                     Post.getCommentResource().remove({id: comment.id}, function () {
                         var index = $scope.comments.indexOf(comment);
                         $scope.comments.splice(index, 1);
                     });
-                }, function (btn) {
+                }, function() {
 
                 });
             }

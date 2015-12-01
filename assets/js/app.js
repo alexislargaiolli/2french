@@ -22,7 +22,6 @@ var tooFrenchApp = angular.module('tooFrenchApp', [
     'cloudinary',
     'ui.select',
     'ui.bootstrap',
-    'dialogs.main',
     'google.places',
     'angularFileUpload',
     'multipleDatePicker',
