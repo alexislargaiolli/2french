@@ -7,7 +7,7 @@
  * Controller of the tooFrenchApp
  */
 var ctrl = angular.module('tooFrenchApp');
-ctrl.controller('AdminUserCtrl', ['$scope', 'User', 'dialogs', '$http', 'DataTable', '$mdDialog', '$mdSidenav', '$mdToast', function($scope, User, dialogs, $http, DataTable, $mdDialog, $mdSidenav, $mdToast) {
+ctrl.controller('AdminUserCtrl', ['$scope', 'User', '$http', 'DataTable', '$mdDialog', '$mdSidenav', '$mdToast', function($scope, User, $http, DataTable, $mdDialog, $mdSidenav, $mdToast) {
 	$scope.menuOpen = false;
 	$scope.columns = [{
 		'header' : 'Email',
