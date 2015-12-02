@@ -17,7 +17,7 @@ ctrl.controller('AdminDiplomaCtrl', ['$scope', 'Diploma' ,'$mdDialog', function(
         var confirm = $mdDialog.confirm({
             title: 'Attention',
             content: 'Êtes-vous sur de vouloir valider ce diplôme ?',
-            ok: 'Oui, supprimer',
+            ok: 'Oui, valider',
             cancel:'Non, annuler'
         });
         $mdDialog.show(confirm).then(function() {

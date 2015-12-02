@@ -5,7 +5,7 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
-var AVATAR_DIR_NAME = "../../assets/images/avatars";
+var AVATAR_DIR_NAME = ".tmp/images/avatars";
 
 module.exports = {
 	uploadAvatar: function(req, res) {

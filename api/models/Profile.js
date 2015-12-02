@@ -102,7 +102,13 @@ module.exports = {
         }
     },
     checkValidation : function(profileId, next){
-        Profile.findOne({owner: profileId}).exec(function (err, profile) {
+        Profile.findOne({id: profileId}).populate('formations').exec(function (err, profile) {
+            if(err){
+                return next(err);
+            }
+            if(profile && profile.validate){
+                return next(null, true);
+            }
             if (profile.photo && profile.hourRate && profile.motivation && profile.formations && profile.formations.length > 0) {
                 Diploma.findOne({'owner': profile.owner}).exec(function (err, diploma) {
                     if (diploma && diploma.diplomaValidated) {
@@ -111,13 +117,16 @@ module.exports = {
                     else {
                         profile.validate = false;
                     }
-                    profile.save(function(){
-                        next();
+                    profile.save(function(err, p){
+                        next(err, p.validate);
                     });
                 });
             }
             else {
-                next();
+                profile.validate = false;
+                profile.save(function(err, p){
+                    next(err, p.validate);
+                });
             }
         });
     },
@@ -136,29 +145,10 @@ module.exports = {
     },
     afterUpdate : function(profile, next){
         if (profile && !profile.validate) {
-            if (profile.photo && profile.hourRate && profile.motivation && profile.formations && profile.formations.length > 0) {
-                Diploma.findOne({'owner': profile.owner}).exec(function (err, diploma) {
-                    if (diploma && diploma.diplomaValidated) {
-                        if(profile.validate == false){
-                            sails.services['mail'].sendProfileValidated(profile.owner);
-                        }
-                        profile.validate = true;
-                        Profile.update({id : profile.id}, {validate : true}).exec(function(err, profile){
+            Profile.checkValidation(profile.id, function(err, v){
 
-                        });
-                    }
-                    else{
-                        profile.validate = false;
-                        Profile.update({id : profile.id}, {validate : false}).exec(function(err, profile){
-
-                        });
-                    }
-                    next();
-                });
-            }
-            else {
-                next();
-            }
+            });
+            next();
         }
         else {
             next();

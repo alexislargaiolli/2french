@@ -11,5 +11,4 @@ module.exports.email = {
     from : 'notification@toofrench.net',
     templateDir : 'views/emailTemplates'
     //testMode : true,
-    //alwaysSendTo : 'alexis.largaiolli@gmail.com'
 };

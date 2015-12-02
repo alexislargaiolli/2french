@@ -12,16 +12,20 @@
 
 module.exports = {
 
-  /***************************************************************************
-   * Set the default database connection for models in the development       *
-   * environment (see config/connections.js and config/models.js )           *
-   ***************************************************************************/
+    /***************************************************************************
+     * Set the default database connection for models in the development       *
+     * environment (see config/connections.js and config/models.js )           *
+     ***************************************************************************/
 
-  models: {
-   connection: 'mongo'
-  }
-	,
-	log: {
-     level: "info"
-   }
+    models: {
+        connection: 'mongo'
+    }
+    ,
+    log: {
+        level: "info"
+    },
+    email:{
+        testMode : true,
+        alwaysSendTo : 'alexis.largaiolli@gmail.com'
+    }
 };

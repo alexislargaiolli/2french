@@ -5,8 +5,6 @@
  * @help        :: See http://links.sailsjs.org/docs/controllers
  */
 
-var AVATAR_DIR_NAME = "../../assets/images/avatars";
-var ACCOMODATION_DIR_NAME = "../../assets/images/accomodations";
 var cloudinary = require('cloudinary');
 cloudinary.config({ 
   cloud_name: 'hmn3vaygs', 
@@ -27,7 +25,7 @@ module.exports = {
 		
 
 		uploadFile.upload({
-			dirname: AVATAR_DIR_NAME
+
 		}, function onUploadComplete(err, files) {
 			//	Files will be uploaded to .tmp/uploads
 			if (err) {
@@ -37,8 +35,8 @@ module.exports = {
 				});
 			}
 
-			cloudinary.uploader.upload(files[0].fd, function(result) { 			 
-			  res.send(200, {
+			cloudinary.uploader.upload(files[0].fd, function(result) {
+				res.send(200, {
 					status: 200,
 					message: sails.__('file.upload.success'),
 					url : result.secure_url
@@ -63,7 +61,6 @@ module.exports = {
 		var uploadFile = req.file('file');
 
 		uploadFile.upload({
-			dirname: ACCOMODATION_DIR_NAME
 		}, function onUploadComplete(err, files) {
 			//	Files will be uploaded to .tmp/uploads
 			if (err) {
