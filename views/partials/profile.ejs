@@ -3,9 +3,6 @@
         <div class="row">
 
 
-
-
-
             <!-- Right panel -->
             <div id="profile-right" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-md-push-3 col-lg-push-3">
                 <div id="profile-header" class="bordered-block">
@@ -72,7 +69,7 @@
                 <h4 class="block-title2 f-16 mt-35">{{'profile.formations' | translate}}</h4>
                 <hr/>
                 <label id="hourRateLabel" class="blue-title f-14">{{'profile.hourrate' | translate}}</label><span
-                    id="hourRate">{{ profile.hourRate || 'NaN' }}€</span>
+                        id="hourRate">{{ profile.hourRate || 'NaN' }}€</span>
 
                 <div ng-repeat="formula in profile.formulas track by $index">
                     <hr/>
@@ -112,8 +109,9 @@
                             <h5 class="block-title2 f-16 mt-0">{{'profile.equipements'| translate}}</h5>
 
                             <div>
-                                <span class="grey-text" ng-repeat="e in profile.equipments">{{e.name[currentLocale]}}<span
-                                        ng-if="!$last"> - </span></span>
+                                <span class="grey-text"
+                                      ng-repeat="e in profile.equipments">{{e.name[currentLocale]}}<span
+                                            ng-if="!$last"> - </span></span>
                                 <span ng-if="!profile.equipments || profile.equipments.length == 0">{{'profile.equipements.empty'|translate}}</span>
                             </div>
 
@@ -121,7 +119,7 @@
 
                             <div>
                                 <span class="grey-text" ng-repeat="s in profile.services">{{s.name[currentLocale]}}<span
-                                        ng-if="!$last"> - </span></span>
+                                            ng-if="!$last"> - </span></span>
                                 <span ng-if="!profile.services || profile.services.length == 0">{{'profile.services.empty'|translate}}</span>
                             </div>
                         </div>
@@ -153,13 +151,11 @@
             </div>
 
             <!-- Left panel -->
-            <div id="profile-left" class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-md-pull-9 col-lg-pull-9" >
+            <div id="profile-left" class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-md-pull-9 col-lg-pull-9">
                 <div class="panel panel-default">
                     <div class="panel-heading block-title1 center">{{'myprofile.calendar' | translate}}</div>
                     <div class="panel-body p-0">
-                        <multiple-date-picker class="without-select" day-click="dayClick"
-                                              highlight-days="profile.schedules[scheduleIndex].undispos"
-                                              month-changed="onMonthChanged"/>
+                        <multiple-date-picker class="without-select" day-click="dayClick" highlight-days="profile.schedules[scheduleIndex].undispos" month-changed="onMonthChanged"></multiple-date-picker>
                     </div>
                     <div id="schedule-legend" class="panel-footer">
                         <div class="left p-10">
@@ -180,26 +176,25 @@
 
                 <div class="panel panel-default">
                     <div class="panel-heading block-title1 center">{{'profile.teacher.reviews.title' | translate}}</div>
-                    <div class="panel-body p-0">
+                    <div class="panel-body">
                         <p ng-if="reviews.length == 0" class="p-10 center">{{'profile.teacher.reviews.empty' |
                             translate}}</p>
 
-                        <div ng-repeat="review in reviews" class="p-10">
-                            <div>
-                                <p class="inline middle justify">
-                                    <a ui-sref="profile({profileId:review.student.interlocutorProfileId})" class="fleft mr-10 mb-5">
-                                        <img class="user-photo-profile" ng-src="{{review.student.photo}}"
-                                             ng-show="review.student.photo"/>
-                                        <i class="fa fa-user user-photo-profile" ng-show="!review.student.photo"></i>
-                                    </a>
+                        <div ng-repeat="review in reviews" class="row profile-review-item"
+                             ui-sref="profile({profileId:review.student.id})">
+                            <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 center">
+                                <img class="user-photo-profile" ng-src="{{review.student.photo}}"
+                                     ng-show="review.student.photo"/>
+                                <i class="fa fa-user user-photo-profile" ng-show="!review.student.photo"></i>
+                            </div>
+                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
 
-                                    <rating ng-model="review.mark" readonly="true"
-                                            class="teacher-profile-rating"></rating>
-                                    <br/>
-                                    {{review.comment}}
-                                </p>
+                                <rating ng-model="review.mark" readonly="true"
+                                        class="teacher-profile-rating"></rating>
+                                <br/>
+                                {{review.comment}}
                                 <div class="right">
-                                    {{review.date | date:'mediumDate' }}
+                                    <span>{{review.student.firstname}}, {{review.date | date:'mediumDate' }}</span>
                                 </div>
                             </div>
                         </div>
@@ -213,7 +208,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
+                                    aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">{{'contact.dlg.title' | translate}} {{profile.firstname}}</h4>
                     </div>
                     <div class="modal-body">

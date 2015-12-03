@@ -7,9 +7,9 @@
 
 
             <!-- Results list -->
-            <div class="row result-item" ng-repeat="p in results" ng-class='{first:$first}' ng-if="!loading">
+            <div class="row result-item" ng-repeat="p in results" ng-class='{first:$first}' ng-if="!loading" ui-sref="profile({profileId: p.id})" >
 
-                <div class="col-xs-8 col-sm-6 col-md-8 col-lg-8">
+                <div class="col-xs-8 col-sm-6 col-md-6 col-lg-6" >
                     <div class="left-photo-border"></div>
                     <a ui-sref="profile({profileId: p.id})">
                         <img class="photo" ng-src="{{p.photo}}" ng-show="p.photo"/>
@@ -20,8 +20,9 @@
                     </div>
 
                     <div class="info-wrapper">
-                        <a ui-sref="profile({profileId: p.id})" class="firstname middle mr-10">{{p.firstname}}</a>
-                        <rating ng-model="p.averageMark" readonly="true" class="teacher-profile-rating" ng-if="p.averageMark"></rating>
+                        <span class="firstname middle mr-10">{{p.firstname}}</span>
+                        <rating ng-model="p.averageMark" readonly="true" class="teacher-profile-rating"
+                                ng-if="p.averageMark"></rating>
                         <h4 class="f-12">{{'search.result.formations' | translate}}</h4>
                         <ul class="formations">
                             <li class="f-12" ng-repeat="formation in p.formations"> - {{formation.name[currentLocale]}}
@@ -29,15 +30,17 @@
                         </ul>
                         <ul class="extras">
                             <li ng-repeat="extra in p.extras" class="{{extra.icon}}"> {{extra.name[currentLocale]}}</li>
-                            <li class="fa fa-bed fa-pr5" ng-if="p.activeAccomodation">{{'search.result.accomodation' | translate}}</li>
+                            <li class="fa fa-bed fa-pr5" ng-if="p.activeAccomodation">{{'search.result.accomodation' |
+                                translate}}
+                            </li>
                         </ul>
                     </div>
                 </div>
-                <div class="col-xs-4 col-sm-6 col-md-4 col-lg-4 right">
+                <div class="col-xs-4 col-sm-6 col-md-6 col-lg-6 right">
 
                     <span class="dropdown" dropdown dropdown-append-to-body auto-close="outsideClick">
-                      <a href class="calendar-btn btn btn-default blue-btn fa fa-calendar dropdown-toggle"
-                         dropdown-toggle ng-click="initSchedule(p.id)">
+                      <a href class="calendar-btn btn btn-default blue-btn fa fa-calendar dropdown-toggle m-2"
+                         dropdown-toggle ng-click="initSchedule(p.id);$event.stopPropagation();">
                       </a>
                       <div class="dropdown-menu dropdown-calendar" ng-click="$event.stopPropagation()">
                           <div class="dropdown-calendar-loader" ng-if="scheduleLoading">
@@ -63,21 +66,25 @@
                       </div>
                     </span>
 
+                    <button ng-if="session.authenticated" type="button"
+                            class="fav-btn btn blue-btn fa fa-star m-2"
+                            ng-click="userfavlist.addFavorit(p.id);$event.stopPropagation()" ng-class="{favorit : userfavlist.isInFav(p.id)}">
+                        <span class="hidden-xs hidden-sm hidden-md lm-5">Favoris</span></button>
+
+                    <button ng-if="session.authenticated && isStudent" ui-sref="reservation({profileId : p.id})"
+                            type="button" ng-click="$event.stopPropagation()"
+                            class="fav-btn btn green2-btn fa fa-chevron-right m-2">
+                        <span class="hidden-xs hidden-sm lm-5">{{'profile.reserve.button' | translate}}</span>
+                    </button>
 
                     <button ng-if="session.authenticated" type="button"
-                            class="fav-btn btn blue-btn fa fa-star"
-                            ng-click="userfavlist.addFavorit(p.id)" ng-class="{favorit : userfavlist.isInFav(p.id)}">
-                        <span class="hidden-xs .hidden-sm lm-5">Favoris</span></button>
-                    <button ng-if="session.authenticated" type="button"
-                            class="contact-btn btn btn-default green2-btn fa fa-envelope" ng-click="setUserToContact(p)"
-                            data-toggle="modal"
-                            data-target="#contactDlg">
-                        <span class="hidden-xs .hidden-sm lm-5">Contacter</span>
+                            class="contact-btn btn btn-default green2-btn fa fa-envelope m-2"
+                            ng-click="setUserToContact(p, $event);">
+                        <span class="hidden-xs hidden-sm lm-5">Contacter</span>
                     </button>
                     <div class="hour-rate" ng-if="p.hourRate">{{p.hourRate}}€ {{'search.result.price' | translate}}
                     </div>
                 </div>
-
             </div>
             <div class="data-loader" ng-if="loading">
                 <i class="fa fa-circle-o-notch fa-spin"></i>
@@ -93,7 +100,7 @@
             <div class="panel panel-default">
                 <!-- Default panel contents -->
                 <div class="panel-heading"><span
-                        class="block-title1 bold">{{'search.result.utillink' | translate}}</span></div>
+                            class="block-title1 bold">{{'search.result.utillink' | translate}}</span></div>
                 <!-- List group -->
                 <ul class="list-group">
                     <a href="http://{{r.link}}" target="_blank" class="list-group-item" ng-repeat="r in utillinks">
@@ -118,7 +125,7 @@
                     <li class="list-group-item" ng-repeat="r in recommandations">
                         <h4 class="list-group-item-heading" data-toggle="collapse" href="#collapseExample"
                             aria-expanded="false" aria-controls="collapseExample">{{r.title[currentLocale]}} <i
-                                class="fa fa-angle-down"></i></h4>
+                                    class="fa fa-angle-down"></i></h4>
 
                         <div class="collapse toggle-panel" id="collapseExample">
                             <div class="well">
@@ -131,7 +138,8 @@
                 </ul>
 
                 <div class="panel-footer center">
-                    <a ui-sref="recommandations({city : '{{city}}', lvl1 : '{{lvl1}}', lvl2 : '{{lvl2}}', country : '{{country}}'})" class="see-more-link">{{'search.result.seemore' |
+                    <a ui-sref="recommandations({city : '{{city}}', lvl1 : '{{lvl1}}', lvl2 : '{{lvl2}}', country : '{{country}}'})"
+                       class="see-more-link">{{'search.result.seemore' |
                         translate}}</a>
                 </div>
             </div>
@@ -142,7 +150,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
+                                    aria-hidden="true">&times;</span></button>
                         <h4 class="modal-title">{{'contact.dlg.title' | translate}} {{userToContact.firstname}}</h4>
                     </div>
                     <div class="modal-body">

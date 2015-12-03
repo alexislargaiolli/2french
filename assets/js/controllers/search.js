@@ -134,8 +134,10 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
             }
         };
 
-        $scope.setUserToContact = function (u) {
+        $scope.setUserToContact = function (u, event) {
             $scope.userToContact = u;
+            angular.element('#contactDlg').modal();
+            event.stopPropagation();
         }
 
         $scope.pageChanged = function () {
