@@ -43,32 +43,32 @@ body {
   border: none;
 }
 
-a{
-  color:@light-blue;
+a {
+  color: @light-blue;
 }
 
-a:hover{
-  color:@blue-title2;
+a:hover {
+  color: @blue-title2;
 }
 
-.nav-tabs.nav-justified a{
+.nav-tabs.nav-justified a {
 
 }
 
-.nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:focus{
+.nav-tabs.nav-justified > .active > a, .nav-tabs.nav-justified > .active > a:hover, .nav-tabs.nav-justified > .active > a:focus {
   background: @light-blue;
-  color:#fff;
-  border-color:@light-blue;
+  color: #fff;
+  border-color: @light-blue;
 }
 
-.pagination > li > a, .pagination > li > span{
-  color:@light-blue;
+.pagination > li > a, .pagination > li > span {
+  color: @light-blue;
 }
 
-.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus{
-  color:#fff;
+.pagination > .active > a, .pagination > .active > span, .pagination > .active > a:hover, .pagination > .active > span:hover, .pagination > .active > a:focus, .pagination > .active > span:focus {
+  color: #fff;
   background: @light-blue;
-  border-color:@light-blue;
+  border-color: @light-blue;
 }
 
 /* HEADER */
@@ -98,9 +98,6 @@ a:hover{
 
 #header {
   background-color: #fff;
-  .navbar-login {
-    margin-top: 12px;
-  }
   .navbar-brand {
     padding: 7px !important;
   }
@@ -116,11 +113,6 @@ a:hover{
   }
   .basic-link.active {
     color: @light-blue;
-  }
-  .btn {
-    font-family: 'arial';
-    font-size: 12px;
-    font-weight: bold;
   }
   #current-language {
     img {
@@ -138,6 +130,27 @@ a:hover{
 
   #left li a {
     padding: 22px 20px 15px 20px;
+  }
+
+  @media (max-width: 768px) {
+    #left li a {
+      padding: 10px;
+      text-align: right;
+    }
+  }
+
+  #login-wrapper {
+    padding: 12px 0;
+    text-align: right;
+  }
+  @media (max-width: 768px) {
+    .navbar-collapse {
+      padding: 0;
+    }
+    #left li a{
+      padding-left:30px;
+      padding-right:30px;
+    }
   }
 
   #user-menu {
@@ -161,6 +174,14 @@ a:hover{
     li a {
       padding-top: 10px;
       padding-bottom: 10px;
+    }
+    @media (max-width: 768px) {
+      li {
+        display: inline-block;
+      }
+      margin: 0;
+      border:none;
+      text-align: right;
     }
     #link-planning .badge {
       margin-left: -10px;
@@ -225,7 +246,16 @@ a:hover{
 }
 
 #homeCarousel .carousel-caption {
-  font-size: 1em;
+  @media (min-width: 992px) {
+    font-size: 2em;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1em;
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+
   font-weight: bold;
   background: rgba(255, 255, 255, 0.7);
   border-radius: 5px;
@@ -340,6 +370,9 @@ a:hover{
   h2 {
     font-weight: bold;
     margin: 30px 0 0 0;
+    @media (max-width: 768px) {
+      margin: 15px 0;
+    }
   }
   p, h2 {
     text-align: center;
@@ -409,55 +442,73 @@ a:hover{
 /* LOGIN */
 #loginForm {
 
-  .btn-wrapper {
-    //width: 350px;
-    display: inline-block;
-    border: 1px solid @very-light-gray;
-    background-color: #fff;
-    border-radius: 5px;
+  input {
+    .no-box-shadow;
   }
   #input-email:-webkit-autofill, #input-pwd:-webkit-autofill {
     -webkit-box-shadow: 0 0 0px 1000px white inset;
     -webkit-text-fill-color: @gray !important;
   }
+  #input-email, #input-pwd {
+    border-left: none;
+  }
   #input-email {
     border-right: 1px solid @very-light-gray !important;
-    padding-left: 0;
     color: @gray !important;
   }
   #input-pwd {
-    padding-left: 2px;
     color: @gray !important;
   }
-  input {
-    display: inline-block;
-    background: none;
-    border: none;
-    width: 140px;
-    border-radius: 0;
-    .no-box-shadow;
+  @media (min-width: 992px) {
+    #input-pwd, #input-email {
+      max-width: 150px;
+    }
+
+    #input-group-pwd {
+      .input-group-addon {
+        display: none;
+      }
+    }
   }
+
+  @media (max-width: 992px) {
+    #input-pwd, #input-email {
+      border-radius: 0 3px 3px 0;
+    }
+
+    #input-group-pwd, #input-group-email {
+      margin-bottom: 5px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    #input-pwd, #input-email {
+      max-width: 165px;
+    }
+
+    #input-group-pwd {
+      margin-left: -4px;
+      #input-pwd {
+        border-radius: 0 3px 3px 0;
+      }
+    }
+  }
+
+  .input-group-addon {
+    background: #fff;
+    border-right: none;
+    color: @gray;
+    padding-right: 0;
+    .fa {
+      width: 11px;
+    }
+  }
+
   #login-btn {
-    border-radius: 0 3px 3px 0;
-    margin: 0 !important;
-    height: 34px;
-    float: right;
-    .blue-btn;
-  }
-  #login-btn:hover {
-    background-color: #fff;
-    color: @light-blue;
+
   }
   #register-btn {
-    margin-left: 20px;
-    padding: 9px 20px;
-    display: inline-block;
-    vertical-align: top;
-  }
-  .fa-user {
-    float: left;
-    padding: 10px;
-    color: @light-blue;
+
   }
   .alert {
     padding: 0;
@@ -573,9 +624,9 @@ a:hover{
 
 /* PROFILE */
 
-.profile-review-item:hover{
-  cursor:pointer;
-  background:#eee;
+.profile-review-item:hover {
+  cursor: pointer;
+  background: #eee;
 }
 
 #schedule-legend {
@@ -633,7 +684,7 @@ a:hover{
     padding: 0 20px;
   }
   #profile-completion-wrapper {
-    p{
+    p {
       font-size: 16px;
       color: #E4A342;
     }
@@ -751,12 +802,12 @@ a:hover{
       }
 
     }
-    #accomodationDesc{
+    #accomodationDesc {
       padding: 10px;
       border: 1px solid #eee;
       color: #333;
     }
-    #accomodationDesc:hover{
+    #accomodationDesc:hover {
       background-color: #eee;
       cursor: pointer;
     }
@@ -1147,7 +1198,7 @@ a:hover{
   }
   .result-item:hover {
     background: #F8F8F8;
-    cursor:pointer;
+    cursor: pointer;
   }
 
   .data-loader {
@@ -1373,8 +1424,8 @@ hr {
 
 /* Contact form */
 #contact-wrapper {
-  margin-top:20px;
-  padding:0;
+  margin-top: 20px;
+  padding: 0;
   .bordered-block;
   #contact-header {
     padding: 20px;
@@ -1442,12 +1493,12 @@ hr {
 }
 
 /* Admin */
-.alex-datatable tbody>tr.active>td, .alex-datatable tbody>tr.active:hover>td, .alex-datatable thead>tr>th{
+.alex-datatable tbody > tr.active > td, .alex-datatable tbody > tr.active:hover > td, .alex-datatable thead > tr > th {
   background: @light-blue;
-  color:#fff;
+  color: #fff;
 }
 
-.alex-datatable thead>tr>th:hover{
+.alex-datatable thead > tr > th:hover {
   background: saturate(@light-blue, 30%);
 }
 
@@ -1631,7 +1682,7 @@ hr {
     border-color: #E4A342;
   }
 
-  .validated{
+  .validated {
 
   }
 
@@ -1671,11 +1722,11 @@ hr {
     }
   }
 
-  .rating-panel{
+  .rating-panel {
     .teacher-rating {
-      height:auto;
-      .glyphicon{
-        font-size:20px;
+      height: auto;
+      .glyphicon {
+        font-size: 20px;
       }
     }
   }
@@ -1839,29 +1890,29 @@ hr {
 
 /* UTILS */
 
-.bg-animate{
+.bg-animate {
   -webkit-transition: background 300ms;
   -moz-transition: background 300ms;
   -o-transition: background 300ms;
   transition: background 300ms;
 }
 
-.border-animate{
+.border-animate {
   -webkit-transition: border 300ms;
   -moz-transition: border 300ms;
   -o-transition: border 300ms;
   transition: border 300ms;
 }
 
-.badge{
+.badge {
   background-color: #ff7108;
 }
 
-.nav-pills > li > a{
-    color:@gray;
+.nav-pills > li > a {
+  color: @gray;
 }
 
-.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus{
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
   border-color: @light-blue;
   background-color: @light-blue;
 }
@@ -1977,12 +2028,12 @@ hr {
   -webkit-box-shadow: none;
 }
 
-.blue-btn, .btn-primary{
+.blue-btn, .btn-primary {
   color: #fff;
   border-color: @light-blue;
   background-color: @light-blue;
-  box-shadow: none!important;
-  outline: none!important;
+  box-shadow: none !important;
+  outline: none !important;
 }
 
 .blue-btn:hover, .btn-primary:hover {
@@ -1999,9 +2050,9 @@ hr {
 }
 
 button.favorit {
-  background-color: #fff!important;
-  border-color: @light-blue!important;
-  color: @light-blue!important;
+  background-color: #fff !important;
+  border-color: @light-blue !important;
+  color: @light-blue !important;
 }
 
 .orange-btn {
@@ -2175,7 +2226,6 @@ button.favorit {
   margin-bottom: 5px !important;
 }
 
-
 .mb-10 {
   margin-bottom: 10px !important;
 }
@@ -2196,8 +2246,8 @@ button.favorit {
   margin-top: 40px;
 }
 
-.mr-10{
-  margin-right:10px!important;
+.mr-10 {
+  margin-right: 10px !important;
 }
 
 .vm-5 {
@@ -2280,11 +2330,11 @@ button.favorit {
   font-size: 25px;
 }
 
-.w-50{
-  width:50%;
+.w-50 {
+  width: 50%;
 }
 
 md-icon {
-  height:28px;
-  line-height: 28px!important;
+  height: 28px;
+  line-height: 28px !important;
 }

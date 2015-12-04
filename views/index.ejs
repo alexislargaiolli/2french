@@ -156,7 +156,7 @@
             </button>
             <a id="logo" class="navbar-brand" ui-sref="home"><img src="images/logo.png"></a>
         </div>
-        <div class="collapse navbar-collapse right" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 
             <!-- Header menu -->
@@ -187,55 +187,57 @@
                 </li>
             </ul>
 
-<span>
-            <!-- Login input fields -->
-            <login-input></login-input>
+            <div id="right">
+                <!-- Login input fields -->
+                <login-input></login-input>
 
 
-            <!-- Report bug button trigger modal -->
-            <a ui-sref="contact({theme : 'bug'})" class="reportBugBtn" ng-if="session.authenticated">
-                {{'header.report.bug' | translate}}
-            </a>
+                <!-- Report bug button trigger modal -->
+                <a ui-sref="contact({theme : 'bug'})" class="reportBugBtn" ng-if="session.authenticated">
+                    {{'header.report.bug' | translate}}
+                </a>
 
-            <!-- AUTHENTICATED HEADER PANEL -->
-            <ul id="user-menu" class="nav navbar-nav navbar-right" ng-if="session.authenticated">
-                <li ng-if="isStudent">
-                    <a id="link-myteachers" ui-sref="myteachers" title="{{'myteachers.title' | translate}}">
-                        <i class="fa fa-star"></i>
-                    </a>
-                </li>
-                <li>
-                    <a ui-sref="planning" id="link-planning" title="{{'planning.title' | translate}}">
-                        <i class="fa fa-pencil-square-o"></i>
-                        <span class="badge" ng-show="notificationResaCount > 0">{{notificationResaCount}}</span>
-                    </a>
-                </li>
-                <li>
-                    <a ui-sref="messagerie" id="link-message" title="{{'messagerie.title' | translate}}">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="badge" ng-show="notificationMessageCount > 0">{{notificationMessageCount}}</span>
-                    </a>
-                </li>
-                <li>
-                    <a ui-sref="myprofile" id="link-myprofile" title="{{'myprofile.title' | translate}}">
-                        <img id="user-menu-photo" ng-src="{{session.profile.photo}}"
-                             ng-show="session.profile && session.profile.photo"/>
-                        <i id="user-menu-photo-icon" class="fa fa-user"
-                           ng-show="!session.profile || !session.profile.photo"></i>
-                    </a>
-                </li>
-                <li id="user-menu-dropdown" class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a ui-sref="myprofile">{{'header.myprofile' | translate}}</a></li>
-                        <li><a ui-sref="parameters.notifications">{{'header.parameters' | translate}}</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li ng-controller="LoginCtrl"><a ng-click="logout()">{{'header.logout' | translate}}</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </span>
+                <!-- AUTHENTICATED HEADER PANEL -->
+                <ul id="user-menu" class="nav navbar-nav navbar-right" ng-if="session.authenticated">
+                    <li ng-if="isStudent">
+                        <a id="link-myteachers" ui-sref="myteachers" title="{{'myteachers.title' | translate}}">
+                            <i class="fa fa-star"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a ui-sref="planning" id="link-planning" title="{{'planning.title' | translate}}">
+                            <i class="fa fa-pencil-square-o"></i>
+                            <span class="badge" ng-show="notificationResaCount > 0">{{notificationResaCount}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ui-sref="messagerie" id="link-message" title="{{'messagerie.title' | translate}}">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="badge"
+                                  ng-show="notificationMessageCount > 0">{{notificationMessageCount}}</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a ui-sref="myprofile" id="link-myprofile" title="{{'myprofile.title' | translate}}">
+                            <img id="user-menu-photo" ng-src="{{session.profile.photo}}"
+                                 ng-show="session.profile && session.profile.photo"/>
+                            <i id="user-menu-photo-icon" class="fa fa-user"
+                               ng-show="!session.profile || !session.profile.photo"></i>
+                        </a>
+                    </li>
+                    <li id="user-menu-dropdown" class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a ui-sref="myprofile">{{'header.myprofile' | translate}}</a></li>
+                            <li><a ui-sref="parameters.notifications">{{'header.parameters' | translate}}</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li ng-controller="LoginCtrl"><a ng-click="logout()">{{'header.logout' | translate}}</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
