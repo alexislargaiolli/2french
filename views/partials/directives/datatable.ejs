@@ -18,7 +18,10 @@
     </thead>
     <tbody>
     <tr ng-repeat="item in model.items" ng-click="model.toggleSelect(item)" ng-class="{'active' : model.isSelected(item)}">
-        <td ng-repeat="column in model.columns">{{item[column.field]}}</td>
+        <td ng-repeat="column in model.columns">
+            <span ng-if="!column.subfield">{{item[column.field]}}</span>
+            <span ng-if="column.subfield">{{item[column.field][column.subfield]}}</span>
+        </td>
     </tr>
     <tr ng-if="model.items.length == 0">
         <td colspan="10">

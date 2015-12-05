@@ -33,6 +33,7 @@ module.exports.routes = {
   ***************************************************************************/
 
   'GET /user/count': {blueprint: 'count'},
+  'GET /diploma/count': {blueprint: 'count'},
 
   'get /': {
     view: 'index'

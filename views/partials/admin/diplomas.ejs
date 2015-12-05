@@ -1,12 +1,76 @@
-<h2 style="display:inline-block;">Diplôme à valider</h2>
+<div layout="column">
+    <section layout="row" flex>
+        <md-content flex>
 
-<ul class="list-group" id="diplomas-list">
-    <li ng-repeat="d in diplomas" class="list-group-item">
-        <div class="diploma-owner">{{d.owner}}</div>
-        <div class="diploma-btn-wrapper">
-            <a href="/diploma/downloadDiploma/{{d.fileName}}" target="_blank" class="btn btn-default"><i class="fa fa-search"></i>voir</a>
-            <button type="button" ng-click="validate(d)" class="btn btn-success"><i class="fa fa-check"></i>Validate</button>
-        </div>
-    </li>
-    <p ng-if="diplomas.length == 0">Aucun</p>
-</ul>
+            <table class="table table-hover alex-datatable">
+                <thead>
+                <tr>
+                    <th ng-repeat="column in datatable.columns" ng-click="datatable.sort(column.field)">
+                        <div class="header-title">
+                            <span>{{column.header}}</span>
+                <span class="fa"
+                      ng-class="{'fa-sort' : column.field != datatable.sortField, 'fa-sort-asc' : (column.field == datatable.sortField) && datatable.isASC(), 'fa-sort-desc' : (column.field == datatable.sortField) && !datatable.isASC()}"></span>
+                        </div>
+                        <div class="input-group" ng-if="column.filter">
+                            <div class="input-group-addon fa fa-search"></div>
+                            <input type="text" class="form-control" ng-click="$event.stopPropagation();"
+                                   ng-model="datatable.where[column.field]" ng-change="datatable.filter()"
+                                   ng-model-options='{ debounce: 500 }'>
+                        </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="item in datatable.items" ng-click="datatable.toggleSelect(item)" ng-class="{'active' : datatable.isSelected(item)}">
+                    <td>
+                        <span>{{item.owner.email}}</span>
+                    </td>
+                    <td>
+                        <span class="label label-success p-5" ng-if="item.diplomaValidated && item.diplomaUploaded"><span class="fa fa-check-square-o p-5"></span>Validé</span>
+                        <span class="label label-warning p-5" ng-if="!item.diplomaValidated && item.diplomaUploaded"><span class="fa fa-square-o p-5"></span>À valider</span>
+                        <span class="label label-danger p-5" ng-if="!item.diplomaUploaded"><span class="fa fa-remove p-5"></span>Aucun</span>
+                    </td>
+                </tr>
+                <tr ng-if="datatable.items.length == 0">
+                    <td colspan="10">
+                        Aucun élément trouvé...
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <div class="alex-datatable-paginator">
+                <pagination total-items="datatable.itemCount" items-per-page="datatable.pageSize"
+                            ng-model="datatable.currentPage" ng-change="datatable.load()"></pagination>
+            </div>
+
+        </md-content>
+        <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+            <md-toolbar class="md-theme-light">
+                <h1 class="md-toolbar-tools">{{selected.owner.username}}</h1>
+            </md-toolbar>
+            <md-content layout-padding>
+                <div layout="column">
+                    <div flex class="center" ng-if="selected.diplomaUploaded">
+                        <md-button ng-click="validate($event)" class="md-raised md-warn w-50">
+                            <md-icon md-font-icon="fa-trash" class="fa f-20"></md-icon>
+                            Valider
+                        </md-button>
+                    </div>
+
+                    <div flex class="center" ng-if="selected.diplomaUploaded">
+                        <md-button ng-href="/diploma/downloadDiploma/{{selected.fileName}}" target="_blank" class="md-raised md-default w-50">
+                            <md-icon md-font-icon="fa-search" class="fa f-20"></md-icon>
+                            Voir
+                        </md-button>
+                    </div>
+
+                    <div flex class="center">
+                        <md-button ng-click="closeNavbar()" class="md-raised w-50">
+                            Annuler
+                        </md-button>
+                    </div>
+                </div>
+            </md-content>
+        </md-sidenav>
+    </section>
+</div>
