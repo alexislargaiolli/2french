@@ -24,10 +24,10 @@ tooFrenchServices.factory('Notification', ['$resource', '$http', '$rootScope', '
                         $rootScope.notification.setResaNotification(data);
                         $rootScope.notificationResaCount = data.length;
                         $rootScope.$broadcast(NOTIFICATION_EVENTS.resaUpdate, {count: data.length});
-                        $timeout($rootScope.notification.update, 3000);
+                        $timeout($rootScope.notification.update, 5000);
                     }).error(function (data, status, headers, config) {
                         $rootScope.notification.setResaNotification([]);
-                        $timeout($rootScope.notification.update, 3000);
+                        $timeout($rootScope.notification.update, 5000);
                         $rootScope.notificationResaCount = 0;
                     });
                     $http.get('/notification/unseen', {params: {type: 'message'}}).success(function (data, status, headers, config) {

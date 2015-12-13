@@ -109,7 +109,7 @@ module.exports = {
     addToList: function (req, res) {
         var profileId = req.allParams().profileId;
         if (profileId) {
-            UserFavList.findOne({owner: req.user.id}).exec(function (err, favList) {
+            UserFavList.findOrCreate({owner: req.user.id}, {owner: req.user.id, favorits : []}).exec(function (err, favList) {
                 if (err) return res.serverError(err);
                 favList.favorits.add(profileId);
                 favList.save(function (err, list) {
@@ -126,7 +126,7 @@ module.exports = {
     removeFromList: function (req, res) {
         var profileId = req.allParams().profileId;
         if (profileId) {
-            UserFavList.findOne({owner: req.user.id}).exec(function (err, favList) {
+            UserFavList.findOrCreate({owner: req.user.id}, {owner: req.user.id, favorits : []}).exec(function (err, favList) {
                 if (err) return res.serverError(err);
                 favList.favorits.remove(profileId);
                 favList.save(function (err, list) {
