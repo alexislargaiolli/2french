@@ -66,8 +66,10 @@
                         <i class="fa fa-check-circle f-30 middle rm-10" ng-if="session.diploma.diplomaValidated"></i>
 
                         <span ng-if="!session.diploma.diplomaUploaded" class="middle">{{'diploma.label.upload' | translate}}</span>
-                        <span ng-if="session.diploma.diplomaUploaded && !session.diploma.diplomaValidated" class="middle">{{'diploma.label.validating' | translate}}</span>
-                        <span ng-if="session.diploma.diplomaUploaded && session.diploma.diplomaValidated" class="middle">{{'diploma.label.validated' | translate}}</span>
+                        <span ng-if="session.diploma.diplomaUploaded && !session.diploma.diplomaValidated"
+                              class="middle">{{'diploma.label.validating' | translate}}</span>
+                        <span ng-if="session.diploma.diplomaUploaded && session.diploma.diplomaValidated"
+                              class="middle">{{'diploma.label.validated' | translate}}</span>
 
                         <div ng-if="!session.diploma.diplomaUploaded && !session.diploma.diplomaValidated"
                              class="inline lm-10">
@@ -93,9 +95,9 @@
                                  clockwise="false"
                                  responsive="false"
                                  duration="800"
-                                 animation="easeInOutQuart">{{diplomaProgress}}%</div>
+                                 animation="easeInOutQuart">{{diplomaProgress}}%
+                            </div>
                         </div>
-
 
 
                     </div>
@@ -224,8 +226,9 @@
                                 </h4>
                             </div>
                             <p editable-textarea="profile.motivation[profileLocale]" e-form="textBtnForm" e-rows="7"
-                               e-style="width:100%" onaftersave="save()" e-ng-blur="textBtnForm.$save()">
-                                {{ profile.motivation[profileLocale] || ('myprofile.motivation.empty' | translate) }}
+                               e-style="width:100%;" style="white-space: pre-wrap;" onaftersave="save()"
+                               e-ng-blur="textBtnForm.$save()">{{profile.motivation[profileLocale] ||
+                                ('myprofile.motivation.empty' | translate) }}
                             </p>
                         </div>
                     </div>
