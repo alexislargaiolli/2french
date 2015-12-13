@@ -192,6 +192,7 @@
             </div>
             <div class="btn-wrapper">
                 <div ng-if="resa.status == 'pending'">
+                    <span class="p-10 label label-default fa fa-spinner fa-pr10 inline">{{'planning.reservations.status.pending' | translate}}</span>
                     <button type="button" class="btn btn-danger fa fa-remove fa-pr10" ng-click="cancelResa(resa)">
                         {{'planning.reservations.status.cancel' | translate}}
                     </button>
