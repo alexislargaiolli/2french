@@ -129,7 +129,7 @@
 
                         <hr ng-if="reservation.formula == null" />
 
-                        <div class="form-group">
+                        <div class="form-group" ng-if="profile.activeAccomodation">
                             <label>{{'reservation.form.accomodation' | translate}}</label>
 
                             <div class="inline fright">
@@ -150,7 +150,7 @@
                             {{'reservation.warning.accomodation' | translate}}
                         </div>
 
-                        <hr/>
+                        <hr ng-if="profile.activeAccomodation"/>
 
                         <div class="form-group">
                             <label>{{'reservation.form.activity' | translate}}</label>
