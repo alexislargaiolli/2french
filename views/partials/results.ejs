@@ -89,9 +89,9 @@
             <div class="data-loader" ng-if="loading">
                 <i class="fa fa-circle-o-notch fa-spin"></i>
             </div>
-            <div class="paginator-wrapper center" ng-class="{'hidden': (loading || recCount < recPageSize)}">
-                <pagination total-items="recCount" items-per-page="recPageSize" ng-model="recPageIndex"
-                            ng-change="recPageChanged()"></pagination>
+            <div class="paginator-wrapper center" ng-class="{'hidden': (loading || count <= resultPageSize)}">
+                <pagination total-items="count" items-per-page="resultPageSize" ng-model="pageIndex"
+                            ng-change="pageChanged()"></pagination>
             </div>
         </div>
 

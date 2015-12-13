@@ -13,7 +13,7 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
         $scope.periods = $stateParams.periods;
         $scope.messageContent;
         $scope.userToContact;
-        $scope.pageSize = 10;
+        $scope.resultPageSize = 10;
         $scope.pageIndex = 1;
         $scope.count = 0;
         $scope.loading = true;
@@ -34,7 +34,7 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
                     city: $scope.city,
                     days: $scope.days,
                     periods: $scope.periods,
-                    pageSize: $scope.pageSize,
+                    pageSize: $scope.resultPageSize,
                     pageIndex: $scope.pageIndex
                 }
             }).
@@ -49,13 +49,12 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
                             city: $scope.city,
                             days: $scope.days,
                             periods: $scope.periods,
-                            pageSize: $scope.pageSize,
+                            pageSize: $scope.resultPageSize,
                             pageIndex: $scope.pageIndex
                         }
                     }).success(function (profiles) {
                         $scope.loading = false;
                         $scope.results = profiles;
-
                         $scope.schedules = [];
                     }).error(function (data, status, headers, config) {
 
@@ -152,7 +151,7 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
                     city: $scope.city,
                     days: $scope.days,
                     periods: $scope.periods,
-                    pageSize: $scope.pageSize,
+                    pageSize: $scope.resultPageSize,
                     pageIndex: $scope.pageIndex
                 }
             }).success(function (profiles) {
