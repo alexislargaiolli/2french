@@ -11,6 +11,6 @@ var tooFrench = angular.module('tooFrenchApp');
 tooFrench.directive('loginInput', function() {
   return {
     restrict: 'E',
-    templateUrl: '/views/directives/loginInput.html'
+    templateUrl: '/views/directives/loginInput.html?v=1.0'
   };
 });
