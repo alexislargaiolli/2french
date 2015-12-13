@@ -361,12 +361,12 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             .state('parameters.notifications', {
                 url: '/parameters/notifications',
                 controller: 'ParametersNotificationsCtrl',
-                templateUrl: 'views/parameters/parameters.notifications.html'
+                templateUrl: 'views/parameters/parameters-notifications.html'
             })
             .state('parameters.password', {
                 url: '/parameters/password',
                 controller: 'ParametersPasswordCtrl',
-                templateUrl: 'views/parameters/parameters.password.html'
+                templateUrl: 'views/parameters/parameters-password.html'
             })
             .state('faq', {
                 url: '/faq',

@@ -26,9 +26,11 @@ tooFrenchServices.factory('Notification', ['$resource', '$http', '$rootScope', '
                         $rootScope.$broadcast(NOTIFICATION_EVENTS.resaUpdate, {count: data.length});
                         $timeout($rootScope.notification.update, 5000);
                     }).error(function (data, status, headers, config) {
-                        $rootScope.notification.setResaNotification([]);
-                        $timeout($rootScope.notification.update, 5000);
-                        $rootScope.notificationResaCount = 0;
+                        if(status > 0 && status != 401) {
+                            $rootScope.notification.setResaNotification([]);
+                            $rootScope.notificationResaCount = 0;
+                            $timeout($rootScope.notification.update, 15000);
+                        }
                     });
                     $http.get('/notification/unseen', {params: {type: 'message'}}).success(function (data, status, headers, config) {
                         $rootScope.notification.setMessageNotification(data);
