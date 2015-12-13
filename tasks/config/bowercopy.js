@@ -46,7 +46,8 @@ module.exports = function (grunt) {
                 '28.js': 'angular-ui-router-anim-in-out/anim-in-out.js',
                 '29.js': 'angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js',
                 '30.js': 'angular-carousel/dist/angular-carousel.js',
-                '32.js': 'angular-dynamic-locale/dist/tmhDynamicLocale.js'
+                '32.js': 'angular-dynamic-locale/dist/tmhDynamicLocale.js',
+                '33.js': 'angular-svg-round-progressbar/build/roundProgress.js'
             }
         },
         cssLibs: {

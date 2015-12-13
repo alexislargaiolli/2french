@@ -33,7 +33,8 @@ var tooFrenchApp = angular.module('tooFrenchApp', [
     'ngImgCrop',
     'tmh.dynamicLocale',
     'textAngular',
-    'ngMaterial'
+    'ngMaterial',
+    'angular-svg-round-progress'
 ]);
 
 

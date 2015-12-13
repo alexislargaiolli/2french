@@ -114,6 +114,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                 $scope.uploadDiploma = function () {
                     $scope.diplomaUploading = true;
                     var filename = Session.userId;
+                    $scope.diplomaProgress =0;
                     $upload.upload({
                         url: 'diploma/upload',
                         file: $scope.diplomaFile,

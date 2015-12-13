@@ -73,9 +73,9 @@
 
                 <div ng-repeat="formula in profile.formulas track by $index">
                     <hr/>
-                    <h4 class="blue-title f-14">{{formula.name[currentLocale]}}</h4>
+                    <h4 class="blue-title f-14">{{formula.name[currentLocale]}}, {{formula.price}}€</h4>
 
-                    <p class="grey-text">{{formula.description[currentLocale]}}, {{formula.price}}€</p>
+                    <p class="grey-text">{{formula.description[currentLocale]}}</p>
 
                     <div class="formuleBtns" ng-if="session.authenticated && isStudent">
                         <a ui-sref="reservation({profileId : profile.id, formula : $index})"
