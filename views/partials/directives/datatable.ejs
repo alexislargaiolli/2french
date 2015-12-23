@@ -9,7 +9,7 @@
             </div>
             <div class="input-group" ng-if="column.filter">
                 <div class="input-group-addon fa fa-search"></div>
-                <input type="text" class="form-control" ng-click="$event.stopPropagation();"
+                <input type="text" class="form-control SEL_input_{{column.field}}" ng-click="$event.stopPropagation();"
                        ng-model="model.where[column.field]" ng-change="model.filter()"
                        ng-model-options='{ debounce: 500 }'>
             </div>
@@ -19,8 +19,8 @@
     <tbody>
     <tr ng-repeat="item in model.items" ng-click="model.toggleSelect(item)" ng-class="{'active' : model.isSelected(item)}">
         <td ng-repeat="column in model.columns">
-            <span ng-if="!column.subfield">{{item[column.field]}}</span>
-            <span ng-if="column.subfield">{{item[column.field][column.subfield]}}</span>
+            <span ng-if="!column.subfield" class="SEL_{{column.field}}">{{item[column.field]}}</span>
+            <span ng-if="column.subfield" class="SEL_{{column.subfield}}">{{item[column.field][column.subfield]}}</span>
         </td>
     </tr>
     <tr ng-if="model.items.length == 0">

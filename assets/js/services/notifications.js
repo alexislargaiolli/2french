@@ -2,8 +2,8 @@
  * Created by alex on 15/11/15.
  */
 var tooFrenchServices = angular.module('tooFrenchApp');
-tooFrenchServices.factory('Notification', ['$resource', '$http', '$rootScope', 'Session', '$timeout', 'NOTIFICATION_EVENTS',
-    function ($resource, $http, $rootScope, Session, $timeout, NOTIFICATION_EVENTS) {
+tooFrenchServices.factory('Notification', ['$resource', '$http', '$rootScope', 'Session', '$timeout', 'NOTIFICATION_EVENTS', '$interval',
+    function ($resource, $http, $rootScope, Session, $timeout, NOTIFICATION_EVENTS, $interval) {
         return {
             notifications: new Array(),
             init: function () {
@@ -13,7 +13,8 @@ tooFrenchServices.factory('Notification', ['$resource', '$http', '$rootScope', '
                 this.notifications['message'] = [];
                 $rootScope.notificationResaCount = 0;
                 $rootScope.notificationMessageCount = 0;
-                this.update();
+
+                $interval(this.update, 5000);
             },
             getResource: function () {
                 return $resource('/notification/:id', {id: '@id'}, {'update': {method: 'PUT'}});
@@ -24,12 +25,12 @@ tooFrenchServices.factory('Notification', ['$resource', '$http', '$rootScope', '
                         $rootScope.notification.setResaNotification(data);
                         $rootScope.notificationResaCount = data.length;
                         $rootScope.$broadcast(NOTIFICATION_EVENTS.resaUpdate, {count: data.length});
-                        $timeout($rootScope.notification.update, 5000);
+                        //$timeout($rootScope.notification.update, 5000);
                     }).error(function (data, status, headers, config) {
                         if(status > 0 && status != 401) {
                             $rootScope.notification.setResaNotification([]);
                             $rootScope.notificationResaCount = 0;
-                            $timeout($rootScope.notification.update, 15000);
+                            //$timeout($rootScope.notification.update, 15000);
                         }
                     });
                     $http.get('/notification/unseen', {params: {type: 'message'}}).success(function (data, status, headers, config) {

@@ -172,7 +172,7 @@
                        ng-if="session.authenticated">{{'header.forum' | translate}}</a>
                 </li>
                 <li>
-                    <a ui-sref="admin" class="basic-link" ui-sref-active="active" ng-if="isAdmin">{{'header.admin' |
+                    <a id="menuAdminBtn" ui-sref="admin" class="basic-link" ui-sref-active="active" ng-if="isAdmin">{{'header.admin' |
                         translate}}</a>
                 </li>
                 <li class="dropdown" ng-controller="TranslateCtrl">
@@ -232,7 +232,7 @@
                             <li><a ui-sref="myprofile">{{'header.myprofile' | translate}}</a></li>
                             <li><a ui-sref="parameters.notifications">{{'header.parameters' | translate}}</a></li>
                             <li role="separator" class="divider"></li>
-                            <li ng-controller="LoginCtrl"><a ng-click="logout()">{{'header.logout' | translate}}</a>
+                            <li ng-controller="LoginCtrl"><a id="logoutBtn" ng-click="logout()">{{'header.logout' | translate}}</a>
                             </li>
                         </ul>
                     </li>

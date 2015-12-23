@@ -30,18 +30,18 @@
             <div class="row">
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <label class="btn-register blue-btn center-block">
-                        <input type="radio" ng-model="registerType" value="2"/>{{'register.student' | translate}}
+                        <input id="registerStudentSwitch" type="radio" ng-model="registerType" value="2"/>{{'register.student' | translate}}
                     </label>
                 </div>
                 <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <label class="btn-register blue-btn center-block">
-                        <input type="radio" ng-model="registerType" value="1"/>{{'register.teacher' | translate}}
+                        <input id="registerTeacherSwitch" type="radio" ng-model="registerType" value="1"/>{{'register.teacher' | translate}}
                     </label>
                 </div>
             </div>
             <form id="formRegister" name="formRegister" role="form" class="center-block">
                 <div class="form-group has-feedback" class-valid="formRegister.pseudo">
-                    <input ng-model="user.firstname" type="text" name="pseudo" class="form-control"
+                    <input id="registerPseudo" ng-model="user.firstname" type="text" name="pseudo" class="form-control"
                            placeholder="{{'register.pseudo'|translate}}" ng-required="true">
                     <span class="error" ng-show="formRegister.pseudo.$error.required"></span>
 
@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="form-group has-feedback" class-valid="formRegister.city">
-                    <input type="text" name="city" g-places-autocomplete ng-model="user.city" force-selection="true"
+                    <input id="registerCity" type="text" name="city" g-places-autocomplete ng-model="user.city" force-selection="true"
                            class="form-control" ng-required="true" placeholder="{{'register.city' | translate}}"/>
                     <span class="error" ng-show="formRegister.city.$error.required"></span>
 
@@ -57,14 +57,14 @@
                 </div>
 
                 <div class="form-group has-feedback" class-valid="formRegister.email">
-                    <input ng-model="user.email" type="email" name="email" class="form-control"
+                    <input id="registerEmail" ng-model="user.email" type="email" name="email" class="form-control"
                            placeholder="{{'register.mail' | translate}}" ng-required="true">
                     <span class="error" ng-show="formRegister.email.$error.email"></span>
 
                     <icon-validation elt="formRegister.email"></icon-validation>
                 </div>
                 <div class="form-group has-feedback" class-valid="formRegister.conf">
-                    <input ng-model="user.emailConfirmation" type="text" name="conf" class="form-control"
+                    <input id="registerEmailConfirmation" ng-model="user.emailConfirmation" type="text" name="conf" class="form-control"
                            placeholder="{{'register.mail.confirmation'|translate}}" match="user.email"
                            ng-required="true">
                     <span class="error" ng-show="formRegister.conf.$error.email"></span>
@@ -76,13 +76,13 @@
                     {{'register.mail.confirmation.error' | translate}}
                 </div>
                 <div class="form-group has-feedback" class-valid="formRegister.password">
-                    <input ng-model="user.password" type="password" name="password" class="form-control"
+                    <input id="registerPassword" ng-model="user.password" type="password" name="password" class="form-control"
                            placeholder="{{'register.password'|translate}}" ng-required="true" aria-invalid="true">
                     <span class="error" ng-show="formRegister.password.$error.required"></span>
                     <icon-validation elt="formRegister.password"></icon-validation>
                 </div>
                 <div class="alert alert-danger" role="alert" ng-show="message">{{message}}</div>
-                <button ng-click="submit()" type="submit" class="btn btn-default green-btn center-block p-20 f-16">{{'register.button'|
+                <button id="btnSubmitRegister" ng-click="submit()" type="submit" class="btn btn-default green-btn center-block p-20 f-16">{{'register.button'|
                     translate}}
                 </button>
             </form>
