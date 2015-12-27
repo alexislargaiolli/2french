@@ -21,7 +21,7 @@ tooFrenchApp.service('Tour', function ($translate, $state, $http, Session) {
                 template: "<div class='popover tour'>" +
                 "<div class='arrow'></div>" +
                 "<h3 class='popover-title'></h3>" +
-                "<span class='fa fa-times-circle endTourBtn' data-role='end'></span>" +
+                "<span class='fa fa-times-circle endTourBtn SEL_endTourBtn' data-role='end'></span>" +
                 "<div class='popover-content'></div>" +
                 "<div class='popover-navigation'>" +
                 "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +
@@ -88,7 +88,7 @@ tooFrenchApp.service('Tour', function ($translate, $state, $http, Session) {
                 template: "<div class='popover tour'>" +
                 "<div class='arrow'></div>" +
                 "<h3 class='popover-title'></h3>" +
-                "<span class='fa fa-times-circle endTourBtn' data-role='end'></span>" +
+                "<span class='fa fa-times-circle endTourBtn SEL_endTourBtn' data-role='end'></span>" +
                 "<div class='popover-content'></div>" +
                 "<div class='popover-navigation'>" +
                 "<span class='prev-btn fa fa-arrow-circle-left' data-role='prev'></span>" +

@@ -17,6 +17,7 @@ describe('ReservationController', function () {
     });
     describe('logged as teacher', function () {
         var agent;
+
         before(function (done) {
             agent = request.agent(sails.hooks.http.app);
             TestService.logTeacher(agent, done);

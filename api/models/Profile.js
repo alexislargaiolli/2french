@@ -102,6 +102,7 @@ module.exports = {
         }
     },
     checkValidation : function(profileId, next){
+        sails.log.info('checkValidation');
         Profile.findOne({id: profileId}).populate('formations').exec(function (err, profile) {
             if(err){
                 return next(err);
@@ -109,7 +110,11 @@ module.exports = {
             if(profile && profile.validate){
                 return next(null, true);
             }
+
+            //Check profile completion
             if (profile.photo && profile.hourRate && profile.motivation && profile.formations && profile.formations.length > 0) {
+
+                //Check profile validated
                 Diploma.findOne({'owner': profile.owner}).exec(function (err, diploma) {
                     if (diploma && diploma.diplomaValidated) {
                         profile.validate = true;
@@ -117,43 +122,31 @@ module.exports = {
                     else {
                         profile.validate = false;
                     }
-                    profile.save(function(err, p){
-                        next(err, p.validate);
-                    });
+                    next(null, profile.validate);
                 });
             }
             else {
                 profile.validate = false;
-                profile.save(function(err, p){
-                    next(err, p.validate);
-                });
+                next(null, profile.validate);
             }
         });
     },
     beforeCreate: function (values, next) {
-        /*values.accommodation = {};
-         values.accommodation.equipments = new Array();
-         values.accommodation.services = new Array();
-         values.activeAccomodation = false;*/
         next();
     },
     afterCreate: function (profile, next) {
         next();
     },
     beforeUpdate: function (profile, next) {
-        next();
+        Profile.checkValidation(profile.id, function(err, v){
+            profile.validate = v;
+            next();
+        });
     },
     afterUpdate : function(profile, next){
-        if (profile && !profile.validate) {
-            Profile.checkValidation(profile.id, function(err, v){
-
-            });
-            next();
-        }
-        else {
-            next();
-        }
+        next();
     },
+
     afterDestroy: function (profiles, next) {
         if (profiles.length == 0) {
             return next();

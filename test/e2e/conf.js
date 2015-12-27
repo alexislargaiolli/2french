@@ -2,9 +2,10 @@ exports.config = {
     seleniumAddress: 'http://127.0.0.1:4444/wd/hub',
     //specs: ['home-spec.js', 'student-register-spec.js', 'student-logout-spec.js', 'admin-login-spec.js', 'admin-user-remove-spec.js'],
     suites: {
-        global : 'admin/*-spec.js'
+        student : ['global/student/*-spec.js'],
+        admin : ['global/admin/*-spec.js']
     },
-    //specs: ['home-spec.js'],
+    //specs: ['student/*-spec.js', 'admin/*-spec.js'],
     capabilities: {
         'browserName': 'firefox'
     },

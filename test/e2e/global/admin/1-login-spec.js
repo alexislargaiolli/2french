@@ -10,7 +10,6 @@ describe('Log as admin user', function() {
     });
 
     it('should log with admin user', function() {
-        console.log('Admin loggin');
         element(by.id('input-email')).sendKeys(browser.params.admin.email);
         element(by.id('input-pwd')).sendKeys(browser.params.admin.password);
         element(by.id('login-btn')).click();
