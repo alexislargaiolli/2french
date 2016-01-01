@@ -1,7 +1,21 @@
+var TooFrench = require('../utils/utils.js');
+var HomePage = require('../pages/home.js');
+
 /**
  * Created by alex on 17/10/15.
  */
 describe('Edit teacher profile', function() {
+
+    beforeAll(function(){
+        var home = new HomePage();
+        home.get();
+        TooFrench.login(browser.params.teacher);
+    });
+
+    afterAll(function(){
+        TooFrench.logout();
+    });
+
     it('should access my profile page', function() {
         element(by.id('link-myprofile')).click();
         expect(element(by.id('profile-title')).getText()).toEqual(browser.params.teacher.pseudo);

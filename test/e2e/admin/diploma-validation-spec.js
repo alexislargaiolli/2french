@@ -3,6 +3,12 @@
  */
 describe('Log as admin user', function() {
 
+    afterAll(function(){
+        element(by.id('user-menu-dropdown')).click();
+        element(by.id('logoutBtn')).click();
+        browser.driver.sleep(1000);
+    });
+
     it('should access admin panel', function() {
         element(by.id('menuAdminBtn')).click();
         expect(element(by.id('adminMenuBar'))).toBeDefined();

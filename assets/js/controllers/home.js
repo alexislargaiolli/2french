@@ -8,7 +8,7 @@
  */
 var ctrl = angular.module('tooFrenchApp');
 ctrl.controller('HomeCtrl', ['$scope', '$rootScope', '$timeout', function ($scope, $rootScope, $timeout) {
-    $scope.interval = 5000;
+    /*$scope.interval = 5000;
     var slides = $scope.slides = [{
         image: 'https://res.cloudinary.com/hmn3vaygs/image/upload/v1444153962/diapo0_ux9jrb.jpg'
     },{
@@ -23,5 +23,5 @@ ctrl.controller('HomeCtrl', ['$scope', '$rootScope', '$timeout', function ($scop
         $timeout(function(){
             $rootScope.updateCarousel();
         }, 200);
-    });
+    });*/
 }]);

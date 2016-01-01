@@ -63,6 +63,7 @@
     "jasmine-reporters": "^2.1.1",
     "protractor": "^3.0.0",
     "protractor-console": "^2.0.0",
+    "q": "^1.4.1",
     "sails-memory": "^0.10.5",
     "should": "^8.0.2",
     "supertest": "^1.1.0"

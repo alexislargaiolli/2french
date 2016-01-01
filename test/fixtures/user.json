@@ -8,11 +8,19 @@
     "profile": 1
   },
   {
-    "username": "user2@test.fr",
-    "email": "user2@test.fr",
+    "username": "testTeacher",
+    "email": "teacher@e2e.fr",
     "role": "teacher",
     "tour": true,
     "defaultLocale": "fr",
     "profile": 2
+  },
+  {
+    "username": "e2etests",
+    "email": "student@e2e.fr",
+    "role": "student",
+    "tour": true,
+    "defaultLocale": "fr",
+    "profile": 3
   }
 ]

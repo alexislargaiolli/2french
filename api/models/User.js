@@ -75,7 +75,7 @@ var User = {
         });
     },
     afterCreate: function (user, next) {
-        sails.log.error('User.afterCreate() - ' + user.id);
+        sails.log.debug('User.afterCreate() - ' + user.id);
         NotificationSettings.create({owner: user.id}).exec(function () {
         });
         next();
