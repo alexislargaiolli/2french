@@ -1,0 +1,14 @@
+[
+  {
+    "name": {
+      "fr": "Fleu"
+    },
+    "icon": "fa fa-edge"
+  },
+  {
+    "name": {
+      "fr": "Fleu avancé"
+    },
+    "icon": "fa fa-edge"
+  }
+]

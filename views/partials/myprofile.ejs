@@ -59,43 +59,26 @@
                 <hr/>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center-col center">
-                        <i class="fa fa-graduation-cap f-30 middle rm-10"
-                           ng-if="!session.diploma.diplomaUploaded && !session.diploma.diplomaValidated"></i>
-                        <i class="fa fa-spinner f-30 middle rm-10"
-                           ng-if="session.diploma.diplomaUploaded && !session.diploma.diplomaValidated"></i>
+                        <i class="fa fa-graduation-cap f-30 middle rm-10" ng-if="!session.diploma.diplomaUploaded && !session.diploma.diplomaValidated"></i>
+                        <i class="fa fa-spinner f-30 middle rm-10" ng-if="session.diploma.diplomaUploaded && !session.diploma.diplomaValidated"></i>
                         <i class="fa fa-check-circle f-30 middle rm-10" ng-if="session.diploma.diplomaValidated"></i>
 
                         <span ng-if="!session.diploma.diplomaUploaded" class="middle">{{'diploma.label.upload' | translate}}</span>
-                        <span ng-if="session.diploma.diplomaUploaded && !session.diploma.diplomaValidated"
-                              class="middle">{{'diploma.label.validating' | translate}}</span>
-                        <span ng-if="session.diploma.diplomaUploaded && session.diploma.diplomaValidated"
-                              class="middle">{{'diploma.label.validated' | translate}}</span>
+                        <span id="uploadValidatinMsg" ng-if="session.diploma.diplomaUploaded && !session.diploma.diplomaValidated" class="middle">{{'diploma.label.validating' | translate}}</span>
+                        <span ng-if="session.diploma.diplomaUploaded && session.diploma.diplomaValidated" class="middle">{{'diploma.label.validated' | translate}}</span>
 
-                        <div ng-if="!session.diploma.diplomaUploaded && !session.diploma.diplomaValidated"
-                             class="inline lm-10">
+                        <div ng-if="!session.diploma.diplomaUploaded && !session.diploma.diplomaValidated" class="inline lm-10">
                             <div class="fileUpload btn blue-btn" ng-show="diplomaFile == null">
                                 <span class="fa fa-file-pdf-o"></span>
                                 <span class="lm-5">{{'diploma.btn.select' | translate}}</span>
                                 <input id="diplomaInput" name="file" type="file" accept=".pdf" class="upload"/>
                             </div>
-                            <button ng-show="diplomaFile != null && !diplomaUploading"
-                                    ng-click="uploadDiploma()"
-                                    type="button" class="btn btn-default green2-btn"><span
-                                        class="fa fa-upload"></span>
+                            <button id="uploadDiplomaBtn" ng-show="diplomaFile != null && !diplomaUploading" ng-click="uploadDiploma()" type="button" class="btn btn-default green2-btn">
+                                <span class="fa fa-upload"></span>
                                 <span class="lm-5">{{'diploma.btn.upload' | translate}}</span>
                             </button>
-                            <div round-progress ng-if="diplomaUploading" class="inline middle"
-                                 max="100"
-                                 current="diplomaProgress"
-                                 color="#04bfc6"
-                                 bgcolor="#eaeaea"
-                                 radius="20"
-                                 stroke="5"
-                                 rounded="true"
-                                 clockwise="false"
-                                 responsive="false"
-                                 duration="800"
-                                 animation="easeInOutQuart">{{diplomaProgress}}%
+                            <div round-progress ng-if="diplomaUploading" class="inline middle" max="100" current="diplomaProgress" color="#04bfc6" bgcolor="#eaeaea" radius="20" stroke="5" rounded="true" clockwise="false" responsive="false" duration="800" animation="easeInOutQuart">
+                                {{diplomaProgress}}%
                             </div>
                         </div>
 
@@ -111,8 +94,7 @@
             </div>
 
             <!-- RIGHT PANEL -->
-            <div id="profile-right" ng-class="{'col-md-9 col-lg-9 col-md-push-3 col-lg-push-3' : isTeacher}"
-                 class="col-xs-12 col-sm-12">
+            <div id="profile-right" ng-class="{'col-md-9 col-lg-9 col-md-push-3 col-lg-push-3' : isTeacher}" class="col-xs-12 col-sm-12">
 
                 <div id="profile-header" class="bordered-block">
                     <div>
@@ -127,11 +109,7 @@
 
                                     <hr/>
                                     <div id="upload-btn-wrapper">
-                                        <alex-uploader text="{{'myprofile.photo.button' | translate}}"
-                                                       icon="fa fa-cloud-upload"
-                                                       url="upload/uploadAvatar"
-                                                       on-upload-finished="onUpload(url)"
-                                                       max-size="128"></alex-uploader>
+                                        <alex-uploader id="uploadAvatarBtn" text="{{'myprofile.photo.button' | translate}}" icon="fa fa-cloud-upload" url="upload/uploadAvatar" on-upload-finished="onUpload(url)" max-size="128"></alex-uploader>
                                     </div>
                                 </div>
                             </div>
@@ -144,19 +122,27 @@
                                 <div id="btns-wrapper">
 
                                     <div class="btn-group">
-                                        <button id="profile-lang-btn" type="button"
-                                                class="btn btn-default dropdown-toggle" data-toggle="dropdown"
-                                                aria-expanded="false">
-                                            <img ng-src="images/languages/{{profileLocale}}.png"/><span> {{'myprofile.language' | translate}} </span><span
-                                                    class="caret"></span>
+                                        <button id="profile-lang-btn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                            <img ng-src="images/languages/{{profileLocale}}.png"/>
+                                            <span> {{'myprofile.language' | translate}} </span>
+                                            <span class="caret"></span>
                                         </button>
                                         <ul class="dropdown-menu" role="menu">
-                                            <li><a ng-click="changeProfileLanguage('fr')"><img
-                                                            src="images/languages/fr.png"/></a></li>
-                                            <li><a ng-click="changeProfileLanguage('en')"><img
-                                                            src="images/languages/en.png"/></a></li>
-                                            <li><a ng-click="changeProfileLanguage('es')"><img
-                                                            src="images/languages/es.png"/></a></li>
+                                            <li>
+                                                <a ng-click="changeProfileLanguage('fr')">
+                                                    <img src="images/languages/fr.png"/>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a ng-click="changeProfileLanguage('en')">
+                                                    <img src="images/languages/en.png"/>
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a ng-click="changeProfileLanguage('es')">
+                                                    <img src="images/languages/es.png"/>
+                                                </a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>
@@ -173,8 +159,7 @@
 								{{profile.city.address_components[0].long_name}} ({{profile.city.address_components[3].long_name}})
 							</span>
 							<span>
-								<input type="text" g-places-autocomplete ng-model="profile.city" options="optionsCity"
-                                       ng-show="editCity" force-selection="true" onaftersave="save()"/>
+								<input type="text" g-places-autocomplete ng-model="profile.city" options="optionsCity" ng-show="editCity" force-selection="true" onaftersave="save()"/>
 								<span class="fa fa-pencil edit-icon" ng-click="editCity = !editCity"></span>
 							</span>
                                 <hr/>
@@ -182,10 +167,8 @@
 
                                 <!-- FORMATIONS PANEL -->
                                 <div class="mt-10" ng-if="isTeacher">
-                                    <ui-select multiple ng-model="profile.formations" theme="bootstrap"
-                                               on-select="save()" on-remove="save()">
-                                        <ui-select-match
-                                                placeholder="{{'myprofile.formations.placeholder' | translate}}">
+                                    <ui-select id="select-formation" multiple ng-model="profile.formations" theme="bootstrap" on-select="save()" on-remove="save()">
+                                        <ui-select-match placeholder="{{'myprofile.formations.placeholder' | translate}}">
                                             {{$item.name[profileLocale]}}
                                         </ui-select-match>
                                         <ui-select-choices repeat="formation in formations">
@@ -197,11 +180,8 @@
 
                                 <!-- EXTRAS PANEL -->
                                 <div class="mt-10" ng-if="isTeacher">
-                                    <ui-select multiple ng-model="profile.extras" theme="bootstrap"
-                                               on-select="save()"
-                                               on-remove="save()">
-                                        <ui-select-match
-                                                placeholder="{{'myprofile.extras.placeholder' | translate}}">
+                                    <ui-select multiple ng-model="profile.extras" theme="bootstrap" on-select="save()" on-remove="save()">
+                                        <ui-select-match placeholder="{{'myprofile.extras.placeholder' | translate}}">
                                             {{$item.name[profileLocale]}}
                                         </ui-select-match>
                                         <ui-select-choices repeat="extra in extras">
@@ -220,16 +200,11 @@
                         <div id="motivation-panel">
                             <div>
                                 <h4 class="block-title2 f-16"> {{'myprofile.experience' | translate}}
-
-                                    <span class="fa fa-pencil edit-icon" ng-click="textBtnForm.$show()"
-                                          ng-hide="textBtnForm.$visible"></span>
+                                    <span id="editMotivationBtn" class="fa fa-pencil edit-icon" ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible"></span>
                                 </h4>
                             </div>
-                            <p editable-textarea="profile.motivation[profileLocale]" e-form="textBtnForm" e-rows="7"
-                               e-style="width:100%;" style="white-space: pre-wrap;" onaftersave="save()"
-                               e-ng-blur="textBtnForm.$save()">{{profile.motivation[profileLocale] ||
-                                ('myprofile.motivation.empty' | translate) }}
-                            </p>
+                            <p editable-textarea="profile.motivation[profileLocale]" e-id="motivationTextArea" e-form="textBtnForm" e-rows="7" e-style="width:100%;" style="white-space: pre-wrap;" onaftersave="save()" e-ng-blur="textBtnForm.$save()">
+                                {{profile.motivation[profileLocale] ||('myprofile.motivation.empty' | translate) }}</p>
                         </div>
                     </div>
                 </div>
@@ -240,8 +215,7 @@
                     <!-- FORMULAS PANEL -->
                     <h3 class="block-title2 f-16 mt-35">
                         {{'myprofile.formations' | translate}}
-                        <span class="fa fa-plus edit-icon" ng-click="createFormula()" data-toggle="modal"
-                              data-target="#dlgAddFormula"></span>
+                        <span class="fa fa-plus edit-icon" ng-click="createFormula()" data-toggle="modal" data-target="#dlgAddFormula"></span>
                     </h3>
 
 
@@ -249,65 +223,53 @@
                         <hr/>
                         <h4 class="blue-title f-14">
                             {{formula.name[profileLocale]}}
-                            <span class="fa fa-pencil edit-icon" ng-click="editFormula(formula)" data-toggle="modal"
-                                  data-target="#dlgAddFormula"></span>
+                            <span class="fa fa-pencil edit-icon" ng-click="editFormula(formula)" data-toggle="modal" data-target="#dlgAddFormula"></span>
                             <span class="fa fa-trash-o edit-icon red" ng-click="deleteFormula(formula)"></span>
                         </h4>
 
-                        <p class="grey-text">{{formula.description[profileLocale]}}<span ng-if="formula.price">, {{formula.price}}€</span>
+                        <p class="grey-text">{{formula.description[profileLocale]}}
+                            <span ng-if="formula.price">, {{formula.price}}€</span>
                         </p>
                     </div>
                     <hr/>
 
                     <!-- HOUR PANEL -->
-                    <label class="blue-title f-14">{{'myprofile.hourrate.label' | translate}}<a href="#"
-                                                                                                editable-number="profile.hourRate"
-                                                                                                e-min="0"
-                                                                                                onaftersave="save()">{{
-                            profile.hourRate || '...'
-                            }}</a>€</label>
+                    <label class="blue-title f-14">{{'myprofile.hourrate.label' | translate}}
+                        <a id="editHourRateBtn" e-id="editHourRateInput" href="#" editable-number="profile.hourRate" e-min="0" e-ng-blur="$form.$save()" onaftersave="save()">
+                            {{profile.hourRate || '...'}}
+                        </a>€</label>
                     <hr/>
 
                     <!-- ADD FORMULA DLG -->
-                    <div class="modal fade" id="dlgAddFormula" tabindex="-1" role="dialog"
-                         aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="dlgAddFormula" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <form name="formAddFormula">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span></button>
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
                                         <h4 class="modal-title" id="myModalLabel">Nouvelle formule</h4>
                                     </div>
                                     <div class="modal-body">
                                         <div class="form-group">
                                             <label for="formulaName">Nom</label>
-                                            <input type="text" ng-model="formulaToAdd.name[profileLocale]"
-                                                   class="form-control" id="formulaName"
-                                                   placeholder="Nom de la formule"
-                                                   ng-required="true">
+                                            <input type="text" ng-model="formulaToAdd.name[profileLocale]" class="form-control" id="formulaName" placeholder="Nom de la formule" ng-required="true">
                                         </div>
                                         <div class="form-group">
                                             <label for="formulaDesc">Description</label>
-                                            <textarea id="formulaDesc"
-                                                      ng-model="formulaToAdd.description[profileLocale]"
-                                                      placeholder="Description de la formule" class="form-control"
-                                                      rows="3" ng-required="true"></textarea>
+                                            <textarea id="formulaDesc" ng-model="formulaToAdd.description[profileLocale]" placeholder="Description de la formule" class="form-control" rows="3" ng-required="true"></textarea>
                                         </div>
                                         <div class="form-group">
                                             <label for="formulaPrice">Prix</label>
-                                            <input type="number" ng-model="formulaToAdd.price" min="0"
-                                                   class="form-control" id="formulaPrice"
-                                                   placeholder="Prix de la formule">
+                                            <input type="number" ng-model="formulaToAdd.price" min="0" class="form-control" id="formulaPrice" placeholder="Prix de la formule">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Annuler
                                         </button>
-                                        <button type="submit" ng-click="addFormula();" class="btn btn-primary"
-                                                data-dismiss="modal" ng-disabled="formAddFormula.$invalid">Ajouter
-                                            la
-                                            formule
+                                        <button type="submit" ng-click="addFormula();" class="btn btn-primary" data-dismiss="modal" ng-disabled="formAddFormula.$invalid">
+                                            Ajouter la formule
                                         </button>
                                     </div>
                                 </form>
@@ -321,9 +283,9 @@
 
                 <div id="profile-accomodation-panel" class="mt-35" ng-if="isTeacher">
 
-                    <div ng-if="!profile.activeAccomodation" id="activeAccomodation"
-                         ng-click="activeAccomodation()">
-                        <span class="fa fa-bed fa-3x middle inline"></span> <span class="middle inline">{{'myprofile.accomodation.active' | translate}}</span>
+                    <div ng-if="!profile.activeAccomodation" id="activeAccomodation" ng-click="activeAccomodation()">
+                        <span class="fa fa-bed fa-3x middle inline"></span>
+                        <span class="middle inline">{{'myprofile.accomodation.active' | translate}}</span>
                     </div>
 
 
@@ -332,8 +294,7 @@
                         <hr/>
                         <div class="input-group">
                             <span class="input-group-addon">{{'myprofile.accomodation.address' | translate}}</span>
-                            <input type="text" class="form-control" g-places-autocomplete
-                                   options="optionsLocation" force-selection="true" ng-model="profile.location"/>
+                            <input type="text" class="form-control" g-places-autocomplete options="optionsLocation" force-selection="true" ng-model="profile.location"/>
 
                         </div>
                     </div>
@@ -348,21 +309,12 @@
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <div id="photos-viewer">
                                     <div id="photos-selected">
-                                        <alex-uploader id="accomodationUploadBtn"
-                                                       text="{{'myprofile.accomodation.image.button' | translate}}"
-                                                       icon="fa fa-cloud-upload"
-                                                       on-upload-finished="onUploadAccomodation(url)"
-                                                       url="upload/uploadAccomodationPhoto"
-                                                       ng-if="!profile.photos[selectedPhotoIndex]"></alex-uploader>
-                                        <img ng-src="{{profile.photos[selectedPhotoIndex].url}}"
-                                             ng-click="openLightboxModal()"
-                                             ng-if="profile.photos[selectedPhotoIndex]"/>
+                                        <alex-uploader id="accomodationUploadBtn" text="{{'myprofile.accomodation.image.button' | translate}}" icon="fa fa-cloud-upload" on-upload-finished="onUploadAccomodation(url)" url="upload/uploadAccomodationPhoto" ng-if="!profile.photos[selectedPhotoIndex]"></alex-uploader>
+                                        <img ng-src="{{profile.photos[selectedPhotoIndex].url}}" ng-click="openLightboxModal()" ng-if="profile.photos[selectedPhotoIndex]"/>
 
                                         <div id="photos-menu" ng-if="profile.photos[selectedPhotoIndex]">
-                                            <button type="button" class="btn" id="btn-remove-photo"
-                                                    ng-click="deletePhoto(selectedPhotoIndex)"
-                                                    ng-if="profile.photos[selectedPhotoIndex]"><i
-                                                        class="fa fa-trash"></i>
+                                            <button type="button" class="btn" id="btn-remove-photo" ng-click="deletePhoto(selectedPhotoIndex)" ng-if="profile.photos[selectedPhotoIndex]">
+                                                <i class="fa fa-trash"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -391,11 +343,8 @@
                             <!-- EQUIPMENT PANEL -->
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <h5>{{'myprofile.accomodation.equipements' | translate}}</h5>
-                                <ui-select multiple ng-model="profile.equipments" theme="bootstrap"
-                                           on-select="save()"
-                                           on-remove="save()">
-                                    <ui-select-match
-                                            placeholder="{{'myprofile.accomodation.equipements.select' | translate}}">
+                                <ui-select multiple ng-model="profile.equipments" theme="bootstrap" on-select="save()" on-remove="save()">
+                                    <ui-select-match placeholder="{{'myprofile.accomodation.equipements.select' | translate}}">
                                         {{$item.name[profileLocale]}}
                                     </ui-select-match>
                                     <ui-select-choices repeat="equipment in equipments">
@@ -411,12 +360,8 @@
 							{{profile.location.formatted_address || ('myprofile.accomodation.address' | translate)}}
 						</span>
 						<span>
-							<input type="text" id="accomodationAdressInput" class="form-control" g-places-autocomplete
-                                   options="optionsLocation" force-selection="true" ng-model="profile.location"
-                                   ng-if="editLocation"/>
-							<button id="editLocationBtn" type="button" class="fa fa-pencil edit-icon"
-                                    ng-model="editLocation" btn-checkbox
-                                    btn-checkbox-true="true" btn-checkbox-false="false">
+							<input type="text" id="accomodationAdressInput" class="form-control" g-places-autocomplete options="optionsLocation" force-selection="true" ng-model="profile.location" ng-if="editLocation"/>
+							<button id="editLocationBtn" type="button" class="fa fa-pencil edit-icon" ng-model="editLocation" btn-checkbox btn-checkbox-true="true" btn-checkbox-false="false">
 
                             </button>
 						</span>
@@ -430,16 +375,7 @@
                             <!-- GOOGLE MAP PANEL -->
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                                 <ui-gmap-google-map center='map.center' zoom='map.zoom'>
-                                    <ui-gmap-markers models="map.markers"
-                                                     doCluster="true"
-                                                     coords="'self'"
-                                                     icon="'icon'"
-                                                     click="'onclicked'"
-                                                     options="'options'"
-                                                     idkey='id'
-                                                     clusterOptions='map.clusterOptions'
-                                                     control='markerControl.getChildMarkers().get(id)'>
-                                    </ui-gmap-markers>
+                                    <ui-gmap-markers models="map.markers" doCluster="true" coords="'self'" icon="'icon'" click="'onclicked'" options="'options'" idkey='id' clusterOptions='map.clusterOptions' control='markerControl.getChildMarkers().get(id)'></ui-gmap-markers>
                                 </ui-gmap-google-map>
                             </div>
 
@@ -451,13 +387,9 @@
 
                                 </h4>
 
-                                <p id="accomodationDesc" e-name="accomodationDescBtn"
-                                   editable-textarea="profile.accomodationDescription[profileLocale]" e-rows="7"
-                                   e-style="width:100%;resize: none;" blur="submit" class="bg-animate"
-                                   onaftersave="save()">
+                                <p id="accomodationDesc" e-name="accomodationDescBtn" editable-textarea="profile.accomodationDescription[profileLocale]" e-rows="7" e-style="width:100%;resize: none;" blur="submit" class="bg-animate" onaftersave="save()">
                                     {{ profile.accomodationDescription[profileLocale] ||
-                                    ('myprofile.accomodation.description.empty' | translate) }}
-                                </p>
+                                    ('myprofile.accomodation.description.empty' | translate) }} </p>
                             </div>
                         </div>
                     </div>
@@ -469,18 +401,14 @@
             </div>
 
             <!-- LEFT PANEL -->
-            <div id="profile-left" ng-class="{'col-md-3 col-lg-3 col-md-pull-9 col-lg-pull-9' : isTeacher}"
-                 class="col-xs-12 col-sm-12"
-                 ng-if="isTeacher">
+            <div id="profile-left" ng-class="{'col-md-3 col-lg-3 col-md-pull-9 col-lg-pull-9' : isTeacher}" class="col-xs-12 col-sm-12" ng-if="isTeacher">
 
 
                 <!-- CALENDAR PANEL -->
                 <div class="panel panel-default" ng-if="isTeacher">
                     <div class="panel-heading block-title1 center">{{'myprofile.calendar' | translate}}</div>
                     <div class="panel-body p-0">
-                        <multiple-date-picker class="without-select" day-click="dayClick"
-                                              highlight-days="profile.schedules[scheduleIndex].undispos"
-                                              month-changed="onMonthChanged"/>
+                        <multiple-date-picker class="without-select" day-click="dayClick" highlight-days="profile.schedules[scheduleIndex].undispos" month-changed="onMonthChanged"/>
                     </div>
                     <div id="schedule-legend" class="panel-footer">
                         <div class="left p-10">
@@ -488,18 +416,20 @@
                             <span class="legend-text">{{'myprofile.calendar.legend.day' | translate}}</span>
                         </div>
                         <div class="left p-10">
-                            <img src="../images/pm.png" class="legend-images pm"><span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
+                            <img src="../images/pm.png" class="legend-images pm">
+                            <span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
                         </div>
                         <div class="left p-10">
-                            <img src="../images/am.png" class="legend-images"><span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
+                            <img src="../images/am.png" class="legend-images">
+                            <span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
                         </div>
                         <div class="left p-10">
-                            <span class="legend-images"></span><span class="legend-text">{{'myprofile.calendar.legend.unvalailable' | translate}}</span>
+                            <span class="legend-images"></span>
+                            <span class="legend-text">{{'myprofile.calendar.legend.unvalailable' | translate}}</span>
                         </div>
-                        <button id="profile-save-btn" ng-click="save()" type="button" ng-if="needSave"
-                                class="btn btn-default green2-btn mt-10"><span class="fa fa-floppy-o"></span>
-                            {{'myprofile.calendar.save' |
-                            translate}}
+                        <button id="profile-save-btn" ng-click="save()" type="button" ng-if="needSave" class="btn btn-default green2-btn mt-10">
+                            <span class="fa fa-floppy-o"></span>
+                            {{'myprofile.calendar.save' | translate}}
                         </button>
                     </div>
                 </div>
@@ -510,17 +440,14 @@
                         <p ng-if="reviews.length == 0" class="p-10 center">{{'profile.teacher.reviews.empty' |
                             translate}}</p>
 
-                        <div ng-repeat="review in reviews" class="row profile-review-item"
-                             ui-sref="profile({profileId:review.student.id})">
+                        <div ng-repeat="review in reviews" class="row profile-review-item" ui-sref="profile({profileId:review.student.id})">
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 center">
-                                <img class="user-photo-profile" ng-src="{{review.student.photo}}"
-                                     ng-show="review.student.photo"/>
+                                <img class="user-photo-profile" ng-src="{{review.student.photo}}" ng-show="review.student.photo"/>
                                 <i class="fa fa-user user-photo-profile" ng-show="!review.student.photo"></i>
                             </div>
                             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
 
-                                <rating ng-model="review.mark" readonly="true"
-                                        class="teacher-profile-rating"></rating>
+                                <rating ng-model="review.mark" readonly="true" class="teacher-profile-rating"></rating>
                                 <br/>
                                 {{review.comment}}
                                 <div class="right">

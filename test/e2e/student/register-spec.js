@@ -3,8 +3,7 @@
  */
 describe('Register a new student', function() {
     it('should access student register form', function() {
-        browser.get('http://localhost:1337');
-        element(by.id('register-btn')).click();
+        element(by.id('headerRegisterBtn')).click();
         expect(element(by.id('registerStudentSwitch')).isSelected()).toBeTruthy();
     });
 

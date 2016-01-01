@@ -11,7 +11,7 @@ module.exports = function(req, res, next) {
   // User is allowed, proceed to the next policy,
   // or if this is the last policy, the controller
 
-  var profileId = req.body.id;
+  var profileId = req.allParams().id;
   if (profileId == req.user.profile) {
     return next();
   }

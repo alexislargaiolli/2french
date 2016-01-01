@@ -6,6 +6,40 @@
  */
 
 module.exports = {
+    /**
+     * Check if profile is complete and diploma is validated.
+     * Update validate status of a profile.
+     * @param req
+     * @param res
+     */
+    validateProfile: function(req, res){
+        var profileId = req.allParams().id;
+        sails.log.debug("ProfileController.validateProfile() " + profileId);
+
+        Profile.actionValidate(profileId, function(err, profile){
+            if(err || !profile){
+                return res.serverError("Erreur lors de la validation du profile");
+            }
+            res.send(200, profile);
+        });
+    },
+    validateProfileByUser: function(req, res){
+        var userToValidateId = req.allParams().userToValidateId;
+        sails.log.debug("ProfileController.validateProfileByUser() " + userToValidateId);
+
+        User.findOne(userToValidateId, function(err, user){
+            if(err || !user){
+                return res.serverError("Profile not found");
+            }
+            Profile.actionValidate(user.profile, function(err, profile){
+                if(err || !profile){
+                    return res.serverError("Erreur lors de la validation du profile");
+                }
+                res.send(200, profile);
+            });
+        });
+    },
+
     viewProfile: function (req, res) {
         Profile.findOne({
             where: {id: req.id},

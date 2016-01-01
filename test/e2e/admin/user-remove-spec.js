@@ -14,7 +14,7 @@ describe('Remove a user from admin panel', function() {
         expect(element(by.id('userDatatable'))).toBeDefined();
     });
 
-    it('should search and find test student user', function() {
+   /* it('should search and find test student user', function() {
         element(by.css('.SEL_input_email')).sendKeys(browser.params.student.email);
         expect(element(by.css('.SEL_email')).getText()).toEqual(browser.params.student.email);
     });
@@ -24,5 +24,18 @@ describe('Remove a user from admin panel', function() {
         element(by.id('btnRemoveUser')).click();
         element(by.css('[ng-click="dialog.hide()"]')).click();
         browser.driver.sleep(2000);
+    });*/
+
+    it('should search and find test teacher user', function() {
+        element(by.css('.SEL_input_email')).clear();
+        element(by.css('.SEL_input_email')).sendKeys(browser.params.teacher.email);
+        expect(element(by.css('.SEL_email')).getText()).toEqual(browser.params.teacher.email);
+    });
+
+    it('should remove test teacher user', function() {
+        element(by.css('.SEL_email')).click();
+        element(by.id('btnRemoveUser')).click();
+        element(by.css('[ng-click="dialog.hide()"]')).click();
+        browser.driver.sleep(1000);
     });
 });

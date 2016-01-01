@@ -2,20 +2,38 @@
  * Created by alex on 19/09/15.
  */
 var Sails = require('sails'),
-    sails;
+    sails,
+    Barrels = require('barrels');
 
 before(function(done) {
 
     // Increase the Mocha timeout so that Sails has enough time to lift.
-    this.timeout(5000);
+    this.timeout(10000);
 
     Sails.lift({
-        // configuration for testing purposes
+        log: {
+            level: 'debug'
+        },
+        models: {
+            connection: 'test',
+            migrate: 'drop'
+        },
+        email:{
+            testMode : true
+        }
     }, function(err, server) {
         sails = server;
         if (err) return done(err);
-        // here you can load fixtures, etc.
-        done(err, sails);
+
+        // Load fixtures
+        var barrels = new Barrels();
+
+        // Populate the DB
+        barrels.populate(function(err) {
+            done(err);
+        });
+
+        //done(err, sails);
     });
 });
 

@@ -68,6 +68,9 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             $scope.save = function () {
                 $scope.profile.$update(function (p, response) {
                     $scope.needSave = false;
+                    Profile.validateProfile(p, function(pr, response){
+                        console.log('validate');
+                    });
                 });
             }
 

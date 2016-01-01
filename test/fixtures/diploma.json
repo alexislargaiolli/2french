@@ -1,0 +1,14 @@
+[
+  {
+    "owner": 1,
+    "diplomaUploaded": true,
+    "diplomaValidated": true,
+    "fileName": "test.pdf"
+  },
+  {
+    "owner": 2,
+    "diplomaUploaded": true,
+    "diplomaValidated": false,
+    "fileName": "test.pdf"
+  }
+]

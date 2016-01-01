@@ -20,7 +20,7 @@
         <div class="alert alert-danger" role="alert" ng-show="message">{{message}}</div>
         <a ui-sref="forgottenPassword" ng-show="message">{{'header.forgottenPassword' | translate}}</a>
 
-        <button id="register-btn" ng-if="!session.authenticated" type="button" ui-sref="register"
+        <button id="headerRegisterBtn" ng-if="!session.authenticated" type="button" ui-sref="register"
                 class="btn btn-default orange-btn" ui-sref-active="active">{{'header.register' | translate}}
         </button>
 

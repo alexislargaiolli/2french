@@ -14,13 +14,16 @@ module.exports = {
             if(err){
                 return res.serverError(err);
             }
+            if(reviews.length == 0){
+                return res.send(reviews);
+            }
             reviews.forEach(function (review, index) {
                 Profile.findOne({where: {id: review.student}, select: ['id', 'firstname', 'photo']}).exec(function (err, student) {
                     if(err){
                         return res.serverError(err);
                     }
                     reviews[index].student = student;
-                    if (index === reviews.length - 1) {
+                    if (index >= reviews.length - 1) {
                         res.send(reviews);
                     }
                 });

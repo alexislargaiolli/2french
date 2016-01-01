@@ -43,7 +43,7 @@
 		        <span class="btn btn-default btn-file uploader-btn">
                     <i class="fa fa-folder-open-o"></i>
                     {{'uploader.browse' | translate}}
-				    <input type="file" id="fileInput{{$id}}" ng-disabled="uploading"/>
+				    <input type="file" id="fileInput{{$id}}" class="SEL_uploaderInputFile" ng-disabled="uploading"/>
 				</span>
                 <button id="upload-btn" type="button" class="btn blue-btn uploader-btn" ng-click="upload()" ng-show="uploadable" ng-disabled="uploading"><i
                         class="fa fa-cloud-upload"></i>{{'uploader.upload'

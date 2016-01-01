@@ -26,6 +26,7 @@ tooFrenchServices.factory('Diploma', ['$resource', '$http', '$q',
             validate: function (diplomaId) {
                 var deferred = $q.defer();
                 $http.get('/diploma/validate', {params : {diplomadId: diplomaId}}).success(function (data, status, headers, config) {
+                    $http.get('/profile/validateProfileByUser', {params : {userToValidateId: data.owner.id}});
                     deferred.resolve(data);
                 }).error(function (data, status, headers, config) {
                     deferred.reject();

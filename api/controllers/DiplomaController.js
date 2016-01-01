@@ -42,35 +42,20 @@ module.exports = {
             }
         });
     },
+    /**
+     * Validates a diploma. Only for admin user.
+     * @param req
+     * @param res
+     */
     validate: function (req, res) {
         var diplomaId = req.allParams().diplomadId;
-        if (diplomaId) {
-            Diploma.findOne({id: diplomaId}).exec(function (err, diploma) {
-                diploma.diplomaValidated = true;
-                diploma.save(function () {
-                    if (err) {
-                        return res.send(500, "Error while validating diploma");
-                    }
-                    sails.services['mail'].sendDiplomaValidated(diploma.owner);
-                    Profile.findOne({owner: diploma.owner}).populate('formations').exec(function (err, profile) {
-                        if (err) {
-                            return res.send(500, "Error while validating diploma");
-                        }
-                        if (profile) {
-                            profile.save(function () {
-                                res.send(200, diploma);
-                            });
-                        }
-                        else {
-                            res.send(200, diploma);
-                        }
-                    });
-                });
-            });
-        }
-        else {
-            res.send(500, "Missing argument");
-        }
+
+        Diploma.actionValidate(diplomaId, function(err, diploma){
+            if (err || !diploma) {
+                return res.serverError('Error while validating diploma');
+            }
+            return res.send(200, diploma);
+        });
     },
     upload: function (req, res) {
         var env = process.env.NODE_ENV;

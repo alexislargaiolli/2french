@@ -79,16 +79,16 @@ module.exports = {
         schedules: {
             type: 'json'
         },
-        validate : {
+        validate: {
             type: 'boolean',
-            defaultsTo : false
+            defaultsTo: false
         },
 
         /**
          * Average reviews mark
          */
-        averageMark : {
-            type : 'float',
+        averageMark: {
+            type: 'float',
             min: 0,
             max: 5
         },
@@ -101,13 +101,111 @@ module.exports = {
             via: 'teacher'
         }
     },
-    checkValidation : function(profileId, next){
-        sails.log.info('checkValidation');
+    findByUser:function(userId, cb){
+        Profile.findOne({owner : userId}).exec(cb);
+    },
+    /**
+     *
+     * @param profile profile to check (object or id)
+     * @returns {boolean} true if all required attribute to be visible on research are set
+     */
+    isProfileComplete: function (profile, cb) {
+        sails.log.debug("Profile.isProfileComplete " + profile);
+        (function _lookupProfileIfNecessary(afterLookup) {
+            // (this self-calling function is just for concise-ness)
+            if (typeof profile === 'object')
+                return afterLookup(null, profile);
+            Profile.findOne(profile).populate('formations').exec(afterLookup);
+        })
+        (function (err, profile) {
+            if (err || !profile) {
+                return cb(false);
+            }
+            if (profile.photo && profile.hourRate && profile.motivation && profile.formations && profile.formations.length > 0) {
+                return cb(true);
+            }
+            return cb(false);
+        });
+    },
+    /**
+     * Check if a profile and associated diploma are valid
+     * @param profile profile to check (object or id)
+     * @param cb callback to call after process (cb(valid))
+     */
+    isProfileValid: function (profile, cb) {
+        sails.log.debug("Profile.isProfileValid " + profile);
+        (function _lookupProfileIfNecessary(afterLookup) {
+            // (this self-calling function is just for concise-ness)
+            if (typeof profile === 'object')
+                return afterLookup(null, profile);
+            Profile.findOne(profile).populate('formations').exec(afterLookup);
+        })
+        (function (err, profile) {
+            if (err || !profile) {
+                return cb(false);
+            }
+            Profile.isProfileComplete(profile, function (complete) {
+                if (complete && complete == true) {
+                    return Diploma.isValidatedByUser(profile.owner, cb);
+                }
+                cb(false);
+            });
+        });
+
+    },
+    /**
+     * Set profile.validate to true
+     * @param profile the profile to validate (object or id)
+     * @param cb callback method to call
+     */
+    validateProfile: function (profile, cb) {
+        sails.log.debug("Profile.validateProfile " + profile);
+        (function _lookupProfileIfNecessary(afterLookup) {
+            // (this self-calling function is just for concise-ness)
+            if (typeof profile === 'object')
+                return afterLookup(null, profile);
+            Profile.findOne(profile).populate("formations").exec(afterLookup);
+        })
+        (function (err, profile) {
+            if (err || !profile) {
+                return cb(err, profile);
+            }
+            profile.validate = true;
+            profile.save(cb);
+        });
+    },
+    /**
+     * Process to update validate status of a profile.
+     * @param profile profile to check
+     * @param cb callback method to call: cb(err, profile)
+     */
+    actionValidate: function (profile, cb) {
+        Profile.isProfileValid(profile, function (valid) {
+            if (valid && valid == true) {
+                Profile.validateProfile(profile, function (err, profile) {
+                    if (err || !profile) {
+                        return cb(err, profile);
+                    }
+                    sails.services['mail'].sendProfileValidated(profile.owner);
+                    cb(err, profile);
+                });
+            }
+            else {
+                cb(null, profile);
+            }
+        });
+    },
+    checkValidation: function (profileId, next) {
+        //Je verifie que le profile est complet
+        //Si oui je vérifie que le diplome est validé
+        //Si oui je valide le profile
+
+        sails.log.debug("checkValidation " + profileId);
         Profile.findOne({id: profileId}).populate('formations').exec(function (err, profile) {
-            if(err){
+            if (err) {
                 return next(err);
             }
-            if(profile && profile.validate){
+            if (profile && profile.validate) {
                 return next(null, true);
             }
 
@@ -138,12 +236,14 @@ module.exports = {
         next();
     },
     beforeUpdate: function (profile, next) {
-        Profile.checkValidation(profile.id, function(err, v){
+        /*Profile.checkValidation(profile.id, function (err, v) {
             profile.validate = v;
+            sails.log.info(profile.validate);
             next();
-        });
+        });*/
+        next();
     },
-    afterUpdate : function(profile, next){
+    afterUpdate: function (profile, next) {
         next();
     },
 

@@ -1,0 +1,18 @@
+[
+  {
+    "username": "user1@test.fr",
+    "email": "user1@test.fr",
+    "role": "teacher",
+    "tour": true,
+    "defaultLocale": "fr",
+    "profile": 1
+  },
+  {
+    "username": "user2@test.fr",
+    "email": "user2@test.fr",
+    "role": "teacher",
+    "tour": true,
+    "defaultLocale": "fr",
+    "profile": 2
+  }
+]

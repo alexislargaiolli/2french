@@ -23,7 +23,7 @@
                 <tbody>
                 <tr ng-repeat="item in datatable.items" ng-click="datatable.toggleSelect(item)" ng-class="{'active' : datatable.isSelected(item)}">
                     <td>
-                        <span>{{item.owner.email}}</span>
+                        <span class="SEL_email">{{item.owner.email}}</span>
                     </td>
                     <td>
                         <span class="label label-success p-5" ng-if="item.diplomaValidated && item.diplomaUploaded"><span class="fa fa-check-square-o p-5"></span>Validé</span>
@@ -51,7 +51,7 @@
             <md-content layout-padding>
                 <div layout="column">
                     <div flex class="center" ng-if="selected.diplomaUploaded">
-                        <md-button ng-click="validate($event)" class="md-raised md-primary w-50">
+                        <md-button id="validateDiplomaBtn" ng-click="validate($event)" class="md-raised md-primary w-50">
                             <md-icon md-font-icon="fa-check" class="fa f-20"></md-icon>
                             Valider
                         </md-button>

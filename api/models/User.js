@@ -75,6 +75,7 @@ var User = {
         });
     },
     afterCreate: function (user, next) {
+        sails.log.error('User.afterCreate() - ' + user.id);
         NotificationSettings.create({owner: user.id}).exec(function () {
         });
         next();
@@ -85,25 +86,33 @@ var User = {
         }
         users.forEach(function (user, i) {
             //TODO clean all datas
-            sails.log.info('destroy user ' + user.id);
-            NotificationSettings.destroy({owner: user.id}).exec(function () {
+            sails.log.debug('User.afterDestroy() - ' + user.id);
+
+            sails.log.debug('User.afterDestroy() - destroying notification settings');
+            NotificationSettings.destroy({owner: user.id}).exec(function (err) {
+                if(err){
+                    sails.log.error('User.afterDestroy() - error while destroying notification settings');
+                }
             });
+            sails.log.debug('User.afterDestroy() - destroy profile');
             sails.models.profile.destroy({
                 id: user.profile
             }).exec(function (err) {
                 if (err) {
+                    sails.log.error('User.afterDestroy() - error while destroying user profile');
                     return next(err);
                 }
-                sails.log.info('destroy profile');
-                //Remove user fav list
+
+                sails.log.debug('User.afterDestroy() - destroy user favorit list');
                 UserFavList.destroy({
                     owner: user.id
                 }).exec(function (err) {
                     if (err) {
+                        sails.log.error('User.afterDestroy() - error while destroying user favorit list');
                         return next(err);
                     }
-                    sails.log.info('destroy fav list');
-                    //Remove user conversations
+
+                    sails.log.debug('User.afterDestroy() - destroy user conversations');
                     sails.models.conversation.destroy({
                         $or: [
                             {owner: user.id},
@@ -111,15 +120,16 @@ var User = {
                         ]
                     }).exec(function (err) {
                         if (err) {
-                            sails.log.info('error destroying convs');
+                            sails.log.error('User.afterDestroy() - error while destroying user conversations');
                             return next(err);
                         }
-                        sails.log.info('destroy convs');
-                        //Remove user diplomas
+
+                        sails.log.debug('User.afterDestroy() - destroy diploma');
                         sails.models.diploma.destroy({
                             owner: user.id
                         }).exec(function (err) {
                             if (err) {
+                                sails.log.error('User.afterDestroy() - error while destroying diploma');
                                 return next(err);
                             }
                             next();
