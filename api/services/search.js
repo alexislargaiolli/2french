@@ -1,4 +1,5 @@
 function buildQuery(skip, pageSize, location, days, periods) {
+    sails.log.debug('search.buildQuery() [location : ' + location+ ', days : '+ days +', periods : ' + periods + ']');
     var query = {};
     query["where"] = {};
     query["skip"] = skip;
@@ -7,7 +8,7 @@ function buildQuery(skip, pageSize, location, days, periods) {
         "validate" : true,
         "city.address_components": {
             $elemMatch: {
-                short_name: location
+                "short_name": location
             }
         }
     };

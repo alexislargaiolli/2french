@@ -6,10 +6,11 @@ exports.config = {
     seleniumAddress: 'http://127.0.0.1:4444/wd/hub',
     //specs: ['home-spec.js', 'student-register-spec.js', 'student-logout-spec.js', 'admin-login-spec.js', 'admin-user-remove-spec.js'],
     suites: {
-        home:['common/access-home-spec.js'],
-        teacher: ['teacher/register-spec.js','teacher/profile-edit-spec.js'],
+        //home:['common/access-home-spec.js'],
+        //teacher: ['teacher/register-spec.js','teacher/profile-edit-spec.js'],
         //validateDiploma: ['admin/login-spec.js', 'admin/diploma-validation-spec.js'],
-        student : ['student/register-spec.js', 'student/search-spec.js', 'common/logout-spec.js'],
+        //student : ['student/register-spec.js', 'student/search-spec.js'],
+        reservation : [/*'student/reservation-spec.js',*/ 'student/reservation-formula-spec.js'],
         //admin: ['admin/login-spec.js', 'admin/user-remove-spec.js']
     },
     //specs: ['student/*-spec.js', 'admin/*-spec.js'],
@@ -24,7 +25,7 @@ exports.config = {
             diploma: '/home/alex/Téléchargements/diplome.pdf'
         },
         studentToCreate: {
-            pseudo: 'student',
+            pseudo: 'NouvelEtudiant',
             email: 'student@test.fr',
             password: 'e2etests',
             city: 'Montpellier'
@@ -47,6 +48,13 @@ exports.config = {
             password: 'e2etests',
             city: 'Montpellier'
         },
+        dunbledor: {
+            firstname:'Albus Dumbledor',
+            pseudo: 'dumbledor',
+            email: 'dumbedor@poudlard.uk',
+            password: 'e2etests',
+            city: 'Montpellier'
+        },
         admin: {
             pseudo: 'adminTest',
             email: 'admin@e2e.fr',
@@ -61,6 +69,7 @@ exports.config = {
         var q = require('q');
         var deferred = q.defer();
         Sails.lift({
+            port:9999,
             log: {
                 level: 'debug'
             },
@@ -79,21 +88,23 @@ exports.config = {
             // Load fixtures
             var barrels = new Barrels();
 
-            var loadOrder = [
-                'formation',
-                'user',
-                'profile',
-                'diploma',
-                'passport'
-            ]
-
             // Populate the DB
-            barrels.populate(function(err) {
+            barrels.populate(['user'],function(err) {
                 if(err){
-                    return deferred.reject(err);
+                    sails.log.error(err);
+                    return deferred.reject();
                 }
-                deferred.resolve();
-            });
+                barrels.populate(['passport', 'formation', 'profile', 'diploma'],function(err) {
+                    if(err){
+                        sails.log.error(err);
+                        return deferred.reject();
+                    }
+                    Profile.find().exec(function(err, profiles){
+                        sails.log.debug(profiles[3].id);
+                    });
+                    deferred.resolve();
+                }, false);
+            },false);
         });
 
         return deferred.promise;

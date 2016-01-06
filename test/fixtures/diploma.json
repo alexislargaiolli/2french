@@ -10,5 +10,11 @@
     "diplomaUploaded": true,
     "diplomaValidated": false,
     "fileName": "test.pdf"
+  },
+  {
+    "owner": 4,
+    "diplomaUploaded": true,
+    "diplomaValidated": true,
+    "fileName": "test.pdf"
   }
 ]

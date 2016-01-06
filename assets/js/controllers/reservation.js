@@ -1,21 +1,63 @@
 var tooFrenchControllers = angular.module('tooFrenchApp');
-tooFrenchControllers.controller('ReservationCtrl', ['$scope', '$stateParams', 'Profile', 'Reservation', 'Session', '$timeout',
+tooFrenchControllers.controller('ReservationCtrl', ['$scope', '$rootScope', '$stateParams', 'Profile', 'Reservation', 'Session', '$timeout',
 
-    function ($scope, $stateParams, Profile, Reservation, Session, $timeout) {
+    function ($scope, $rootScope, $stateParams, Profile, Reservation, Session, $timeout) {
         var Resa = Reservation.getResource();
+        var r = new Resa();
+        r.formation = null;
+        r.formula = null;
+        r.activity = false;
+        r.accomodation = false;
+        r.hourCount = null;
+        /**
+         * Reservation to create
+         */
+        $scope.reservation = r;
+
         $scope.period = moment().date(10).format('MM-YYYY');
         $scope.scheduleIndex = -1;
-        $scope.reservation = new Resa();
-        $scope.date = new Date();
-        $scope.date.setHours(9);
-        $scope.date.setMinutes(0);
+
+
+        /******************/
+        /* Time selection */
+        /******************/
+
+        var h = new Date();
+        h.setHours(14);
+        h.setMinutes(0);
+
+        /**
+         * Time of the reservation
+         * @type {Date}
+         */
+        $scope.resaHour = h;
         $scope.hstep = 1;
         $scope.mstep = 15;
-        $scope.ismeridian = true;
-        $scope.timeSelected = false;
-        $scope.selected = null;
+        /**
+         * True to use am / pm for time picker
+         * @type {boolean}
+         */
+        $scope.ismeridian = ['fr', 'es'].indexOf($rootScope.currentLocale) == -1;
+
+        /**
+         * Update time picker on date change
+         */
+        $rootScope.$on('$translateChangeSuccess', function () {
+            $scope.ismeridian = ['fr', 'es'].indexOf($rootScope.currentLocale) == -1;
+        });
+
+        /**
+         * Selected date for reservation
+         * @type {*[]}
+         */
+        $scope.selectedDays = [moment().valueOf()];
         $scope.status = null;
         $scope.submitted = false;
+
+        /**
+         * Avalable duration
+         * @type {*[]}
+         */
         $scope.durations = [{name: "0:30", value: '0.30'}, {name: "1:00", value: '1'}, {
             name: "1:30",
             value: '1.5'
@@ -24,12 +66,27 @@ tooFrenchControllers.controller('ReservationCtrl', ['$scope', '$stateParams', 'P
             value: '3,5'
         }, {name: "4:00", value: '4'}]
 
+
+        /**
+         * Fetch profiles when login process finished
+         */
         $scope.loginRequest.promise.then(function () {
+
+            /**
+             * Fetch current user profile
+             */
             $scope.myprofile = Profile.get({id: Session.user.profile}, function (profile) {
 
             });
 
+            /**
+             * Fetch teacher profile
+             */
             $scope.profile = Profile.get({id: $stateParams.profileId}, function (profile) {
+                $scope.reservation.activity = false;
+                if (!$scope.profile.activeAccomodation) {
+                    $scope.reservation.accomodation = false;
+                }
                 if ($stateParams.formula) {
                     $scope.reservation.formula = profile.formulas[$stateParams.formula];
                 }
@@ -46,10 +103,6 @@ tooFrenchControllers.controller('ReservationCtrl', ['$scope', '$stateParams', 'P
                     $scope.scheduleIndex = $scope.profile.schedules.push(schedule) - 1;
                 }
             });
-
-            $scope.timeChanged = function () {
-                $scope.timeSelected = true;
-            }
 
             var findUndispo = function (date) {
                 if ($scope.profile.schedules[$scope.scheduleIndex].undispos.length == 0) {
@@ -81,11 +134,7 @@ tooFrenchControllers.controller('ReservationCtrl', ['$scope', '$stateParams', 'P
             /* CALENDAR */
             $scope.dayClick = function (event, date) {
                 event.preventDefault() // prevent the select to happen
-                if ($scope.selected) {
-                    $scope.selected.selected = false;
-                }
-                $scope.selected = date;
-                $scope.selected.selected = true;
+                $scope.selectedDays = [date.valueOf()];
             }
 
             $scope.onMonthChanged = function (newMonth, oldMonth) {
@@ -97,32 +146,32 @@ tooFrenchControllers.controller('ReservationCtrl', ['$scope', '$stateParams', 'P
                 }
             };
 
+            /**
+             * Create the reservation
+             */
             $scope.createReservation = function () {
-                if ($scope.selected && $scope.timeSelected && $scope.reservation.accomodation && $scope.reservation.activity) {
-                    if ($scope.formula && (!$scope.reservation.hourCount || !$scope.reservation.formation)) {
-                        $scope.submitted = true;
-                        return;
-                    }
-                    var hour = $scope.date.getHours();
-                    var minute = $scope.date.getMinutes();
-                    $scope.reservation.date = $scope.selected.toDate();
-                    $scope.reservation.date.setHours(hour);
-                    $scope.reservation.date.setMinutes(minute);
-                    $scope.reservation.student = Session.user.profile;
-                    $scope.reservation.teacher = $scope.profile.id;
-                    $scope.reservation.status = 'pending';
-                    $scope.reservation.$save(function () {
-                        $timeout(function () {
-                            $scope.status = 1;
-                        })
-
-                    }, function () {
-                        $scope.status = -1;
-                    });
-                }
-                else {
+                if ($scope.reservation.formula == null && ($scope.reservation.formation == null || $scope.reservation.hourCount == null)) {
                     $scope.submitted = true;
+                    return;
                 }
+                var hour = $scope.resaHour.getHours();
+                var minute = $scope.resaHour.getMinutes();
+                $scope.reservation.date = moment($scope.selectedDays[0]).toDate();
+                $scope.reservation.date.setHours(hour);
+                $scope.reservation.date.setMinutes(minute);
+
+                $scope.reservation.student = Session.user.profile;
+                $scope.reservation.teacher = $scope.profile.id;
+
+                $scope.reservation.status = 'pending';
+                $scope.reservation.$save(function () {
+                    $timeout(function () {
+                        $scope.status = 1;
+                    })
+
+                }, function () {
+                    $scope.status = -1;
+                });
             }
         });
     }

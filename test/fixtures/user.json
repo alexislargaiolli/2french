@@ -22,5 +22,13 @@
     "tour": true,
     "defaultLocale": "fr",
     "profile": 3
+  },
+  {
+    "username": "dumbledor",
+    "email": "dumbedor@poudlard.uk",
+    "role": "teacher",
+    "tour": true,
+    "defaultLocale": "fr",
+    "profile": 4
   }
 ]

@@ -2,16 +2,16 @@
   {
     "user": 1,
     "protocol": "local",
-    "password": "$2a$10$oH3PjLbJHv3fUciAmnpMfef8srzj1A6Gayv4pDiZifyVRjKJMHlDG"
+    "password": "e2etests"
   },
   {
     "user": 2,
     "protocol": "local",
-    "password": "$2a$10$oH3PjLbJHv3fUciAmnpMfef8srzj1A6Gayv4pDiZifyVRjKJMHlDG"
+    "password": "e2etests"
   },
   {
     "user": 3,
     "protocol": "local",
-    "password": "$2a$10$oH3PjLbJHv3fUciAmnpMfef8srzj1A6Gayv4pDiZifyVRjKJMHlDG"
+    "password": "e2etests"
   }
 ]

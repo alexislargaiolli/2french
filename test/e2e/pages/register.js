@@ -1,7 +1,7 @@
 var RegisterPage = function() {
 
     this.get = function() {
-        browser.get('http://localhost:1337/#/register');
+        browser.get('http://localhost:9999/#/register');
     };
 
     this.student = function(){

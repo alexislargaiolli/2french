@@ -12,27 +12,27 @@ module.exports = {
      * @param req
      * @param res
      */
-    validateProfile: function(req, res){
+    validateProfile: function (req, res) {
         var profileId = req.allParams().id;
         sails.log.debug("ProfileController.validateProfile() " + profileId);
 
-        Profile.actionValidate(profileId, function(err, profile){
-            if(err || !profile){
+        Profile.actionValidate(profileId, function (err, profile) {
+            if (err || !profile) {
                 return res.serverError("Erreur lors de la validation du profile");
             }
             res.send(200, profile);
         });
     },
-    validateProfileByUser: function(req, res){
+    validateProfileByUser: function (req, res) {
         var userToValidateId = req.allParams().userToValidateId;
         sails.log.debug("ProfileController.validateProfileByUser() " + userToValidateId);
 
-        User.findOne(userToValidateId, function(err, user){
-            if(err || !user){
+        User.findOne(userToValidateId, function (err, user) {
+            if (err || !user) {
                 return res.serverError("Profile not found");
             }
-            Profile.actionValidate(user.profile, function(err, profile){
-                if(err || !profile){
+            Profile.actionValidate(user.profile, function (err, profile) {
+                if (err || !profile) {
                     return res.serverError("Erreur lors de la validation du profile");
                 }
                 res.send(200, profile);
@@ -42,9 +42,9 @@ module.exports = {
 
     viewProfile: function (req, res) {
         Profile.findOne({
-            where: {id: req.id},
-            select: ['firstname', 'photo', 'motivation', 'hourRate', 'city', 'activeAccomodation', 'location', 'accomodationCoords', 'photos', 'accomodationDescription', 'averageMark', 'schedules']
-        })
+                where: {id: req.id},
+                select: ['firstname', 'photo', 'motivation', 'hourRate', 'city', 'activeAccomodation', 'location', 'accomodationCoords', 'photos', 'accomodationDescription', 'averageMark', 'schedules']
+            })
             .populate('formation').populate('extras').populate('formulas').populate('equipments').populate('services')
             .exec(function (err, profile) {
                 if (err) {
@@ -77,6 +77,8 @@ module.exports = {
         var days = req.query['days'];
         var periods = req.query['periods'];
 
+        sails.log.debug('ProfileController.search() [city : ' + city + ', country : ' + country + ', lvl1 : ' + lvl1 + ', lvl2 : ' + lvl2 + ', days : ' + days + ', periods : ' + periods + ']');
+        
         if (days && days.length > 0) {
             days = JSON.parse(days);
             periods = JSON.parse(periods);
@@ -86,6 +88,7 @@ module.exports = {
                 if (err) {
                     return res.sendError('Erreur dans la recherche');
                 }
+                sails.log.debug(" --> " + count + " results found");
                 res.send(200, {count: count});
             });
         }
@@ -142,11 +145,11 @@ module.exports = {
                         }
                     }
                 ).exec(function (err, count) {
-                        if (err) {
-                            return res.send('500', 'error')
-                        }
-                        res.send(200, {count: count});
-                    });
+                    if (err) {
+                        return res.send('500', 'error')
+                    }
+                    res.send(200, {count: count});
+                });
             }
             else {
                 if (!pageSize) {
@@ -180,7 +183,7 @@ module.exports = {
                         skip: skip,
                         limit: pageSize,
                     }
-                )
+                    )
                     .populate('formations')
                     .populate('extras')
                     .exec(function (err, profiles) {
@@ -202,11 +205,11 @@ module.exports = {
                         }
                     }
                 ).exec(function (err, count) {
-                        if (err) {
-                            return res.send('500', 'error')
-                        }
-                        res.send(200, {count: count});
-                    });
+                    if (err) {
+                        return res.send('500', 'error')
+                    }
+                    res.send(200, {count: count});
+                });
             }
             else {
                 if (!pageSize) {
@@ -228,7 +231,7 @@ module.exports = {
                         skip: skip,
                         limit: pageSize,
                     }
-                )
+                    )
                     .populate('formations')
                     .populate('extras')
                     .exec(function (err, profiles) {
@@ -246,12 +249,15 @@ module.exports = {
             where: {teacher: req.allParams().teacherId},
             select: ['mark', 'comment', 'student']
         }).exec(function (err, reviews) {
-            if(err){
+            if (err) {
                 return res.serverError(err);
             }
             reviews.forEach(function (review, index) {
-                Profile.findOne({where: {id: review.student}, select: ['firstname', 'photo']}).exec(function (err, student) {
-                    if(err){
+                Profile.findOne({
+                    where: {id: review.student},
+                    select: ['firstname', 'photo']
+                }).exec(function (err, student) {
+                    if (err) {
                         return res.serverError(err);
                     }
                     reviews[index].student = student;

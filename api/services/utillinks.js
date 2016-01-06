@@ -57,7 +57,6 @@ function fullSearch(count, skip, pageSize, city, lvl2, lvl1, country, callback) 
             return callback(err, results);
         }
         else {
-            sails.log.info('search by lvl2 ' + lvl2);
             searchByLvl2(count, skip, pageSize, lvl2, function (err, results) {
                 return callback(err, results);
                 /*if (err) {
