@@ -25,7 +25,7 @@ module.exports = {
         level: "info"
     },
     email:{
-        testMode : true,
+        testMode : false,
         alwaysSendTo : 'alexis.largaiolli@gmail.com'
     }
 };

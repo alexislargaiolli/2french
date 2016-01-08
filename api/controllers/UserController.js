@@ -163,6 +163,7 @@ module.exports = {
 
     forgot: function (req, res) {
         var email = req.allParams('email').email;
+        sails.log.debug('UserController.forgot() - ' + email);
         if (!email) {
             return res.send(500, req.__('reset.password.error'));
         }
@@ -178,7 +179,7 @@ module.exports = {
             crypto.randomBytes(20, function (err, buf) {
                 var token = buf.toString('hex');
                 user.resetPasswordToken = token;
-                user.resetPasswordExpires = new Date(Date.now() + 3600000);
+                user.resetPasswordExpires = new Date(Date.now() + 7200000);
                 user.save(function (err) {
                     if (err) {
                         sails.log.error(err);

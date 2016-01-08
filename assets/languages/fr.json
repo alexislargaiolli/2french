@@ -440,7 +440,7 @@
 
   "parameters.menu.notif":"Notifications",
   "parameters.menu.password":"Mot de passe",
-  "parameters.notif.title":"Paramètre des notifications",
+  "parameters.notif.title":"Paramètres de notification",
   "parameters.notif.subtitle":"Vous souhaitez recevoir des notifications par email lorsque",
   "parameters.notif.newResa":"Vous recevez une demande de réservation",
   "parameters.notif.newResa.student":"Vous faites une demande de réservation",
