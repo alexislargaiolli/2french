@@ -15,6 +15,7 @@ module.exports = {
         var senderId = req.allParams().senderId;
         var recipientId = req.allParams().recipientId;
         var messageContent = req.allParams().message;
+        sails.log.debug('ConversationController.sendMessage() - [senderId : ' + senderId + ', recipientId : ' + recipientId + ']');
 
         //Verify if recipient user exists
         User.findOne({id: recipientId}).exec(function (err, recipient) {

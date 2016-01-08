@@ -11,6 +11,7 @@ before(function(done) {
     this.timeout(10000);
 
     Sails.lift({
+        port:9990,
         log: {
             level: 'debug'
         },
@@ -29,11 +30,19 @@ before(function(done) {
         var barrels = new Barrels();
 
         // Populate the DB
-        barrels.populate(function(err) {
-            done(err);
-        });
-
-        //done(err, sails);
+        barrels.populate(['user'],function(err) {
+            if(err){
+                sails.log.error(err);
+                return done(err);
+            }
+            barrels.populate(['passport', 'formation', 'profile', 'diploma', 'reservation','review'],function(err) {
+                if(err){
+                    sails.log.error(err);
+                    return done(err);
+                }
+                done();
+            }, false);
+        },false);
     });
 });
 

@@ -62,7 +62,7 @@ module.exports = {
                 r.owner = r.teacher.owner;
                 r.photo = r.teacher.photo;
                 r.city = r.teacher.city;
-                r.student = r.teacher.firstname;
+                r.teacher = r.teacher.firstname;
             });
             res.send(resas);
         });

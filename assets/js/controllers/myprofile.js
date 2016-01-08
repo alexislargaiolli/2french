@@ -57,9 +57,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             });
 
 
-            Review.getTeacherReviews(Session.user.profile).then(function (reviews) {
-                $scope.reviews = reviews;
-            });
+
 
 
             /**
@@ -107,6 +105,10 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                 $scope.diplomaFile = null;
                 $scope.diplomaUploading = false;
                 $scope.selectedPhotoIndex = 0;
+
+                Review.getTeacherReviews(Session.user.profile).then(function (reviews) {
+                    $scope.reviews = reviews;
+                });
 
                 var handleDiplomaSelect = function (evt) {
                     $timeout(function () {

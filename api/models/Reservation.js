@@ -14,6 +14,9 @@ module.exports = {
         teacher: {
             model: 'Profile'
         },
+        formation:{
+            model : 'Formation'
+        },
         formula: {
             type: 'json'
         },

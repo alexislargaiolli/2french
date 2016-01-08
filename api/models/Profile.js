@@ -105,6 +105,28 @@ module.exports = {
         Profile.findOne({owner : userId}).exec(cb);
     },
     /**
+     * The user associated to a given profile
+     * @param profileId
+     * @param cb callback method
+     */
+    getUser : function(profileId, cb){
+        User.findOne({profile : profileId}).exec(cb);
+    },
+    /**
+     *
+     * @param profileId
+     * @param cb callback method cb(err, isTeacher)
+     */
+    isTeacher : function(profileId, cb){
+        Profile.getUser(profileId, function(err, user){
+            if(err || !user){
+                return cb(err, false);
+            }
+            var isTeacher = user.role == 'teacher';
+            return cb(null, isTeacher);
+        });
+    },
+    /**
      *
      * @param profile profile to check (object or id)
      * @returns {boolean} true if all required attribute to be visible on research are set
@@ -227,6 +249,63 @@ module.exports = {
                 profile.validate = false;
                 next(null, profile.validate);
             }
+        });
+    },
+    /**
+     * Return a profile with all required data for profile page
+     * @param profileId id of the profile to retrive
+     * @param cb callback method
+     */
+    getFullProfile : function(profileId, cb){
+        //Load profile
+        Profile.findOne({id : profileId}).exec(function(err, profile){
+            if(err){
+                return cb(err, null);
+            }
+
+            Profile.isTeacher(profileId, function(err, isTeacher){
+                profile.isTeacher = isTeacher;
+                return cb(null, profile);
+            });
+        });
+    },
+    /**
+     * Return review of a given teacher
+     * @param profile id or object of a teacher profile
+     * @param cb callback method
+     */
+    getTeacherReview : function(profile, cb){
+        var profileId;
+        if (typeof profile === 'object'){
+            profileId = profile.id;
+        }
+        else{
+            profileId = profile;
+        }
+        Review.find({
+            where: {teacher: profileId},
+            select: ['mark', 'comment', 'student']
+        }).exec(function (err, reviews) {
+            if (err) {
+                return cb(err, null);
+            }
+            if(reviews.length == 0){
+                return cb(null, reviews);
+            }
+            reviews.forEach(function (review, index) {
+                Profile.findOne({
+                    where: {id: review.student},
+                    select: ['firstname', 'photo']
+                }).exec(function (err, student) {
+                    if (err) {
+                        return;
+                    }
+                    reviews[index].student = student;
+                    if (index === reviews.length - 1) {
+                        return cb(null, reviews);
+                    }
+                });
+            });
         });
     },
     beforeCreate: function (values, next) {

@@ -4,7 +4,7 @@
 
 
             <!-- Right panel -->
-            <div id="profile-right" class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-md-push-3 col-lg-push-3">
+            <div id="profile-right" ng-class="{'col-md-9 col-lg-9 col-md-push-3 col-lg-push-3' : profile.isTeacher}" class="col-xs-12 col-sm-12">
                 <div id="profile-header" class="bordered-block">
                     <div>
                         <div class="row">
@@ -23,18 +23,13 @@
 
                                 <!-- Resa / contact buttons panel -->
                                 <div id="btns-wrapper" ng-if="session.authenticated">
-                                    <button type="button"
-                                            class="fav-btn btn btn-default blue-btn fa fa-star"
-                                            ng-click="userfavlist.addFavorit(profile.id)"
-                                            ng-class="{favorit : userfavlist.isInFav(profile.id)}" ng-if="isStudent">
+                                    <button type="button" class="fav-btn btn btn-default blue-btn fa fa-star" ng-click="userfavlist.addFavorit(profile.id)" ng-class="{favorit : userfavlist.isInFav(profile.id)}" ng-if="isStudent && profile.isTeacher">
                                         <span class="hidden-xs .hidden-sm lm-5">{{'profile.favorit.button' | translate}}</span>
                                     </button>
-                                    <button type="button" class="btn btn-default green2-btn fa fa-envelope"
-                                            data-toggle="modal"
-                                            data-target="#contactDlg">{{'profile.contact.button' | translate}}
+                                    <button type="button" class="btn btn-default green2-btn fa fa-envelope" data-toggle="modal" data-target="#contactDlg">
+                                        {{'profile.contact.button' | translate}}
                                     </button>
-                                    <a ui-sref="reservation({profileId : profile.id})"
-                                       class="btn btn-default green2-btn fa fa-chevron-right" ng-if="isStudent">
+                                    <a ui-sref="reservation({profileId : profile.id})" class="btn btn-default green2-btn fa fa-chevron-right" ng-if="isStudent && profile.isTeacher">
                                         {{'profile.reserve.button' | translate}}
                                     </a>
                                 </div>
@@ -45,13 +40,13 @@
 								</span>
                                 <hr/>
                                 <div class="row optionList">
-                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 {{f.icon}}"
-                                         ng-repeat="f in profile.formations">{{f.name[currentLocale]}}
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 {{f.icon}}" ng-repeat="f in profile.formations">
+                                        {{f.name[currentLocale]}}
                                     </div>
                                 </div>
                                 <div class="row optionList">
-                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 {{e.icon}}"
-                                         ng-repeat="e in profile.extras">{{e.name[currentLocale]}}
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 {{e.icon}}" ng-repeat="e in profile.extras">
+                                        {{e.name[currentLocale]}}
                                     </div>
                                 </div>
                             </div>
@@ -64,92 +59,79 @@
                     </div>
                 </div>
 
-                <h4 class="block-title2 f-16 mt-35">{{'profile.formations' | translate}}</h4>
-                <hr/>
-                <label id="hourRateLabel" class="blue-title f-14">{{'profile.hourrate' | translate}}</label><span
-                        id="hourRate">{{ profile.hourRate || 'NaN' }}€</span>
-
-                <div ng-repeat="formula in profile.formulas track by $index">
+                <div ng-if="profile.isTeacher">
+                    <h4 class="block-title2 f-16 mt-35">{{'profile.formations' | translate}}</h4>
                     <hr/>
-                    <h4 class="blue-title f-14">{{formula.name[currentLocale]}}, {{formula.price}}€</h4>
+                    <label id="hourRateLabel" class="blue-title f-14">{{'profile.hourrate' | translate}}</label><span id="hourRate">{{ profile.hourRate || 'NaN' }}€</span>
 
-                    <p class="grey-text">{{formula.description[currentLocale]}}</p>
+                    <div ng-repeat="formula in profile.formulas track by $index">
+                        <hr/>
+                        <h4 class="blue-title f-14">{{formula.name[currentLocale]}}, {{formula.price}}€</h4>
 
-                    <div class="formuleBtns" ng-if="session.authenticated && isStudent">
-                        <a ui-sref="reservation({profileId : profile.id, formula : $index})"
-                           class="btn btn-default green2-btn">{{'profile.formula.reserve' | translate}}</a>
-                    </div>
-                </div>
-                <hr/>
+                        <p class="grey-text">{{formula.description[currentLocale]}}</p>
 
-                <div class="mt-35" ng-show="profile.activeAccomodation == true">
-                    <h4 class="block-title2 f-16 mt-35">{{'profile.accomodation' | translate}}</h4>
-                    <hr/>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
-                            <div id="photos-viewer">
-                                <div id="photos-selected">
-                                    <img ng-src="{{profile.photos[selectedPhotoIndex].url}}"
-                                         ng-click="openLightboxModal()"
-                                         ng-if="profile.photos[selectedPhotoIndex]"/>
-
-                                    <i class="fa fa-picture-o fa-5x" ng-if="!profile.photos[selectedPhotoIndex]"></i>
-                                </div>
-                                <ul id="photos-list">
-                                    <li ng-click="selectPhoto($index)"
-                                        ng-repeat="photo in profile.photos track by $index">
-                                        <img ng-src="{{photo.url}}"/>
-                                    </li>
-                                </ul>
-                            </div>
+                        <div class="formuleBtns" ng-if="session.authenticated && isStudent">
+                            <a ui-sref="reservation({profileId : profile.id, formula : $index})" class="btn btn-default green2-btn">
+                                {{'profile.formula.reserve' | translate}}
+                            </a>
                         </div>
-                        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
-                            <h5 class="block-title2 f-16 mt-0">{{'profile.equipements'| translate}}</h5>
+                    </div>
+                    <hr/>
 
-                            <div>
-                                <span class="grey-text"
-                                      ng-repeat="e in profile.equipments">{{e.name[currentLocale]}}<span
-                                            ng-if="!$last"> - </span></span>
-                                <span ng-if="!profile.equipments || profile.equipments.length == 0">{{'profile.equipements.empty'|translate}}</span>
+                    <div class="mt-35" ng-show="profile.activeAccomodation == true">
+                        <h4 class="block-title2 f-16 mt-35">{{'profile.accomodation' | translate}}</h4>
+                        <hr/>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <div id="photos-viewer">
+                                    <div id="photos-selected">
+                                        <img ng-src="{{profile.photos[selectedPhotoIndex].url}}" ng-click="openLightboxModal()" ng-if="profile.photos[selectedPhotoIndex]"/>
+
+                                        <i class="fa fa-picture-o fa-5x" ng-if="!profile.photos[selectedPhotoIndex]"></i>
+                                    </div>
+                                    <ul id="photos-list">
+                                        <li ng-click="selectPhoto($index)" ng-repeat="photo in profile.photos track by $index">
+                                            <img ng-src="{{photo.url}}"/>
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
+                            <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                                <h5 class="block-title2 f-16 mt-0">{{'profile.equipements'| translate}}</h5>
 
-                            <h5 class="block-title2 f-16">{{'profile.services' | translate}}</h5>
+                                <div>
+                                <span class="grey-text" ng-repeat="e in profile.equipments">{{e.name[currentLocale]}}<span ng-if="!$last"> - </span></span>
+                                    <span ng-if="!profile.equipments || profile.equipments.length == 0">{{'profile.equipements.empty'|translate}}</span>
+                                </div>
 
-                            <div>
-                                <span class="grey-text" ng-repeat="s in profile.services">{{s.name[currentLocale]}}<span
-                                            ng-if="!$last"> - </span></span>
-                                <span ng-if="!profile.services || profile.services.length == 0">{{'profile.services.empty'|translate}}</span>
+                                <h5 class="block-title2 f-16">{{'profile.services' | translate}}</h5>
+
+                                <div>
+                                <span class="grey-text" ng-repeat="s in profile.services">{{s.name[currentLocale]}}<span ng-if="!$last"> - </span></span>
+                                    <span ng-if="!profile.services || profile.services.length == 0">{{'profile.services.empty'|translate}}</span>
+                                </div>
                             </div>
+                            <hr/>
                         </div>
                         <hr/>
-                    </div>
-                    <hr/>
-                    <div class="row" ng-if="profile.activeAccomodation && map">
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <ui-gmap-google-map center='map.center' zoom='map.zoom'>
-                                <ui-gmap-markers models="map.markers"
-                                                 doCluster="true"
-                                                 coords="'self'"
-                                                 icon="'icon'"
-                                                 click="'onclicked'"
-                                                 options="'options'"
-                                                 idkey='id'
-                                                 clusterOptions='map.clusterOptions'
-                                                 control='markerControl.getChildMarkers().get(id)'>
-                                </ui-gmap-markers>
-                            </ui-gmap-google-map>
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                            <h5 class="block-title2 f-16 mt-0">{{'profile.location'| translate}}</h5>
+                        <div class="row" ng-if="profile.activeAccomodation && map">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <ui-gmap-google-map center='map.center' zoom='map.zoom'>
+                                    <ui-gmap-markers models="map.markers" doCluster="true" coords="'self'" icon="'icon'" click="'onclicked'" options="'options'" idkey='id' clusterOptions='map.clusterOptions' control='markerControl.getChildMarkers().get(id)'></ui-gmap-markers>
+                                </ui-gmap-google-map>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+                                <h5 class="block-title2 f-16 mt-0">{{'profile.location'| translate}}</h5>
 
-                            <p>{{profile.accomodationDescription[currentLocale]}}</p>
+                                <p>{{profile.accomodationDescription[currentLocale]}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Left panel -->
-            <div id="profile-left" class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-md-pull-9 col-lg-pull-9">
+            <div id="profile-left" ng-if="profile.isTeacher" class="col-xs-12 col-sm-12 col-md-3 col-lg-3 col-md-pull-9 col-lg-pull-9">
                 <div class="panel panel-default">
                     <div class="panel-heading block-title1 center">{{'myprofile.calendar' | translate}}</div>
                     <div class="panel-body p-0">
@@ -157,17 +139,20 @@
                     </div>
                     <div id="schedule-legend" class="panel-footer">
                         <div class="left p-10">
-                            <img src="../images/am.png" class="legend-images"><span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
+                            <img src="../images/am.png" class="legend-images">
+                            <span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
                         </div>
                         <div class="left p-10">
-                            <img src="../images/pm.png" class="legend-images pm"><span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
+                            <img src="../images/pm.png" class="legend-images pm">
+                            <span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
                         </div>
                         <div class="left p-10">
                             <div class="legend-images day"></div>
                             <span class="legend-text">{{'myprofile.calendar.legend.day' | translate}}</span>
                         </div>
                         <div class="left p-10">
-                            <span class="legend-images"></span><span class="legend-text">{{'myprofile.calendar.legend.unvalailable' | translate}}</span>
+                            <span class="legend-images"></span>
+                            <span class="legend-text">{{'myprofile.calendar.legend.unvalailable' | translate}}</span>
                         </div>
                     </div>
                 </div>
@@ -178,17 +163,14 @@
                         <p ng-if="reviews.length == 0" class="p-10 center">{{'profile.teacher.reviews.empty' |
                             translate}}</p>
 
-                        <div ng-repeat="review in reviews" class="row profile-review-item"
-                             ui-sref="profile({profileId:review.student.id})">
+                        <div ng-repeat="review in reviews" class="row profile-review-item" ui-sref="profile({profileId:review.student.id})">
                             <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 center">
-                                <img class="user-photo-profile" ng-src="{{review.student.photo}}"
-                                     ng-show="review.student.photo"/>
+                                <img class="user-photo-profile" ng-src="{{review.student.photo}}" ng-show="review.student.photo"/>
                                 <i class="fa fa-user user-photo-profile" ng-show="!review.student.photo"></i>
                             </div>
                             <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
 
-                                <rating ng-model="review.mark" readonly="true"
-                                        class="teacher-profile-rating"></rating>
+                                <rating ng-model="review.mark" readonly="true" class="teacher-profile-rating"></rating>
                                 <br/>
                                 {{review.comment}}
                                 <div class="right">
@@ -205,18 +187,18 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                    aria-hidden="true">&times;</span></button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                        </button>
                         <h4 class="modal-title">{{'contact.dlg.title' | translate}} {{profile.firstname}}</h4>
                     </div>
                     <div class="modal-body">
                         <form role="form" ng-controller="ContactCtrl" ng-submit="sendMessage(profile.owner.id)">
-                            <textarea class="form-control" rows="3" ng-model="message.content"
-                                      ng-required="true"></textarea>
+                            <textarea class="form-control" rows="3" ng-model="message.content" ng-required="true"></textarea>
 
                             <div class="center p-10">
                                 <button type="submit" class="btn btn-default">
-                                    <span class="fa fa-send"></span>{{'contact.dlg.send' | translate}}
+                                    <span class="fa fa-send"></span>
+                                    {{'contact.dlg.send' | translate}}
                                 </button>
                             </div>
                         </form>

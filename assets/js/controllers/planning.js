@@ -1,12 +1,43 @@
 var tooFrenchControllers = angular.module('tooFrenchApp');
-tooFrenchControllers.controller('PlanningCtrl', ['$rootScope', '$scope', 'Reservation', '$timeout', 'AUTH_EVENTS',
+/**
+ * Controller behind planning view
+ */
+tooFrenchControllers.controller('PlanningCtrl', ['$scope', 'Reservation', 'ContactService',
 
-    function ($rootScope, $scope, Reservation, $timeout, AUTH_EVENTS) {
+    function ($scope, Reservation, ContactService) {
+        /**
+         * Array of user reservations
+         * @type {Array}
+         */
         $scope.resas = [];
+
+        /**
+         * Date of the day
+         * @type {Date}
+         */
         $scope.todayDate = new Date();
+
+        /**
+         * Flag to indicate if reservations are being fetch
+         * @type {boolean}
+         */
         $scope.loading = false;
+
+        /**
+         * Flag to show past or active reservation
+         * @type {boolean}
+         */
         $scope.history = false;
 
+        /**
+         * Message for contacting user
+         * @type {{}}
+         */
+        $scope.message = {};
+
+        /**
+         * Wait login process before fetching reservations
+         */
         $scope.loginRequest.promise.then(function () {
             if ($scope.isTeacher) {
 
@@ -49,9 +80,26 @@ tooFrenchControllers.controller('PlanningCtrl', ['$rootScope', '$scope', 'Reserv
             }
             $scope.loadResa(false);
 
+            /**
+             * Cancel a reservation
+             * @param resa reservation to cancel
+             */
             $scope.cancelResa = function (resa) {
                 Reservation.cancelReservation(resa.id).then(function (r) {
                     resa.status = r[0].status;
+                });
+            }
+
+            $scope.setUserToContact = function(profileId, recipientName){
+                $scope.message.recipient = profileId;
+                $scope.message.content = "";
+                $scope.message.recipientName = recipientName;
+                angular.element('#contactDlg').modal('show');
+            }
+
+            $scope.sendMessage = function(){
+                ContactService.sendMessage($scope.message.content, $scope.message.recipient, function(){
+                    angular.element('#contactDlg').modal('hide');
                 });
             }
         });

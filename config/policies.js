@@ -53,10 +53,12 @@ module.exports.policies = {
   },
 
   ProfileController : {
+    '*' : ['passport', 'sessionAuth'],
     create : [ 'passport', 'sessionAuth', 'admin'],
-    update : ['passport', 'sessionAuth', 'profileOwner'],
     destroy : [ 'passport', 'sessionAuth', 'admin'],
-    validateProfile : ['passport', 'sessionAuth', 'profileOwner']
+    update : ['passport', 'sessionAuth', 'profileOwner'],
+    validateProfile : ['passport', 'sessionAuth', 'profileOwner'],
+    search:[]
   },
 
   EquipmentController : {

@@ -5,10 +5,16 @@
 </div>
 <div id="planningContainer" class="container">
     <ul class="nav nav-pills vm-10">
-        <li role="presentation" ng-class="{active : !history}"><a ng-click="loadResa(false)">{{'planning.menu.actual' | translate}}</a></li>
-        <li role="presentation" ng-class="{active : history}"><a ng-click="loadResa(true)">{{'planning.menu.history' | translate}}</a></li>
+        <li role="presentation" ng-class="{active : !history}">
+            <a ng-click="loadResa(false)">{{'planning.menu.actual' | translate}}</a>
+        </li>
+        <li role="presentation" ng-class="{active : history}">
+            <a ng-click="loadResa(true)">{{'planning.menu.history' | translate}}</a>
+        </li>
     </ul>
 
+
+    <!-- Teacher reservations -->
     <div class="resa-item row" ng-repeat="resa in resas" ng-if="isTeacher && !loading">
         <div class="col-md-7 col-lg-7">
 
@@ -34,20 +40,19 @@
             </span>
                 </div>
 
-                <button type="button" class="btn blue-btn" data-toggle="modal"
-                        data-target="#contactDlg"><i class="fa fa-envelope rm-10"></i>{{'planning.reservations.contact'
-                    | translate}}
+                <button type="button" class="btn blue-btn" data-toggle="modal" ng-click="setUserToContact(resa.owner, resa.student)" data-target="#contactStudentDlg">
+                    <i class="fa fa-envelope rm-10"></i>{{'planning.reservations.contact' | translate}}
                 </button>
             </div>
         </div>
+
 
         <div class="col-md-5 col-lg-5 resaDetail">
             <div>
                 <label>{{'planning.reservations.date' | translate}}</label> : {{resa.date | date : 'shortDate'}}
             </div>
             <div>
-                <label>{{'planning.reservations.time' | translate}} : </label>
-                {{resa.date | date : 'shortTime'}}
+                <label>{{'planning.reservations.time' | translate}} : </label> {{resa.date | date : 'shortTime'}}
             </div>
             <div>
                 <label>{{'planning.reservations.activity' | translate}} : </label>
@@ -65,8 +70,7 @@
                 <div class="formulaWrapper">
                     <h4 class="blue-title f-14">{{resa.formula.name[currentLocale]}}</h4>
 
-                    <p class="grey-text">{{resa.formula.description[currentLocale]}},
-                        {{resa.formula.price}}€</p>
+                    <p class="grey-text">{{resa.formula.description[currentLocale]}}, {{resa.formula.price}}€</p>
                 </div>
             </div>
             <div ng-if="resa.formula == null">
@@ -75,8 +79,7 @@
                     {{resa.formation.name[currentLocale]}}
                 </div>
                 <div>
-                    <label>{{'planning.reservations.duration' | translate}} : </label>
-                    {{resa.hourCount.name}}
+                    <label>{{'planning.reservations.duration' | translate}} : </label> {{resa.hourCount.name}}
                 </div>
             </div>
             <div class="btn-wrapper">
@@ -95,31 +98,10 @@
                 </div>
             </div>
         </div>
-        <div id="contactDlg" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">{{'contact.dlg.title' | translate}} {{resa.student}}</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form role="form" ng-controller="ContactCtrl" ng-submit="sendMessage(resa.owner)">
-                            <textarea class="form-control" rows="3" ng-model="message.content"
-                                      ng-required="true"></textarea>
-
-                            <div class="center p-10">
-                                <button type="submit" class="btn btn-default">
-                                    <span class="fa fa-send"></span>{{'contact.dlg.send' | translate}}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
+
+    <!-- Studet reservations -->
     <div class="resa-item row" ng-repeat="resa in resas" ng-if="!isTeacher && !loading">
         <div class="col-md-7 col-lg-7">
 
@@ -130,7 +112,7 @@
             </div>
 
             <div class="profileInfo">
-                <h3 class="blue-title f-20">{{resa.student}}</h3>
+                <h3 class="blue-title f-20">{{resa.teacher}}</h3>
 
                 <div class="light-title">
                     {{resa.city.address_components[0].long_name}} ({{resa.city.address_components[3].long_name}})
@@ -145,9 +127,8 @@
             </span>
                 </div>
 
-                <button type="button" class="btn blue-btn" data-toggle="modal"
-                        data-target="#contactDlg"><i class="fa fa-envelope rm-10"></i>{{'planning.reservations.contact'
-                    | translate}}
+                <button ng-click="setUserToContact(resa.owner, resa.teacher)" type="button" class="btn blue-btn">
+                    <i class="fa fa-envelope rm-10"></i>{{'planning.reservations.contact' | translate}}
                 </button>
             </div>
         </div>
@@ -157,8 +138,7 @@
                 <label>{{'planning.reservations.date' | translate}}</label> : {{resa.date | date : 'shortDate'}}
             </div>
             <div>
-                <label>{{'planning.reservations.time' | translate}} : </label>
-                {{resa.date | date : 'shortTime'}}
+                <label>{{'planning.reservations.time' | translate}} : </label> {{resa.date | date : 'shortTime'}}
             </div>
             <div>
                 <label>{{'planning.reservations.activity' | translate}} : </label>
@@ -176,8 +156,7 @@
                 <div class="formulaWrapper">
                     <h4 class="blue-title f-14">{{resa.formula.name[currentLocale]}}</h4>
 
-                    <p class="grey-text">{{resa.formula.description[currentLocale]}},
-                        {{resa.formula.price}}€</p>
+                    <p class="grey-text">{{resa.formula.description[currentLocale]}}, {{resa.formula.price}}€</p>
                 </div>
             </div>
             <div ng-if="resa.formula == null">
@@ -186,8 +165,7 @@
                     {{resa.formation.name[currentLocale]}}
                 </div>
                 <div>
-                    <label>{{'planning.reservations.duration' | translate}} : </label>
-                    {{resa.hourCount.name}}
+                    <label>{{'planning.reservations.duration' | translate}} : </label> {{resa.hourCount.name}}
                 </div>
             </div>
             <div class="btn-wrapper">
@@ -214,26 +192,27 @@
                 </div>
             </div>
         </div>
-        <div id="contactDlg" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">{{'contact.dlg.title' | translate}} {{resa.student}}</h4>
-                    </div>
-                    <div class="modal-body">
-                        <form role="form" ng-controller="ContactCtrl" ng-submit="sendMessage(resa.owner)">
-                            <textarea class="form-control" rows="3" ng-model="message.content"
-                                      ng-required="true"></textarea>
+    </div>
 
-                            <div class="center p-10">
-                                <button type="submit" class="btn btn-default">
-                                    <span class="fa fa-send"></span>{{'contact.dlg.send' | translate}}
-                                </button>
-                            </div>
-                        </form>
-                    </div>
+    <div id="contactDlg" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">{{'contact.dlg.title' | translate}} {{message.recipientName}}</h4>
+                </div>
+                <div class="modal-body">
+                    <form role="form" ng-submit="sendMessage()">
+                        <textarea class="form-control" rows="3" ng-model="message.content" ng-required="true"></textarea>
+
+                        <div class="center p-10">
+                            <button type="submit" class="btn btn-default">
+                                <span class="fa fa-send"></span>
+                                {{'contact.dlg.send' | translate}}
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
