@@ -25,6 +25,13 @@ ctrl.controller('ForumCreatePostCtrl', ['$scope', '$timeout', 'Post', 'PostCateg
      */
     $scope.submitted = false;
 
+    $scope.toolbar = [
+        ['h4', 'h5', 'h6', 'quote'],
+        ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'redo', 'undo', 'clear'],
+        ['justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent'],
+        ['insertImage','insertLink', 'insertVideo', 'wordcount', 'charcount']
+    ];
+
     var handleFileSelect = function(evt) {
         $timeout(function() {
             console.log('file added');

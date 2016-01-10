@@ -15,6 +15,14 @@ ctrl.controller('ForumPostCtrl', ['$scope', 'Post', '$stateParams', 'Session', '
     $scope.hasComment = true;
     $scope.comments = [];
     $scope.count = 0;
+
+    $scope.toolbar = [
+        ['h4', 'h5', 'h6', 'quote'],
+        ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'redo', 'undo', 'clear'],
+        ['justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent'],
+        ['insertImage','insertLink', 'insertVideo', 'wordcount', 'charcount']
+    ];
+
     Post.findOne($stateParams.postId).then(function (post) {
         $scope.post = post;
 

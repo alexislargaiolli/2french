@@ -30,7 +30,7 @@
             </div>
             <div class="vm-10 p-10">
                 <div class="form-group" ng-class="{ 'has-error' : createPostForm.$submitted && createPostForm.content.$invalid}">
-                    <text-angular name="content" ng-model="post.content" ng-required="true" placeholder="{{'forum.post.create.content.placeholder' | translate}}" rows="6"></text-angular>
+                    <text-angular name="content" ng-model="post.content" ng-required="true" ta-toolbar="toolbar" placeholder="{{'forum.post.create.content.placeholder' | translate}}" rows="6"></text-angular>
                     <p ng-show="createPostForm.$submitted && createPostForm.content.$invalid" class="help-block">{{'forum.create.post.content.validation.required' | translate}}</p>
                 </div>
             </div>

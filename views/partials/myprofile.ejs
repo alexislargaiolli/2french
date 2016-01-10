@@ -10,8 +10,8 @@
                 <p class="bold">{{'myprofile.validation.message' | translate}}</p>
 
 
-                <div class="col-lg-4"></div>
-                <div class="col-lg-4">
+                <div class="hidden-xs col-sm-2 col-md-4 col-lg-4"></div>
+                <div class="col-xs-12 col-sm-8 col-md-4 col-lg-4">
                     <div class="completion-item">
                         <i class="fa fa-book" ng-if="profile.formations.length == 0"></i>
                         <i class="fa fa-check-circle" ng-if="profile.formations.length > 0"></i>
@@ -66,7 +66,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-4"></div>
+                <div class="hidden-xs col-sm-2 col-md-4 col-lg-4"></div>
 
 
             </div>
@@ -116,16 +116,19 @@
                                             <li>
                                                 <a ng-click="changeProfileLanguage('fr')">
                                                     <img src="images/languages/fr.png"/>
+                                                    {{'myprofile.language.fr' | translate}}
                                                 </a>
                                             </li>
                                             <li>
                                                 <a ng-click="changeProfileLanguage('en')">
                                                     <img src="images/languages/en.png"/>
+                                                    {{'myprofile.language.en' | translate}}
                                                 </a>
                                             </li>
                                             <li>
                                                 <a ng-click="changeProfileLanguage('es')">
                                                     <img src="images/languages/es.png"/>
+                                                    {{'myprofile.language.es' | translate}}
                                                 </a>
                                             </li>
                                         </ul>
@@ -188,8 +191,7 @@
                                     <span id="editMotivationBtn" class="fa fa-pencil edit-icon" ng-click="textBtnForm.$show()" ng-hide="textBtnForm.$visible"></span>
                                 </h4>
                             </div>
-                            <p editable-textarea="profile.motivation[profileLocale]" e-id="motivationTextArea" e-form="textBtnForm" e-rows="7" e-style="width:100%;" style="white-space: pre-wrap;" onaftersave="save()" e-ng-blur="textBtnForm.$save()">
-                                {{profile.motivation[profileLocale] ||('myprofile.motivation.empty' | translate) }}</p>
+                            <p editable-textarea="profile.motivation[profileLocale]" e-id="motivationTextArea" e-form="textBtnForm" e-rows="7" e-style="width:100%;" style="white-space: pre-wrap;" onaftersave="save()" e-ng-blur="textBtnForm.$save()">{{profile.motivation[profileLocale] ||('myprofile.motivation.empty' | translate) }}</p>
                         </div>
                     </div>
                 </div>
