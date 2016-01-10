@@ -6,68 +6,49 @@
             <!-- COMPLETION PANEL -->
 
             <div id="profile-completion-wrapper" ng-if="!profile.validate">
+
                 <p class="bold">{{'myprofile.validation.message' | translate}}</p>
 
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-6 vm-10">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 col-md-4 left-col">
-                                <i class="fa fa-book" ng-if="profile.formations.length == 0"></i>
-                                <i class="fa fa-check-circle" ng-if="profile.formations.length > 0"></i>
-                            </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 center-col">
-                                {{'myprofile.completion.formation' | translate}}
-                            </div>
-                        </div>
+
+                <div class="col-lg-4"></div>
+                <div class="col-lg-4">
+                    <div class="completion-item">
+                        <i class="fa fa-book" ng-if="profile.formations.length == 0"></i>
+                        <i class="fa fa-check-circle" ng-if="profile.formations.length > 0"></i>
+                        {{'myprofile.completion.formation' | translate}}
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-6 vm-10">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 col-md-4 left-col">
-                                <i class="fa fa-book" ng-if="!profile.hourRate"></i>
-                                <i class="fa fa-check-circle" ng-if="profile.hourRate"></i>
-                            </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 center-col">
-                                {{'myprofile.completion.price' | translate}}
-                            </div>
-                        </div>
+
+
+                    <div class="completion-item">
+                        <i class="fa fa-book" ng-if="!profile.hourRate"></i>
+                        <i class="fa fa-check-circle" ng-if="profile.hourRate"></i> {{'myprofile.completion.price' |
+                        translate}}
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-6 vm-10">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 col-md-4 left-col">
-                                <i class="fa fa-camera" ng-if="!profile.photo"></i>
-                                <i class="fa fa-check-circle" ng-if="profile.photo"></i>
-                            </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 center-col">
-                                {{'myprofile.completion.photo' | translate}}
-                            </div>
-                        </div>
+
+                    <div class="completion-item">
+                        <i class="fa fa-camera" ng-if="!profile.photo"></i>
+                        <i class="fa fa-check-circle" ng-if="profile.photo"></i>{{'myprofile.completion.photo' |
+                        translate}}
                     </div>
-                    <div class="col-xs-12 col-sm-12 col-md-6 vm-10">
-                        <div class="row">
-                            <div class="col-xs-4 col-sm-4 col-md-4 left-col">
-                                <i class="fa fa-briefcase" ng-if="!profile.motivation"></i>
-                                <i class="fa fa-check-circle" ng-if="profile.motivation"></i>
-                            </div>
-                            <div class="col-xs-8 col-sm-8 col-md-8 center-col">
-                                {{'myprofile.completion.xp' | translate}}
-                            </div>
-                        </div>
+
+                    <div class="completion-item">
+                        <i class="fa fa-briefcase" ng-if="!profile.motivation"></i>
+                        <i class="fa fa-check-circle" ng-if="profile.motivation"></i> {{'myprofile.completion.xp' |
+                        translate}}
                     </div>
-                </div>
-                <hr/>
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 center-col center">
-                        <i class="fa fa-graduation-cap f-30 middle rm-10" ng-if="!session.diploma.diplomaUploaded && !session.diploma.diplomaValidated"></i>
-                        <i class="fa fa-spinner f-30 middle rm-10" ng-if="session.diploma.diplomaUploaded && !session.diploma.diplomaValidated"></i>
-                        <i class="fa fa-check-circle f-30 middle rm-10" ng-if="session.diploma.diplomaValidated"></i>
+
+                    <div class="completion-item">
+                        <i class="fa fa-graduation-cap" ng-if="!session.diploma.diplomaUploaded && !session.diploma.diplomaValidated"></i>
+                        <i class="fa fa-spinner" ng-if="session.diploma.diplomaUploaded && !session.diploma.diplomaValidated"></i>
+                        <i class="fa fa-check-circle" ng-if="session.diploma.diplomaValidated"></i>
 
                         <span ng-if="!session.diploma.diplomaUploaded" class="middle">{{'diploma.label.upload' | translate}}</span>
                         <span id="uploadValidatinMsg" ng-if="session.diploma.diplomaUploaded && !session.diploma.diplomaValidated" class="middle">{{'diploma.label.validating' | translate}}</span>
                         <span ng-if="session.diploma.diplomaUploaded && session.diploma.diplomaValidated" class="middle">{{'diploma.label.validated' | translate}}</span>
+                    </div>
 
-                        <div ng-if="!session.diploma.diplomaUploaded && !session.diploma.diplomaValidated" class="inline lm-10">
+                    <div class="completion-item">
+                        <div ng-if="!session.diploma.diplomaUploaded && !session.diploma.diplomaValidated">
                             <div class="fileUpload btn blue-btn" ng-show="diplomaFile == null">
                                 <span class="fa fa-file-pdf-o"></span>
                                 <span class="lm-5">{{'diploma.btn.select' | translate}}</span>
@@ -77,15 +58,19 @@
                                 <span class="fa fa-upload"></span>
                                 <span class="lm-5">{{'diploma.btn.upload' | translate}}</span>
                             </button>
-                            <div round-progress ng-if="diplomaUploading" class="inline middle" max="100" current="diplomaProgress" color="#04bfc6" bgcolor="#eaeaea" radius="20" stroke="5" rounded="true" clockwise="false" responsive="false" duration="800" animation="easeInOutQuart">
-                                {{diplomaProgress}}%
+                            <div class="center">
+                                <div round-progress ng-if="diplomaUploading" class="inline middle" max="100" current="diplomaProgress" color="#04bfc6" bgcolor="#eaeaea" radius="20" stroke="5" rounded="true" clockwise="false" responsive="false" duration="800" animation="easeInOutQuart">
+                                    {{diplomaProgress}}%
+                                </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
+                <div class="col-lg-4"></div>
+
+
             </div>
+
         </div>
         <div class="row">
 
@@ -237,7 +222,8 @@
                     <label class="blue-title f-14">{{'myprofile.hourrate.label' | translate}}
                         <a id="editHourRateBtn" e-id="editHourRateInput" href="#" editable-number="profile.hourRate" e-min="0" e-ng-blur="$form.$save()" onaftersave="save()">
                             {{profile.hourRate || '...'}}
-                        </a>€</label>
+                        </a>
+                        €</label>
                     <hr/>
 
                     <!-- ADD FORMULA DLG -->
