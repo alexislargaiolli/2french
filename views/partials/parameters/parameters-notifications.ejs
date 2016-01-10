@@ -5,39 +5,34 @@
     <div class="p-10 col-lg-6 col-md-6 col-sm-12 col-xs-12">
         <p>{{'parameters.notif.subtitle' | translate}}</p>
 
-        <div ng-if="isTeacher">
-            <label>{{'parameters.notif.newResa' | translate}}
-                <input type="checkbox" ng-model="settings.newReservation">
-            </label>
+        <div class="checkbox" ng-if="isTeacher">
+            <label> <input type="checkbox" ng-model="settings.newReservation"> {{'parameters.notif.newResa' |
+                translate}} </label>
         </div>
-        <div ng-if="isStudent">
-            <label>{{'parameters.notif.newResa.student' | translate}}
-                <input type="checkbox" ng-model="settings.newReservation">
-            </label>
+        <div class="checkbox" ng-if="isStudent">
+            <label> <input type="checkbox" ng-model="settings.newReservation">{{'parameters.notif.newResa.student' |
+                translate}} </label>
         </div>
-        <div>
-            <label>{{'parameters.notif.resaValidated' | translate}}
-                <input type="checkbox" ng-model="settings.reservationValidated">
-            </label>
+        <div class="checkbox">
+            <label> <input type="checkbox" ng-model="settings.reservationValidated">{{'parameters.notif.resaValidated' |
+                translate}} </label>
         </div>
-        <div ng-if="isStudent">
-            <label>{{'parameters.notif.resaRefused' | translate}}
-                <input type="checkbox" ng-model="settings.reservationRefused">
-            </label>
+        <div class="checkbox" ng-if="isStudent">
+            <label> <input type="checkbox" ng-model="settings.reservationRefused">{{'parameters.notif.resaRefused' |
+                translate}} </label>
         </div>
-        <div>
-            <label>{{'parameters.notif.resaCanceled' | translate}}
-                <input type="checkbox" ng-model="settings.reservationCanceled">
-            </label>
+        <div class="checkbox">
+            <label> <input type="checkbox" ng-model="settings.reservationCanceled">{{'parameters.notif.resaCanceled' |
+                translate}} </label>
         </div>
-        <div>
-            <label>{{'parameters.notif.newMessage' | translate}}
-                <input type="checkbox" ng-model="settings.newMessage">
+        <div class="checkbox">
+            <label> <input type="checkbox" ng-model="settings.newMessage">{{'parameters.notif.newMessage' | translate}}
             </label>
         </div>
         <div class="p-10 center">
             <button id="send-msg" class="btn btn-primary" ng-click="save()">
-                <span class="fa fa-save"></span> <span>{{'parameters.notif.save' | translate}}</span>
+                <span class="fa fa-save"></span>
+                <span>{{'parameters.notif.save' | translate}}</span>
             </button>
         </div>
     </div>
