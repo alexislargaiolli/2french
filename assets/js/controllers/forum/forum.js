@@ -7,8 +7,7 @@
  * Controller of the tooFrenchApp
  */
 var ctrl = angular.module('tooFrenchApp');
-ctrl.controller('ForumCtrl', ['$scope', 'Post', 'PostCategory', '$timeout', function ($scope, Post, PostCategory, $timeout) {
-    $scope.categories = PostCategory.query();
+ctrl.controller('ForumCtrl', ['$scope', '$rootScope', 'Post', 'PostCategory', '$timeout', function ($scope, $rootScope, Post, PostCategory, $timeout) {
     $scope.teacherCategories = PostCategory.query({teacher : true});
     $scope.generalCategories = PostCategory.query({teacher : false});
     $scope.pageSize = 5;
@@ -17,20 +16,31 @@ ctrl.controller('ForumCtrl', ['$scope', 'Post', 'PostCategory', '$timeout', func
     $scope.generalPostsByCategory = [];
 
     $scope.recentPosts = [];
-    Post.getRecentPost().then(function (posts) {
-        $scope.recentPosts = posts;
-    });
-    $scope.popularPosts = [];
-    Post.getPopularPost().then(function (posts) {
-        $scope.popularPosts = posts;
-    });
     $scope.popularFilePosts = [];
-
-    Post.getPopularFilePost().then(function (posts) {
-        $scope.popularFilePosts = posts;
-    });
-
+    $scope.popularPosts = [];
     $scope.teacherPostsByCategory = [];
+
+    function reloadLeftPanel(){
+        Post.getRecentPost().then(function (posts) {
+            $scope.recentPosts = posts;
+        });
+
+        Post.getPopularPost().then(function (posts) {
+            $scope.popularPosts = posts;
+        });
+
+        Post.getPopularFilePost().then(function (posts) {
+            $scope.popularFilePosts = posts;
+        });
+        console.log('reload');
+    }
+    reloadLeftPanel();
+
+    $rootScope.$on('$stateChangeSuccess', function (event, toState) {
+        if(toState && toState.name == 'forum'){
+            //reloadLeftPanel();
+        }
+    });
 
     $scope.onOpenCategory = function (category) {
         if (!$scope.teacherPostsByCategory[category.id]) {

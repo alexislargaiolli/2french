@@ -479,5 +479,11 @@
 
 
   "planning.menu.history" : "Historique",
-  "planning.menu.actual" : "En cours"
+  "planning.menu.actual" : "En cours",
+
+
+
+  "forum.create.post.title.validation.required" : "Vous devez saisir un titre",
+  "forum.create.post.category.validation.required" : "Vous devez sélectionner une catégorie",
+  "forum.create.post.content.validation.required" : "Vous devez saisir un contenu"
 }

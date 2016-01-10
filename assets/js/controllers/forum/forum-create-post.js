@@ -19,6 +19,11 @@ ctrl.controller('ForumCreatePostCtrl', ['$scope', '$timeout', 'Post', 'PostCateg
     $scope.attachedFiles = [];
     $scope.uploading = false;
     $scope.uploadingFiles = [];
+    /**
+     * Flag that indicates
+     * @type {boolean}
+     */
+    $scope.submitted = false;
 
     var handleFileSelect = function(evt) {
         $timeout(function() {
