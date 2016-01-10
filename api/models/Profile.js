@@ -122,7 +122,10 @@ module.exports = {
             if(err || !user){
                 return cb(err, false);
             }
-            var isTeacher = user.role == 'teacher';
+            var isTeacher = false;
+            if(user.role == 'teacher' || user.role == 'admin'){
+                isTeacher = true;
+            }
             return cb(null, isTeacher);
         });
     },
