@@ -100,18 +100,18 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
         $scope.search();
 
         $scope.currentScheduleProfileId;
-        $scope.initSchedule = function (profileId) {
-            $scope.currentScheduleProfileId = profileId;
+        $scope.initSchedule = function (profile) {
+            $scope.currentScheduleProfileId = profile.id;
             $scope.period = moment().date(10).format('MM-YYYY');
-            $scope.schedules = [];
+            $scope.schedules = profile.schedules;
             $scope.scheduleIndex = findShedule($scope.period);
-            if ($scope.scheduleIndex == -1) {
+            /*if ($scope.scheduleIndex == -1) {
                 $scope.scheduleLoading = true;
                 Schedule.getSchedule($scope.currentScheduleProfileId, $scope.period).then(function (schedule) {
                     $scope.scheduleIndex = $scope.schedules.push(schedule) - 1;
                     $scope.scheduleLoading = false;
                 });
-            }
+            }*/
         }
 
         $scope.dayClick = function (event, date) {
@@ -122,7 +122,7 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
             $scope.period = newMonth.format('MM-YYYY');
             $scope.scheduleIndex = findShedule($scope.period);
 
-            if ($scope.scheduleIndex == -1) {
+           /* if ($scope.scheduleIndex == -1) {
                 $scope.monthLoading = true;
                 console.log('loading');
 
@@ -130,7 +130,7 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
                     $scope.scheduleIndex = $scope.schedules.push(schedule) - 1;
                     $scope.monthLoading = false;
                 });
-            }
+            }*/
         };
 
         $scope.setUserToContact = function (u, event) {

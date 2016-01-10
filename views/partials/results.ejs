@@ -40,7 +40,7 @@
 
                     <span class="dropdown" dropdown dropdown-append-to-body auto-close="outsideClick">
                       <a href class="calendar-btn btn btn-default blue-btn fa fa-calendar dropdown-toggle m-2"
-                         dropdown-toggle ng-click="initSchedule(p.id);$event.stopPropagation();">
+                         dropdown-toggle ng-click="initSchedule(p);$event.stopPropagation();">
                       </a>
                       <div class="dropdown-menu dropdown-calendar" ng-click="$event.stopPropagation()">
                           <div class="dropdown-calendar-loader" ng-if="scheduleLoading">
