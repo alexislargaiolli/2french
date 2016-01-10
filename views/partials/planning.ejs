@@ -144,13 +144,13 @@
             </div>
             <div>
                 <label>{{'planning.reservations.activity' | translate}} : </label>
-                <span ng-if="resa.activity == 'true'">{{'reservation.form.yes' | translate}}</span>
-                <span ng-if="resa.activity == 'false'">{{'reservation.form.no' | translate}}</span>
+                <span ng-if="resa.activity == true">{{'reservation.form.yes' | translate}}</span>
+                <span ng-if="resa.activity == false">{{'reservation.form.no' | translate}}</span>
             </div>
             <div>
                 <label>{{'planning.reservations.accomodation' | translate}} : </label>
-                <span ng-if="resa.accomodation == 'true'">{{'reservation.form.yes' | translate}}</span>
-                <span ng-if="resa.accomodation == 'false'">{{'reservation.form.no' | translate}}</span>
+                <span ng-if="resa.accomodation == true">{{'reservation.form.yes' | translate}}</span>
+                <span ng-if="resa.accomodation == false">{{'reservation.form.no' | translate}}</span>
             </div>
             <div ng-if="resa.formula != null">
                 <label>{{'planning.reservations.formula' | translate}}</label>
