@@ -1,4 +1,415 @@
-{
-  "header.login": "Login",
-  "header.register": "Register"
+﻿{
+"header.login": "Log In",
+"header.learn": "Learn",
+"header.teach": "Teach",
+"header.admin": "Admin",
+"header.forum": "Forum",
+"header.register": "Sign Up",
+"header.language": "Language",
+"header.report.bug": "Report a Bug",
+"header.myprofile": "My Profile",
+"header.parameters": "Settings",
+"header.logout": "Log Out",
+"header.login.email": "Email",
+"header.login.password": "Password",
+"header.login.btn": "Log In",
+
+
+
+
+
+"footer.home": "Home",
+"footer.learn": "Learn",
+"footer.teach": "Teach",
+"footer.forum": "Forum",
+"footer.faq": "F.A.Q.",
+"footer.mentions": "Terms & Conditions",
+"footer.contact": "Contact",
+"footer.informations": "About Us",
+"footer.realisation": "Creators",
+"search.dispo": "Availability",
+"search.city": "City",
+"login.title": "Log In",
+
+
+
+
+
+"home.learn.title": "Learn",
+"home.teach.title": "Teach",
+"home.teach.btn.info": "Info",
+"home.learn.btn.info": "Info",
+"home.concept.title": "Our Concept",
+"home.concept.subtitle": "Try it and see for yourself!",
+"home.concept.button": "Sign Up",
+"home.carousel.caption": "Learn or teach French wherever you want,",
+"home.carousel.caption2": "when you want, and how you want!",
+"home.learn.1": "Toofrench, French your way!",
+"home.learn.2": "Toofrench provides the teachers. You simply choose the best option and enjoy a fun, affordable, and personalized learning experience.",
+"home.teach.1": "Toofrench allows you to teach French in your own unique style.",
+"home.teach.2": "Do you teach French as a foreign language? TooFrench will connect you directly with students from around the world. Adapt your teaching methods to your liking. Create and propose your own lessons.",
+"home.concept": "TooFrench connects people who want to learn French with French teachers, simplifying the experience and helping to create an effective and personalized learning experience.",
+
+
+
+
+
+"register.teacher": "I’m a Teacher",
+"register.student": "I’m a Student",
+"register.learn": "Learn",
+"register.teach": "Teach",
+"register.moreinfo": "More Info",
+"register.student.text.1": "By joining TooFrench, you can contact any teacher you choose and get access to the TooFrench forum where you can discuss and exchange with other members. Membership is 100% free.",
+"register.teacher.text.1": "2 options: you can sign up as a basic member without a custom profile to get access to the site OR you can complete a full profile that will be publically visible after verification.",
+"register.teacher.text.2": "Signing up as a basic member gets you access to all our discussion forums.",
+"register.teacher.text.3": "If you want to offer your lessons, click on Edit a Profile and fill out the form. You must send in your diplomas for verification to have your profile visible.",
+"register.title": "Registration",
+"register.firstname": "First Name",
+"register.pseudo": "Username",
+"register.city": "City",
+"register.mail": "Email",
+"register.mail.confirmation": "Confirm email address",
+"register.mail.confirmation.error": "Email addresses do not match.",
+"register.password": "Password",
+"register.button": ">Confirm<",
+
+
+
+
+"learn.title": "Learn French",
+"learn.subtitle": "with TooFrench.net",
+"learn.block.title": "Why join TooFrench?",
+"learn.block.1": "Find students",
+"learn.block.2": "Personalize your lessons",
+"learn.block.3": "Set your own prices",
+"learn.block.4": "Tailor your lessons to fit your rhythme.",
+"learn.block.5": "Decide your availability",
+"learn.block.6": "Enjoy teaching in your own style",
+"learn.block.7": "Offer extra-curricular activities",
+"learn.block.8": "Offer a place to stay if you want",
+"learn.content.title0": "How does it work?",
+"learn.content.title0.1": "It’s easy, just follow these steps:",
+"learn.content.title1": "Sign Up",
+"learn.content.title2": "Complete your profile",
+"learn.content.title3": "Manage your contacts with students",
+"learn.content.text1": "<p>Choose a Teacher Membership</p><p>Fill out the membership form to join the site.</p><p>Choose if you want to edit your profile to propose your courses.</p>",
+"learn.content.text2": "<p>Fill out the form with as many details as possible, complete your profile and describe the types of courses you want to propose as well as your rate and availability. Indicate if you want to provide accommodation. And don’t forget to upload the required documents.</p><p>Click send. After verification by the TooFrench team, your profile will be online.</p>",
+"learn.content.text3": "Visitors to the site will have access to your profile. Students interested in a course can contact you directly via private message (only members of the site can contact you). You will be in direct contact with the student, allowing you to organize and define all the details of the formation together.",
+
+
+
+
+
+"teach.title": "Teach French",
+"teach.subtitle": "with TooFrench.net",
+"teach.block.title": "Why join TooFrench?",
+"teach.block.1": "Learn French through immersion or in your own home",
+"teach.block.2": "Totally personalized lessons",
+"teach.block.3": "Qualified, experienced, and highly competent teachers",
+"teach.block.4": "Personalize the rhythm and content of your lessons.",
+"teach.block.5": "Choose whichever teacher appeals to you",
+"teach.block.6": "Discover a new city and region",
+"teach.content.title0": "How does it work?",
+"teach.content.title0.1": "Find a course adapted to your needs: learn French abroad, at your own home, or online. ",
+"teach.content.title1": "Choose a city or choose your dates.",
+"teach.content.title2": "Choose the teacher that fits your needs.",
+"teach.content.title3": "Join TooFrench.",
+"teach.content.title4": "Contact your teacher directly via our mailbox.",
+"teach.content.title5": "Confirm.",
+"teach.content.p1" : "To find an available teacher, enter your availability or enter the country or city where you would like to learn.",
+"teach.content.p2" : "<p>Every teacher on TooFrench has received a diploma in Teaching French as a Foreign Language(Masters degree or equivalent)</p><p> Before their profile is posted on the site, the TooFrench team verifies their credentials and professional experience </p>",
+"teach.content.p3" : "<p>It’s easy to join and contact the teacher of your choice. Just click on “Sign Up” and fill out the membership form</p><p>As a non-member, you have access to teachers’ public profiles showing the courses they propose and their location</p><p>As a member, you can contact any teacher you choose and arrange the details of your courses together. You also have access to the TooFrench Forum where you can communicate with other members and teachers.</p>",
+"teach.content.p4" : "<p>Arrange all the details of your course directly with your teacher: place, time, content, and, payment methods.</p>",
+"teach.content.p5" : "Once you have reached an agreement with your teacher, click on Reserve.",
+"teach.content.text2.1": "Every TooFrench teacher has received a diploma in Teaching French as a Foreign Language (Masters degree or equivalent). Before their profile is posted on the site, the TooFrench team verifies their credentials and professional experience.",
+"teach.content.text3.1": "It’s easy to join and contact the teacher of your choice. Just click on “Sign Up” and fill out the membership form",
+"teach.content.text3.2": "As a non-member, you have access to teachers’ public profiles showing the courses they propose and their location. As a member, you can contact any teacher you choose and arrange the details of your courses together. You also have access to the TooFrench Forum where you can communicate with other members and teachers.",
+"teach.content.text4.1": "Arrange all the details of your course directly with your teacher: place, time, content, and, payment methods.",
+
+
+
+
+
+"myprofile.language": "Language",
+"myprofile.calendar": "Calendar",
+"myprofile.calendar.legend.am": "Available during the afternoon",
+"myprofile.calendar.legend.pm": "Available during the morning",
+"myprofile.calendar.legend.day": "Available during the day",
+"myprofile.calendar.save": "Save",
+"myprofile.experience": "Experience and Motivation",
+"myprofile.level.from": "Level",
+"myprofile.level.to": "to",
+"myprofile.formations": "Proposed Courses",
+"myprofile.formations.placeholder": "The courses I offer…",
+"myprofile.extras.placeholder": "The extras I offer…",
+"myprofile.accomodation.address": "Enter the address of the accommodation",
+"myprofile.motivation.empty": "Enter your motivation",
+"myprofile.favlist.title": "Favorite teachers",
+"myprofile.favlist.empty": "No favorite teachers",
+"myprofile.accomodation.description.title": "Accommodation description.",
+"myprofile.accomodation.description.empty": "Accommodation description.",
+"myprofile.accomodation.title" : "Accommodation",
+"myprofile.accomodation.active" : "Offer accommodation",
+"myprofile.accomodation.cancel" : "Remove this accommodation",
+"myprofile.completion.formation" : "Offer at least one course",
+"myprofile.completion.photo" : "Choose a profile photo",
+"myprofile.completion.xp" : "Enter motivation",
+"myprofile.completion.price" : "Give your price per one hour lesson",
+"myprofile.photo.button" : "Photo",
+"myprofile.hourrate.label" : "Price per one hour lesson:",
+"myprofile.accomodation.equipements" : "Amenities",
+"myprofile.accomodation.services" : "Services",
+"myprofile.accomodation.image.button" : "Photo",
+
+
+
+
+
+"profile.services": "Services",
+"profile.services.empty": "Incomplete",
+"profile.equipements.empty": "Incomplete",
+"profile.equipements": "Amenities",
+"profile.location": "Location",
+"profile.favorit.button": "Favorites",
+"profile.contact.button": "Contact",
+"profile.reserve.button": "Reserve",
+"profile.formations": "Courses offered",
+"profile.hourrate": "Price per one hour lesson:",
+"profile.formula.reserve": "Reserve",
+"profile.accomodation": "Accommodation",
+
+
+
+
+"search.result.label2": "Teachers in",
+"search.result.recommandation": "Recommendations",
+"search.result.utillink": "Useful Links",
+"search.result.seemore": "See more",
+"search.result.price": "Time of Lessons",
+"search.result.accomodation": "Offer accommodation",
+"search.result.formations": "Courses offered",
+
+
+
+"recommandation.title": "Recommendations",
+"messagerie.title": "Mailbox",
+"messagerie.nomsg": "You have no messages",
+"messagerie.msg.content": "Message content...",
+"messagerie.msg.send": "Send",
+"contact.dlg.title": "Contact",
+"contact.dlg.send": "Send",
+
+
+
+
+
+"diploma.not.uploaded": "Your diploma must be validated in order for your profile to appear in the search results .",
+"diploma.not.uploaded.link": "Click Here",
+"diploma.label.upload": "Validate your diploma.",
+"diploma.label.validating": "Your diploma is being verified",
+"diploma.label.validated": "Your diploma has been validated!",
+"diploma.btn.select": "Attach",
+"diploma.btn.upload": "Upload",
+
+
+
+
+"contact.title": "Contact",
+"contact.form.title": "To send us your message please complete the fields below.",
+"contact.form.username.placeholder": "Your Name",
+"contact.form.email.placeholder": "Your Email",
+"contact.form.theme.placeholder": "Subject...",
+"contact.form.message.placeholder": "Message",
+"contact.form.send": "Send Message",
+"contact.form.succcess": "Your message has been sent!",
+"contact.theme.0" : "Ask for information",
+"contact.theme.0.key" : "info",
+"contact.theme.1" : "Report a problem",
+"contact.theme.1.key" : "bug",
+
+
+
+
+"faq.title": "F.A.Q",
+"uploader.title": "Send an Image",
+"uploader.crop": "Crop your Image",
+"uploader.result": "Image Cropped",
+"uploader.upload": "Upload",
+"uploader.uploading": "Uploading...",
+"uploader.browse": "Browse...",
+"parameters.title": "Settings",
+"myteachers.title": "My Favorite Teachers",
+"myprofile.title": "My Profile",
+"informations.title": "About Us",
+
+
+
+
+"forum.title": "Forum",
+"forum.teacher.title": "Teacher’s Forum",
+"forum.general.title": "General Forum",
+"forum.post.new": "New Post",
+"forum.posts.empty": "None",
+"forum.posts.recent.title": "Most Recent Posts",
+"forum.posts.popular.title": "Most Popular Posts",
+"forum.posts.downloaded.title": "Downloaded Posts",
+"forum.post.create.title": "New Post",
+"forum.post.create.category.placeholder": "Select a Catagory",
+"forum.post.create.title.placeholder": "Post Title",
+"forum.post.create.content.placeholder": "Post Content",
+"forum.post.create.file.add": "Add a File",
+"forum.post.create.send": "Post",
+"forum.post.files.title": "Files Added",
+"forum.post.comms": "Comments",
+"forum.post.comms.empty": "No Comments",
+"forum.post.comm.content.placeholder": "Comment Contents",
+"forum.post.comm.add": "Comment",
+"forum.post.comm.add.success": "Your comment has been added.",
+"forum.post.comm.add.error": "Error: your comment has not been added.",
+
+
+
+
+"reservation.title": "Reservation",
+"reservation.form.title": "Request a reservation in",
+"reservation.form.formula": "Choose Program",
+"reservation.form.formation": "Choose a Course",
+"reservation.form.date.placeholder": "Choose a Date",
+"reservation.form.date": "Date : Date:",
+"reservation.form.time.placeholder": "Choose a time",
+"reservation.form.time": "Time:",
+"reservation.form.duration": "Choose a duration",
+"reservation.form.accomodation": "I would like accommodation",
+"reservation.form.activity": "I would like extra-curricular activities",
+"reservation.form.yes": "Yes",
+"reservation.form.no": "No",
+"reservation.form.message": "Do you want to add a message?",
+"reservation.form.message.placeholder": "Message",
+"reservation.button.create": "Confirm",
+"reservation.success": "Your reservation request has been received.",
+"reservation.error": "Error: please try again.",
+"reservation.warning.formation": "Please choose a course.",
+"reservation.warning.date": "Please choose a date.",
+"reservation.warning.time": "Please choose a time.",
+"reservation.warning.duration": "Please choose a duration.",
+"reservation.warning.accomodation": "Please complete this field.",
+"reservation.warning.activity": "Please complete this field.",
+
+
+
+
+"planning.title": "My Schedule",
+"planning.reservations.empty": "You have no reservations for the moment.",
+"planning.reservations.formula": "Program",
+"planning.reservations.date": "Date",
+"planning.reservations.time": "Time",
+"planning.reservations.formation": "Course",
+"planning.reservations.duration": "Duration",
+"planning.reservations.activity": "Activities Requests",
+"planning.reservations.accomodation": "Accommodation Requests",
+"planning.reservations.message.empty": "No message",
+"planning.reservations.status.pending": "Pending",
+"planning.reservations.status.validate": "Validate",
+"planning.reservations.status.validated": "Reservation Accepted.",
+"planning.reservations.status.refuse": "Decline",
+"planning.reservations.status.refused": "Reservation Declined.",
+"planning.reservations.status.cancel": "Cancel",
+"planning.reservations.status.canceled": "Reservation Canceled",
+"planning.reservations.contact": "Contact",
+
+
+
+"myteachers.remove": "Remove from the list",
+
+
+
+"mentions.title": "Terms & Conditions",
+"mentions.1.content":"By using TooFrench you agree to the Terms & Conditions. By using TooFrench you are accept responsibility to refer to the current version of the Terms & Conditions. In the case of violation of or disagreement with the Terms & Conditions TooFrench reserves the right to forbid access to the site.",
+"mentions.2.title" : "Site Description",
+"mentions.2.content" : "<p>TooFrench provides a service intended to allow teachers of French for Foreigners (FLE) and students to connect with each other. TooFrench. TooFrench also allows teachers to upload and download course materials online. The forums allow members to communicate with others and share their experiences.</p><p>TooFrench is not involved in the relations or transactions between teachers and students. All ads are posted online by the teachers. TooFrench is not directly or indirectly responsible for the interaction between students and teachers and does not supervise the courses. </p><p>TooFrench is reserved for members who create and use a profile. Members must only create one profile on the site.</p><p>This profile can be modified and administrated from the dashboard provided to users. It can also be deleted upon request by email.</p><p>TooFrench reminds its users that they are subject to labor laws, regulations, and applicable taxes.</p>",
+"mentions.3.title" : "Submission and Posting of Ads",
+"mentions.3.content" : "<p>Creating a profile and publishing a course offer is free to teachers. TooFrench verifies the qualifications of all teachers (they must send copies of their relevant diplomas so that their ad will be validated and visible on the search engine). It is the responsibility of students to verify the information published by teachers.</p>",
+"mentions.4.title" :"Connecting",
+"mentions.4.content" :"<p>If a student wishes to contact a teacher, they must first join TooFrench. Joining is free. TooFrench enables both parties, teachers and students, to communicate but does not involve itself after initial contact is made.</p>",
+"mentions.5.title" :"Using the Dashboard",
+"mentions.5.content" :"The dashboard allows teachers to control and modify all the information in their profile: availabilities, prices, courses offered, accommodation. It also allows them to follow students’ demands for courses and to manage their communication with students via private messages.",
+"mentions.6.title" :"Forum",
+"mentions.6.content" :"TooFrench provides its members with two forums: one general forum accessible to all members and one forum reserved for teacher members.",
+
+
+"tour.1.title" : "Welcome to TooFrench!",
+"tour.1.content" : "Let us guide you through a short introduction.",
+"tour.2.title" : "Your Profile",
+"tour.2.content" : "First, edit your profile and the services that you propose.",
+"tour.3.title" : "Informations",
+"tour.3.content" : "Say a little more about yourself. Describe your previous experience and motivation and the services that you would like to propose. Then add a profile picture.",
+"tour.4.title" : "Your Services",
+"tour.4.content" : "Provide your hourly rate and offer your own price packages.",
+"tour.5.title" : "Accommodation",
+"tour.5.content" : "You can also offer an accommodation.",
+"tour.6.title" : "Availabilities",
+"tour.6.content" : "Give your availabilities here.",
+"tour.7.title" : "Profile Validation",
+"tour.7.content" : "Once your profile is completed, you will be visible on the search engine.",
+"tour.8.title" : "Reservations",
+"tour.8.content" : "Respond here to people asking for your services.",
+"tour.9.title" : "Mailbox",
+"tour.9.content" : "Exchange private messages with students or teachers.",
+"tour.10.title" : "Favorite Teachers",
+"tour.10.content" : "Add teachers to your list of favorites and find them again easily.",
+"tour.11.title" : "Forum",
+"tour.11.content" : "Communicate with other members and share documents with teachers in the forum.",
+"tour.12.title" : "TooFrench.net!",
+"tour.12.content" : "Now you know how to use TooFrench.net! <br/><br/>We hope you enjoy using TooFrench!",
+
+
+"tour.student.1.title" : "Welcome to TooFrench.net!",
+"tour.student.1.content" : "Let us guide you through a short introduction.",
+"tour.student.2.title" : "Search",
+"tour.student.2.content" : "Search for a teach close to you and arrange courses with them.",
+"tour.student.3.title" : "Reservations",
+"tour.student.3.content" : "Manage your reservations for classes here.",
+"tour.student.4.title" : "Mailbox",
+"tour.student.4.content" : "Communicate with other students and teachers via private message.",
+"tour.student.5.title" : "Favorite Teachers",
+"tour.student.5.content" : "Add teachers to your list of favorites and find them again easily.",
+"tour.student.6.title" : "Forum",
+"tour.student.6.content" : "Communicate with other members in the forum.",
+"tour.student.7.title" : "TooFrench.net!",
+"tour.student.7.content" : "Now you know how to use TooFrench.net! <br/><br/> We hope you enjoy using TooFrench!",
+
+
+"faq.teacher.1.question" : "What are the conditions to joining TooFrench?",
+"faq.teacher.1.awnser" : "<p>TooFrench is open to all teachers who have received a master 1 (or equivalent) in the teaching of French as a Foreign Language (FLE)or bachelor degree with significant professionnal experience.</p><p>In any case, TooFrench asks to be sent a scan of your diplomas.</p>",
+"faq.teacher.2.question" : "What is the calendar for and how do I use it?",
+"faq.teacher.2.awnser" : "<p>When a student clicks on your profile, he can immediately view your availabilities on the calendar. Which is why we recommend to regularly update your calendar.</p><p>To access your calendar, you only need to log in and from your dashboard you can modify your availability. You can also choose exactly the days, weeks, months when you want to offer your lessons. </p>",
+"faq.teacher.3.question" : "How do I calculate a fair price for my classes?",
+"faq.teacher.3.awnser" : "<p>You are free to propose the rate of your choice. But to give you an idea of going rates, you can for example look at similar offers in your city or region.</p><p>However, we do ask you to propose fair rates that are in line with your services. We advise you for example not to propose rates that are too low, that is to say less than the going hourly-rate for your profession.</p><p>For courses that are more complex (cultural outings, accommodation, courses lasting for several weeks, etc.) you can propose a flat rate or give a detailed breakdown of the price. </p>",
+"faq.teacher.4.question" : "Can the student ask me for an invoice?",
+"faq.teacher.4.awnser" : "<p>Yes, since the student and the teacher are the only two parties involved, you can send them an invoice for the total amount of the formation if they ask for it. </p><p>You can find invoice templates on the site <a href='http://www.lautoentrepreneur.fr' target='_blank'>www.lautoentrepreneur.fr</a>.</p><p>Be aware that this template is valid only in France. You must conform with the laws and regulations of the country in which you propose your classes.</p>",
+"faq.teacher.5.question" : "Can I cancel a confirmed class?",
+"faq.teacher.5.awnser" : "<p>In principle, no, however it may be that you are unable to remain committed to a class for your own reasons.</p><p>In this case, contact the student as soon as possible and arrange any possible solutions directly with them.</p>",
+"faq.teacher.6.question" : "How and when am I paid?",
+"faq.teacher.6.awnser" : "<p>Payment methods and schedule are for you and the student to decide. TooFrench is not involved in the payment process. </p>",
+"faq.teacher.7.question" : "How do I write up my proposal?",
+"faq.teacher.7.awnser" : "<p>When you sign up, you fill out a form that details several important points (rates, courses, accommodation...). </p><p> Give as many details as possible. In the form, you can click on the Help icon to see examples of completed offers.</p>",
+"faq.teacher.8.question" : "Do I have to accept every request?",
+"faq.teacher.8.awnser" : "<p>Absolutely not. The decision is always yours and it is only your responsibility to accept or decline requests. </p>",
+"faq.teacher.9.question" : "Where are the courses held?",
+"faq.teacher.9.awnser" : "<p>You and the student decide where classes are held. They can be at your place or anywhere you want.</p>",
+"faq.teacher.10.question" : "What activities can I propose?",
+"faq.teacher.10.awnser" : "<p>You are free to propose any activities you like, depending on your interests and desires.</p><p>We strongly encourage you to be creative. For example, you could propose to discover your city or your region, to visit well-known sites or hidden treasures only locals know. You can also propose athletic, culinary, and cultural activities. Really anything you feel like sharing!</p>",
+
+"faq.student.1.question" : "Where are classes held?",
+"faq.student.1.awnser" : "<p>You and your teacher decide where your classes will be held. </p><p>Certain teachers can offer you classes at home (theirs or yours), others can offer you courses in a classroom, outside, or place that seems appropriate to you.</p>",
+"faq.student.2.question" : "Cultural activities?",
+"faq.student.2.awnser" : "<p>There are some extra-curricular activities that the teacher can offer you. They could include wine tastings, sampling local products, athletic activities, cultural outings, etc.</p><p>These activities should allow you to practice the language in a non-academic setting while allowing you to discover the culture of the city of your choice.</p>",
+"faq.student.3.question" : "How and when do I need to pay for my classes?",
+"faq.student.3.awnser" : "<p>TooFrench n’intervient pas dans le paiement, il vous appartient donc de décider, en accord avec votre enseignant, des modalités du paiement. TooFrench is not involved with any aspect of the payment process, you need to arrange payment methods directly with your teacher.</p>",
+"faq.student.4.question" : "Can I cancel my class?",
+"faq.student.4.awnser" : "<p>It may be that you are no longer able to attend your courses for personal reasons. In this case, you should contact your teacher and cancel your reservation.</p>",
+
+
+"whoarewe.content" : "<p>Learn or teach French where you want, when you want, and how you want!</p><p>We are two French teachers from Montpellier. After our experiences teaching abroad and in France, we are committed to finding the best solutions for both students and teachers.</p><p>So we thought about helping people to get directly in touch with each other so that everyone can find what they want, at the right price, with the right working and studying conditions, according to their interests and preferred methods.</p><p>The concept is simple: the teacher proposes the classes he wants to teach, the student chooses the class that he wants according to his location and linguistic needs. TooFrench allows students to contact teachers to adapt the classes according to their availability and expectations.</p><p>It’s our goal to unite the maximum number of teachers with the maximum number of students in France and around the world and to become an international, diverse, and personalized platform for French language education </p><p>The quality of your experience is guaranteed because every teacher’s diplomas are verified by the TooFrench team. Your comments and feedback also help to ensure the teachers meet the TooFrench standard. </p><p>Let’s play!</p>"
+
 }

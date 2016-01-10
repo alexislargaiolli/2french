@@ -151,7 +151,6 @@
   "myprofile.accomodation.title" : "Hébergement",
   "myprofile.accomodation.active" : "Proposer un hébergement",
   "myprofile.accomodation.cancel" : "Retirer cet hébergement",
-  "myprofile.accomodation.address" : "Adresse",
   "myprofile.completion.formation" : "Proposer au moins une formation",
   "myprofile.completion.photo" : "Choisir une photo pour le profil",
   "myprofile.completion.xp" : "Saisir ses motivations",
@@ -160,7 +159,6 @@
   "myprofile.hourrate.label" : "Prix d'une heure de cours : ",
   "myprofile.accomodation.equipements" : "Équipements",
   "myprofile.accomodation.services" : "Services",
-  "myprofile.accomodation.address" : "Adresse",
   "myprofile.accomodation.image.button" : "Image",
 
 

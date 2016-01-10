@@ -438,7 +438,7 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
         editableOptions.theme = 'bs3';
 
         $templateCache.remove('views/*');
-
+        moment.locale('fr');
         $rootScope.userfavlist = UserFavList;
         $rootScope.$on('$viewContentLoaded',
             function (event) {

@@ -42,6 +42,8 @@ module.exports = function (grunt) {
                 '24.js': 'ng-file-upload/angular-file-upload.js',
                 '25.js': 'moment/moment.js',
                 '26.js': 'moment/locale/fr.js',
+                '26.1.js': 'moment/locale/uk.js',
+                '26.2.js': 'moment/locale/es.js',
                 '27.js': 'v-accordion/dist/v-accordion.js',
                 '28.js': 'angular-ui-router-anim-in-out/anim-in-out.js',
                 '29.js': 'angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js',

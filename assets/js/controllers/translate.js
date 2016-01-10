@@ -3,6 +3,7 @@ var tooFrench = angular.module('tooFrenchApp');
 tooFrench.controller('TranslateCtrl', ['$translate', '$scope', '$rootScope', '$http', 'tmhDynamicLocale', 'AUTH_EVENTS',
     function ($translate, $scope, $rootScope, $http, tmhDynamicLocale, AUTH_EVENTS) {
         $scope.changeLanguage = function (langKey) {
+            moment.locale(langKey);
             $translate.use(langKey);
         };
 
