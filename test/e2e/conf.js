@@ -9,8 +9,8 @@ exports.config = {
         //home:['common/access-home-spec.js'],
         //teacher: ['teacher/register-spec.js','teacher/profile-edit-spec.js'],
         //validateDiploma: ['admin/login-spec.js', 'admin/diploma-validation-spec.js'],
-        //student : ['student/register-spec.js', 'student/search-spec.js'],
-        reservation : [/*'student/reservation-spec.js',*/ 'student/reservation-formula-spec.js'],
+        student : ['student/register-spec.js'/*, 'student/search-spec.js'*/],
+        reservation : ['student/reservation-spec.js','student/reservation-formula-spec.js'],
         //admin: ['admin/login-spec.js', 'admin/user-remove-spec.js']
     },
     //specs: ['student/*-spec.js', 'admin/*-spec.js'],
@@ -18,11 +18,11 @@ exports.config = {
     capabilities: {
         'browserName': 'firefox'
     },
-    baseUrl: 'http://localhost:1337/',
+    baseUrl: 'http://localhost:9999/',
     params: {
         files: {
-            photo: '/home/alex/Téléchargements/profile-photo.jpg',
-            diploma: '/home/alex/Téléchargements/diplome.pdf'
+            photo: './test/e2e/assets/profile-photo.jpg',
+            diploma: './test/e2e/assets/diplome.pdf'
         },
         studentToCreate: {
             pseudo: 'NouvelEtudiant',
