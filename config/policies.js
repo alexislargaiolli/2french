@@ -110,12 +110,6 @@ module.exports.policies = {
   },
   PostController:{
     '*':[ 'passport', 'sessionAuth'],
-    find : [],
-    findone : [],
-    recentPosts : [],
-    popularPosts : [],
-    popularFilePosts:[],
-    postGeneralByCategory : [],
     save : ['passport', 'sessionAuth', 'teacherPost'],
     destroy : [ 'passport', 'sessionAuth', 'admin']
   },

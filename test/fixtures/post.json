@@ -1,0 +1,50 @@
+[
+  {
+    "category": 1,
+    "title": "Post general",
+    "content": "<p>testset</p>",
+    "teacher": false,
+    "author": 1,
+    "locale": "fr",
+    "date":  "2016-01-08T10:49:34.207Z",
+    "seenCount": 8,
+    "likeCount": 1,
+    "downloadCount": 1
+  },
+  {
+    "category": 1,
+    "title": "Post general 2",
+    "content": "<p>testset</p>",
+    "teacher": false,
+    "author": 1,
+    "locale": "fr",
+    "date": "2016-01-09T10:49:34.207Z",
+    "seenCount": 8,
+    "likeCount": 2,
+    "downloadCount": 0
+  },
+  {
+    "category": 2,
+    "title": "Post prof",
+    "content": "<p>testset</p>",
+    "teacher": true,
+    "author": 1,
+    "locale": "fr",
+    "date": "2016-02-08T10:49:34.207Z",
+    "seenCount": 8,
+    "likeCount": 3,
+    "downloadCount": 2
+  },
+  {
+    "category": 1,
+    "title": "Post prof 2",
+    "content": "<p>testset</p>",
+    "teacher": true,
+    "author": 1,
+    "locale": "fr",
+    "date": "2016-03-08T10:49:34.207Z",
+    "seenCount": 8,
+    "likeCount": 4,
+    "downloadCount": 0
+  }
+]

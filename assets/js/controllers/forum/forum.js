@@ -8,18 +8,55 @@
  */
 var ctrl = angular.module('tooFrenchApp');
 ctrl.controller('ForumCtrl', ['$scope', '$rootScope', 'Post', 'PostCategory', '$timeout', function ($scope, $rootScope, Post, PostCategory, $timeout) {
+    /**
+     * Array of post categories for teacher
+     */
     $scope.teacherCategories = PostCategory.query({teacher : true});
+
+    /**
+     * Array of post categories for student
+     */
     $scope.generalCategories = PostCategory.query({teacher : false});
+
+    /**
+     * Number of post to load per page
+     * @type {number}
+     */
     $scope.pageSize = 5;
 
+    /**
+     * Array of post loaded by category for teacher posts
+     * @type {Array}
+     */
     $scope.teacherPostsByCategory = [];
+
+    /**
+     * Array of post loaded by category for general posts
+     * @type {Array}
+     */
     $scope.generalPostsByCategory = [];
 
+    /**
+     * Array of more recent posts
+     * @type {Array}
+     */
     $scope.recentPosts = [];
-    $scope.popularFilePosts = [];
-    $scope.popularPosts = [];
-    $scope.teacherPostsByCategory = [];
 
+    /**
+     * Array of more popular posts with files
+     * @type {Array}
+     */
+    $scope.popularFilePosts = [];
+
+    /**
+     * Array of more popular posts
+     * @type {Array}
+     */
+    $scope.popularPosts = [];
+
+    /**
+     * Load panel of most popular posts
+     */
     function reloadLeftPanel(){
         Post.getRecentPost().then(function (posts) {
             $scope.recentPosts = posts;
@@ -32,26 +69,39 @@ ctrl.controller('ForumCtrl', ['$scope', '$rootScope', 'Post', 'PostCategory', '$
         Post.getPopularFilePost().then(function (posts) {
             $scope.popularFilePosts = posts;
         });
-        console.log('reload');
     }
     reloadLeftPanel();
 
+    /**
+     * Function trigger on navigation on forum home
+     */
     $rootScope.$on('$stateChangeSuccess', function (event, toState) {
         if(toState && toState.name == 'forum'){
-            //reloadLeftPanel();
+            reloadLeftPanel();
+            //Clear loaded category when user navigate on forum home page
+            $scope.teacherPostsByCategory = [];
+            $scope.generalPostsByCategory = [];
         }
     });
 
+    /**
+     * Load teacher post of a given category
+     * @param category
+     */
     $scope.onOpenCategory = function (category) {
         if (!$scope.teacherPostsByCategory[category.id]) {
             $scope.teacherPostsByCategory[category.id] = {};
             $scope.teacherPostsByCategory[category.id].values = [];
             $scope.teacherPostsByCategory[category.id].loading = true;
             $scope.teacherPostsByCategory[category.id] = [];
+
+            //Count posts to load
             Post.getPostTeacherByCategory(category.id, 1).then(function (count) {
                 $scope.teacherPostsByCategory[category.id].count = count.count;
                 $scope.teacherPostsByCategory[category.id].pageCount = Math.ceil(count / $scope.pageSize);
                 $scope.teacherPostsByCategory[category.id].pageIndex = 1;
+
+                //Load posts
                 Post.getPostTeacherByCategory(category.id, 0, $scope.pageSize, 1).then(function (posts) {
                     $scope.teacherPostsByCategory[category.id].values = posts;
                     $scope.teacherPostsByCategory[category.id].loading = false;
@@ -60,6 +110,10 @@ ctrl.controller('ForumCtrl', ['$scope', '$rootScope', 'Post', 'PostCategory', '$
         }
     }
 
+    /**
+     * Load next post page of a given teacher category
+     * @param category
+     */
     $scope.pageChanged = function (category) {
         $scope.teacherPostsByCategory[category.id].loading = true;
         Post.getPostTeacherByCategory(category.id, 0, $scope.pageSize, $scope.teacherPostsByCategory[category.id].pageIndex).then(function (posts) {
@@ -68,6 +122,10 @@ ctrl.controller('ForumCtrl', ['$scope', '$rootScope', 'Post', 'PostCategory', '$
         });
     }
 
+    /**
+     * Load general post of a given category
+     * @param category
+     */
     $scope.onOpenGeneralCategory = function (category) {
         if (!$scope.generalPostsByCategory[category.id]) {
             $scope.generalPostsByCategory[category.id] = {};
@@ -85,6 +143,10 @@ ctrl.controller('ForumCtrl', ['$scope', '$rootScope', 'Post', 'PostCategory', '$
         }
     }
 
+    /**
+     * Load next post page of a given general category
+     * @param category
+     */
     $scope.pageGeneralChanged = function (category) {
         $scope.generalPostsByCategory[category.id].loading = true;
         Post.getPostGeneralByCategory(category.id, 0, $scope.pageSize, $scope.teacherPostsByCategory[category.id].pageIndex).then(function (posts) {

@@ -35,7 +35,7 @@ before(function(done) {
                 sails.log.error(err);
                 return done(err);
             }
-            barrels.populate(['passport', 'formation', 'profile', 'diploma', 'reservation','review'],function(err) {
+            barrels.populate(['passport', 'formation', 'profile', 'diploma', 'reservation','review', 'postcategory', 'post'],function(err) {
                 if(err){
                     sails.log.error(err);
                     return done(err);

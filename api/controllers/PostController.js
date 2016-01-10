@@ -47,7 +47,7 @@ module.exports = {
     teacherPosts: function (req, res) {
         Post.find({teacher: true}).populate('category').exec(function (err, posts) {
             if (err) {
-                res.sendError("Unable to find posts");
+                res.serverError("Unable to find posts");
             }
             else {
                 res.send(posts);
@@ -57,7 +57,7 @@ module.exports = {
     generalPosts: function (req, res) {
         Post.find({teacher: false}).populate('category').exec(function (err, posts) {
             if (err) {
-                res.sendError("Unable to find posts");
+                res.serverError("Unable to find posts");
             }
             else {
                 res.send(posts);
@@ -65,22 +65,15 @@ module.exports = {
         });
     },
     recentPosts: function (req, res) {
-        var teacher = req.user && (req.user.role == 'admin' || req.user.role == 'teacher');
-        var where = {};
-        if (!teacher) {
-            where.teacher = false;
+        var onlyGeneralPost = true;
+        if(req.user && (req.user.role == 'admin' || req.user.role == 'teacher')){
+            onlyGeneralPost = false;
         }
-        Post.find({
-            where: where,
-            limit: 3,
-            sort: 'date DESC'
-        }).populate('category').exec(function (err, posts) {
+        Post.getRecentPost(3, onlyGeneralPost, function(err, posts){
             if (err) {
-                res.sendError("Unable to find posts");
+                return res.serverError("Unable to find posts");
             }
-            else {
-                res.send(posts);
-            }
+            res.send(posts);
         });
     },
     popularPosts: function (req, res) {

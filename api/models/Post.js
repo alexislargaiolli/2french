@@ -45,6 +45,29 @@ module.exports = {
             via: 'post'
         }
     },
+    /**
+     * Find the more recent posts
+     * @param numberToLoad number of post to load
+     * @param onlyGeneralPost true to find only genral post, false to find general and teacher posts
+     * @param cb callback method
+     */
+    getRecentPost:function(numberToLoad, onlyGeneralPost, cb){
+        sails.log.debug('getRecentPost() - [numberToLoad : ' + numberToLoad + ', onlyGeneralPost : ' + onlyGeneralPost + ']');
+        var where = {};
+        if (onlyGeneralPost == true) {
+            where.teacher = false;
+        }
+        Post.find({
+            where: where,
+            limit: numberToLoad,
+            sort: 'date DESC'
+        }).populate('category').exec(function (err, posts) {
+            if (err) {
+                return cb(err, []);
+            }
+            cb(null, posts);
+        });
+    },
     afterDestroy: function (posts, next) {
         sails.log.info('destroy post');
         if (posts.length == 0) {

@@ -1,0 +1,14 @@
+[
+  {
+    "name": {
+      "fr": "Categorie commune"
+    },
+    "teacher": false
+  },
+  {
+    "name": {
+      "fr": "Categorie prof"
+    },
+    "teacher": true
+  }
+]
