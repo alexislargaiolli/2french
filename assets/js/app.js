@@ -403,7 +403,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
         uiGmapGoogleMapApiProvider.configure({
             //    key: 'your api key',
             v: '3.17',
-            libraries: 'weather,geometry,visualization'
+            libraries: 'geometry,visualization'
         });
 
         uiSelectConfig.theme = 'bootstrap';
