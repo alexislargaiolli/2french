@@ -56,13 +56,13 @@
             </div>
             <div>
                 <label>{{'planning.reservations.activity' | translate}} : </label>
-                <span ng-if="resa.activity == 'true'">{{'reservation.form.yes' | translate}}</span>
-                <span ng-if="resa.activity == 'false'">{{'reservation.form.no' | translate}}</span>
+                <span ng-if="resa.activity == true">{{'reservation.form.yes' | translate}}</span>
+                <span ng-if="resa.activity == false">{{'reservation.form.no' | translate}}</span>
             </div>
             <div>
                 <label>{{'planning.reservations.accomodation' | translate}} : </label>
-                <span ng-if="resa.accomodation == 'true'">{{'reservation.form.yes' | translate}}</span>
-                <span ng-if="resa.accomodation == 'false'">{{'reservation.form.no' | translate}}</span>
+                <span ng-if="resa.accomodation == true">{{'reservation.form.yes' | translate}}</span>
+                <span ng-if="resa.accomodation == false">{{'reservation.form.no' | translate}}</span>
             </div>
             <div ng-if="resa.formula != null">
                 <label>{{'planning.reservations.formula' | translate}}</label>
@@ -84,17 +84,19 @@
             </div>
             <div class="btn-wrapper">
                 <div ng-if="resa.status == 'pending'">
-                    <button type="button" class="btn btn-danger fa fa-remove fa-pr10" ng-click="changeStatus(resa, 'refused')">
+                    <button type="button" class="btn btn-danger" ng-click="changeStatus(resa, 'refused')">
+                        <i class="fa fa-remove rm-10"></i>
                         {{'planning.reservations.status.refuse' | translate}}
                     </button>
-                    <button type="button" class="btn btn-success fa fa-check fa-pr10" ng-click="changeStatus(resa, 'validated')">
+                    <button type="button" class="btn btn-success" ng-click="changeStatus(resa, 'validated')">
+                        <i class="fa fa-check rm-10"></i>
                         {{'planning.reservations.status.validate' | translate}}
                     </button>
                 </div>
                 <div class="{{resa.status}}" ng-if="resa.status != 'pending'">
-                    <span ng-if="resa.status == 'validated'" class="p-10 label label-success fa fa-check fa-pr10 inline">{{'planning.reservations.status.validated' | translate}}</span>
-                    <span ng-if="resa.status == 'refused'" class="p-10 label label-danger fa fa-check fa-pr10 inline">{{'planning.reservations.status.refused' | translate}}</span>
-                    <span ng-if="resa.status == 'canceled'" class="p-10 label label-warning fa fa-check fa-pr10 inline">{{'planning.reservations.status.canceled' | translate}}</span>
+                    <span ng-if="resa.status == 'validated'" class="p-10 label label-success inline"><i class="fa fa-check rm-10"></i>{{'planning.reservations.status.validated' | translate}}</span>
+                    <span ng-if="resa.status == 'refused'" class="p-10 label label-danger inline"><i class="fa fa-remove rm-10"></i>{{'planning.reservations.status.refused' | translate}}</span>
+                    <span ng-if="resa.status == 'canceled'" class="p-10 label label-warning inline"><i class="fa fa-remove rm-10"></i>{{'planning.reservations.status.canceled' | translate}}</span>
                 </div>
             </div>
         </div>
@@ -171,16 +173,18 @@
             <div class="btn-wrapper">
                 <div ng-if="resa.status == 'pending'">
                     <span class="p-10 label label-default fa fa-spinner fa-pr10 inline">{{'planning.reservations.status.pending' | translate}}</span>
-                    <button type="button" class="btn btn-danger fa fa-remove fa-pr10" ng-click="cancelResa(resa)">
+                    <button type="button" class="btn btn-danger" ng-click="cancelResa(resa)">
+                        <i class="fa fa-remove rm-10"></i>
                         {{'planning.reservations.status.cancel' | translate}}
                     </button>
                 </div>
                 <div class="cancel-wrapper" ng-if="resa.status != 'pending'">
-                    <span ng-if="resa.status == 'validated' && !resa.done" class="p-10 label label-success fa fa-check fa-pr10 inline">{{'planning.reservations.status.validated' | translate}}</span>
-                    <span ng-if="resa.status == 'refused'" class="p-10 label label-danger fa fa-ban fa-pr10 inline">{{'planning.reservations.status.refused' | translate}}</span>
-                    <span ng-if="resa.status == 'canceled'" class="p-10 label label-warning fa fa-remove fa-pr10 inline">{{'planning.reservations.status.canceled' | translate}}</span>
+                    <span ng-if="resa.status == 'validated' && !resa.done" class="p-10 label label-success inline"><i class="fa fa-check rm-10"></i>{{'planning.reservations.status.validated' | translate}}</span>
+                    <span ng-if="resa.status == 'refused'" class="p-10 label label-danger inline"><i class="fa fa-remove rm-10"></i>{{'planning.reservations.status.refused' | translate}}</span>
+                    <span ng-if="resa.status == 'canceled'" class="p-10 label label-warning inline"><i class="fa fa-remove rm-10"></i>{{'planning.reservations.status.canceled' | translate}}</span>
 
-                    <button ui-sref="addReview({reservationId : resa.id})" type="button" class="btn blue-btn fa fa-star-half-o fa-pr10" ng-if="resa.done && resa.status == 'validated' && !resa.review">
+                    <button ui-sref="addReview({reservationId : resa.id})" type="button" class="btn blue-btn" ng-if="resa.done && resa.status == 'validated' && !resa.review">
+                        <i class="fa fa-star-half-o rm-10"></i>
                         {{'planning.reservations.add.review' | translate}}
                     </button>
 

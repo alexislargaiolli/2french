@@ -58,13 +58,13 @@ tooFrenchControllers.controller('ReservationCtrl', ['$scope', '$rootScope', '$st
          * Avalable duration
          * @type {*[]}
          */
-        $scope.durations = [{name: "0:30", value: '0.30'}, {name: "1:00", value: '1'}, {
-            name: "1:30",
+        $scope.durations = [{name: "0H30", value: '0.30'}, {name: "1H00", value: '1'}, {
+            name: "1H30",
             value: '1.5'
-        }, {name: "2:00", value: '2'}, {name: "2:30", value: '2.5'}, {name: "3:00", value: '3'}, {
-            name: "3:30",
+        }, {name: "2H00", value: '2'}, {name: "2H30", value: '2.5'}, {name: "3H00", value: '3'}, {
+            name: "3H30",
             value: '3,5'
-        }, {name: "4:00", value: '4'}]
+        }, {name: "4H00", value: '4'}]
 
 
         /**

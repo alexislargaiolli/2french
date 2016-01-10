@@ -155,12 +155,12 @@
                     </div>
                     <div class="modal-body">
                         <form role="form" ng-controller="ContactCtrl" ng-submit="sendMessage(userToContact.owner)">
-                            <textarea class="form-control" rows="3" ng-model="message.content"
+                            <textarea class="form-control" rows="3" ng-model="message.content" placeholder="{{'search.contact.content.placeholder' | translate}}"
                                       ng-required="true"></textarea>
 
-                            <div class="center p-10">
+                            <div class="center p-10 mt-15">
                                 <button type="submit" class="btn btn-default">
-                                    <span class="fa fa-send"></span>{{'contact.dlg.send' | translate}}
+                                    <span class="fa fa-send rm-10"></span>{{'contact.dlg.send' | translate}}
                                 </button>
                             </div>
                         </form>
