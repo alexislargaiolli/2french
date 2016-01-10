@@ -47,35 +47,37 @@ ctrl.controller('ForumCreatePostCtrl', ['$scope', '$timeout', 'Post', 'PostCateg
     }
 
     $scope.createPost = function(){
-        if($scope.attachedFiles.length > 0){
-            $scope.post.files = [];
-            $scope.uploading = true;
-            var i=0;
-            for(i=0; i<$scope.attachedFiles.length; ++i){
-                var file = $scope.attachedFiles[i];
-                var user = Session.userId;
-                $scope.uploadingFiles[file.name] = {};
-                $scope.uploadingFiles[file.name].uploading = true;
-                $scope.uploadingFiles[file.name].progress = 0;
-                $upload.upload({
-                    url: 'post/uploadFile',
-                    file: file,
-                    user:user
-                }).progress(function(evt) {
-                    $scope.uploadingFiles[evt.config.file.name].progress = Math.round((evt.loaded * 100.0) / evt.total);
-                }).success(function(data, status, headers, config) {
-                    $scope.uploadingFiles[config.file.name].uploading = false;
-                    $scope.post.files.push(data);
-                    onFileUploaded();
-                }).error(function(data, status, headers, config) {
-                    $scope.uploadingFiles[config.file.name].uploading = false;
-                    $scope.uploadingFiles[config.file.name].error = true;
-                    onFileUploaded();
-                });
+        if ($scope.createPostForm.$valid) {
+            if ($scope.attachedFiles.length > 0) {
+                $scope.post.files = [];
+                $scope.uploading = true;
+                var i = 0;
+                for (i = 0; i < $scope.attachedFiles.length; ++i) {
+                    var file = $scope.attachedFiles[i];
+                    var user = Session.userId;
+                    $scope.uploadingFiles[file.name] = {};
+                    $scope.uploadingFiles[file.name].uploading = true;
+                    $scope.uploadingFiles[file.name].progress = 0;
+                    $upload.upload({
+                        url: 'post/uploadFile',
+                        file: file,
+                        user: user
+                    }).progress(function (evt) {
+                        $scope.uploadingFiles[evt.config.file.name].progress = Math.round((evt.loaded * 100.0) / evt.total);
+                    }).success(function (data, status, headers, config) {
+                        $scope.uploadingFiles[config.file.name].uploading = false;
+                        $scope.post.files.push(data);
+                        onFileUploaded();
+                    }).error(function (data, status, headers, config) {
+                        $scope.uploadingFiles[config.file.name].uploading = false;
+                        $scope.uploadingFiles[config.file.name].error = true;
+                        onFileUploaded();
+                    });
+                }
             }
-        }
-        else{
-            submitPost();
+            else {
+                submitPost();
+            }
         }
     }
 
