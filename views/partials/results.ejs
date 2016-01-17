@@ -97,6 +97,10 @@
 
         <div class="col-md-3 col-lg-3 hp-10 col-md-pull-9 col-lg-pull-9">
 
+
+            <!-- ----------- -->
+            <!-- Liens utils -->
+            <!-- ----------- -->
             <div class="panel panel-default">
                 <!-- Default panel contents -->
                 <div class="panel-heading"><span
@@ -115,7 +119,9 @@
                 </div>
             </div>
 
-
+            <!-- --------------- -->
+            <!-- Recommendations -->
+            <!-- --------------- -->
             <div class="panel panel-default">
                 <!-- Default panel contents -->
                 <div class="panel-heading"><span class="block-title1 bold">{{'search.result.recommandation' | translate}}</span>
@@ -123,11 +129,11 @@
                 <!-- List group -->
                 <ul id="list-recommandation" class="list-group">
                     <li class="list-group-item" ng-repeat="r in recommandations">
-                        <h4 class="list-group-item-heading" data-toggle="collapse" href="#collapseExample"
+                        <h4 class="list-group-item-heading" data-toggle="collapse" href="#recommendationContent_{{$index}}"
                             aria-expanded="false" aria-controls="collapseExample">{{r.title[currentLocale]}} <i
                                     class="fa fa-angle-down"></i></h4>
 
-                        <div class="collapse toggle-panel" id="collapseExample">
+                        <div class="collapse toggle-panel" id="recommendationContent_{{$index}}">
                             <div class="well">
                                 {{r.description[currentLocale]}}
                             </div>
