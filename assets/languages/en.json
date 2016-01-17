@@ -334,9 +334,12 @@
 "mentions.5.content" :"The dashboard allows teachers to control and modify all the information in their profile: availabilities, prices, courses offered, accommodation. It also allows them to follow students’ demands for courses and to manage their communication with students via private messages.",
 "mentions.6.title" :"Forum",
 "mentions.6.content" :"TooFrench provides its members with two forums: one general forum accessible to all members and one forum reserved for teacher members.",
+"mentions.7.title" : "Legal Notice",
+"mentions.7.content" : "<p>TooFrench.net, website edited by Com&Sens, SIRET 52963949400010</p><p>TooFrench, website hosted by Heroku Privacy, 650 7th St, San Francisco, CA 94103.</p>",
 
 
-"tour.1.title" : "Welcome to TooFrench!",
+
+  "tour.1.title" : "Welcome to TooFrench!",
 "tour.1.content" : "Let us guide you through a short introduction.",
 "tour.2.title" : "Your Profile",
 "tour.2.content" : "First, edit your profile and the services that you propose.",
