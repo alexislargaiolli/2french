@@ -138,7 +138,7 @@ tooFrenchServices.factory('AuthService', ['$http', '$rootScope', '$q', 'Session'
     }
 }]);
 
-tooFrenchServices.service('Session', function ($rootScope, AUTH_EVENTS, MESSAGE_EVENTS) {
+tooFrenchServices.service('Session', function ($rootScope, AUTH_EVENTS) {
     this.create = function (data) {
         this.id = data.user.id;
         this.userId = data.user.id;
@@ -151,7 +151,6 @@ tooFrenchServices.service('Session', function ($rootScope, AUTH_EVENTS, MESSAGE_
         $rootScope.isTeacher = (this.role == "teacher") || (this.role == "admin");
         $rootScope.isStudent = (this.role == "student");
         $rootScope.isAdmin = this.role == "admin";
-        $rootScope.$broadcast(MESSAGE_EVENTS.update);
         $rootScope.session = this;
         $rootScope.$broadcast(AUTH_EVENTS.sessionCreated);
     };

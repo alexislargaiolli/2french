@@ -181,7 +181,8 @@
                 </li>
                 <li class="dropdown" ng-controller="TranslateCtrl">
                     <a id="current-language" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                        <img ng-src="images/languages/{{currentLocale}}.png"/><span class="caret"></span>
+                        <img ng-src="images/languages/{{currentLocale}}.png"/>
+                        <span class="caret"></span>
                     </a>
                     <ul id="language-dropdown" class="dropdown-menu" role="menu">
                         <li>
@@ -221,10 +222,7 @@
                         </a>
 
                         <ul id="notif-container" aria-labelledby="dropdownNotification" class="dropdown-menu">
-                           <li ng-if="notificationLoading">
-                               <span class="fa fa-circle-o-notch fa-spin"></span>
-                           </li>
-                            <li ng-repeat="notif in notifications" class="notif-wrapper">
+                            <li ng-repeat="notif in notifications" class="notif-wrapper" ng-class="{unseen : notif.seen == false}">
                                 <a ng-click="onNotifClick(notif)">
                                     <span class="fa fa-envelope-o" ng-if="notif.type == 'message'"></span>
                                     <span ng-if="notif.type == 'message'">{{'notification.message.label' | translate}} {{notif.interlocutor}}</span>
@@ -235,6 +233,14 @@
                                     <span class="fa fa-comment-o" ng-if="notif.type == 'forum'"></span>
                                     <span ng-if="notif.type == 'forum'">{{'notification.reservation.forum.label' | translate}}</span>
                                 </a>
+                            </li>
+                            <li ng-if="!notificationLoading" class="notif-wrapper">
+                                <a ng-click="loadMore();$event.stopPropagation();" class="center">
+                                    <span class="fa fa-history"></span>
+                                </a>
+                            </li>
+                            <li ng-if="notificationLoading">
+                                <span class="fa fa-circle-o-notch fa-spin"></span>
                             </li>
                         </ul>
                     </li>

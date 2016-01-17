@@ -21,6 +21,9 @@ module.exports = {
         conversation: {
             model: 'Conversation'
         },
+        post: {
+            model: 'Post'
+        },
         seen: {
             type: 'boolean',
             defaultsTo: false

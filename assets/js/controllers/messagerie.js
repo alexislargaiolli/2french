@@ -11,17 +11,14 @@ tooFrenchControllers.controller('MessagerieCtrl', ['$scope', '$stateParams', 'Me
 
         $scope.loginRequest.promise.then(function () {
 
-            Messagerie.getUserConversations().then(function (conversations) {
+            Messagerie.getResource().getUserConversations(function (conversations) {
                 $scope.conversations = conversations;
                 if ($scope.conversations && $scope.conversations.length > 0) {
-                    if($stateParams.conversationId){
+                    if ($stateParams.conversationId) {
                         $scope.selectConversationById($stateParams.conversationId);
                     }
-                    else{
+                    else {
                         $scope.selectConversation($scope.conversations[0]);
-                        for (var i = 0; i < $scope.conversations.length; i++) {
-                            $scope.conversations[i].notifs = Notification.getConversationNoificationCount($scope.conversations[i].id);
-                        }
                     }
                 }
             }, function () {
@@ -29,14 +26,18 @@ tooFrenchControllers.controller('MessagerieCtrl', ['$scope', '$stateParams', 'Me
             });
 
             $scope.selectConversation = function (conv) {
+                conv.unseenCount = 0;
                 $scope.selectConversationById(conv.id);
             }
 
             $scope.selectConversationById = function (convId) {
-                Messagerie.getConversation(convId).then(function (data) {
+                Messagerie.getResource().getConversation({id: convId}, function (data) {
                     $scope.selectedConv = data;
-                    $scope.selectedConv.notifs = 0;
+                    $scope.selectedConv.unseenCount = 0;
                     $scope.updateMessagePanel();
+                });
+                Messagerie.getResource().setAsRead({id: convId}, function () {
+
                 });
             }
 
@@ -45,7 +46,6 @@ tooFrenchControllers.controller('MessagerieCtrl', ['$scope', '$stateParams', 'Me
                 var to = $scope.selectedConv.interlocutorId;
                 $scope.message.author = from;
                 $scope.message.recipient = to;
-
 
                 Messagerie.sendMessage(from, to, $scope.message.content).then(function () {
                     $scope.selectedConv.messages.push($scope.message);

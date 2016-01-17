@@ -56,11 +56,6 @@ tooFrenchApp.constant('USER_ROLES', {
     student: 'student'
 });
 
-tooFrenchApp.constant('MESSAGE_EVENTS', {
-    read: 'msg-read',
-    update: 'msg-update'
-});
-
 tooFrenchApp.constant('NOTIFICATION_EVENTS', {
     messageUpdate: 'messageUpdate',
     resaUpdate: 'resaUpdate'

@@ -83,7 +83,7 @@ module.exports = {
      * @param res: a given conversation with messages populated
      */
     userConversation: function (req, res) {
-        var conversationId = req.allParams().conversationId;
+        var conversationId = req.allParams().id;
         Conversation.findOne({id: conversationId}).populate('messages').exec(function (err, conversation) {
             if (err) {
                 res.send(500, "Error while fetching conversation");
@@ -95,7 +95,7 @@ module.exports = {
                 res.forbidden('You are not permitted to perform this action.');
             }
             else {
-                sails.services['notification'].removeMessageNotification(req.user.id, conversationId, function(err){
+                sails.services['notification'].seenMessageNotification(req.user.id, conversationId, function(err){
                     if(err){
                         sails.log.error('Error while removing message notification');
                         sails.log.error(err);
@@ -113,7 +113,7 @@ module.exports = {
         });
     },
     setAsRead: function (req, res) {
-        var conversationId = req.allParams().conversationId;
+        var conversationId = req.allParams().id;
         Conversation.findOne({id: conversationId}).exec(function (err, conversation) {
             if (err || !conversation) {
                 res.send(500, "Error while fetching conversation");
@@ -133,27 +133,6 @@ module.exports = {
                 });
             }
         });
-    },
-    /**
-     *
-     * @param req: userId
-     * @param res: the count of unseen message in all conversations of a given user
-     */
-    totalUnseenMessageCount: function (req, res) {
-        var userId = req.user.id;
-        Conversation.find({owner: userId, count : {'>' : 0}}).exec(function (err, conversations) {
-            if (err) {
-                res.send(500, "Error while fetching conversations");
-            }
-            else {
-                var count = 0;
-                conversations.forEach(function (c) {
-                    count += c.unseenCount;
-                });
-                res.send(200, {unseenCount : count});
-            }
-        });
-
     }
 };
 

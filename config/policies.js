@@ -140,7 +140,8 @@ module.exports.policies = {
   NotificationController : {
     '*':[ 'passport', 'sessionAuth', 'admin'],
     'unseen': ['passport', 'sessionAuth'],
-    'unseenCount': ['passport', 'sessionAuth']
+    'unseenCount': ['passport', 'sessionAuth'],
+    'setAsSeen': ['passport', 'sessionAuth']
   }
 
   /***************************************************************************

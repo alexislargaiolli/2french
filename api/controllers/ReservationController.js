@@ -55,7 +55,7 @@ module.exports = {
                 return res.sendError("Unable to find resas");
             }
             resas.forEach(function (r) {
-                sails.services['notification'].removeResaNotification(req.user.id, r.id,function(err){
+                sails.services['notification'].seenResaNotification(req.user.id, r.id,function(err){
 
                 });
                 r.teacherId = r.teacher.id;
@@ -83,7 +83,7 @@ module.exports = {
                 return res.send(500,"Unable to find resas");
             }
             resas.forEach(function (r) {
-                sails.services['notification'].removeResaNotification(req.user.id, r.id,function(err){
+                sails.services['notification'].seenResaNotification(req.user.id, r.id,function(err){
 
                 });
                 r.studentId = r.student.id;
