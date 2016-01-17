@@ -24,7 +24,6 @@ ctrl.controller('ForumCreatePostCtrl', ['$scope', '$timeout', 'Post', 'PostCateg
      * @type {boolean}
      */
     $scope.submitted = false;
-
     $scope.toolbar = [
         ['h4', 'h5', 'h6', 'quote'],
         ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'redo', 'undo', 'clear'],

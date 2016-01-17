@@ -15,12 +15,11 @@ ctrl.controller('ForumPostCtrl', ['$scope', 'Post', '$stateParams', 'Session', '
     $scope.hasComment = true;
     $scope.comments = [];
     $scope.count = 0;
-
     $scope.toolbar = [
         ['h4', 'h5', 'h6', 'quote'],
         ['bold', 'italics', 'underline', 'strikeThrough', 'ul', 'ol', 'redo', 'undo', 'clear'],
         ['justifyLeft', 'justifyCenter', 'justifyRight', 'indent', 'outdent'],
-        ['insertImage','insertLink', 'insertVideo', 'wordcount', 'charcount']
+        ['insertImage', 'insertLink', 'insertVideo', 'wordcount', 'charcount']
     ];
 
     Post.findOne($stateParams.postId).then(function (post) {
@@ -33,13 +32,13 @@ ctrl.controller('ForumPostCtrl', ['$scope', 'Post', '$stateParams', 'Session', '
                     title: $translate.instant('common.confirmation.title'),
                     content: $translate.instant('post.remove.confirm.message'),
                     ok: 'Oui, supprimer',
-                    cancel:'Non, annuler'
+                    cancel: 'Non, annuler'
                 });
-                $mdDialog.show(confirm).then(function() {
+                $mdDialog.show(confirm).then(function () {
                     Post.getResource().remove({id: $stateParams.postId}, function () {
                         $state.go('forum');
                     });
-                }, function() {
+                }, function () {
 
                 });
             }
@@ -49,14 +48,14 @@ ctrl.controller('ForumPostCtrl', ['$scope', 'Post', '$stateParams', 'Session', '
                     title: $translate.instant('common.confirmation.title'),
                     content: $translate.instant('post.comment.remove.confirm.message'),
                     ok: 'Oui, supprimer',
-                    cancel:'Non, annuler'
+                    cancel: 'Non, annuler'
                 });
-                $mdDialog.show(confirm).then(function() {
+                $mdDialog.show(confirm).then(function () {
                     Post.getCommentResource().remove({id: comment.id}, function () {
                         var index = $scope.comments.indexOf(comment);
                         $scope.comments.splice(index, 1);
                     });
-                }, function() {
+                }, function () {
 
                 });
             }

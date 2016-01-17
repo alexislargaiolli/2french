@@ -120,7 +120,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
 
         $stateProvider
 
-            // HOME STATES AND NESTED VIEWS ========================================
+        // HOME STATES AND NESTED VIEWS ========================================
             .state('home', {
                 url: '/home',
                 templateUrl: 'views/main.html' + version
@@ -428,14 +428,15 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
                 '200', '300', '400', 'A100']
         });
         $mdThemingProvider.theme('default')
-            .primaryPalette('amazingPaletteName')
+            .primaryPalette('amazingPaletteName');
     }
 );
 
 
-tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache', 'Session', 'Messagerie', '$timeout', 'Reservation', 'Tour','Notification','UserFavList', 'tmhDynamicLocale',
-    function ($rootScope, $state, $window, AUTH_EVENTS, AuthService, editableOptions, $templateCache, Session, Messagerie, $timeout, Reservation, Tour, Notification,UserFavList, tmhDynamicLocale) {
+tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache', 'Session', 'Messagerie', '$timeout', 'Reservation', 'Tour', 'Notification', 'UserFavList', 'tmhDynamicLocale', 'taOptions',
+    function ($rootScope, $state, $window, AUTH_EVENTS, AuthService, editableOptions, $templateCache, Session, Messagerie, $timeout, Reservation, Tour, Notification, UserFavList, tmhDynamicLocale, taOptions) {
         editableOptions.theme = 'bs3';
+        taOptions.defaultTagAttributes.a.target = '_blank';
 
         $templateCache.remove('views/*');
         moment.locale('fr');
@@ -472,14 +473,14 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
             }
         }
 
-        $rootScope.$on('$routeChangeStart', function(event, next, current) {
-            if (typeof(current) !== 'undefined'){
+        $rootScope.$on('$routeChangeStart', function (event, next, current) {
+            if (typeof(current) !== 'undefined') {
                 $templateCache.remove(current.templateUrl);
             }
         });
 
         $rootScope.$on('$stateChangeStart', function (event, next) {
-            if (typeof(current) !== 'undefined'){
+            if (typeof(current) !== 'undefined') {
                 $templateCache.remove(next.templateUrl);
             }
             if ($rootScope.sessionInitialized) {
