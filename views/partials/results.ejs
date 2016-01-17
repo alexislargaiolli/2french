@@ -29,7 +29,7 @@
                             </li>
                         </ul>
                         <ul class="extras">
-                            <li ng-repeat="extra in p.extras" class="{{extra.icon}}"> {{extra.name[currentLocale]}}</li>
+                            <li ng-repeat="extra in p.extras"><span class="fa" ng-class="extra.icon"></span> {{extra.name[currentLocale]}}</li>
                             <li class="fa fa-bed fa-pr5" ng-if="p.activeAccomodation">{{'search.result.accomodation' |
                                 translate}}
                             </li>

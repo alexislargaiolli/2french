@@ -7,32 +7,30 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
         ////////////////////////////////////////////////////////////////////////////////////////////
         ////////////////////////////              COMMON            ////////////////////////////////
         ////////////////////////////////////////////////////////////////////////////////////////////
-        $scope.profileLocale = $translate.preferredLanguage();
+
+        /**
+         * Current locale for profile edition
+         */
+        $scope.profileLocale = $rootScope.currentLocale;
+
+        /**
+         * Flag to indicate if user is selecting an other city
+          * @type {boolean}
+         */
         $scope.editCity = false;
+
+        /**
+         * Option for google map autocomplete
+         * @type {{types: string[]}}
+         */
         $scope.optionsCity = {
             types: ['(regions)']
         };
-        $scope.period = moment().date(10).format('MM-YYYY');
-        $scope.scheduleIndex = -1;
-        $scope.needSave = false;
-        var tourProfile;
 
-        var findShedule = function (period) {
-            if ($scope.profile.schedules.length == 0) {
-                return -1;
-            }
-            var i = 0;
-            for (i = 0; i < $scope.profile.schedules.length; i++) {
-                if ($scope.profile.schedules[i].period == period) {
-                    return i;
-                }
-            }
-            return -1;
-        }
-
-        $scope.reviews = [];
-
+        //Wait for login process to finish (prevent F5 bugs)
         $scope.loginRequest.promise.then(function () {
+
+            //Fetch the current user profile
             $scope.profile = Profile.get({
                 id: Session.user.profile
             }, function () {
@@ -57,18 +55,18 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             });
 
 
-
-
-
             /**
              * Save profile modifications
              */
             $scope.save = function () {
                 $scope.profile.$update(function (p, response) {
-                    $scope.needSave = false;
-                    Profile.validateProfile(p, function(pr, response){
-                        console.log('validate');
-                    });
+                    if ($scope.isTeacher) {
+                        $scope.needSave = false;
+
+                        if($scope.isProfileComplete()){
+                            Profile.validateProfile(p, function (pr, response) {});
+                        }
+                    }
                 });
             }
 
@@ -79,6 +77,13 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             $scope.changeProfileLanguage = function (lang) {
                 $scope.profileLocale = lang;
             };
+
+            /**
+             * Listener for locale change
+             */
+            $rootScope.$on('$translateChangeSuccess', function () {
+                $scope.profileLocale = $rootScope.currentLocale;
+            });
 
             /**
              * Upload profile picture listner
@@ -93,9 +98,40 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
             ////////////////////////////              TEACHER            ///////////////////////////////
             ////////////////////////////////////////////////////////////////////////////////////////////
             if ($scope.isTeacher) {
+                /**
+                 * Flag that indicates that calendar has been modified and need to be save
+                 * @type {boolean}
+                 */
+                $scope.needSave = false;
+
+                /**
+                 * Current period to show on calendar
+                 */
+                $scope.period = moment().date(10).format('MM-YYYY');
+
+                /**
+                 * Index of current $scope.profile.schedules element to use in calendar
+                 * @type {number}
+                 */
+                $scope.scheduleIndex = -1;
+
+                /**
+                 * Current user reviews
+                 * @type {Array}
+                 */
+                $scope.reviews = [];
+
+                /**
+                 * Flag to indicate that user is selecting new location for accomodation
+                 * @type {boolean}
+                 */
                 $scope.editLocation = false;
+
+                /**
+                 *
+                 * @type {{}}
+                 */
                 $scope.formulaToAdd = {};
-                $scope.formationToAdd = {};
                 $scope.formations = Formation.query();
                 $scope.formationLevels = FormationLevel.query();
                 $scope.equipments = Equipment.query();
@@ -119,7 +155,7 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                 $scope.uploadDiploma = function () {
                     $scope.diplomaUploading = true;
                     var filename = Session.userId;
-                    $scope.diplomaProgress =0;
+                    $scope.diplomaProgress = 0;
                     $upload.upload({
                         url: 'diploma/upload',
                         file: $scope.diplomaFile,
@@ -136,7 +172,10 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                 }
 
                 $scope.isProfileComplete = function () {
-                    return $scope.profile.photo && $scope.profile.motivation && $scope.profile.hourRate && $scope.profile.formations.length > 0 && ($rootScope.session.diplomagit && $rootScope.session.diploma.diplomaValidated);
+                    if($scope.profile.photo && $scope.profile.motivation && $scope.profile.hourRate && $scope.profile.formations.length > 0 && ($rootScope.session.diploma && $rootScope.session.diploma.diplomaValidated)){
+                        return true;
+                    }
+                    return false;
                 }
 
                 $timeout(function () {
@@ -145,11 +184,17 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                     elts.on('change', handleDiplomaSelect);
                 });
 
+                /**
+                 * Active accomodation and save profile
+                 */
                 $scope.activeAccomodation = function () {
                     $scope.profile.activeAccomodation = true;
                     $scope.save();
                 }
 
+                /**
+                 * Disable accomodation and save profile
+                 */
                 $scope.cancelAccomodation = function () {
                     $scope.profile.activeAccomodation = false;
                     $scope.save();
@@ -176,10 +221,17 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                     $scope.save();
                 }
 
+                /**
+                 * Select a accomodation picture
+                 * @param index
+                 */
                 $scope.selectPhoto = function (index) {
                     $scope.selectedPhotoIndex = index;
                 }
 
+                /**
+                 * Show accomodation selected picture in picture viewer
+                 */
                 $scope.openLightboxModal = function () {
                     if ($scope.profile.photos[$scope.selectedPhotoIndex]) {
                         Lightbox.openModal($scope.profile.photos, $scope.selectedPhotoIndex);
@@ -190,7 +242,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                  * Event call after change location to update google map component
                  */
                 $scope.updateLocation = function () {
-                    console.log('updateLocation');
                     if ($scope.editLocation) {
                         $scope.updateMap();
                         $scope.editLocation = false;
@@ -200,6 +251,9 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                     }
                 }
 
+                /**
+                 * Listener for google map update
+                 */
                 $scope.$on('g-places-autocomplete:select', function (event, args) {
                     if (!$scope.profile.accomodationCoords) {
                         $scope.profile.accomodationCoords = {};
@@ -300,18 +354,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                     $scope.save();
                 }
 
-                /**
-                 * Add a new formation to user formation list
-                 */
-                $scope.addFormation = function () {
-                    if (!$scope.profile.formations) {
-                        $scope.profile.formations = new Array();
-                    }
-                    $scope.profile.formations.push($scope.formationToAdd);
-                    $scope.formationToAdd = {};
-                    $('#dlgAddFormation').modal('hide');
-                }
-
 
                 var findUndispo = function (date) {
                     if ($scope.profile.schedules[$scope.scheduleIndex].undispos.length == 0) {
@@ -320,6 +362,24 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                     var i = 0;
                     for (i = 0; i < $scope.profile.schedules[$scope.scheduleIndex].undispos.length; i++) {
                         if ($scope.profile.schedules[$scope.scheduleIndex].undispos[i].date === date) {
+                            return i;
+                        }
+                    }
+                    return -1;
+                }
+
+                /**
+                 * Search in profile schedules element that match the given period
+                 * @param period a given period
+                 * @returns {number} index of the element in profile.schedules if found, -1 otherwise
+                 */
+                var findShedule = function (period) {
+                    if ($scope.profile.schedules.length == 0) {
+                        return -1;
+                    }
+                    var i = 0;
+                    for (i = 0; i < $scope.profile.schedules.length; i++) {
+                        if ($scope.profile.schedules[i].period == period) {
                             return i;
                         }
                     }

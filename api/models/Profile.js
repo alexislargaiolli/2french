@@ -261,7 +261,7 @@ module.exports = {
      */
     getFullProfile : function(profileId, cb){
         //Load profile
-        Profile.findOne({id : profileId}).exec(function(err, profile){
+        Profile.findOne({id : profileId}).populate('formations').populate('extras').exec(function(err, profile){
             if(err){
                 return cb(err, null);
             }

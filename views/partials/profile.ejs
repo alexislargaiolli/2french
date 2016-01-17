@@ -40,13 +40,14 @@
 								</span>
                                 <hr/>
                                 <div class="row optionList">
-                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 {{f.icon}}" ng-repeat="f in profile.formations">
-                                        {{f.name[currentLocale]}}
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" ng-repeat="f in profile.formations">
+                                        <span>{{f.name[currentLocale]}}</span>
                                     </div>
                                 </div>
                                 <div class="row optionList">
-                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 {{e.icon}}" ng-repeat="e in profile.extras">
-                                        {{e.name[currentLocale]}}
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" ng-repeat="e in profile.extras">
+                                        <span class="fa" ng-class="e.icon"></span>
+                                        <span>{{e.name[currentLocale]}}</span>
                                     </div>
                                 </div>
                             </div>
