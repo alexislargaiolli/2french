@@ -2,9 +2,9 @@ var tooFrenchControllers = angular.module('tooFrenchApp');
 /**
  * Controller behind planning view
  */
-tooFrenchControllers.controller('PlanningCtrl', ['$scope', 'Reservation', 'ContactService',
+tooFrenchControllers.controller('PlanningCtrl', ['$scope', 'Reservation', 'ContactService', '$stateParams', '$anchorScroll', '$location', '$timeout', '$document',
 
-    function ($scope, Reservation, ContactService) {
+    function ($scope, Reservation, ContactService, $stateParams, $anchorScroll, $location, $timeout, $document) {
         /**
          * Array of user reservations
          * @type {Array}
@@ -27,7 +27,7 @@ tooFrenchControllers.controller('PlanningCtrl', ['$scope', 'Reservation', 'Conta
          * Flag to show past or active reservation
          * @type {boolean}
          */
-        $scope.history = false;
+        $scope.history = $stateParams.history == 'true' ? true : false;
 
         /**
          * Message for contacting user
@@ -41,14 +41,15 @@ tooFrenchControllers.controller('PlanningCtrl', ['$scope', 'Reservation', 'Conta
         $scope.loginRequest.promise.then(function () {
             if ($scope.isTeacher) {
 
-                $scope.loadResa = function(history) {
+                $scope.loadResa = function (history) {
                     $scope.history = history;
                     $scope.loading = true;
                     $scope.resas = [];
                     Reservation.teacherResa(history ? history : null).then(function (resas) {
                         $scope.resas = resas;
                         $scope.loading = false;
-                    }, function(err){
+                        $scope.processParams();
+                    }, function (err) {
                         $scope.resas = [];
                         $scope.loading = false;
                     });
@@ -61,7 +62,7 @@ tooFrenchControllers.controller('PlanningCtrl', ['$scope', 'Reservation', 'Conta
                 }
             }
             else {
-                $scope.loadResa = function(history) {
+                $scope.loadResa = function (history) {
                     $scope.history = history;
                     $scope.loading = true;
                     $scope.resas = [];
@@ -72,13 +73,28 @@ tooFrenchControllers.controller('PlanningCtrl', ['$scope', 'Reservation', 'Conta
                             var d = new Date($scope.resas[i].date);
                             $scope.resas[i].done = d < $scope.todayDate;
                         }
-                    }, function(){
+                        $scope.processParams();
+                    }, function () {
                         $scope.loading = false;
                         $scope.resas = [];
                     });
                 }
             }
-            $scope.loadResa(false);
+            $scope.loadResa($scope.history);
+
+            $scope.processParams = function () {
+                if ($stateParams.resaId) {
+                    $scope.goToResa($stateParams.resaId);
+                }
+            }
+
+            $scope.goToResa = function (resaId) {
+                $timeout(function(){
+                    var eltId = 'resa_' + resaId;
+                    var resaElt = angular.element(document.getElementById(eltId));
+                    $document.scrollToElementAnimated(resaElt);
+                },300);
+            }
 
             /**
              * Cancel a reservation
@@ -90,15 +106,15 @@ tooFrenchControllers.controller('PlanningCtrl', ['$scope', 'Reservation', 'Conta
                 });
             }
 
-            $scope.setUserToContact = function(profileId, recipientName){
+            $scope.setUserToContact = function (profileId, recipientName) {
                 $scope.message.recipient = profileId;
                 $scope.message.content = "";
                 $scope.message.recipientName = recipientName;
                 angular.element('#contactDlg').modal('show');
             }
 
-            $scope.sendMessage = function(){
-                ContactService.sendMessage($scope.message.content, $scope.message.recipient, function(){
+            $scope.sendMessage = function () {
+                ContactService.sendMessage($scope.message.content, $scope.message.recipient, function () {
                     angular.element('#contactDlg').modal('hide');
                 });
             }

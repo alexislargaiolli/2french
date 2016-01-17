@@ -99,27 +99,11 @@ module.exports = {
     },
 
     teacherReviews: function (req, res) {
-        Review.find({
-            where: {teacher: req.allParams().teacherId},
-            select: ['mark', 'comment', 'student']
-        }).exec(function (err, reviews) {
+        Profile.getTeacherReview(req.allParams().teacherId, function(err, reviews){
             if (err) {
                 return res.serverError(err);
             }
-            reviews.forEach(function (review, index) {
-                Profile.findOne({
-                    where: {id: review.student},
-                    select: ['firstname', 'photo']
-                }).exec(function (err, student) {
-                    if (err) {
-                        return res.serverError(err);
-                    }
-                    reviews[index].student = student;
-                    if (index === reviews.length - 1) {
-                        res.send(reviews);
-                    }
-                });
-            });
+            return res.send(200, reviews);
         });
     }
 };

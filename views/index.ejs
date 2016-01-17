@@ -139,22 +139,24 @@
 
 
 <!--[if lt IE 7]>
-<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade
-    your browser</a> to improve your experience.</p>
-<![endif]-->
+<p class="browsehappy">You are using an <strong>outdated</strong> browser. Please
+    <a href="http://browsehappy.com/">upgrade your browser</a>
+    to improve your experience.
+</p><![endif]-->
 <!-- Add your site or application content here -->
 
 <nav id="header" class="navbar navbar-default" role="navigation">
     <div class="container">
         <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
-                    data-target="#bs-example-navbar-collapse-1">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a id="logo" class="navbar-brand" ui-sref="home"><img src="images/logo.png"></a>
+            <a id="logo" class="navbar-brand" ui-sref="home">
+                <img src="images/logo.png">
+            </a>
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
@@ -168,21 +170,35 @@
                     <a ui-sref="teach" class="basic-link" ui-sref-active="active">{{'header.teach' | translate}}</a>
                 </li>
                 <li>
-                    <a ui-sref="forum" id="link-forum" class="basic-link" ui-sref-active="active"
-                       ng-if="session.authenticated">{{'header.forum' | translate}}</a>
+                    <a ui-sref="forum" id="link-forum" class="basic-link" ui-sref-active="active" ng-if="session.authenticated">
+                        {{'header.forum' | translate}}
+                    </a>
                 </li>
                 <li>
-                    <a id="menuAdminBtn" ui-sref="admin" class="basic-link" ui-sref-active="active" ng-if="isAdmin">{{'header.admin' |
-                        translate}}</a>
+                    <a id="menuAdminBtn" ui-sref="admin" class="basic-link" ui-sref-active="active" ng-if="isAdmin">
+                        {{'header.admin' | translate}}
+                    </a>
                 </li>
                 <li class="dropdown" ng-controller="TranslateCtrl">
-                    <a id="current-language" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                       aria-expanded="false"><img ng-src="images/languages/{{currentLocale}}.png"/><span
-                                class="caret"></span></a>
+                    <a id="current-language" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <img ng-src="images/languages/{{currentLocale}}.png"/><span class="caret"></span>
+                    </a>
                     <ul id="language-dropdown" class="dropdown-menu" role="menu">
-                        <li><a ng-click="changeLanguage('fr')"><img src="images/languages/fr.png"/></a></li>
-                        <li><a ng-click="changeLanguage('en')"><img src="images/languages/en.png"/></a></li>
-                        <li><a ng-click="changeLanguage('es')"><img src="images/languages/es.png"/></a></li>
+                        <li>
+                            <a ng-click="changeLanguage('fr')">
+                                <img src="images/languages/fr.png"/>
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="changeLanguage('en')">
+                                <img src="images/languages/en.png"/>
+                            </a>
+                        </li>
+                        <li>
+                            <a ng-click="changeLanguage('es')">
+                                <img src="images/languages/es.png"/>
+                            </a>
+                        </li>
                     </ul>
                 </li>
             </ul>
@@ -199,6 +215,30 @@
 
                 <!-- AUTHENTICATED HEADER PANEL -->
                 <ul id="user-menu" class="nav navbar-nav navbar-right" ng-if="session.authenticated">
+                    <li ng-controller="NotificationCtrl">
+                        <a id="dropdownNotification" ng-click="loadNotif()" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <span class="badge">{{notifCount}}</span>
+                        </a>
+
+                        <ul id="notif-container" aria-labelledby="dropdownNotification" class="dropdown-menu">
+                           <li ng-if="notificationLoading">
+                               <span class="fa fa-circle-o-notch fa-spin"></span>
+                           </li>
+                            <li ng-repeat="notif in notifications" class="notif-wrapper">
+                                <a ng-click="onNotifClick(notif)">
+                                    <span class="fa fa-envelope-o" ng-if="notif.type == 'message'"></span>
+                                    <span ng-if="notif.type == 'message'">{{'notification.message.label' | translate}} {{notif.interlocutor}}</span>
+
+                                    <span class="fa fa-pencil-square-o" ng-if="notif.type == 'resa'"></span>
+                                    <span ng-if="notif.type == 'resa'">{{'notification.reservation.' + notif.status + '.label' | translate}}</span>
+
+                                    <span class="fa fa-comment-o" ng-if="notif.type == 'forum'"></span>
+                                    <span ng-if="notif.type == 'forum'">{{'notification.reservation.forum.label' | translate}}</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                     <li ng-if="isStudent">
                         <a id="link-myteachers" ui-sref="myteachers" title="{{'myteachers.title' | translate}}">
                             <i class="fa fa-star"></i>
@@ -207,32 +247,33 @@
                     <li>
                         <a ui-sref="planning" id="link-planning" title="{{'planning.title' | translate}}">
                             <i class="fa fa-pencil-square-o"></i>
-                            <span class="badge" ng-show="notificationResaCount > 0">{{notificationResaCount}}</span>
                         </a>
                     </li>
                     <li>
                         <a ui-sref="messagerie" id="link-message" title="{{'messagerie.title' | translate}}">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="badge"
-                                  ng-show="notificationMessageCount > 0">{{notificationMessageCount}}</span>
                         </a>
                     </li>
                     <li>
                         <a ui-sref="myprofile" id="link-myprofile" title="{{'myprofile.title' | translate}}">
-                            <img id="user-menu-photo" ng-src="{{session.profile.photo}}"
-                                 ng-show="session.profile && session.profile.photo"/>
-                            <i id="user-menu-photo-icon" class="fa fa-user"
-                               ng-show="!session.profile || !session.profile.photo"></i>
+                            <img id="user-menu-photo" ng-src="{{session.profile.photo}}" ng-show="session.profile && session.profile.photo"/>
+                            <i id="user-menu-photo-icon" class="fa fa-user" ng-show="!session.profile || !session.profile.photo"></i>
                         </a>
                     </li>
                     <li class="dropdown">
-                        <a  id="user-menu-dropdown" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                            <span class="caret"></span></a>
+                        <a id="user-menu-dropdown" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                            <span class="caret"></span>
+                        </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a ui-sref="myprofile">{{'header.myprofile' | translate}}</a></li>
-                            <li><a ui-sref="parameters.notifications">{{'header.parameters' | translate}}</a></li>
+                            <li>
+                                <a ui-sref="myprofile">{{'header.myprofile' | translate}}</a>
+                            </li>
+                            <li>
+                                <a ui-sref="parameters.notifications">{{'header.parameters' | translate}}</a>
+                            </li>
                             <li role="separator" class="divider"></li>
-                            <li ng-controller="LoginCtrl"><a id="logoutBtn" ng-click="logout()">{{'header.logout' | translate}}</a>
+                            <li ng-controller="LoginCtrl">
+                                <a id="logoutBtn" ng-click="logout()">{{'header.logout' | translate}}</a>
                             </li>
                         </ul>
                     </li>
@@ -243,11 +284,11 @@
 
 
     <!-- DIPLOMA ALERT -->
-    <div id="alert-diploma"
-         ng-if="session.authenticated && isTeacher && !session.diploma.diplomaValidated && currentState != 'myprofile'">
+    <div id="alert-diploma" ng-if="session.authenticated && isTeacher && !session.diploma.diplomaValidated && currentState != 'myprofile'">
         <div class="container center">
-            <span ng-if="!session.diploma.diplomaUploaded && ! session.diploma.diplomaValidated">{{'diploma.not.uploaded' | translate}} <a
-                        ui-sref="myprofile">{{'diploma.not.uploaded.link' | translate}}</a></span>
+            <span ng-if="!session.diploma.diplomaUploaded && ! session.diploma.diplomaValidated">{{'diploma.not.uploaded' | translate}} <a ui-sref="myprofile">
+                    {{'diploma.not.uploaded.link' | translate}}
+                </a></span>
             <span ng-if="session.diploma.diplomaUploaded && ! session.diploma.diplomaValidated">{{'diploma.label.validating' | translate}}</span>
         </div>
     </div>
@@ -263,25 +304,25 @@
 
 
                             <!-- Show dipo button -->
-                            <button id="search-calendar" class="btn btn-default dropdown-toggle" type="button"
-                                    data-toggle="dropdown" aria-expanded="false">
-                                <span class="fa fa-calendar"></span> <span class="hidden-xs hidden-sm">{{'search.dispo' | translate}}</span>
+                            <button id="search-calendar" class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown" aria-expanded="false">
+                                <span class="fa fa-calendar"></span>
+                                <span class="hidden-xs hidden-sm">{{'search.dispo' | translate}}</span>
                             </button>
 
 
                             <!-- Disponibilities -->
                             <div id="search-date-wrapper" class="dropdown-menu" role="menu">
                                 <div>
-                                    <multiple-date-picker class="without-select" day-click="onDayClick"
-                                                          highlight-days="schedules[scheduleIndex].undispos"
-                                                          month-changed="onMonthChanged"/>
+                                    <multiple-date-picker class="without-select" day-click="onDayClick" highlight-days="schedules[scheduleIndex].undispos" month-changed="onMonthChanged"/>
                                 </div>
                                 <div id="schedule-legend">
                                     <div class="left p-10">
-                                        <img src="../images/am.png" class="legend-images"><span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
+                                        <img src="../images/am.png" class="legend-images">
+                                        <span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
                                     </div>
                                     <div class="left p-10">
-                                        <img src="../images/pm.png" class="legend-images pm"><span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
+                                        <img src="../images/pm.png" class="legend-images pm">
+                                        <span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
                                     </div>
                                     <div class="left p-10">
                                         <div class="legend-images day"></div>
@@ -297,9 +338,7 @@
                 <!-- Search by city input field -->
                 <div class="col-xs-8 col-sm-7 col-md-7 col-lg-7">
                     <div class="form-group">
-                        <input id="search-text" type="text" class="form-control" g-places-autocomplete ng-model="city"
-                               placeholder="{{'search.city' | translate}}" options="optionsCity" force-selection="true"
-                               required="true"/>
+                        <input id="search-text" type="text" class="form-control" g-places-autocomplete ng-model="city" placeholder="{{'search.city' | translate}}" options="optionsCity" force-selection="true" required="true"/>
                     </div>
                 </div>
 
@@ -307,8 +346,8 @@
                 <!-- Search button -->
                 <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <div class="form-group">
-                        <button id="search-btn" type="submit" class="btn btn-default"><i
-                                    class="fa fa-search"></i></button>
+                        <button id="search-btn" type="submit" class="btn btn-default"><i class="fa fa-search"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -323,8 +362,8 @@
 
         <div id="first-row" class="row">
             <div class="hidden-xs col-sm-4 col-md-4 col-lg-4 left">
-                <p id="cometsens">{{'footer.realisation' | translate}} <a href="http://www.comessence.net"
-                                                                          target="_blank">www.comessence.net</a>
+                <p id="cometsens">{{'footer.realisation' | translate}}
+                    <a href="http://www.comessence.net" target="_blank">www.comessence.net</a>
                 </p>
             </div>
             <div class="hidden-xs col-sm-4 col-md-4 col-lg-4 center">
@@ -337,7 +376,8 @@
 
             <!-- Extra small device footer -->
             <div class="visible-xs col-xs-12 center">
-                <p id="cometsens">Réalisation <a href="http://www.comessence.net" target="_blank">www.comessence.net</a>
+                <p id="cometsens">Réalisation
+                    <a href="http://www.comessence.net" target="_blank">www.comessence.net</a>
                 </p>
             </div>
             <div class="visible-xs col-xs-12 center">
@@ -385,8 +425,7 @@
 </script>
 <!--[if lt IE 9]>
 <script src="bower_components/es5-shim/es5-shim.js"></script>
-<script src="bower_components/json3/lib/json3.js"></script>
-<![endif]-->
+<script src="bower_components/json3/lib/json3.js"></script><![endif]-->
 
 
 <!--SCRIPTS VENDORS-->
@@ -431,6 +470,7 @@
 <script src='bower_components/angular-aria/angular-aria.js'></script>
 <script src='bower_components/angular-animate/angular-animate.js'></script>
 <script src='bower_components/angular-material/angular-material.js'></script>
+<script src='bower_components/angular-scroll/angular-scroll.js'></script>
 <!--SCRIPTS VENDORS END-->
 
 <script src='bower_components/textAngular/dist/textAngular-rangy.min.js'></script>
@@ -470,6 +510,7 @@
 <script src="/js/controllers/main.js"></script>
 <script src="/js/controllers/messagerie.js"></script>
 <script src="/js/controllers/myprofile.js"></script>
+<script src="/js/controllers/notification.js"></script>
 <script src="/js/controllers/parameters/parametersNotifications.js"></script>
 <script src="/js/controllers/parameters/parametersPassword.js"></script>
 <script src="/js/controllers/planning.js"></script>

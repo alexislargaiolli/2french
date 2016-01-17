@@ -2,46 +2,15 @@
  * Created by alex on 15/11/15.
  */
 var tooFrenchServices = angular.module('tooFrenchApp');
-tooFrenchServices.factory('Notification', ['$resource', '$http', '$rootScope', 'Session', '$timeout', 'NOTIFICATION_EVENTS', '$interval',
-    function ($resource, $http, $rootScope, Session, $timeout, NOTIFICATION_EVENTS, $interval) {
+tooFrenchServices.factory('Notification', ['$resource', '$http', '$rootScope', 'Session', '$timeout', '$interval',
+    function ($resource, $http, $rootScope, Session, $timeout, $interval) {
         return {
-            notifications: new Array(),
-            init: function () {
-                $rootScope.notification = this;
-                this.notifications = [];
-                this.notifications['resa'] = [];
-                this.notifications['message'] = [];
-                $rootScope.notificationResaCount = 0;
-                $rootScope.notificationMessageCount = 0;
-
-                $interval(this.update, 5000);
-            },
             getResource: function () {
-                return $resource('/notification/:id', {id: '@id'}, {'update': {method: 'PUT'}});
-            },
-            update: function () {
-                if (Session.authenticated) {
-                    $http.get('/notification/unseen', {params: {type: 'resa'}}).success(function (data, status, headers, config) {
-                        $rootScope.notification.setResaNotification(data);
-                        $rootScope.notificationResaCount = data.length;
-                        $rootScope.$broadcast(NOTIFICATION_EVENTS.resaUpdate, {count: data.length});
-                        //$timeout($rootScope.notification.update, 5000);
-                    }).error(function (data, status, headers, config) {
-                        if(status > 0 && status != 401) {
-                            $rootScope.notification.setResaNotification([]);
-                            $rootScope.notificationResaCount = 0;
-                            //$timeout($rootScope.notification.update, 15000);
-                        }
-                    });
-                    $http.get('/notification/unseen', {params: {type: 'message'}}).success(function (data, status, headers, config) {
-                        $rootScope.notification.setMessageNotification(data);
-                        $rootScope.notificationMessageCount = data.length;
-                        $rootScope.$broadcast(NOTIFICATION_EVENTS.messageUpdate, {count: data.length});
-                    }).error(function (data, status, headers, config) {
-                        $rootScope.notification.setMessageNotification([]);
-                        $rootScope.notificationMessageCount = 0;
-                    });
-                }
+                return $resource('/notification/:id', {id: '@id'}, {
+                    'update': {method: 'PUT'},
+                    'unseen': {method: 'GET', url: '/notification/unseen', isArray : true},
+                    'unseenCount':{method: 'GET', url: '/notification/unseenCount'},
+                });
             },
             getResaCount: function () {
                 if (this.notifications['resa']) {
@@ -61,10 +30,10 @@ tooFrenchServices.factory('Notification', ['$resource', '$http', '$rootScope', '
             setMessageNotification: function (notifs) {
                 this.notifications['message'] = notifs;
             },
-            getConversationNoificationCount: function(convId){
+            getConversationNoificationCount: function (convId) {
                 var count = 0;
-                for(var i =0; i<this.notifications['message'].length; i++){
-                    if(this.notifications['message'][i].conversation == convId){
+                for (var i = 0; i < this.notifications['message'].length; i++) {
+                    if (this.notifications['message'][i].conversation == convId) {
                         count++;
                     }
                 }

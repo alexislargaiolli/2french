@@ -115,7 +115,7 @@ module.exports = {
     setAsRead: function (req, res) {
         var conversationId = req.allParams().conversationId;
         Conversation.findOne({id: conversationId}).exec(function (err, conversation) {
-            if (err) {
+            if (err || !conversation) {
                 res.send(500, "Error while fetching conversation");
             }
             else if (conversation.owner != req.user.id) {

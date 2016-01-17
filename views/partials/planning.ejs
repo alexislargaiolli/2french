@@ -5,17 +5,17 @@
 </div>
 <div id="planningContainer" class="container">
     <ul class="nav nav-pills vm-10">
-        <li role="presentation" ng-class="{active : !history}">
+        <li role="presentation" ng-class="{active : history == false}">
             <a ng-click="loadResa(false)">{{'planning.menu.actual' | translate}}</a>
         </li>
-        <li role="presentation" ng-class="{active : history}">
+        <li role="presentation" ng-class="{active : history == true}">
             <a ng-click="loadResa(true)">{{'planning.menu.history' | translate}}</a>
         </li>
     </ul>
 
 
     <!-- Teacher reservations -->
-    <div class="resa-item row" ng-repeat="resa in resas" ng-if="isTeacher && !loading">
+    <div id="resa_{{resa.id}}" class="resa-item row" ng-repeat="resa in resas" ng-if="isTeacher && !loading">
         <div class="col-md-7 col-lg-7">
 
             <div class="profilePhoto">

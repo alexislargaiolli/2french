@@ -490,5 +490,12 @@
   "myprofile.language.en":"Profil anglais",
   "myprofile.language.es":"Profil espagnol",
 
-  "search.contact.content.placeholder" : "Saisissez votre message..."
+  "search.contact.content.placeholder" : "Saisissez votre message...",
+
+  "notification.message.label":"Nouveau message de ",
+  "notification.reservation.pending.label":"Nouvelle reservation",
+  "notification.reservation.validated.label":"Réservation validée",
+  "notification.reservation.refused.label":"Réservation refusée",
+  "notification.reservation.canceled.label":"Réservation annulée",
+  "notification.reservation.forum.label":"Nouveau commentaire dans le forum"
 }

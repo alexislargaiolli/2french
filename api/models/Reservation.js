@@ -40,7 +40,10 @@ module.exports = {
         },
 
         isDone : function(){
-            return this.status == 'validated' && this.date < new Date();
+            return this.status == 'validated' && this.isOver();
+        },
+        isOver : function () {
+            return this.date < new Date();
         }
     },
 

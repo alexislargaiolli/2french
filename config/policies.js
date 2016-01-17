@@ -26,7 +26,7 @@ module.exports.policies = {
   *                                                                          *
   ***************************************************************************/
 
-  '*': [ 'passport' ],
+  '*': [ 'passport', 'localize' ],
 
   UserController : {
     '*' : [ 'passport', 'sessionAuth', 'admin'],
@@ -139,7 +139,8 @@ module.exports.policies = {
   },
   NotificationController : {
     '*':[ 'passport', 'sessionAuth', 'admin'],
-    'unseen': ['passport', 'sessionAuth']
+    'unseen': ['passport', 'sessionAuth'],
+    'unseenCount': ['passport', 'sessionAuth']
   }
 
   /***************************************************************************

@@ -34,7 +34,8 @@ var tooFrenchApp = angular.module('tooFrenchApp', [
     'tmh.dynamicLocale',
     'textAngular',
     'ngMaterial',
-    'angular-svg-round-progress'
+    'angular-svg-round-progress',
+    'duScroll'
 ]);
 
 
@@ -333,7 +334,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
                 controller: 'RecommandationCtrl'
             })
             .state('messagerie', {
-                url: '/messagerie',
+                url: '/messagerie/:conversationId',
                 templateUrl: 'views/messagerie.html' + version,
                 controller: 'MessagerieCtrl',
                 data: {
@@ -341,7 +342,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
                 }
             })
             .state('planning', {
-                url: '/planning',
+                url: '/planning/:history/:resaId',
                 templateUrl: 'views/planning.html' + version,
                 controller: 'PlanningCtrl',
                 data: {
@@ -433,8 +434,8 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
 );
 
 
-tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache', 'Session', 'Messagerie', '$timeout', 'Reservation', 'Tour', 'Notification', 'UserFavList', 'tmhDynamicLocale', 'taOptions',
-    function ($rootScope, $state, $window, AUTH_EVENTS, AuthService, editableOptions, $templateCache, Session, Messagerie, $timeout, Reservation, Tour, Notification, UserFavList, tmhDynamicLocale, taOptions) {
+tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService', 'editableOptions', '$templateCache', 'Session', 'Messagerie', '$timeout', 'Reservation', 'Tour', 'UserFavList', 'tmhDynamicLocale', 'taOptions',
+    function ($rootScope, $state, $window, AUTH_EVENTS, AuthService, editableOptions, $templateCache, Session, Messagerie, $timeout, Reservation, Tour, UserFavList, tmhDynamicLocale, taOptions) {
         editableOptions.theme = 'bs3';
         taOptions.defaultTagAttributes.a.target = '_blank';
 
@@ -521,7 +522,6 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
         }
 
         $rootScope.$on(AUTH_EVENTS.loginSuccess, function (event, args) {
-            Notification.init();
             $rootScope.userfavlist.initialize();
             if (!$rootScope.session.user.tour) {
                 if ($rootScope.isTeacher) {
