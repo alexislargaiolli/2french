@@ -50,12 +50,7 @@ module.exports = function (grunt) {
                 '31_anim-in-out.js': 'angular-ui-router-anim-in-out/anim-in-out.js',
                 '32_angular-bootstarp-lightbox.js': 'angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js',
                 '33_angular-carousel.js': 'angular-carousel/dist/angular-carousel.js',
-                '34_roundProgress.js': 'angular-svg-round-progressbar/build/roundProgress.js',
-                '35_multipleDatePicker.js': '../libs/multiple-date-picker/multipleDatePicker.js',
-                '36_angular-recaptcha.js': 'angular-recaptcha/release/angular-recaptcha.js',
-                '40_angular-aria.js': 'angular-aria/angular-aria.js',
-                '41_angular-animate.js': 'angular-animate/angular-animate.js',
-                '42_angular-material.js': 'angular-material/angular-material.js'
+                '34_roundProgress.js': 'angular-svg-round-progressbar/build/roundProgress.js'
             }
         },
         cssLibs: {
