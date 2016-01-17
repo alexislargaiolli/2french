@@ -4,7 +4,7 @@
 var should = require('should');
 describe('Notification', function () {
     var notif;
-    beforeEach(function(done) {
+    before(function(done) {
         Notification.findOne(1).exec(function(err, n){
             notif = n;
             done();
