@@ -217,11 +217,11 @@
                 <!-- AUTHENTICATED HEADER PANEL -->
                 <ul id="user-menu" class="nav navbar-nav navbar-right" ng-if="session.authenticated">
                     <li ng-controller="NotificationCtrl">
-                        <a id="dropdownNotification" ng-click="loadNotif()" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <a ng-if="notifications.length > 0" id="dropdownNotification" ng-click="loadNotif()" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <span class="badge">{{notifCount}}</span>
                         </a>
 
-                        <ul id="notif-container" aria-labelledby="dropdownNotification" class="dropdown-menu">
+                        <ul ng-if="notifications.length > 0" id="notif-container" aria-labelledby="dropdownNotification" class="dropdown-menu">
                             <li ng-repeat="notif in notifications" class="notif-wrapper" ng-class="{unseen : notif.seen == false}">
                                 <a ng-click="onNotifClick(notif)">
                                     <span class="fa fa-envelope-o" ng-if="notif.type == 'message'"></span>
