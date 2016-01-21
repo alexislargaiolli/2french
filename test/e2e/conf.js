@@ -94,7 +94,7 @@ exports.config = {
                     sails.log.error(err);
                     return deferred.reject();
                 }
-                barrels.populate(['passport', 'formation', 'profile', 'diploma'],function(err) {
+                barrels.populate(['passport', 'formation', 'profile', 'diploma', 'reservation','review', 'postcategory', 'post', 'conversation', 'notification'],function(err) {
                     if(err){
                         sails.log.error(err);
                         return deferred.reject();
