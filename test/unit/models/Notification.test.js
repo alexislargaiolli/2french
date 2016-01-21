@@ -13,8 +13,8 @@ describe('Notification', function () {
 
     describe('#processConversation()', function () {
         it('should load interlocutor of notification', function (done) {
-            Notification.processConversation(notif, function(err){
-                should.equal(notif.interlocutor, "test2");
+            Notification.processConversation(notif, function(err, n){
+                should.equal(n.interlocutor, "test2");
                 done();
             });
         });
