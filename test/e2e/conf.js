@@ -99,9 +99,6 @@ exports.config = {
                         sails.log.error(err);
                         return deferred.reject();
                     }
-                    Profile.find().exec(function(err, profiles){
-                        sails.log.debug(profiles[3].id);
-                    });
                     deferred.resolve();
                 }, false);
             },false);
