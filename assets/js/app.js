@@ -492,16 +492,8 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
         $(window).resize(function () {
             $rootScope.$apply(function () {
                 $rootScope.updateFooter(window.innerHeight);
-                if ($rootScope.currentState == 'home') {
-                    $rootScope.updateCarousel();
-                }
             });
         });
-
-        $rootScope.updateCarousel = function () {
-            var h = angular.element('.carousel-image').height();
-            angular.element('#homeCarousel').height(h);
-        }
 
         $rootScope.$watch(function () {
             return $window.innerHeight;

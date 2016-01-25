@@ -18,10 +18,4 @@ ctrl.controller('HomeCtrl', ['$scope', '$rootScope', '$timeout', function ($scop
     }, {
         image: 'https://res.cloudinary.com/hmn3vaygs/image/upload/v1440947479/diapo3_atnrof.jpg'
     }];
-
-    angular.element(document).ready(function () {
-        $timeout(function(){
-            $rootScope.updateCarousel();
-        }, 200);
-    });
 }]);

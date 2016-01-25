@@ -2,15 +2,11 @@
     <div id="home-header" ng-controller="HomeCtrl">
         <ul id="homeCarousel" rn-carousel class="image" rn-carousel-auto-slide rn-carousel-transition="fadeAndSlide" rn-carousel-easing="easeOutQuad" rn-carousel-duration="600" rn-carousel-controls-allow-loop="true">
             <li ng-repeat="slide in slides">
-                <img class="carousel-image" ng-src="{{slide.image}}"/>
-                <div class="carousel-caption">
-                    <p>
-                        {{'home.carousel.caption' | translate}}
-                    </p>
-
-                    <p>
-                        {{'home.carousel.caption2' | translate}}
-                    </p>
+                <div class="bgimage" ng-style="{'background-image': 'url(' + slide.image + ')'}">
+                    <div class="carousel-caption">
+                        <p>{{'home.carousel.caption' | translate}} </p>
+                        <p>{{'home.carousel.caption2' | translate}} </p>
+                    </div>
                 </div>
             </li>
         </ul>
@@ -22,8 +18,7 @@
         <div class="row">
             <div id="container-learn" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="row">
-                    <div class="hidden-xs col-sm-3 col-md-3 col-lg-3">
-                    </div>
+                    <div class="hidden-xs col-sm-3 col-md-3 col-lg-3"></div>
                     <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
                         <h2>{{'home.learn.title' | translate}}</h2>
                     </div>
@@ -43,16 +38,15 @@
 
                     </div>
                     <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
-                        <button type="button" ui-sref="learn" class="btn btn-default blue-btn center-block"><i
-                                class="fa fa-plus"></i>{{'home.teach.btn.info' | translate}}
+                        <button type="button" ui-sref="learn" class="btn btn-default blue-btn center-block">
+                            <i class="fa fa-plus"></i>{{'home.teach.btn.info' | translate}}
                         </button>
                     </div>
                 </div>
             </div>
             <div id="container-teach" class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
                 <div class="row">
-                    <div class="hidden-xs col-sm-3 col-md-3 col-lg-3">
-                    </div>
+                    <div class="hidden-xs col-sm-3 col-md-3 col-lg-3"></div>
                     <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
                         <h2>{{'home.teach.title' | translate}}</h2>
                     </div>
@@ -72,8 +66,8 @@
 
                     </div>
                     <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
-                        <button type="button" ui-sref="teach" class="btn btn-default blue-btn center-block"><i
-                                class="fa fa-plus"></i>{{'home.teach.btn.info' | translate}}
+                        <button type="button" ui-sref="teach" class="btn btn-default blue-btn center-block">
+                            <i class="fa fa-plus"></i>{{'home.teach.btn.info' | translate}}
                         </button>
                     </div>
                 </div>
@@ -88,8 +82,8 @@
 
             <h3>{{'home.concept.subtitle' | translate}}</h3>
 
-            <button id="register-btn" type="button" class="btn btn-default green-btn center-block" ui-sref="register"
-                    ng-if="!session.authenticated">{{'home.concept.button' | translate}}
+            <button id="register-btn" type="button" class="btn btn-default green-btn center-block" ui-sref="register" ng-if="!session.authenticated">
+                {{'home.concept.button' | translate}}
             </button>
         </div>
     </div>
