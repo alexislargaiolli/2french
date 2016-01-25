@@ -8,7 +8,7 @@
  * for matching multiple files.)
  */
 
-var version  = "0-1-1";
+var version  = "1.0.6";
 
 // CSS files to inject in order
 //
