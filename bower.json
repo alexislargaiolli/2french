@@ -21,7 +21,7 @@
     "cloudinary_ng": "~0.1.2",
     "cloudinary_js": "~1.0.23",
     "angular-ui-select": "~0.13.2",
-    "angular-bootstrap": "~1.1.1",
+    "angular-bootstrap": "~1.1.2",
     "angular-google-places-autocomplete": "https://github.com/Medycation/angular-google-places-autocomplete.git#7c5ad7a2905b795ca9409a0c53ba3d1a4eabd6ff",
     "ng-img-crop": "~0.3.2",
     "lodash": "~3.7.0",
@@ -52,7 +52,7 @@
     "angular": "~1.4.x",
     "lodash": "~3.7.0",
     "moment": "~2.10.2",
-    "angular-bootstrap": "~0.12.1",
+    "angular-bootstrap": "~1.1.2",
     "angular-animate": "~1.4.x",
     "bootstrap": "^3.2.0",
     "jquery": "~2.0.3"

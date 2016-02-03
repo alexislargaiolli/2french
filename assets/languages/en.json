@@ -412,6 +412,132 @@
 "faq.student.4.awnser" : "<p>It may be that you are no longer able to attend your courses for personal reasons. In this case, you should contact your teacher and cancel your reservation.</p>",
 
 
-"whoarewe.content" : "<p>Learn or teach French where you want, when you want, and how you want!</p><p>We are two French teachers from Montpellier. After our experiences teaching abroad and in France, we are committed to finding the best solutions for both students and teachers.</p><p>So we thought about helping people to get directly in touch with each other so that everyone can find what they want, at the right price, with the right working and studying conditions, according to their interests and preferred methods.</p><p>The concept is simple: the teacher proposes the classes he wants to teach, the student chooses the class that he wants according to his location and linguistic needs. TooFrench allows students to contact teachers to adapt the classes according to their availability and expectations.</p><p>It’s our goal to unite the maximum number of teachers with the maximum number of students in France and around the world and to become an international, diverse, and personalized platform for French language education </p><p>The quality of your experience is guaranteed because every teacher’s diplomas are verified by the TooFrench team. Your comments and feedback also help to ensure the teachers meet the TooFrench standard. </p><p>Let’s play!</p>"
+"whoarewe.content" : "<p>Learn or teach French where you want, when you want, and how you want!</p><p>We are two French teachers from Montpellier. After our experiences teaching abroad and in France, we are committed to finding the best solutions for both students and teachers.</p><p>So we thought about helping people to get directly in touch with each other so that everyone can find what they want, at the right price, with the right working and studying conditions, according to their interests and preferred methods.</p><p>The concept is simple: the teacher proposes the classes he wants to teach, the student chooses the class that he wants according to his location and linguistic needs. TooFrench allows students to contact teachers to adapt the classes according to their availability and expectations.</p><p>It’s our goal to unite the maximum number of teachers with the maximum number of students in France and around the world and to become an international, diverse, and personalized platform for French language education </p><p>The quality of your experience is guaranteed because every teacher’s diplomas are verified by the TooFrench team. Your comments and feedback also help to ensure the teachers meet the TooFrench standard. </p><p>Let’s play!</p>",
+
+  "planning.reservations.add.review": "Give us your opinion",
+
+  "add.review.title": "Share your opinion with the TooFrench community on ",
+
+  "add.review.mark.label":"How would you rate your teacher's performance ?",
+
+  "add.review.mark.required.message":"Make an evaluation",
+
+  "add.review.comment.label":"Your opinion is important, share it with others members :",
+
+  "add.review.comment.placeholder":"Tell us about your experience ? (punctuality, quality etc.) ? Would you recommend this member ?",
+
+  "add.review.comment.required":"Write a message",
+
+  "add.review.submit":"Confirm",
+
+  "add.review.message.success":"Your opinion has been taken into account.",
+
+  "add.review.message.back.btn":"Back",
+
+  "profile.teacher.reviews.title":"Comments received",
+
+  "profile.teacher.reviews.empty":"No review",
+
+  "myprofile.validation.message":"Compulsory fields to appear in the search engine .",
+
+  "myprofile.accomodation.equipements.select" : "Select equipments",
+
+  "myprofile.calendar.legend.unvalailable" : "Unavailable",
+
+  "parameters.menu.notif":"Notifications",
+
+  "parameters.menu.password":"Password",
+
+  "parameters.notif.title":"Notification settings",
+
+  "parameters.notif.subtitle":"Would you like to receive an email notication when",
+
+  "parameters.notif.newResa":"You receive a reservation request",
+
+  "parameters.notif.newResa.student":"You make a reservation request",
+
+  "parameters.notif.resaValidated":"A reservation has been confirmed",
+
+  "parameters.notif.resaRefused":"A reservation has been denied",
+
+  "parameters.notif.resaCanceled":"A reservation has been canceled",
+
+  "parameters.notif.newMessage":"You receive a new message",
+
+  "parameters.notif.reviewToAdd":"Would you like to post a new comment",
+
+  "parameters.notif.reviewAdded":"A review has been sent",
+
+  "parameters.notif.save":"Save",
+
+  "parameters.password.validate":"Change your password",
+
+  "parameters.password.dont.match":"The confirmation password does not correspond to the password.",
+
+  "parameters.password.old":"Enter your password",
+
+  "parameters.password.new":"New password",
+
+  "parameters.password.confirm":"Confirm your password",
+
+  "parameters.password.title":"Change your password",
+
+  "header.forgottenPassword":"Password forgotten?",
+
+  "forgotten.password.title":"Password recovery",
+
+  "forgotten.password.info":"Password recovery",
+
+  "forgotten.password.email.label":"E­mail address",
+
+  "forgotten.password.email.placeholder":"example@gmail.com",
+
+  "forgotten.password.validate":"Confirm",
+
+  "reset.password.notoken":"The reset link is not valid or expired.",
+
+  "reset.password.label":"New password",
+
+  "reset.password.confirm.label":"Confirm password",
+
+  "reset.password.password.not.match":"The supplied password does not match.",
+
+  "reset.password.btn":"Change password",
+
+  "common.confirmation.title":"Confirm",
+
+  "post.remove.confirm.message" : "Are you sur you want to delete this comment ? Related comments as well as attachments will be removed.",
+
+  "post.comment.remove.confirm.message" : "Delete this comment ?",
+
+  "planning.menu.history" : "Internet history",
+
+  "planning.menu.actual" : "In progress",
+
+  "forum.create.post.title.validation.required" : "Submit a title",
+
+  "forum.create.post.category.validation.required" : "Select a category",
+
+  "forum.create.post.content.validation.required" : "Submit a content",
+
+  "myprofile.language.fr":"French",
+
+  "myprofile.language.en":"English",
+
+  "myprofile.language.es":"Spanish",
+
+  "search.contact.content.placeholder" : "Enter your message...",
+
+  "notification.message.label":"You've got a message from ",
+
+  "notification.reservation.pending.label":"New reservation",
+
+  "notification.reservation.validated.label":"Reservation confirmed",
+
+  "notification.reservation.refused.label":"Reservation denied",
+
+  "notification.reservation.canceled.label":"Reservation canceled",
+
+  "notification.reservation.forum.label":"New comment in the forum"
 
 }
