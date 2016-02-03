@@ -9,13 +9,13 @@
 
     <link rel="stylesheet" href="bower_components/components-font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css"/>
-    <link rel='stylesheet' href='/bower_components/textAngular/dist/textAngular.css'>
+    <link rel='stylesheet' href='bower_components/textAngular/dist/textAngular.css'>
     <!--STYLES VENDORS-->
     <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css">
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css"/>
     <link rel="stylesheet" href="bower_components/angular-google-places-autocomplete/src/autocomplete.css">
     <link rel="stylesheet" href="bower_components/ng-img-crop/compile/unminified/ng-img-crop.css">
-    <link rel="stylesheet" href="libs/multiple-date-picker/dist/multiple-date-picker.css">
+    <link rel="stylesheet" href="bower_components/MultipleDatePicker/dist/multiple-date-picker.css">
     <link rel="stylesheet" href="bower_components/v-accordion/dist/v-accordion.css"/>
     <link rel="stylesheet" href="bower_components/angular-ui-router-anim-in-out/css/anim-in-out.css"/>
     <link rel="stylesheet" href="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.css">
@@ -217,7 +217,7 @@
                 <!-- AUTHENTICATED HEADER PANEL -->
                 <ul id="user-menu" class="nav navbar-nav navbar-right" ng-if="session.authenticated">
                     <li ng-controller="NotificationCtrl">
-                        <a ng-if="notifications.length > 0" id="dropdownNotification" ng-click="loadNotif()" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <a ng-if="notifCount > 0" id="dropdownNotification" ng-click="loadNotif()" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <span class="badge">{{notifCount}}</span>
                         </a>
 
@@ -318,23 +318,7 @@
 
                             <!-- Disponibilities -->
                             <div id="search-date-wrapper" class="dropdown-menu" role="menu">
-                                <div>
-                                    <multiple-date-picker class="without-select" day-click="onDayClick" highlight-days="schedules[scheduleIndex].undispos" month-changed="onMonthChanged"/>
-                                </div>
-                                <div id="schedule-legend">
-                                    <div class="left p-10">
-                                        <img src="../images/am.png" class="legend-images">
-                                        <span class="legend-text">{{'myprofile.calendar.legend.am' | translate}}</span>
-                                    </div>
-                                    <div class="left p-10">
-                                        <img src="../images/pm.png" class="legend-images pm">
-                                        <span class="legend-text">{{'myprofile.calendar.legend.pm' | translate}}</span>
-                                    </div>
-                                    <div class="left p-10">
-                                        <div class="legend-images day"></div>
-                                        <span class="legend-text">{{'myprofile.calendar.legend.day' | translate}}</span>
-                                    </div>
-                                </div>
+                                <multiple-date-picker calendar-id="'searchCalendar'" disable-days-before="today" disallow-back-past-months="true" day-click="onDayClickSearch" class="without-select"/>
                             </div>
                         </div>
                     </div>
@@ -470,9 +454,9 @@
 <script src="bower_components/angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js"></script>
 <script src="bower_components/angular-carousel/dist/angular-carousel.js"></script>
 <script src="bower_components/angular-svg-round-progressbar/build/roundProgress.js"></script>
+<script src="libs/multipleDatePicker.js"></script>
 <!--SCRIPTS VENDORS END-->
 
-<script src="libs/multiple-date-picker/multipleDatePicker.js"></script>
 <script src="bower_components/angular-recaptcha/release/angular-recaptcha.js"></script>
 <script src='bower_components/angular-aria/angular-aria.js'></script>
 <script src='bower_components/angular-animate/angular-animate.js'></script>

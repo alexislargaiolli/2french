@@ -1,7 +1,7 @@
 var tooFrenchControllers = angular.module('tooFrenchApp');
-tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Session', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Extra', 'Service', 'FormationLevel', 'UserFavList', '$translate', '$upload', '$timeout', 'Lightbox', '$http', 'Tour', 'AUTH_EVENTS', 'Review',
+tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Session', 'uiGmapGoogleMapApi', 'uiGmapLogger', 'Profile', 'Formation', 'Equipment', 'Extra', 'Service', 'FormationLevel', 'UserFavList', '$translate', '$upload', '$timeout', 'Lightbox', '$http', 'Tour', 'AUTH_EVENTS', 'Review','multipleDatePickerBroadcast',
 
-    function ($rootScope, $scope, Session, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Extra, Service, FormationLevel, UserFavList, $translate, $upload, $timeout, Lightbox, $http, Tour, AUTH_EVENTS, Review) {
+    function ($rootScope, $scope, Session, uiGmapGoogleMapApi, uiGmapLogger, Profile, Formation, Equipment, Extra, Service, FormationLevel, UserFavList, $translate, $upload, $timeout, Lightbox, $http, Tour, AUTH_EVENTS, Review, multipleDatePickerBroadcast) {
 
 
         ////////////////////////////////////////////////////////////////////////////////////////////
@@ -388,26 +388,28 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
 
 
                 /* CALENDAR */
-                $scope.dayClick = function (event, date) {
+                $scope.profileDayClick = function (event, date) {
                     event.preventDefault() // prevent the select to happen
-                    var v = date.valueOf();
-                    var i = findUndispo(v);
-                    if (i == -1) {
-                        $scope.profile.schedules[$scope.scheduleIndex].undispos.push({date: v, css: 'pm'});
+                    if(date.selectable) {
+                        var v = date.valueOf();
+                        var i = findUndispo(v);
+                        if (i == -1) {
+                            $scope.profile.schedules[$scope.scheduleIndex].undispos.push({'date': v, 'css': 'pm', selectable :true});
+                        }
+                        else {
+                            var undispo = $scope.profile.schedules[$scope.scheduleIndex].undispos[i];
+                            if (undispo.css == 'pm') {
+                                $scope.profile.schedules[$scope.scheduleIndex].undispos[i].css = 'am';
+                            }
+                            else if (undispo.css == 'am') {
+                                $scope.profile.schedules[$scope.scheduleIndex].undispos[i].css = 'day';
+                            }
+                            else if (undispo.css == 'day') {
+                                $scope.profile.schedules[$scope.scheduleIndex].undispos.splice(i, 1);
+                            }
+                        }
+                        $scope.needSave = true;
                     }
-                    else {
-                        var undispo = $scope.profile.schedules[$scope.scheduleIndex].undispos[i];
-                        if (undispo.css == 'pm') {
-                            $scope.profile.schedules[$scope.scheduleIndex].undispos[i].css = 'am';
-                        }
-                        else if (undispo.css == 'am') {
-                            $scope.profile.schedules[$scope.scheduleIndex].undispos[i].css = 'day';
-                        }
-                        else if (undispo.css == 'day') {
-                            $scope.profile.schedules[$scope.scheduleIndex].undispos.splice(i, 1);
-                        }
-                    }
-                    $scope.needSave = true;
                 }
 
                 $scope.onMonthChanged = function (newMonth, oldMonth) {
@@ -418,6 +420,13 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                         $scope.scheduleIndex = $scope.profile.schedules.push(schedule) - 1;
                     }
                 };
+
+                /**
+                 * Update after locale change
+                 */
+                $rootScope.$on('$translateChangeSuccess', function () {
+                    multipleDatePickerBroadcast.localeChanged('myProfileCalendar');
+                });
 
             }
         });

@@ -47,7 +47,7 @@
                               <i class="fa fa-circle-o-notch fa-spin"></i>
                           </div>
                           <div ng-if="!scheduleLoading">
-                              <multiple-date-picker class="without-select" day-click="dayClick" highlight-days="schedules[scheduleIndex].undispos" month-changed="onMonthChanged" disallow-back-past-months="true"/>
+                              <multiple-date-picker calendar-id="'resultCalendar'" class="without-select" day-click="dayClick" highlight-days="schedules[scheduleIndex].undispos" month-changed="onMonthChanged" disallow-back-past-months="true"/>
                           </div>
                           <div id="schedule-legend">
                               <div class="left p-10">
@@ -66,7 +66,7 @@
                       </div>
                     </span>
 
-                    <button ng-if="session.authenticated" type="button" class="fav-btn btn blue-btn m-2" ng-click="userfavlist.addFavorit(p.id);$event.stopPropagation()" ng-class="{favorit : userfavlist.isInFav(p.id)}">
+                    <button ng-if="session.authenticated && isStudent" type="button" class="fav-btn btn blue-btn m-2" ng-click="userfavlist.addFavorit(p.id);$event.stopPropagation()" ng-class="{favorit : userfavlist.isInFav(p.id)}">
                         <span class="fa fa-star"></span>
                         <span class="hidden-xs hidden-sm hidden-md lm-5">Favoris</span>
                     </button>

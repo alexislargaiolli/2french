@@ -436,6 +436,7 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
 
         $templateCache.remove('views/*');
         moment.locale('fr');
+        $rootScope.today = moment();
         $rootScope.userfavlist = UserFavList;
         $rootScope.$on('$viewContentLoaded',
             function (event) {

@@ -20,7 +20,7 @@ module.exports = {
         if(req.allParams().limit){
             limit = req.allParams().limit;
         }
-        Notification.find(where).skip(skip).limit(limit).populate('conversation').populate('reservation').sort('date ASC').exec(function (err, notifs) {
+        Notification.find(where).skip(skip).limit(limit).populate('conversation').populate('reservation').sort('date DESC').exec(function (err, notifs) {
             if (err) {
                 sails.log.error(err);
                 return res.send(500, 'An error occured while retriving notifications');

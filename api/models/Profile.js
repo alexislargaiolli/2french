@@ -318,11 +318,6 @@ module.exports = {
         next();
     },
     beforeUpdate: function (profile, next) {
-        /*Profile.checkValidation(profile.id, function (err, v) {
-            profile.validate = v;
-            sails.log.info(profile.validate);
-            next();
-        });*/
         next();
     },
     afterUpdate: function (profile, next) {

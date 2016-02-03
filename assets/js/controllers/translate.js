@@ -9,6 +9,7 @@ tooFrench.controller('TranslateCtrl', ['$translate', '$scope', '$rootScope', '$h
 
         $rootScope.$on('$translateChangeSuccess', function () {
             $rootScope.currentLocale = $translate.use();
+            moment.locale($rootScope.currentLocale);
             tmhDynamicLocale.set($rootScope.currentLocale);
             if ($rootScope.session.authenticated) {
                 $http.post('/user/userChangeLocale', {

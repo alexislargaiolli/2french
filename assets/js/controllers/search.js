@@ -1,7 +1,7 @@
 var tooFrenchControllers = angular.module('tooFrenchApp');
-tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state', 'Profile', '$http', '$timeout', 'UserFavList', 'Session', 'Schedule',
+tooFrenchControllers.controller('SearchCtrl', ['$rootScope', '$scope', '$stateParams', '$state', 'Profile', '$http', '$timeout', 'UserFavList', 'Session', 'Schedule', 'multipleDatePickerBroadcast',
 
-    function ($scope, $stateParams, $state, Profile, $http, $timeout, UserFavList, Session, Schedule) {
+    function ($rootScope, $scope, $stateParams, $state, Profile, $http, $timeout, UserFavList, Session, Schedule,multipleDatePickerBroadcast) {
         $scope.results = [];
         $scope.recommandations = [];
         $scope.utillinks = [];
@@ -98,6 +98,10 @@ tooFrenchControllers.controller('SearchCtrl', ['$scope', '$stateParams', '$state
                 });
         }
         $scope.search();
+
+        $rootScope.$on('$translateChangeSuccess', function () {
+            multipleDatePickerBroadcast.localeChanged('resultCalendar');
+        });
 
         $scope.currentScheduleProfileId;
         $scope.initSchedule = function (profile) {

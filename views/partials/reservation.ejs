@@ -167,7 +167,7 @@
                                 <!-- Date -->
                                 <div class="form-group">
                                     <label>Quel jour ?</label>
-                                    <multiple-date-picker id="datePicker" class="with-select" days-selected="selectedDays" day-click="dayClick" highlight-days="profile.schedules[scheduleIndex].undispos" month-changed="onMonthChanged"/>
+                                    <multiple-date-picker id="datePicker" disable-days-before="today" disallow-back-past-months="true" class="with-select" days-selected="selectedDays" day-click="dayClick" highlight-days="profile.schedules[scheduleIndex].undispos" month-changed="onMonthChanged"/>
                                     <div class="alert alert-warning" role="alert" ng-if="submitted && selectedDays == null">
                                         {{'reservation.warning.date' | translate}}
                                     </div>

@@ -48,7 +48,8 @@ module.exports = function (grunt) {
                 '29.js': 'angular-bootstrap-lightbox/dist/angular-bootstrap-lightbox.js',
                 '30.js': 'angular-carousel/dist/angular-carousel.js',
                 '32.js': 'angular-dynamic-locale/dist/tmhDynamicLocale.js',
-                '33.js': 'angular-svg-round-progressbar/build/roundProgress.js'
+                '33.js': 'angular-svg-round-progressbar/build/roundProgress.js',
+                '34.js': '../libs/multipleDatePicker.js'
             }
         },
         cssLibs: {

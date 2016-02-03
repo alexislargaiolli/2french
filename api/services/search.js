@@ -23,10 +23,6 @@ function buildQuery(skip, pageSize, location, days, periods) {
             "schedules": {
                 $not: {
                     $elemMatch: {
-                        "period": {
-                            $in: periods
-                        }
-                        ,
                         "undispos": {
                             $in: days
                         }

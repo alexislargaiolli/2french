@@ -134,7 +134,9 @@ tooFrenchControllers.controller('ReservationCtrl', ['$scope', '$rootScope', '$st
             /* CALENDAR */
             $scope.dayClick = function (event, date) {
                 event.preventDefault() // prevent the select to happen
-                $scope.selectedDays = [date.valueOf()];
+                if(date.selectable) {
+                    $scope.selectedDays = [date.valueOf()];
+                }
             }
 
             $scope.onMonthChanged = function (newMonth, oldMonth) {
