@@ -58,7 +58,7 @@
                     <div ng-click="toggled[n] = !toggled[n]" class="learnItem">
                         <h2><span class="roundedNumber">{{n}}</span></h2><h2 class="learnTitle">{{'learn.content.title' + n |translate}}</span><span ng-class="{'fa-chevron-up' : !toggled[n], 'fa-chevron-down' : toggled[n]}" class="fa fa-pl5 fright"></span></h2>
                     </div>
-                    <div collapse="toggled[n]" ng-bind-html="'learn.content.text' + n | translate">
+                    <div uib-collapse="toggled[n]" ng-bind-html="'learn.content.text' + n | translate">
                     </div>
                     <hr/>
                 </div>

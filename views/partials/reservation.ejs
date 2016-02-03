@@ -68,7 +68,7 @@
 
                                     <!--Formation-->
                                     <div class="form-group">
-                                        <label>Quelle formation ?</label>
+                                        <label>{{'reservation.form.formation' | translate}}</label>
 
                                         <ui-select id="select-formation" ng-model="reservation.formation" theme="bootstrap" style="width: 100%;">
                                             <ui-select-match placeholder="{{'reservation.form.formation' | translate}}">
@@ -87,7 +87,7 @@
 
                                     <!-- Durée -->
                                     <div class="form-group">
-                                        <label>Quelle durée ?</label>
+                                        <label>{{'reservation.form.duration' | translate}}</label>
                                         <ui-select id="select-duration" ng-model="reservation.hourCount" theme="bootstrap" style="width: 100%;">
                                             <ui-select-match placeholder="{{'reservation.form.duration' | translate}}">
                                                 {{$select.selected.name}}
@@ -166,7 +166,7 @@
 
                                 <!-- Date -->
                                 <div class="form-group">
-                                    <label>Quel jour ?</label>
+                                    <label>{{'reservation.form.day' | translate}}</label>
                                     <multiple-date-picker id="datePicker" disable-days-before="today" disallow-back-past-months="true" class="with-select" days-selected="selectedDays" day-click="dayClick" highlight-days="profile.schedules[scheduleIndex].undispos" month-changed="onMonthChanged"/>
                                     <div class="alert alert-warning" role="alert" ng-if="submitted && selectedDays == null">
                                         {{'reservation.warning.date' | translate}}
@@ -178,8 +178,8 @@
 
                                 <!-- Heure -->
                                 <div>
-                                    <label>Quelle heure ?</label>
-                                    <timepicker ng-model="resaHour" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" required="true"></timepicker>
+                                    <label>{{'reservation.form.hour' | translate}}</label>
+                                    <uib-timepicker ng-model="resaHour" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian" required="true"></uib-timepicker>
                                 </div>
                             </div>
                         </div>

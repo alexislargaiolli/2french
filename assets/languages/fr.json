@@ -497,5 +497,11 @@
   "notification.reservation.validated.label":"Réservation validée",
   "notification.reservation.refused.label":"Réservation refusée",
   "notification.reservation.canceled.label":"Réservation annulée",
-  "notification.reservation.forum.label":"Nouveau commentaire dans le forum"
+  "notification.reservation.forum.label":"Nouveau commentaire dans le forum",
+
+  "reservation.form.formation" : "Quelle formation ?",
+  "reservation.form.duration" : "Quelle durée ?",
+  "reservation.form.day" : "Quel jour ?",
+  "reservation.form.hour" : "Quelle heure ?"
+
 }

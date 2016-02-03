@@ -44,9 +44,9 @@
 "home.concept.button": "Sign Up",
 "home.carousel.caption": "Learn or teach French wherever you want,",
 "home.carousel.caption2": "when you want, and how you want!",
-"home.learn.1": "Toofrench, French your way!",
-"home.learn.2": "Toofrench provides the teachers. You simply choose the best option and enjoy a fun, affordable, and personalized learning experience.",
-"home.teach.1": "Toofrench allows you to teach French in your own unique style.",
+"home.learn.1": "TooFrench, French your way!",
+"home.learn.2": "TooFrench provides the teachers. You simply choose the best option and enjoy a fun, affordable, and personalized learning experience.",
+"home.teach.1": "TooFrench allows you to teach French in your own unique style.",
 "home.teach.2": "Do you teach French as a foreign language? TooFrench will connect you directly with students from around the world. Adapt your teaching methods to your liking. Create and propose your own lessons.",
 "home.concept": "TooFrench connects people who want to learn French with French teachers, simplifying the experience and helping to create an effective and personalized learning experience.",
 
@@ -117,7 +117,7 @@
 "teach.content.title4": "Contact your teacher directly via our mailbox.",
 "teach.content.title5": "Confirm.",
 "teach.content.p1" : "To find an available teacher, enter your availability or enter the country or city where you would like to learn.",
-"teach.content.p2" : "<p>Every teacher on TooFrench has received a diploma in Teaching French as a Foreign Language(Masters degree or equivalent)</p><p> Before their profile is posted on the site, the TooFrench team verifies their credentials and professional experience </p>",
+"teach.content.p2" : "<p>Every teacher on TooFrench has received a diploma in Teaching French as a Foreign Language (Masters degree or equivalent)</p><p> Before their profile is posted on the site, the TooFrench team verifies their credentials and professional experience </p>",
 "teach.content.p3" : "<p>It’s easy to join and contact the teacher of your choice. Just click on “Sign Up” and fill out the membership form</p><p>As a non-member, you have access to teachers’ public profiles showing the courses they propose and their location</p><p>As a member, you can contact any teacher you choose and arrange the details of your courses together. You also have access to the TooFrench Forum where you can communicate with other members and teachers.</p>",
 "teach.content.p4" : "<p>Arrange all the details of your course directly with your teacher: place, time, content, and, payment methods.</p>",
 "teach.content.p5" : "Once you have reached an agreement with your teacher, click on Reserve.",
@@ -538,6 +538,11 @@
 
   "notification.reservation.canceled.label":"Reservation canceled",
 
-  "notification.reservation.forum.label":"New comment in the forum"
+  "notification.reservation.forum.label":"New comment in the forum",
+
+  "reservation.form.formation" : "Which course ?",
+  "reservation.form.duration" : "What duration ?",
+  "reservation.form.day" : "Which day ?",
+  "reservation.form.hour" : "What time ?"
 
 }
