@@ -70,8 +70,8 @@
                     <i class="fa fa-spinner fa-spin"></i>
                 </div>
                 <div class="paginator-wrapper center" ng-class="{'hidden': (loading || count == 0)}">
-                    <pagination total-items="count" items-per-page="pageSize" ng-model="pageIndex"
-                                ng-change="pageChanged()"></pagination>
+                    <uib-pagination total-items="count" items-per-page="pageSize" ng-model="pageIndex"
+                                ng-change="pageChanged()"></uib-pagination>
                 </div>
             </div>
             <div id="add-com-wrapper">
