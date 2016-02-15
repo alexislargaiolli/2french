@@ -20,7 +20,7 @@
                     </div>
 
                     <div class="info-wrapper">
-                        <span class="firstname middle mr-10 SEL_resultFisrtName">{{p.firstname}}</span>
+                        <span class="firstname middle mr-10 SEL_resultFisrtName">{{p.firstname}}</span><span class="city middle">({{p.city.formatted_address}})</span>
                         <rating ng-model="p.averageMark" readonly="true" class="teacher-profile-rating" ng-if="p.averageMark"></rating>
                         <h4 class="f-12">{{'search.result.formations' | translate}}</h4>
                         <ul class="formations">
