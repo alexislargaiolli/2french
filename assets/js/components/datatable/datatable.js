@@ -93,7 +93,7 @@ tooFrench.factory('DataTable', function ($http, $q) {
         var needUpdateCount = 0;
 
         function updatePagination() {
-            this.pageCount = this.itemCount / this.pageSize;
+            this.pageCount =  Math.ceil(this.itemCount / this.pageSize);
             console.log('page count ' + this.pageCount);
         }
 

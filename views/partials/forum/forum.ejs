@@ -35,7 +35,7 @@
                                     {{'forum.posts.empty' | translate}}
                                 </div>
                                 <div class="paginator-wrapper"  ng-if="!teacherPostsByCategory[category.id].loading && teacherPostsByCategory[category.id].count > pageSize">
-                                    <pagination total-items="teacherPostsByCategory[category.id].count" items-per-page="pageSize" ng-model="teacherPostsByCategory[category.id].pageIndex" ng-change="pageChanged(category)"></pagination>
+                                    <uib-pagination total-items="teacherPostsByCategory[category.id].count" items-per-page="pageSize" ng-model="teacherPostsByCategory[category.id].pageIndex" ng-change="pageChanged(category)"></uib-pagination>
                                 </div>
                             </v-pane-content>
                         </v-pane>
@@ -73,7 +73,7 @@
                                     {{'forum.posts.empty' | translate}}
                                 </div>
                                 <div class="paginator-wrapper" ng-if="!generalPostsByCategory[category.id].loading && generalPostsByCategory[category.id].count > pageSize">
-                                    <pagination total-items="generalPostsByCategory[category.id].count" items-per-page="pageSize" ng-model="generalPostsByCategory[category.id].pageIndex" ng-change="pageGeneralChanged(category)"></pagination>
+                                    <uib-pagination total-items="generalPostsByCategory[category.id].count" items-per-page="pageSize" ng-model="generalPostsByCategory[category.id].pageIndex" ng-change="pageGeneralChanged(category)"></uib-pagination>
                                 </div>
                             </v-pane-content>
                         </v-pane>

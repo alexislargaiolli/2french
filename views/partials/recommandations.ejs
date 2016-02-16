@@ -22,8 +22,8 @@
                     </a>
                 </ul>
                 <div class="paginator-wrapper center" ng-class="{'hidden': (utillinkLoading || linkCount < linkPageSize)}">
-                    <pagination total-items="linkCount" items-per-page="linkPageSize" ng-model="linkPageIndex"
-                                ng-change="linkPageChanged()"></pagination>
+                    <uib-pagination total-items="linkCount" items-per-page="linkPageSize" ng-model="linkPageIndex"
+                                ng-change="linkPageChanged()"></uib-pagination>
                 </div>
             </div>
         </div>
@@ -39,8 +39,8 @@
                 </div>
             </div>
             <div class="paginator-wrapper center" ng-class="{'hidden': (recommandationLoading || recCount < recPageSize)}">
-                <pagination total-items="recCount" items-per-page="recPageSize" ng-model="recPageIndex"
-                            ng-change="recPageChanged()"></pagination>
+                <uib-pagination total-items="recCount" items-per-page="recPageSize" ng-model="recPageIndex"
+                            ng-change="recPageChanged()"></uib-pagination>
             </div>
         </div>
     </div>
