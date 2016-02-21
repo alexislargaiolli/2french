@@ -53,11 +53,14 @@ module.exports.policies = {
   },
 
   ProfileController : {
-    '*' : ['passport', 'sessionAuth'],
+    '*' : ['passport', 'sessionAuth', 'admin'],
     create : [ 'passport', 'sessionAuth', 'admin'],
     destroy : [ 'passport', 'sessionAuth', 'admin'],
-    update : ['passport', 'sessionAuth', 'profileOwner'],
     validateProfile : ['passport', 'sessionAuth', 'profileOwner'],
+    update : ['passport', 'sessionAuth', 'profileOwner'],
+    findOne : ['passport', 'sessionAuth'],
+    fullProfile : ['passport', 'sessionAuth'],
+    teacherReviews : ['passport', 'sessionAuth'],
     search:[]
   },
 

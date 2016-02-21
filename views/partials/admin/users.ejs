@@ -1,6 +1,32 @@
 <div layout="column">
     <section layout="row" flex>
         <md-content flex>
+            <h3 class="block-title2">Informations générales</h3>
+            <div layout="row" class="bp-10">
+                <div flex="25">
+                    <span class="fa fa-users fa-2x middle"></span>
+                    <span class="middle">Total : {{countAll.count}}</span>
+                </div>
+                <div flex="25">
+                    <span class="fa fa-graduation-cap fa-2x middle"></span>
+                    <span class="middle">Étudiants : {{countStudent.count}}</span>
+                </div>
+                <div flex="25">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-user fa-stack-1x"></i>
+                      <i class="fa fa-circle-o fa-stack-2x"></i>
+                    </span>
+                    <span>Professeurs : {{countTeacher.count}}</span>
+                </div>
+                <div flex="25">
+                    <span class="fa-stack fa-lg">
+                      <i class="fa fa-user fa-stack-1x"></i>
+                      <i class="fa fa-check-circle-o fa-stack-2x text-success"></i>
+                    </span>
+                    <span>Professeurs validés : {{countTeacherValidated.count}}</span>
+                </div>
+            </div>
+            <h3 class="block-title2">Liste des utilisateurs</h3>
             <alex-table id="userDatatable" model="datatable" columns="columns"></alex-table>
         </md-content>
         <md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">

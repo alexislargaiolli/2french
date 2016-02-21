@@ -72,6 +72,10 @@ tooFrench.factory('DataTable', function ($http, $q) {
          */
         this.where;
         /**
+         * Fields to populate
+         */
+        this.populate;
+        /**
          * Indicates if no (0), single, (1), multiple (2) selection is active
          * @type {number}
          */
@@ -109,6 +113,10 @@ tooFrench.factory('DataTable', function ($http, $q) {
             return url;
         }
 
+        function applyPopulate(){
+            return "populate=" + this.populate;
+        }
+
         /**
          * Load data from server, count() has to been called before
          * @returns {deferred.promise|{then}|{then, catch, finally}}
@@ -130,6 +138,9 @@ tooFrench.factory('DataTable', function ($http, $q) {
             //Apply filter
             if (this.where) {
                 url += "&" + applyFilter.call(this);
+            }
+            if(this.populate){
+                url += "&" + applyPopulate.call(this);
             }
             var self = this;
             needUpdateCount = 0;
@@ -201,17 +212,19 @@ tooFrench.factory('DataTable', function ($http, $q) {
             },
             /**
              * Sort data by a given field name
-             * @param field field name to use for sorting
+             * @param column column to use for sorting
              */
-            sort: function (field) {
-                this.sortField = field;
-                if (this.sortOrder == DESC) {
-                    this.sortOrder = ASC;
+            sort: function (column) {
+                if(column.sortable === true) {
+                    this.sortField = column.field;
+                    if (this.sortOrder == DESC) {
+                        this.sortOrder = ASC;
+                    }
+                    else {
+                        this.sortOrder = DESC;
+                    }
+                    this.load();
                 }
-                else {
-                    this.sortOrder = DESC;
-                }
-                this.load();
             },
             /**
              * Return true if the current sortOrder is ASC, false otherwise
@@ -259,6 +272,17 @@ tooFrench.factory('DataTable', function ($http, $q) {
             },
             hasSelectedItems: function () {
                 return this.selectedItems.length > 0;
+            },
+            buildField: function(item, fieldName){
+                if(fieldName.indexOf('.') == -1){
+                    return item[fieldName];
+                }
+                var fields = fieldName.split('.');
+                var res = item;
+                for(var i =0; i< fields.length; i++){
+                    res = res[fields[i]];
+                }
+                return res;
             }
         };
     })();

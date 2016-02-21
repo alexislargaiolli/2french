@@ -12,10 +12,12 @@ ctrl.controller('AdminDiplomaCtrl', ['$scope', 'Diploma' , 'DataTable', '$mdDial
     $scope.columns = [{
         'header' : 'Utilisateur',
         'field': 'owner',
-        'subfield' : 'email'
+        'subfield' : 'email',
+        'sortable' : true
     },{
         'header' : 'Validé',
-        'field': 'diplomaValidated'
+        'field': 'diplomaValidated',
+        'sortable' : true
     }];
 
     $scope.selected;

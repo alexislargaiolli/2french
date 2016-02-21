@@ -1,10 +1,10 @@
 <table class="table table-hover alex-datatable">
     <thead>
     <tr>
-        <th ng-repeat="column in model.columns" ng-click="model.sort(column.field)">
+        <th ng-repeat="column in model.columns" ng-click="model.sort(column)">
             <div class="header-title">
                 <span>{{column.header}}</span>
-                <span class="fa"
+                <span ng-if="column.sortable" class="fa"
                       ng-class="{'fa-sort' : column.field != model.sortField, 'fa-sort-asc' : (column.field == model.sortField) && model.isASC(), 'fa-sort-desc' : (column.field == model.sortField) && !model.isASC()}"></span>
             </div>
             <div class="input-group" ng-if="column.filter">
@@ -19,7 +19,7 @@
     <tbody>
     <tr ng-repeat="item in model.items" ng-click="model.toggleSelect(item)" ng-class="{'active' : model.isSelected(item)}">
         <td ng-repeat="column in model.columns">
-            <span ng-if="!column.subfield" class="SEL_{{column.field}}">{{item[column.field]}}</span>
+            <span ng-if="!column.subfield" class="SEL_{{column.field}}">{{model.buildField(item,column.field) | date : 'mediumDate'}}</span>
             <span ng-if="column.subfield" class="SEL_{{column.subfield}}">{{item[column.field][column.subfield]}}</span>
         </td>
     </tr>
