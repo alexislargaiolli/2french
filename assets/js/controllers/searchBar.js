@@ -22,17 +22,13 @@ tooFrenchControllers.controller('SearchBarCtrl', ['$scope', '$state', 'Profile',
                     country = $scope.city.address_components[3].short_name;
                 }
                 var i = 0;
-                var days = [];
                 var periods = [];
-                for(i=0; i<selectedDays.length;i++){
-                    days.push({date:selectedDays[i], css: 'day'});
-                }
                 $state.go('results', {
                     country: country,
                     lvl1: lvl1,
                     lvl2: lvl2,
                     city: city,
-                    days: JSON.stringify(days),
+                    days: JSON.stringify(selectedDays),
                     periods: JSON.stringify(periods)
                 });
             }

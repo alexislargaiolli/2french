@@ -21,6 +21,10 @@ before(function(done) {
         },
         email:{
             testMode : true
+        },
+        globals:{
+            services: true,
+            sails : true
         }
     }, function(err, server) {
         sails = server;

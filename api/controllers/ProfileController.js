@@ -51,12 +51,11 @@ module.exports = {
         var days = req.query['days'];
         var periods = req.query['periods'];
 
-        sails.log.debug('ProfileController.search() [city : ' + city + ', country : ' + country + ', lvl1 : ' + lvl1 + ', lvl2 : ' + lvl2 + ', days : ' + days + ', periods : ' + periods + ']');
-        
         if (days && days.length > 0) {
             days = JSON.parse(days);
             periods = JSON.parse(periods);
         }
+        sails.log.debug('ProfileController.search() [city : ' + city + ', country : ' + country + ', lvl1 : ' + lvl1 + ', lvl2 : ' + lvl2 + ', days : ' + days + ', periods : ' + periods + ']');
         if (count && count == 1) {
             sails.services['search'].fullSearch(true, skip, pageSize, city, lvl2, lvl1, country, days, periods, function (err, count) {
                 if (err) {
