@@ -62,13 +62,12 @@ tooFrenchControllers.controller('NotificationCtrl', ['$scope', 'Notification', '
             }
         });
 
-        /**
-         * Load notifications based on skip on limit variables
-         */
         $scope.loadNotif = function () {
+            $scope.skip = 0;
+            $scope.limit = 5;
             $scope.notificationLoading = true;
             Notification.getResource().unseen({skip: $scope.skip, limit: $scope.limit}, function (notifs) {
-                $scope.notifications = $scope.notifications.concat(notifs);
+                $scope.notifications = notifs;
                 $scope.notificationLoading = false;
             });
         }
@@ -79,7 +78,11 @@ tooFrenchControllers.controller('NotificationCtrl', ['$scope', 'Notification', '
         $scope.loadMore = function () {
             $scope.skip += 5;
             $scope.limit += 5;
-            $scope.loadNotif();
+            $scope.notificationLoading = true;
+            Notification.getResource().unseen({skip: $scope.skip, limit: $scope.limit}, function (notifs) {
+                $scope.notificationLoading = false;
+                $scope.notifications = $scope.notifications.concat(notifs);
+            });
         }
 
         /**
