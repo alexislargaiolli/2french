@@ -112,7 +112,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
         //================================================
         $urlRouterProvider.otherwise('/home');
 
-        var version = "?v=1.0.8";
+        var version = "?v=1.0.9";
 
         $stateProvider
 
