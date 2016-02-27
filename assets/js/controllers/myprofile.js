@@ -391,6 +391,10 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
                 $scope.profileDayClick = function (event, date) {
                     event.preventDefault() // prevent the select to happen
                     if(date.selectable) {
+                        date.millisecond(0);
+                        date.second(0);
+                        date.minute(0);
+                        date.hour(0);
                         var v = date.valueOf();
                         var i = findUndispo(v);
                         if (i == -1) {

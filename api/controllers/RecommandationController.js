@@ -18,7 +18,7 @@ module.exports = {
         if (count && count == 1) {
             sails.services['recommandation'].fullSearch(true, skip, pageSize, city, lvl2, lvl1, country, function (err, count) {
                 if (err) {
-                    return res.sendError('Erreur dans la recherche');
+                    return res.serverError('Erreur dans la recherche');
                 }
                 res.send(200, {count: count});
             });
@@ -33,7 +33,7 @@ module.exports = {
             var skip = pageSize * (pageIndex - 1);
             sails.services['recommandation'].fullSearch(false, skip, pageSize, city, lvl2, lvl1, country, function (err, results) {
                 if (err) {
-                    return res.sendError('Erreur dans la recherche');
+                    return res.serverError('Erreur dans la recherche');
                 }
                 res.send(200, results);
             });

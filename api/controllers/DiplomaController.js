@@ -27,7 +27,7 @@ module.exports = {
                 if (diplomas && diplomas.length > 0) {
                     sails.services['util'].populateDeep('diploma', diplomas, 'owner.profile', function (err, diplomas) {
                         if (err) {
-                            return res.sendError("error while populating diplomas");
+                            return res.serverError("error while populating diplomas");
                         }
                         diplomas.forEach(function (diploma) {
                             diploma.ownerId = diploma.owner.id;

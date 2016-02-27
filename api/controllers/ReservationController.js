@@ -52,7 +52,7 @@ module.exports = {
         }
         Reservation.find(where).populate('teacher').populate('review').exec(function (err, resas) {
             if (err) {
-                return res.sendError("Unable to find resas");
+                return res.serverError("Unable to find resas");
             }
             resas.forEach(function (r) {
                 sails.services['notification'].seenResaNotification(req.user.id, r.id,function(err){
@@ -112,7 +112,7 @@ module.exports = {
                 date: {$gt: new Date(Date.now() + 3600000)}
             }).exec(function (err, count) {
                 if (err) {
-                    return res.sendError("Unable to find resas");
+                    return res.serverError("Unable to find resas");
                 }
                 res.send({count: count});
             });
@@ -124,11 +124,11 @@ module.exports = {
         var status = req.allParams().status;
         Profile.findOne({owner: userId}).exec(function (err, profile) {
             if (err) {
-                return res.sendError("Unable to find profile");
+                return res.serverError("Unable to find profile");
             }
             Reservation.findOne({id: resaId, teacher: profile.id}).exec(function (err, resa) {
                 if (err) {
-                    return res.sendError("Unable to find resas");
+                    return res.serverError("Unable to find resas");
                 }
                 if (!resa) {
                     return res.send('not found');
@@ -158,7 +158,7 @@ module.exports = {
                 });
                 Reservation.update({id: resaId}, {status: status}).exec(function (err, r) {
                     if (err) {
-                        return res.sendError("Unable to update status");
+                        return res.serverError("Unable to update status");
                     }
 
                     res.send(200, r);
@@ -171,14 +171,14 @@ module.exports = {
         var resaId = req.allParams().resaId;
         Profile.findOne({owner: userId}).exec(function (err, profile) {
             if (err) {
-                return res.sendError("Unable to find profile");
+                return res.serverError("Unable to find profile");
             }
             Reservation.findOne({
                 id: resaId,
                 $or: [{teacher: profile.id}, {student: profile.id}]
             }).exec(function (err, resa) {
                 if (err) {
-                    return res.sendError("Unable to find resas");
+                    return res.serverError("Unable to find resas");
                 }
                 if (!resa) {
                     return res.send('not found');
@@ -206,7 +206,7 @@ module.exports = {
                 });
                 Reservation.update({id: resaId}, {status: 'canceled'}).exec(function (err, r) {
                     if (err) {
-                        return res.sendError("Unable to update status");
+                        return res.serverError("Unable to update status");
                     }
                     res.send(200, r);
                 });

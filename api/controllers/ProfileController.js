@@ -59,7 +59,8 @@ module.exports = {
         if (count && count == 1) {
             sails.services['search'].fullSearch(true, skip, pageSize, city, lvl2, lvl1, country, days, periods, function (err, count) {
                 if (err) {
-                    return res.sendError('Erreur dans la recherche');
+                    sails.log.error(err);
+                    return res.serverError('Erreur dans la recherche');
                 }
                 sails.log.debug(" --> " + count + " results found");
                 res.send(200, {count: count});
@@ -75,7 +76,8 @@ module.exports = {
             var skip = pageSize * (pageIndex - 1);
             sails.services['search'].fullSearch(false, skip, pageSize, city, lvl2, lvl1, country, days, periods, function (err, profiles) {
                 if (err) {
-                    return res.sendError('Erreur dans la recherche');
+                    sails.log.error(err);
+                    return res.serverError('Erreur dans la recherche');
                 }
                 res.send(200, profiles);
             });
@@ -91,6 +93,7 @@ module.exports = {
         var profileId = req.allParams().id;
         Profile.getFullProfile(profileId, function(err, profile){
             if(err || !profile){
+                sails.log.error(err);
                 return res.serverError(err);
             }
             res.send(200, profile);
@@ -100,6 +103,7 @@ module.exports = {
     teacherReviews: function (req, res) {
         Profile.getTeacherReview(req.allParams().teacherId, function(err, reviews){
             if (err) {
+                sails.log.error(err);
                 return res.serverError(err);
             }
             return res.send(200, reviews);

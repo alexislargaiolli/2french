@@ -20,7 +20,7 @@ module.exports = {
                 if (post.comments && post.comments.length > 0) {
                     sails.services['util'].populateDeep('post', post, 'comments.author', function (e, p) {
                         if (e) {
-                            return res.sendError("Error while fetching comments");
+                            return res.serverError("Error while fetching comments");
                         }
                         else {
                             if (p.comments) {
@@ -88,7 +88,7 @@ module.exports = {
             sort: 'seenCount ASC'
         }).populate('category').exec(function (err, posts) {
             if (err) {
-                res.sendError("Unable to find posts");
+                res.serverError("Unable to find posts");
             }
             else {
                 res.send(posts);
@@ -108,7 +108,7 @@ module.exports = {
             sort: 'downloadCount ASC'
         }).populate('category').exec(function (err, posts) {
             if (err) {
-                res.sendError("Unable to find posts");
+                res.serverError("Unable to find posts");
             }
             else {
                 res.send(posts);
@@ -121,7 +121,7 @@ module.exports = {
         var pageSize = req.allParams().pageSize;
         var pageIndex = req.allParams().pageIndex;
         if (!category) {
-            return res.sendError("Missing params");
+            return res.serverError("Missing params");
         }
         if (count && count == 1) {
             Post.count({
@@ -129,7 +129,7 @@ module.exports = {
                 sort: 'seenCount ASC'
             }).exec(function (err, count) {
                 if (err) {
-                    return res.sendError("Unable to find posts");
+                    return res.serverError("Unable to find posts");
                 }
                 res.send(200, {count: count});
             });
@@ -149,7 +149,7 @@ module.exports = {
                 sort: 'seenCount ASC'
             }).exec(function (err, posts) {
                 if (err) {
-                    return res.sendError("Unable to find posts");
+                    return res.serverError("Unable to find posts");
                 }
                 res.send(posts);
             });
@@ -161,7 +161,7 @@ module.exports = {
         var pageSize = req.allParams().pageSize;
         var pageIndex = req.allParams().pageIndex;
         if (!category) {
-            return res.sendError("Missing params");
+            return res.serverError("Missing params");
         }
         if (count && count == 1) {
             Post.count({
@@ -169,7 +169,7 @@ module.exports = {
                 sort: 'seenCount ASC'
             }).exec(function (err, count) {
                 if (err) {
-                    return res.sendError("Unable to find posts");
+                    return res.serverError("Unable to find posts");
                 }
                 res.send(200, {count: count});
             });
@@ -189,7 +189,7 @@ module.exports = {
                 sort: 'seenCount ASC'
             }).exec(function (err, posts) {
                 if (err) {
-                    return res.sendError("Unable to find posts");
+                    return res.serverError("Unable to find posts");
                 }
                 res.send(posts);
             });

@@ -43,8 +43,11 @@ tooFrenchControllers.controller('SearchBarCtrl', ['$scope', '$state', 'Profile',
             event.preventDefault() // prevent the select to happen
             if (date.selectable) {
                 date.selected = !date.selected;
+                date.millisecond(0);
+                date.second(0);
+                date.minute(0);
+                date.hour(0);
                 var timespan = date.valueOf();
-
                 var i =selectedDays.indexOf(timespan);
                 if (i == -1) {
                     selectedDays.push(timespan);

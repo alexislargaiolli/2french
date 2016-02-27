@@ -49,7 +49,7 @@ module.exports = {
             );
         }
         else {
-            res.sendError("Missing argument");
+            res.serverError("Missing argument");
         }
     }
 };

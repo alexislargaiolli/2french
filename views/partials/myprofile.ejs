@@ -396,7 +396,7 @@
                 <div class="panel panel-default" ng-if="isTeacher">
                     <div class="panel-heading block-title1 center">{{'myprofile.calendar' | translate}}</div>
                     <div class="panel-body p-0">
-                        <multiple-date-picker calendar-id="'myProfileCalendar'" class="without-select" day-click="profileDayClick" highlight-days="profile.schedules[scheduleIndex].undispos" month-changed="onMonthChanged"/>
+                        <multiple-date-picker calendar-id="'myProfileCalendar'" class="without-select" disable-days-before="today" disallow-back-past-months="true" day-click="profileDayClick" highlight-days="profile.schedules[scheduleIndex].undispos" month-changed="onMonthChanged"/>
                     </div>
                     <div id="schedule-legend" class="panel-footer">
                         <div class="left p-10">

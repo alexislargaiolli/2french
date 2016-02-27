@@ -12,7 +12,7 @@ module.exports = {
             where: {id: id}
         }).populate('author').exec(function (err, comment) {
             if (err) {
-                return res.sendError("Unable to find posts");
+                return res.serverError("Unable to find posts");
             }
             comment.authorId = comment.author.id;
             comment.photo = comment.author.photo;
@@ -26,7 +26,7 @@ module.exports = {
         var pageSize = req.allParams().pageSize;
         var pageIndex = req.allParams().pageIndex;
         if (!postId) {
-            return res.sendError("Missing params");
+            return res.serverError("Missing params");
         }
         if (count && count == 1) {
             Comment.count({
@@ -34,7 +34,7 @@ module.exports = {
                 sort: 'date ASC'
             }).exec(function (err, count) {
                 if (err) {
-                    return res.sendError("Unable to find posts");
+                    return res.serverError("Unable to find posts");
                 }
                 res.send(200, {count: count});
             });
@@ -54,7 +54,7 @@ module.exports = {
                 sort: 'date ASC'
             }).populate('author').exec(function (err, comments) {
                 if (err) {
-                    return res.sendError("Unable to find posts");
+                    return res.serverError("Unable to find posts");
                 }
                 comments.forEach(function (c) {
                     c.authorId = c.author.id;

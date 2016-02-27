@@ -11,7 +11,7 @@ module.exports = {
         var period = req.allParams().period;
         Schedule.findOne({profile : profileId, period : period}).exec(function(err, schedule){
             if(err){
-                res.sendError("Unable to find schedule");
+                res.serverError("Unable to find schedule");
             }
             else{
                 res.send(200, schedule);

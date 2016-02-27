@@ -32,6 +32,7 @@ module.exports = {
                 }
             };
         }
+        sails.log.debug(JSON.stringify(query));
         return query;
     },
 
@@ -118,5 +119,12 @@ module.exports = {
                 });
             }
         });
+    },
+    daysToScientificNotation : function(days){
+        for(var i =0; i<days.length; i++){
+            days[i] = Number(days[i].toExponential());
+            sails.log.debug(days[i]);
+        }
+        return days;
     }
 }

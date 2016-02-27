@@ -11,7 +11,7 @@ var AuthController = {
         if (req.user) {
             sails.services['profile'].populateAfterLogin(req.user, function(err, data){
                 if(err){
-                    return sendError('Unable to laod user');
+                    return res.serverError('Unable to laod user');
                 }
                 res.send(200, data);
             });
