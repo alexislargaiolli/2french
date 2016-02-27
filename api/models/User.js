@@ -37,12 +37,20 @@ var User = {
             type: 'string',
             defaultsTo: 'fr'
         },
-        resetPasswordToken : {
+        resetPasswordToken: {
             type: 'string'
         },
-        resetPasswordExpires : {
-            type : 'date'
+        resetPasswordExpires: {
+            type: 'date'
         }
+    },
+    /**
+     * Get all teachers
+     * @param validated true to get only validated teacher
+     * @param callback
+     */
+    getTeachers: function (callback) {
+        sails.models.user.find({role: ['teacher','admin']}).exec(callback);
     },
     sendMessage: function (user, recipient, messageContent, callback) {
         Conversation.findOrCreate({owner: user, interlocutor: recipient}, {
@@ -68,7 +76,7 @@ var User = {
             conv.unseenCount++;
             conv.messages.add({author: sender, recipient: user, content: messageContent, conversation: conv});
             conv.save(callback);
-            sails.services['notification'].createNewMessageNotification(user, conv.id, function(err, notif){
+            sails.services['notification'].createNewMessageNotification(user, conv.id, function (err, notif) {
 
             });
             sails.services['mail'].sendMessageReceived(user, sender, messageContent);
@@ -90,7 +98,7 @@ var User = {
 
             sails.log.debug('User.afterDestroy() - destroying notification settings');
             NotificationSettings.destroy({owner: user.id}).exec(function (err) {
-                if(err){
+                if (err) {
                     sails.log.error('User.afterDestroy() - error while destroying notification settings');
                 }
             });

@@ -1,17 +1,17 @@
 /**
  * Created by alex on 19/09/15.
  */
-
+var should = require('should'), assert = require('assert');
 describe('User', function () {
-    describe('#find()', function () {
-        it('should check find function', function (done) {
-            User.find()
-                .then(function (results) {
-                    sails.log.info(results);
-                    results.should.not.be.empty;
-                    done();
-                })
-                .catch(done);
+    describe('#getTeachers()', function () {
+        it('should return only teacher', function (done) {
+            User.getTeachers(function (err, teachers) {
+                assert(teachers.length > 0);
+                teachers.forEach(function (teacher) {
+                    assert(teacher.role === 'teacher' || teacher.role === 'admin');
+                });
+                done();
+            });
         });
     });
 });

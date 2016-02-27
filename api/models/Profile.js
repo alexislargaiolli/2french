@@ -101,6 +101,13 @@ module.exports = {
             via: 'teacher'
         }
     },
+    /**
+     * Find all validated profiles
+     * @param cb
+     */
+    findValidated : function(cb){
+        Profile.find({validate : true}).exec(cb);
+    },
     findByUser:function(userId, cb){
         Profile.findOne({owner : userId}).exec(cb);
     },
@@ -196,7 +203,9 @@ module.exports = {
                 return cb(err, profile);
             }
             profile.validate = true;
-            profile.save(cb);
+            profile.save(function(err){
+                cb(err, profile);
+            });
         });
     },
     /**

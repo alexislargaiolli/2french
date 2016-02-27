@@ -112,9 +112,9 @@ module.exports = {
             UserFavList.findOrCreate({owner: req.user.id}, {owner: req.user.id, favorits : []}).exec(function (err, favList) {
                 if (err) return res.serverError(err);
                 favList.favorits.add(profileId);
-                favList.save(function (err, list) {
+                favList.save(function (err) {
                     if (err) return res.serverError(err);
-                    return res.send(200, list.favorits);
+                    return res.send(200, favList.favorits);
                 });
             });
         }
@@ -129,9 +129,9 @@ module.exports = {
             UserFavList.findOrCreate({owner: req.user.id}, {owner: req.user.id, favorits : []}).exec(function (err, favList) {
                 if (err) return res.serverError(err);
                 favList.favorits.remove(profileId);
-                favList.save(function (err, list) {
+                favList.save(function (err) {
                     if (err) return res.serverError(err);
-                    return res.send(200, list.favorits);
+                    return res.send(200, favList.favorits);
                 });
 
             });

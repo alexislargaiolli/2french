@@ -45,6 +45,14 @@ module.exports = {
             via: 'post'
         }
     },
+    afterCreate: function (post, next) {
+        if(post.teacher){
+            sails.services['notification'].createForumNotificationToAllTeacher(post.id, function(){
+
+            });
+        }
+        next();
+    },
     /**
      * Find the more recent posts
      * @param numberToLoad number of post to load

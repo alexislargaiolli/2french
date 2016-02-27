@@ -84,7 +84,9 @@ module.exports = {
                 return cb(err, diploma);
             }
             diploma.diplomaValidated = true;
-            diploma.save(cb);
+            diploma.save(function(err){
+                cb(err, diploma);
+            });
         });
     },
     /**

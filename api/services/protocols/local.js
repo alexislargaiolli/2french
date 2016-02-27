@@ -88,7 +88,7 @@ exports.register = function (req, res, next) {
                                 "firstname": firstname,
                                 "city": city
                             };
-                            user.save(function (err, user) {
+                            user.save(function (err) {
                                 if (err) {
                                     return user.destroy(function (destroyErr) {
                                         next(destroyErr || err);

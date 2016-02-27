@@ -86,12 +86,12 @@ module.exports = {
                                 diploma.fileName = uploadedFiles[0].fd;
                                 diploma.diplomaUploaded = true;
                                 diploma.diplomaValidated = false;
-                                diploma.save(function (err, d) {
+                                diploma.save(function (err) {
                                     if (err) {
                                         res.send(500, "Error while updating diploma");
                                     }
                                     else {
-                                        res.send(200, d);
+                                        res.send(200, diploma);
                                     }
                                 });
                             }

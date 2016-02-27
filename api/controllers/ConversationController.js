@@ -24,12 +24,12 @@ module.exports = {
                 //Verify if sender user exists
                 User.findOne({id: senderId}).exec(function (err, sender) {
                     if (sender) {
-                        User.sendMessage(senderId, recipientId, messageContent, function (err, s) {
+                        User.sendMessage(senderId, recipientId, messageContent, function (err) {
                             if (err) {
                                 res.send(500, 'error while sending message');
                             }
                             else {
-                                User.receiveMessage(recipientId, senderId, messageContent, function (err, r) {
+                                User.receiveMessage(recipientId, senderId, messageContent, function (err) {
                                     if (err) {
                                         res.send(500, 'error while sending recieved message');
                                     }
