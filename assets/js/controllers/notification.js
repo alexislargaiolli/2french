@@ -2,9 +2,9 @@
  * Controller that manage notifications
  */
 var tooFrenchControllers = angular.module('tooFrenchApp');
-tooFrenchControllers.controller('NotificationCtrl', ['$scope', '$rootScope', 'Notification', '$rootScope', '$state', '$interval', 'AUTH_EVENTS',
+tooFrenchControllers.controller('NotificationCtrl', ['$scope', 'Notification', '$rootScope', '$state', '$interval', 'AUTH_EVENTS',
 
-    function ($scope, $rootScope, Notification, $rootScope, $state, $interval, AUTH_EVENTS) {
+    function ($scope, Notification, $rootScope, $state, $interval, AUTH_EVENTS) {
 
         /**
          * Array of loaded notification
