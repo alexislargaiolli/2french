@@ -40,9 +40,9 @@
                 </div>
                 <div class="col-xs-4 col-sm-6 col-md-6 col-lg-6 right">
 
-                    <span class="dropdown" dropdown dropdown-append-to-body auto-close="outsideClick">
-                      <a href class="calendar-btn btn btn-default blue-btn fa fa-calendar dropdown-toggle m-2" dropdown-toggle ng-click="initSchedule(p);$event.stopPropagation();"></a>
-                      <div class="dropdown-menu dropdown-calendar" ng-click="$event.stopPropagation()">
+                    <span class="dropdown" uib-dropdown dropdown-append-to-body auto-close="outsideClick">
+                      <a href class="calendar-btn btn btn-default blue-btn fa fa-calendar dropdown-toggle m-2" uib-dropdown-toggle ng-click="initSchedule(p);$event.stopPropagation();"></a>
+                      <div class="dropdown-menu dropdown-menu-right dropdown-calendar" uib-dropdown-menu ng-click="$event.stopPropagation()">
                           <div class="dropdown-calendar-loader" ng-if="scheduleLoading">
                               <i class="fa fa-circle-o-notch fa-spin"></i>
                           </div>
