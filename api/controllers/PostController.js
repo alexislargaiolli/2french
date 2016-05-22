@@ -6,9 +6,11 @@
  */
 var POST_FILE_COLUMN_NAME = "post_files";
 module.exports = {
-    findOne: function (req, res) {
+    findOne: function(req, res) {
         var id = req.allParams().id;
-        Post.findOne({id: id}).populate('category').populate('author').populate('comments').exec(function (err, post) {
+        Post.findOne({
+            id: id
+        }).populate('category').populate('author').populate('comments').exec(function(err, post) {
             if (err) {
                 sails.log.error(err);
                 return res.send(500, "Unable to find post");
@@ -18,13 +20,13 @@ module.exports = {
                     return res.send(500, "Unable to find post");
                 }
                 if (post.comments && post.comments.length > 0) {
-                    sails.services['util'].populateDeep('post', post, 'comments.author', function (e, p) {
+                    sails.services['util'].populateDeep('post', post, 'comments.author', function(e, p) {
                         if (e) {
                             return res.serverError("Error while fetching comments");
                         }
                         else {
                             if (p.comments) {
-                                p.comments.forEach(function (c) {
+                                p.comments.forEach(function(c) {
                                     c.authorId = c.author.id;
                                     c.photo = c.author.photo;
                                     c.author = c.author.firstname;
@@ -38,14 +40,20 @@ module.exports = {
                     res.send(200, post);
                 }
                 var count = post.seenCount + 1;
-                Post.update({id: id}, {seenCount: count}).exec(function (err, p) {
+                Post.update({
+                    id: id
+                }, {
+                    seenCount: count
+                }).exec(function(err, p) {
 
                 });
             }
         });
     },
-    teacherPosts: function (req, res) {
-        Post.find({teacher: true}).populate('category').exec(function (err, posts) {
+    teacherPosts: function(req, res) {
+        Post.find({
+            teacher: true
+        }).populate('category').exec(function(err, posts) {
             if (err) {
                 res.serverError("Unable to find posts");
             }
@@ -54,8 +62,10 @@ module.exports = {
             }
         });
     },
-    generalPosts: function (req, res) {
-        Post.find({teacher: false}).populate('category').exec(function (err, posts) {
+    generalPosts: function(req, res) {
+        Post.find({
+            teacher: false
+        }).populate('category').exec(function(err, posts) {
             if (err) {
                 res.serverError("Unable to find posts");
             }
@@ -64,19 +74,19 @@ module.exports = {
             }
         });
     },
-    recentPosts: function (req, res) {
+    recentPosts: function(req, res) {
         var onlyGeneralPost = true;
-        if(req.user && (req.user.role == 'admin' || req.user.role == 'teacher')){
+        if (req.user && (req.user.role == 'admin' || req.user.role == 'teacher')) {
             onlyGeneralPost = false;
         }
-        Post.getRecentPost(3, onlyGeneralPost, function(err, posts){
+        Post.getRecentPost(3, onlyGeneralPost, function(err, posts) {
             if (err) {
                 return res.serverError("Unable to find posts");
             }
             res.send(posts);
         });
     },
-    popularPosts: function (req, res) {
+    popularPosts: function(req, res) {
         var teacher = req.user && (req.user.role == 'admin' || req.user.role == 'teacher');
         var where = {};
         if (!teacher) {
@@ -86,7 +96,7 @@ module.exports = {
             where: where,
             limit: 3,
             sort: 'seenCount ASC'
-        }).populate('category').exec(function (err, posts) {
+        }).populate('category').exec(function(err, posts) {
             if (err) {
                 res.serverError("Unable to find posts");
             }
@@ -95,18 +105,23 @@ module.exports = {
             }
         });
     },
-    popularFilePosts: function (req, res) {
+    popularFilePosts: function(req, res) {
         var teacher = req.user && (req.user.role == 'admin' || req.user.role == 'teacher');
         var where = {};
         if (!teacher) {
             where.teacher = false;
         }
-        where.files = {$exists: true, $not: {$size: 0}};
+        where.files = {
+            $exists: true,
+            $not: {
+                $size: 0
+            }
+        };
         Post.find({
             where: where,
             limit: 3,
             sort: 'downloadCount ASC'
-        }).populate('category').exec(function (err, posts) {
+        }).populate('category').exec(function(err, posts) {
             if (err) {
                 res.serverError("Unable to find posts");
             }
@@ -115,87 +130,122 @@ module.exports = {
             }
         });
     },
-    postTeacherByCategory: function (req, res) {
+    postTeacherByCategory: function(req, res) {
         var count = req.allParams().count;
         var category = req.allParams().categoryId;
         var pageSize = req.allParams().pageSize;
         var pageIndex = req.allParams().pageIndex;
+        var title = req.allParams().title;
         if (!category) {
             return res.serverError("Missing params");
         }
-        if (count && count == 1) {
-            Post.count({
-                where: {teacher: true, category: category},
-                sort: 'seenCount ASC'
-            }).exec(function (err, count) {
-                if (err) {
-                    return res.serverError("Unable to find posts");
-                }
-                res.send(200, {count: count});
-            });
-        }
-        else {
-            if (!pageSize) {
-                pageSize = 10;
+        
+        Post.search(title, true, category, pageSize, pageIndex, count, 'seenCount ASC', function(err, posts) {
+            if (err) {
+                return res.serverError("Unable to find posts");
             }
-            if (!pageIndex) {
-                pageIndex = 1;
+            var result = posts;
+            if (count) {
+                result = {
+                    count: posts
+                };
             }
-            var skip = pageSize * (pageIndex - 1);
-            Post.find({
-                where: {teacher: true, category: category},
-                skip: skip,
-                limit: pageSize,
-                sort: 'seenCount ASC'
-            }).exec(function (err, posts) {
-                if (err) {
-                    return res.serverError("Unable to find posts");
-                }
-                res.send(posts);
-            });
-        }
+            res.send(200, result);
+        });
+        // if (count && count == 1) {
+        //     Post.count({
+        //         where: {teacher: true, category: category},
+        //         sort: 'seenCount ASC'
+        //     }).exec(function (err, count) {
+        //         if (err) {
+        //             return res.serverError("Unable to find posts");
+        //         }
+        //         res.send(200, {count: count});
+        //     });
+        // }
+        // else {
+        //     if (!pageSize) {
+        //         pageSize = 10;
+        //     }
+        //     if (!pageIndex) {
+        //         pageIndex = 1;
+        //     }
+        //     var skip = pageSize * (pageIndex - 1);
+        //     Post.find({
+        //         where: {teacher: true, category: category},
+        //         skip: skip,
+        //         limit: pageSize,
+        //         sort: 'seenCount ASC'
+        //     }).exec(function (err, posts) {
+        //         if (err) {
+        //             return res.serverError("Unable to find posts");
+        //         }
+        //         res.send(posts);
+        //     });
+        // }
     },
-    postGeneralByCategory: function (req, res) {
+    postGeneralByCategory: function(req, res) {
         var count = req.allParams().count;
         var category = req.allParams().categoryId;
         var pageSize = req.allParams().pageSize;
         var pageIndex = req.allParams().pageIndex;
+        var title = req.allParams().title;
         if (!category) {
             return res.serverError("Missing params");
         }
-        if (count && count == 1) {
-            Post.count({
-                where: {teacher: false, category: category},
-                sort: 'seenCount ASC'
-            }).exec(function (err, count) {
-                if (err) {
-                    return res.serverError("Unable to find posts");
-                }
-                res.send(200, {count: count});
-            });
-        }
-        else {
-            if (!pageSize) {
-                pageSize = 10;
+        Post.search(title, false, category, pageSize, pageIndex, count, 'seenCount ASC', function(err, posts) {
+            if (err) {
+                return res.serverError("Unable to find posts");
             }
-            if (!pageIndex) {
-                pageIndex = 1;
+            var result = posts;
+            if (count) {
+                result = {
+                    count: posts
+                };
             }
-            var skip = pageSize * (pageIndex - 1);
-            Post.find({
-                where: {teacher: false, category: category},
-                skip: skip,
-                limit: pageSize,
-                sort: 'seenCount ASC'
-            }).exec(function (err, posts) {
-                if (err) {
-                    return res.serverError("Unable to find posts");
-                }
-                res.send(posts);
-            });
-        }
+            res.send(200, result);
+        });
+        // if (count && count == 1) {
+        //     Post.count({
+        //         where: {
+        //             teacher: false,
+        //             category: category
+        //         },
+        //         sort: 'seenCount ASC'
+        //     }).exec(function(err, count) {
+        //         if (err) {
+        //             return res.serverError("Unable to find posts");
+        //         }
+        //         res.send(200, {
+        //             count: count
+        //         });
+        //     });
+        // }
+        // else {
+        //     if (!pageSize) {
+        //         pageSize = 10;
+        //     }
+        //     if (!pageIndex) {
+        //         pageIndex = 1;
+        //     }
+        //     var skip = pageSize * (pageIndex - 1);
+        //     Post.find({
+        //         where: {
+        //             teacher: false,
+        //             category: category
+        //         },
+        //         skip: skip,
+        //         limit: pageSize,
+        //         sort: 'seenCount ASC'
+        //     }).exec(function(err, posts) {
+        //         if (err) {
+        //             return res.serverError("Unable to find posts");
+        //         }
+        //         res.send(posts);
+        //     });
+        // }
     },
-    uploadFile: function (req, res) {
+    uploadFile: function(req, res) {
         var env = process.env.NODE_ENV;
         var conf = null;
         if (env == "development") {
@@ -218,7 +268,10 @@ module.exports = {
                     else {
                         var fileName = uploadedFiles[0].filename;
                         var fd = uploadedFiles[0].fd
-                        res.send(200, {name: fileName, fd: fd});
+                        res.send(200, {
+                            name: fileName,
+                            fd: fd
+                        });
                     }
                 });
         }
@@ -226,7 +279,7 @@ module.exports = {
             res.send(500, "Unknown environnement");
         }
     },
-    downloadFile: function (req, res) {
+    downloadFile: function(req, res) {
         var postId = req.allParams().postId;
         var fd = req.allParams().fd;
         if (!fd || !postId) {
@@ -248,22 +301,29 @@ module.exports = {
                     uri: url
                 });
 
-                blobAdapter.read(fd, function (error, file) {
+                blobAdapter.read(fd, function(error, file) {
                     if (error) {
                         res.json(error);
-                    } else {
+                    }
+                    else {
                         res.contentType('application/pdf');
                         res.send(new Buffer(file));
                     }
                 });
 
-                Post.findOne({id: postId}).exec(function (err, post) {
+                Post.findOne({
+                    id: postId
+                }).exec(function(err, post) {
                     if (err) {
                         sails.log.error('Enable to increment download count');
                     }
                     else {
                         var count = post.downloadCount + 1;
-                        Post.update({id: postId}, {downloadCount: count}).exec(function (err, p) {
+                        Post.update({
+                            id: postId
+                        }, {
+                            downloadCount: count
+                        }).exec(function(err, p) {
 
                         });
                     }
@@ -276,4 +336,3 @@ module.exports = {
     }
 
 };
-

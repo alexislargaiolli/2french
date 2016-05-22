@@ -71,18 +71,18 @@ tooFrenchServices.factory('Post', ['$resource', '$http', '$q',
                 });
                 return deferred.promise;
             },
-            getPostGeneralByCategory: function (categoryId, count, pageSize, pageIndex) {
+            getPostGeneralByCategory: function (categoryId, title, count, pageSize, pageIndex) {
                 var deferred = $q.defer();
-                $http.get('/post/postGeneralByCategory', {params: {categoryId: categoryId, count : count, pageSize : pageSize, pageIndex : pageIndex}}).success(function (data, status, headers, config) {
+                $http.get('/post/postGeneralByCategory', {params: {categoryId: categoryId, title : title, count : count, pageSize : pageSize, pageIndex : pageIndex}}).success(function (data, status, headers, config) {
                     deferred.resolve(data);
                 }).error(function (data, status, headers, config) {
                     deferred.reject();
                 });
                 return deferred.promise;
             },
-            getPostTeacherByCategory: function (categoryId, count, pageSize, pageIndex) {
+            getPostTeacherByCategory: function (categoryId, title, count, pageSize, pageIndex) {
                 var deferred = $q.defer();
-                $http.get('/post/postTeacherByCategory', {params: {categoryId: categoryId, count : count, pageSize : pageSize, pageIndex : pageIndex}}).success(function (data, status, headers, config) {
+                $http.get('/post/postTeacherByCategory', {params: {categoryId: categoryId, title : title, count : count, pageSize : pageSize, pageIndex : pageIndex}}).success(function (data, status, headers, config) {
                     deferred.resolve(data);
                 }).error(function (data, status, headers, config) {
                     deferred.reject();

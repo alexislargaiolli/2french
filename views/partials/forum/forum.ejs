@@ -22,6 +22,13 @@
                             </v-pane-header>
 
                             <v-pane-content>
+                                <div class="search-bar">
+                                    <form novalidate class="form-inline">
+                                        <input type="text" class="form-control search-input" placeholder="Search" ng-model="teacherPostsByCategory[category.id].title">
+                                        <button type="submit" class="btn btn-default search-btn fa fa-search" ng-click="searchTeacherPost(category)"></button>
+                                        <button class="btn btn-default search-btn fa fa-close" ng-click="clearTeacherFilters(category)" ng-if="teacherPostsByCategory[category.id].title.length > 0"></button>
+                                    </form>
+                                </div>
                                 <div class="data-loader" ng-if="teacherPostsByCategory[category.id].loading">
                                     <i class="fa fa-spinner fa-spin"></i>
                                 </div>
@@ -60,6 +67,13 @@
                             </v-pane-header>
 
                             <v-pane-content>
+                                <div class="search-bar">
+                                    <form novalidate class="form-inline">
+                                        <input type="text" class="form-control search-input" placeholder="Search" ng-model="generalPostsByCategory[category.id].title">
+                                        <button type="submit" class="btn btn-default search-btn fa fa-search" ng-click="searchGeneralPost(category)"></button>
+                                        <button class="btn btn-default search-btn fa fa-close" ng-click="clearTeacherFilters(category)" ng-if="generalPostsByCategory[category.id].title.length > 0"></button>
+                                    </form>
+                                </div>
                                 <div class="data-loader" ng-if="generalPostsByCategory[category.id].loading">
                                     <i class="fa fa-spinner fa-spin"></i>
                                 </div>

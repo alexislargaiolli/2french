@@ -45,13 +45,45 @@ module.exports = {
             via: 'post'
         }
     },
-    afterCreate: function (post, next) {
-        if(post.teacher){
-            sails.services['notification'].createForumNotificationToAllTeacher(post.id, function(){
+    afterCreate: function(post, next) {
+        if (post.teacher) {
+            sails.services['notification'].createForumNotificationToAllTeacher(post.id, function() {
 
             });
         }
         next();
+    },
+    search: function(title, teacher, category, pageSize, pageIndex, count, sort, callback) {
+        var size = 10;
+        var index = 1;
+        var method = 'find';
+        if(count){
+            method = 'count';
+        }
+        if (pageSize) {
+            size = pageSize;
+        }
+        if (pageIndex) {
+            index = 1;
+        }
+        var skip = size * (index - 1);
+        var where = {};
+        if (category) {
+            where.category = category;
+        }
+        if (teacher) {
+            where.teacher = teacher;
+        }
+        if(title){
+            where.title = {'contains' : title};
+        }
+        sails.log.debug('search [title : ' + title + ', teacher : ' + teacher + ', category : ' + category +', method : '+ method + ']');
+        Post[method]({
+            where: where,
+            skip: skip,
+            limit: size,
+            sort: sort
+        }).exec(callback);
     },
     /**
      * Find the more recent posts
@@ -59,7 +91,7 @@ module.exports = {
      * @param onlyGeneralPost true to find only genral post, false to find general and teacher posts
      * @param cb callback method
      */
-    getRecentPost:function(numberToLoad, onlyGeneralPost, cb){
+    getRecentPost: function(numberToLoad, onlyGeneralPost, cb) {
         sails.log.debug('getRecentPost() - [numberToLoad : ' + numberToLoad + ', onlyGeneralPost : ' + onlyGeneralPost + ']');
         var where = {};
         if (onlyGeneralPost == true) {
@@ -69,14 +101,14 @@ module.exports = {
             where: where,
             limit: numberToLoad,
             sort: 'date DESC'
-        }).populate('category').exec(function (err, posts) {
+        }).populate('category').exec(function(err, posts) {
             if (err) {
                 return cb(err, []);
             }
             cb(null, posts);
         });
     },
-    afterDestroy: function (posts, next) {
+    afterDestroy: function(posts, next) {
         sails.log.info('destroy post');
         if (posts.length == 0) {
             return next();
@@ -89,12 +121,12 @@ module.exports = {
         else if (env == "production") {
             conf = sails.config.connections.mongoProd;
         }
-        posts.forEach(function (post, i) {
+        posts.forEach(function(post, i) {
             sails.log.info('destroy comments');
             //Remove comments
             sails.models.comment.destroy({
                 post: post.id
-            }).exec(function (err) {
+            }).exec(function(err) {
                 if (err) {
                     sails.log.info('error removing comments');
                     return next(err);
@@ -112,9 +144,9 @@ module.exports = {
                         uri: url
                     });
 
-                    post.files.forEach(function (file, index) {
+                    post.files.forEach(function(file, index) {
                         if (file.fd) {
-                            blobAdapter.rm(file.fd, function (error, file) {
+                            blobAdapter.rm(file.fd, function(error, file) {
                                 if (error) {
                                     sails.log.error('error while removing post file ' + file.fd);
                                 }
@@ -126,4 +158,3 @@ module.exports = {
         });
     }
 };
-
