@@ -168,7 +168,7 @@ ctrl.controller('ForumCtrl', ['$scope', '$rootScope', 'Post', 'PostCategory', '$
         });
     };
 
-    $scope.clearTeacherFilters = function(category) {
+    $scope.clearGeneralFilters = function(category) {
         $scope.generalPostsByCategory[category.id].title = '';
         $scope.searchGeneralPost(category);
     };

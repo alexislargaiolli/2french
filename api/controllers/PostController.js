@@ -152,37 +152,6 @@ module.exports = {
             }
             res.send(200, result);
         });
-        // if (count && count == 1) {
-        //     Post.count({
-        //         where: {teacher: true, category: category},
-        //         sort: 'seenCount ASC'
-        //     }).exec(function (err, count) {
-        //         if (err) {
-        //             return res.serverError("Unable to find posts");
-        //         }
-        //         res.send(200, {count: count});
-        //     });
-        // }
-        // else {
-        //     if (!pageSize) {
-        //         pageSize = 10;
-        //     }
-        //     if (!pageIndex) {
-        //         pageIndex = 1;
-        //     }
-        //     var skip = pageSize * (pageIndex - 1);
-        //     Post.find({
-        //         where: {teacher: true, category: category},
-        //         skip: skip,
-        //         limit: pageSize,
-        //         sort: 'seenCount ASC'
-        //     }).exec(function (err, posts) {
-        //         if (err) {
-        //             return res.serverError("Unable to find posts");
-        //         }
-        //         res.send(posts);
-        //     });
-        // }
     },
     postGeneralByCategory: function(req, res) {
         var count = req.allParams().count;
@@ -205,45 +174,6 @@ module.exports = {
             }
             res.send(200, result);
         });
-        // if (count && count == 1) {
-        //     Post.count({
-        //         where: {
-        //             teacher: false,
-        //             category: category
-        //         },
-        //         sort: 'seenCount ASC'
-        //     }).exec(function(err, count) {
-        //         if (err) {
-        //             return res.serverError("Unable to find posts");
-        //         }
-        //         res.send(200, {
-        //             count: count
-        //         });
-        //     });
-        // }
-        // else {
-        //     if (!pageSize) {
-        //         pageSize = 10;
-        //     }
-        //     if (!pageIndex) {
-        //         pageIndex = 1;
-        //     }
-        //     var skip = pageSize * (pageIndex - 1);
-        //     Post.find({
-        //         where: {
-        //             teacher: false,
-        //             category: category
-        //         },
-        //         skip: skip,
-        //         limit: pageSize,
-        //         sort: 'seenCount ASC'
-        //     }).exec(function(err, posts) {
-        //         if (err) {
-        //             return res.serverError("Unable to find posts");
-        //         }
-        //         res.send(posts);
-        //     });
-        // }
     },
     uploadFile: function(req, res) {
         var env = process.env.NODE_ENV;

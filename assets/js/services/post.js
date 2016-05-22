@@ -3,7 +3,7 @@ tooFrenchServices.factory('Post', ['$resource', '$http', '$q',
     function ($resource, $http, $q) {
         return {
             getResource: function () {
-                return $resource('/post/:id', {id: '@id'}, {'update': {method: 'PUT'}});
+                return $resource('/post/:id', {id: '@id'}, {'update': {method: 'PUT'}, 'count': {url: '/post/count', method: 'GET', params : {where : '@where'}}});
             },
             getCommentResource: function () {
                 return $resource('/comment/:id', {id: '@id'}, {'update': {method: 'PUT'}});

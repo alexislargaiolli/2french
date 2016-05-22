@@ -114,7 +114,8 @@ module.exports.policies = {
   PostController:{
     '*':[ 'passport', 'sessionAuth'],
     save : ['passport', 'sessionAuth', 'teacherPost'],
-    destroy : [ 'passport', 'sessionAuth', 'admin']
+    destroy : [ 'passport', 'sessionAuth', 'admin'],
+    count : [ 'passport', 'sessionAuth', 'admin']
   },
   PostCategoryController:{
     '*' : [ 'passport', 'sessionAuth', 'admin'],

@@ -1,3 +1,11 @@
+<h2 style="display:inline-block;">Statistiques</h2>
+<div layout="row" class="bp-10">
+    <div flex="25">
+        <span class="fa fa-newspaper-o fa-2x middle"></span>
+        <span class="middle">Nombre total de post : {{postCount.count}}</span>
+    </div>
+</div>
+<alex-table id="postDatatable" model="datatable" columns="columns"></alex-table>
 <h2 style="display:inline-block;">Catégories de post</h2>
 <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" ng-click="createPostCategory()" data-target="#dlgAddPostCategory">
 <i class="fa fa-plus"></i>
