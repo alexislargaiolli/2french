@@ -64,7 +64,7 @@ module.exports = {
             size = pageSize;
         }
         if (pageIndex) {
-            index = 1;
+            index = pageIndex;
         }
         var skip = size * (index - 1);
         var where = {};
@@ -77,7 +77,7 @@ module.exports = {
         if(title){
             where.title = {'contains' : title};
         }
-        sails.log.debug('search [title : ' + title + ', teacher : ' + teacher + ', category : ' + category +', method : '+ method + ']');
+        sails.log.debug('search [title : ' + title + ', teacher : ' + teacher + ', category : ' + category +', method : '+ method + ', pageSize : '+size+', pageIndex : '+index+', skip : '+skip+']');
         Post[method]({
             where: where,
             skip: skip,

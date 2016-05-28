@@ -180,7 +180,8 @@ ctrl.controller('ForumCtrl', ['$scope', '$rootScope', 'Post', 'PostCategory', '$
     $scope.pageGeneralChanged = function(category) {
         $scope.generalPostsByCategory[category.id].loading = true;
         var title = $scope.generalPostsByCategory[category.id].title;
-        Post.getPostGeneralByCategory(category.id, title, null, $scope.pageSize, $scope.teacherPostsByCategory[category.id].pageIndex).then(function(posts) {
+        console.log('blablabla');
+        Post.getPostGeneralByCategory(category.id, title, null, $scope.pageSize, $scope.generalPostsByCategory[category.id].pageIndex).then(function(posts) {
             $scope.generalPostsByCategory[category.id].values = posts;
             $scope.generalPostsByCategory[category.id].loading = false;
         });
