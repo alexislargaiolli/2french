@@ -6,6 +6,7 @@
   "keywords": [],
   "dependencies": {
     "angular-recaptcha": "^1.0.1",
+    "autoreload": "0.0.7",
     "bcrypt": "^0.8.1",
     "bcryptjs": "^2.1.0",
     "bower": "^1.3.12",

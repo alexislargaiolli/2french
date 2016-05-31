@@ -43,6 +43,9 @@ module.exports = {
         },
         from: 'notification@toofrench.net',
         templateDir: 'views/emailTemplates'
+    },
+    
+    autoreload:{
+        active: true
     }
-
 };
