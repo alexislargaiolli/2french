@@ -19,13 +19,28 @@ module.exports = {
 
     models: {
         connection: 'mongo'
-    }
-    ,
+    },
     log: {
         level: "info"
     },
-    email:{
-        testMode : false,
-        alwaysSendTo : 'alexis.largaiolli@gmail.com'
+    email: {
+        testMode: false,
+        alwaysSendTo: 'alexis.largaiolli@gmail.com'
+    },
+
+    autoreload: {
+        active: true,
+        usePolling: true,
+        dirs: [
+            "api/models",
+            "api/controllers",
+            "api/services",
+            "config/locales",
+            "assets/js"
+        ],
+        ignored: [
+            // Ignore all files with .ts extension
+            "**.ts"
+        ]
     }
 };
