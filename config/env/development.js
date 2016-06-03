@@ -36,7 +36,10 @@ module.exports = {
             "api/controllers",
             "api/services",
             "config/locales",
-            "assets/js"
+            "assets/js",
+            "assets/partials",
+            "assets/style",
+            "assets/index.html"
         ],
         ignored: [
             // Ignore all files with .ts extension

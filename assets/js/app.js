@@ -119,28 +119,28 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
         // HOME STATES AND NESTED VIEWS ========================================
             .state('home', {
                 url: '/home',
-                templateUrl: 'views/main.html' + version
+                templateUrl: 'partials/main.html' + version
             })
 
             .state('forbidden', {
                 url: '/forbidden',
-                templateUrl: 'views/forbidden.html' + version
+                templateUrl: 'partials/forbidden.html' + version
             })
 
             .state('learn', {
                 url: '/learn',
-                templateUrl: 'views/learn.html' + version
+                templateUrl: 'partials/learn.html' + version
             })
 
             .state('teach', {
                 url: '/teach',
-                templateUrl: 'views/teach.html' + version
+                templateUrl: 'partials/teach.html' + version
             })
 
             .state('forum', {
                 url: '/forum',
                 controller: 'ForumCtrl',
-                templateUrl: 'views/forum/forum.html' + version,
+                templateUrl: 'partials/forum/forum.html' + version,
                 data: {
                     auth: true,
                 }
@@ -149,7 +149,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             .state('forum.post', {
                 url: '/:postId',
                 controller: 'ForumPostCtrl',
-                templateUrl: 'views/forum/forum-post.html' + version,
+                templateUrl: 'partials/forum/forum-post.html' + version,
                 data: {
                     auth: true,
                 }
@@ -158,7 +158,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             .state('forum.create', {
                 url: '/post/create/:teacher',
                 controller: 'ForumCreatePostCtrl',
-                templateUrl: 'views/forum/forum-create-post.html' + version,
+                templateUrl: 'partials/forum/forum-create-post.html' + version,
                 data: {
                     auth: true,
                 }
@@ -167,25 +167,25 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             .state('login', {
                 url: '/login',
                 controller: 'LoginCtrl',
-                templateUrl: 'views/login.html' + version
+                templateUrl: 'partials/login.html' + version
             })
 
             .state('forgottenPassword', {
                 url: '/forgottenPassword',
                 controller: 'ForgottenPasswordCtrl',
-                templateUrl: 'views/forgottenPassword.html' + version
+                templateUrl: 'partials/forgottenPassword.html' + version
             })
 
             .state('resetPassword', {
                 url: '/resetPassword/:token',
                 controller: 'ResetPasswordCtrl',
-                templateUrl: 'views/resetPassword.html' + version
+                templateUrl: 'partials/resetPassword.html' + version
             })
 
             .state('register', {
                 url: '/register',
                 controller: 'RegisterCtrl',
-                templateUrl: 'views/register.html' + version,
+                templateUrl: 'partials/register.html' + version,
                 data: {
                     auth: false,
                 }
@@ -194,7 +194,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             .state('profile', {
                 url: '/profile/:profileId',
                 controller: 'ProfileCtrl',
-                templateUrl: 'views/profile.html' + version,
+                templateUrl: 'partials/profile.html' + version,
                 data: {
                     auth: true
                 }
@@ -203,7 +203,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             .state('myprofile', {
                 url: '/myprofile',
                 controller: 'MyProfileCtrl',
-                templateUrl: 'views/myprofile.html' + version,
+                templateUrl: 'partials/myprofile.html' + version,
                 data: {
                     auth: true
                 }
@@ -212,7 +212,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             .state('reservation', {
                 url: '/reservation/:profileId/:formula',
                 controller: 'ReservationCtrl',
-                templateUrl: 'views/reservation.html' + version,
+                templateUrl: 'partials/reservation.html' + version,
                 data: {
                     auth: true
                 }
@@ -221,7 +221,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             .state('addReview', {
                 url: '/addreview/:reservationId',
                 controller: 'AddReviewCtrl',
-                templateUrl: 'views/add-review.html' + version,
+                templateUrl: 'partials/add-review.html' + version,
                 data: {
                     auth: true
                 }
@@ -229,7 +229,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
 
             .state('admin', {
                 url: '/admin',
-                templateUrl: 'views/admin.html' + version,
+                templateUrl: 'partials/admin.html' + version,
                 controller: 'AdminCtrl',
                 data: {
                     auth: true,
@@ -238,7 +238,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             })
             .state('admin.users', {
                 url: '/users',
-                templateUrl: 'views/admin/users.html' + version,
+                templateUrl: 'partials/admin/users.html' + version,
                 controller: 'AdminUserCtrl',
                 data: {
                     auth: true,
@@ -247,7 +247,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             })
             .state('admin.formations', {
                 url: '/formations',
-                templateUrl: 'views/admin/formations.html' + version,
+                templateUrl: 'partials/admin/formations.html' + version,
                 controller: 'AdminFormationCtrl',
                 data: {
                     auth: true,
@@ -256,7 +256,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             })
             .state('admin.equipments', {
                 url: '/equipments',
-                templateUrl: 'views/admin/equipments.html' + version,
+                templateUrl: 'partials/admin/equipments.html' + version,
                 controller: 'AdminEquipmentCtrl',
                 data: {
                     auth: true,
@@ -265,7 +265,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             })
             .state('admin.extras', {
                 url: '/extras',
-                templateUrl: 'views/admin/extras.html' + version,
+                templateUrl: 'partials/admin/extras.html' + version,
                 controller: 'AdminExtraCtrl',
                 data: {
                     auth: true,
@@ -274,7 +274,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             })
             .state('admin.recommandations', {
                 url: '/recommandations',
-                templateUrl: 'views/admin/recommandations.html' + version,
+                templateUrl: 'partials/admin/recommandations.html' + version,
                 controller: 'AdminRecommandationCtrl',
                 data: {
                     auth: true,
@@ -283,7 +283,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             })
             .state('admin.utillinks', {
                 url: '/utillinks',
-                templateUrl: 'views/admin/utillinks.html' + version,
+                templateUrl: 'partials/admin/utillinks.html' + version,
                 controller: 'AdminUtilLinkCtrl',
                 data: {
                     auth: true,
@@ -292,7 +292,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             })
             .state('admin.diplomas', {
                 url: '/diplomas',
-                templateUrl: 'views/admin/diplomas.html' + version,
+                templateUrl: 'partials/admin/diplomas.html' + version,
                 controller: 'AdminDiplomaCtrl',
                 data: {
                     auth: true,
@@ -301,7 +301,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             })
             .state('admin.forum', {
                 url: '/forum',
-                templateUrl: 'views/admin/forum.html' + version,
+                templateUrl: 'partials/admin/forum.html' + version,
                 controller: 'AdminPostCategoryCtrl',
                 data: {
                     auth: true,
@@ -310,27 +310,27 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             })
             .state('temp', {
                 url: '/temp',
-                templateUrl: 'views/temp.html' + version,
+                templateUrl: 'partials/temp.html' + version,
                 controller: 'UploadPhotoCtrl'
             })
             .state('uploader', {
                 url: '/uploader',
-                templateUrl: 'views/temps/uploader.html' + version,
+                templateUrl: 'partials/temps/uploader.html' + version,
                 controller: 'UploaderCtrl'
             })
             .state('results', {
                 url: '/results/:country/:lvl1/:lvl2/:city/:days/:periods',
-                templateUrl: 'views/results.html' + version,
+                templateUrl: 'partials/results.html' + version,
                 controller: 'SearchCtrl'
             })
             .state('recommandations', {
                 url: '/recommandations/:country/:lvl1/:lvl2/:city',
-                templateUrl: 'views/recommandations.html' + version,
+                templateUrl: 'partials/recommandations.html' + version,
                 controller: 'RecommandationCtrl'
             })
             .state('messagerie', {
                 url: '/messagerie/:conversationId',
-                templateUrl: 'views/messagerie.html' + version,
+                templateUrl: 'partials/messagerie.html' + version,
                 controller: 'MessagerieCtrl',
                 data: {
                     auth: true
@@ -338,7 +338,7 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             })
             .state('planning', {
                 url: '/planning/:history/:resaId',
-                templateUrl: 'views/planning.html' + version,
+                templateUrl: 'partials/planning.html' + version,
                 controller: 'PlanningCtrl',
                 data: {
                     auth: true
@@ -346,38 +346,38 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
             })
             .state('contact', {
                 url: '/contact/:theme',
-                templateUrl: 'views/contact.html' + version,
+                templateUrl: 'partials/contact.html' + version,
                 controller: 'FormContactCtrl'
             })
             .state('mentions', {
                 url: '/mentions',
-                templateUrl: 'views/mentions.html' + version
+                templateUrl: 'partials/mentions.html' + version
             })
             .state('parameters', {
                 url: '/parameters',
-                templateUrl: 'views/parameters/parameters.html' + version
+                templateUrl: 'partials/parameters/parameters.html' + version
             })
             .state('parameters.notifications', {
                 url: '/parameters/notifications',
                 controller: 'ParametersNotificationsCtrl',
-                templateUrl: 'views/parameters/parameters-notifications.html' + version
+                templateUrl: 'partials/parameters/parameters-notifications.html' + version
             })
             .state('parameters.password', {
                 url: '/parameters/password',
                 controller: 'ParametersPasswordCtrl',
-                templateUrl: 'views/parameters/parameters-password.html' + version
+                templateUrl: 'partials/parameters/parameters-password.html' + version
             })
             .state('faq', {
                 url: '/faq',
-                templateUrl: 'views/faq.html' + version
+                templateUrl: 'partials/faq.html' + version
             })
             .state('informations', {
                 url: '/informations',
-                templateUrl: 'views/informations.html' + version
+                templateUrl: 'partials/informations.html' + version
             })
             .state('myteachers', {
                 url: '/myteachers',
-                templateUrl: 'views/myteachers.html' + version,
+                templateUrl: 'partials/myteachers.html' + version,
                 controller: 'FavListCtrl',
                 data: {
                     auth: true
@@ -434,7 +434,7 @@ tooFrenchApp.run(['$rootScope', '$state', '$window', 'AUTH_EVENTS', 'AuthService
         editableOptions.theme = 'bs3';
         taOptions.defaultTagAttributes.a.target = '_blank';
 
-        $templateCache.remove('views/*');
+        $templateCache.remove('partials/*');
         moment.locale('fr');
         $rootScope.today = moment();
         $rootScope.userfavlist = UserFavList;

@@ -37,13 +37,6 @@ module.exports.routes = {
   'GET /profile/count': {blueprint: 'count'},
   'GET /diploma/count': {blueprint: 'count'},
 
-  'get /': {
-    view: 'index'
-  },
-  'get /views/:view1': 'PartialsController.partialsLevel1',
-  'get /views/:view1/:view2': 'PartialsController.partialsLevel2',
-  'get /views/:view1/:view2/:views3': 'PartialsController.partialsLevel3',
-
   /////////////////////////////////////////////
   ///////////    AuthController    ////////////
   /////////////////////////////////////////////

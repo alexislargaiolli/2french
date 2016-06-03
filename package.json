@@ -68,7 +68,6 @@
     "q": "^1.4.1",
     "sails-memory": "^0.10.5",
     "should": "^8.0.2",
-    "supertest": "^1.1.0",
-    "autoreload": "0.0.7"
+    "supertest": "^1.1.0"
   }
 }

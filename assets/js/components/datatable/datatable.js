@@ -295,6 +295,6 @@ tooFrench.directive('alexTable', function () {
         scope: {
             model: '='
         },
-        templateUrl: 'views/directives/datatable.html'
+        templateUrl: 'partials/directives/datatable.html'
     };
 });

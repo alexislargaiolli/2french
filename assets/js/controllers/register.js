@@ -86,6 +86,6 @@ tooFrenchControllers.directive('iconValidation', function() {
 		scope: {
 			elt: '=elt',
 		},
-		templateUrl: 'views/directives/iconValidation.html'
+		templateUrl: 'partials/directives/iconValidation.html'
 	};
 });
