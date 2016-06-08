@@ -24,7 +24,7 @@
                             <v-pane-content>
                                 <div class="search-bar">
                                     <form novalidate class="form-inline">
-                                        <input type="text" class="form-control search-input" placeholder="Search" ng-model="teacherPostsByCategory[category.id].title">
+                                        <input type="text" class="form-control search-input" placeholder="{{'forum.search.placeholder' | translate}}" ng-model="teacherPostsByCategory[category.id].title">
                                         <button type="submit" class="btn btn-default search-btn fa fa-search" ng-click="searchTeacherPost(category)"></button>
                                         <button class="btn btn-default search-btn fa fa-close" ng-click="clearTeacherFilters(category)" ng-if="teacherPostsByCategory[category.id].title.length > 0"></button>
                                     </form>

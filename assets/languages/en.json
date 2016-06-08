@@ -247,6 +247,7 @@
 "forum.title": "Forum",
 "forum.teacher.title": "Teacher’s Forum",
 "forum.general.title": "General Forum",
+"forum.search.placeholder": "Search by level / skill / topic",
 "forum.post.new": "New Post",
 "forum.posts.empty": "None",
 "forum.posts.recent.title": "Most Recent Posts",

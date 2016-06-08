@@ -249,6 +249,7 @@
   "forum.title": "Forum",
   "forum.teacher.title": "Forum Professeur",
   "forum.general.title": "Forum Général",
+  "forum.search.placeholder": "Recherche par niveau / compétence / thème",
   "forum.post.new": "Nouveau sujet",
   "forum.posts.empty": "Aucun",
   "forum.posts.recent.title": "Sujets les plus récents",
