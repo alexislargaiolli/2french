@@ -19,7 +19,7 @@
     <tbody>
     <tr ng-repeat="item in model.items" ng-click="model.toggleSelect(item)" ng-class="{'active' : model.isSelected(item)}">
         <td ng-repeat="column in model.columns">
-            <span ng-if="!column.subfield" class="SEL_{{column.field}}">{{model.buildField(item,column.field) | date : 'mediumDate'}}</span>
+            <span ng-if="!column.subfield" class="SEL_{{column.field}}">{{model.buildField(item,column.field)}}</span>
             <span ng-if="column.subfield" class="SEL_{{column.subfield}}">{{item[column.field][column.subfield]}}</span>
         </td>
     </tr>

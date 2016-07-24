@@ -7,9 +7,10 @@
  * Controller of the tooFrenchApp
  */
 var ctrl = angular.module('tooFrenchApp');
-ctrl.controller('AdminPostCategoryCtrl', ['$scope', 'PostCategory', 'Post', 'DataTable',  '$mdDialog', function($scope, PostCategory, Post, DataTable, $mdDialog) {
+ctrl.controller('AdminPostCategoryCtrl', ['$scope', 'PostCategory', 'Post', 'DataTable',  '$mdDialog', '$mdSidenav', '$mdToast', function($scope, PostCategory, Post, DataTable, $mdDialog, $mdSidenav, $mdToast) {
 	$scope.categorys = PostCategory.query();
 	$scope.category = new PostCategory;
+    $scope.selectedPost;
 	
 	$scope.postCount = Post.getResource().count();
 	
@@ -47,7 +48,15 @@ ctrl.controller('AdminPostCategoryCtrl', ['$scope', 'PostCategory', 'Post', 'Dat
         
     $scope.datatable = new DataTable('post', $scope.columns);
     $scope.datatable.populate = 'comments,category';
-    $scope.datatable.load().then(function () {
+    $scope.datatable.selectionType = 1;
+    $scope.datatable.onSelect = function (elt) {
+        $scope.selectedPost = elt;
+        $mdSidenav('right').toggle();
+    }
+    $scope.closeNavbar = function () {
+        $mdSidenav('right').close();
+    }
+    $scope.datatable.load().then(function (items) {
 
     });
 	

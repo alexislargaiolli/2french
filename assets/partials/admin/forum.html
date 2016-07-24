@@ -1,44 +1,72 @@
-<h2 style="display:inline-block;">Statistiques</h2>
-<div layout="row" class="bp-10">
-    <div flex="25">
-        <span class="fa fa-newspaper-o fa-2x middle"></span>
-        <span class="middle">Nombre total de post : {{postCount.count}}</span>
-    </div>
-</div>
-<alex-table id="postDatatable" model="datatable" columns="columns"></alex-table>
-<h2 style="display:inline-block;">Catégories de post</h2>
-<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" ng-click="createPostCategory()" data-target="#dlgAddPostCategory">
-<i class="fa fa-plus"></i>
-</button>
-<ul class="list-group">
-	<li ng-repeat="e in categorys" class="list-group-item">{{e.name[currentLocale]}}
-		<button type="button" ng-click="selectPostCategory(e)" data-toggle="modal" data-target="#dlgAddPostCategory" class="btn btn-default">Edit</button>
-		<button type="button" ng-click="deletePostCategory(e)" class="btn btn-default">Remove</button>
-	</li>
-</ul>
-<div class="modal fade" id="dlgAddPostCategory" tabindex="-1" role="dialog" aria-labelledby="dlgAddPostCategory" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<form name="formAddEPostCategory">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title" id="myModalLabel">PostCategory</h4>
+<div layout="column">
+	<section layout="row" flex>
+		<md-content flex>
+			<h3 class="block-title2">Statistique</h3>
+			<div layout="row" class="bp-10">
+				<div flex="25">
+					<span class="fa fa-newspaper-o fa-2x middle"></span>
+					<span class="middle">Nombre total de post : {{postCount.count}}</span>
 				</div>
-				<div class="modal-body">
-					<div class="form-group">
-						<label for="PostCategoryName">Nom</label>
-						<input type="text" ng-model="category.name[currentLocale]" class="form-control" id="PostCategoryName" placeholder="Libellé" ng-required="true">
+			</div>
+			<h3 class="block-title2">Liste des posts</h3>
+			<alex-table id="postDatatable" model="datatable" columns="columns"></alex-table>
+
+			<h2 style="display:inline-block;">Catégories de post</h2>
+			<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" ng-click="createPostCategory()" data-target="#dlgAddPostCategory">
+				<i class="fa fa-plus"></i>
+			</button>
+			<ul class="list-group">
+				<li ng-repeat="e in categorys" class="list-group-item">{{e.name[currentLocale]}}
+					<button type="button" ng-click="selectPostCategory(e)" data-toggle="modal" data-target="#dlgAddPostCategory" class="btn btn-default">Edit</button>
+					<button type="button" ng-click="deletePostCategory(e)" class="btn btn-default">Remove</button>
+				</li>
+			</ul>
+			<div class="modal fade" id="dlgAddPostCategory" tabindex="-1" role="dialog" aria-labelledby="dlgAddPostCategory" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<form name="formAddEPostCategory">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title" id="myModalLabel">PostCategory</h4>
+							</div>
+							<div class="modal-body">
+								<div class="form-group">
+									<label for="PostCategoryName">Nom</label>
+									<input type="text" ng-model="category.name[currentLocale]" class="form-control" id="PostCategoryName" placeholder="Libellé" ng-required="true">
+								</div>
+								<div class="form-group">
+									<label for="PostCategoryType">Catégorie pour les professeurs ?</label>
+									<input type="checkbox" ng-model="category.teacher" id="PostCategoryType">
+								</div>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+								<button type="submit" ng-click="savePostCategory()" class="btn btn-primary" data-dismiss="modal" ng-disabled="formAddPostCategory.$invalid">Ajouter</button>
+							</div>
+						</form>
 					</div>
-					<div class="form-group">
-						<label for="PostCategoryType">Catégorie pour les professeurs ?</label>
-						<input type="checkbox" ng-model="category.teacher" id="PostCategoryType">
+				</div>
+			</div>
+
+		</md-content>
+		<md-sidenav class="md-sidenav-right md-whiteframe-z2" md-component-id="right">
+			<md-toolbar class="md-theme-light">
+				<h1 class="md-toolbar-tools">{{selectedPost.title}}</h1>
+			</md-toolbar>
+			<md-content layout-padding>
+				<div layout="column">
+					<div flex class="center">
+						<md-button href="#/forum/{{selectedPost.id}}" class="md-raised md-info w-50">
+							Ouvrir
+						</md-button>
+					</div>
+					<div flex class="center">
+						<md-button ng-click="closeNavbar()" class="md-raised w-50">
+							Annuler
+						</md-button>
 					</div>
 				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
-					<button type="submit" ng-click="savePostCategory()" class="btn btn-primary" data-dismiss="modal" ng-disabled="formAddPostCategory.$invalid">Ajouter</button>
-				</div>
-			</form>
-		</div>
-	</div>
+			</md-content>
+		</md-sidenav>
+	</section>
 </div>
