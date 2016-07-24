@@ -125,6 +125,7 @@ var AuthController = {
                     if(err){
                         return sendError('Unable to laod user');
                     }
+                    sails.log.debug('AuthController.callback() - login success - ' + data.profile);
                     sails.log.debug('AuthController.callback() - login success - ' + data.user.username);
                     res.send(200, data);
                 });

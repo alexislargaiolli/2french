@@ -29,7 +29,6 @@ tooFrenchControllers.controller('MyProfileCtrl', ['$rootScope', '$scope', 'Sessi
 
         //Wait for login process to finish (prevent F5 bugs)
         $scope.loginRequest.promise.then(function () {
-
             //Fetch the current user profile
             $scope.profile = Profile.get({
                 id: Session.user.profile
