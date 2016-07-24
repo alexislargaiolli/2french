@@ -136,7 +136,6 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
                 url: '/teach',
                 templateUrl: 'partials/teach.html' + version
             })
-
             .state('forum', {
                 url: '/forum',
                 controller: 'ForumCtrl',
