@@ -43,7 +43,7 @@ module.exports = {
         },
         from: 'notification@toofrench.net',
         templateDir: 'views/emailTemplates'
-    }
+    },
 
     grunt:{
         hookTimeout : 50000
