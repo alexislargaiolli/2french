@@ -34,6 +34,7 @@ module.exports.routes = {
 
   'GET /user/count': {blueprint: 'count'},
   'GET /post/count': {blueprint: 'count'},
+  'GET /reservation/count': {blueprint: 'count'},
   'GET /profile/count': {blueprint: 'count'},
   'GET /diploma/count': {blueprint: 'count'},
 

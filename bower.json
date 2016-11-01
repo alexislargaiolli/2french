@@ -41,7 +41,8 @@
     "angular-aria": "~1.4.8",
     "angular-svg-round-progressbar": "~0.3.8",
     "angular-scroll": "~1.0.0",
-    "MultipleDatePicker": "multiple-date-picker#^1.4.0"
+    "MultipleDatePicker": "multiple-date-picker#^1.4.0",
+    "angular-chart.js": "^1.0.3"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.x",

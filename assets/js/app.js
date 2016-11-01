@@ -35,7 +35,8 @@ var tooFrenchApp = angular.module('tooFrenchApp', [
     'textAngular',
     'ngMaterial',
     'angular-svg-round-progress',
-    'duScroll'
+    'duScroll',
+    'chart.js'
 ]);
 
 
@@ -230,6 +231,15 @@ tooFrenchApp.config(function ($httpProvider, $stateProvider, $urlRouterProvider,
                 url: '/admin',
                 templateUrl: 'partials/admin.html' + version,
                 controller: 'AdminCtrl',
+                data: {
+                    auth: true,
+                    authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor],
+                }
+            })
+            .state('admin.statistics', {
+                url: '/statistics',
+                templateUrl: 'partials/admin/statistics.html' + version,
+                controller: 'AdminStatisticsCtrl',
                 data: {
                     auth: true,
                     authorizedRoles: [USER_ROLES.admin, USER_ROLES.editor],

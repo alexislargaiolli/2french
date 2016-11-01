@@ -12,15 +12,15 @@ before(function(done) {
 
     Sails.lift({
         port:9990,
-        log: {
-            level: 'debug'
-        },
         models: {
             connection: 'test',
             migrate: 'drop'
         },
         email:{
             testMode : true
+        },
+        log : {
+            level : 'warn'
         },
         globals:{
             services: true,

@@ -10,6 +10,9 @@ module.exports = {
         Reservation.findOne({id : req.allParams().id}).exec(function(err, resa){
             if(err) {
                 return serverError(err);
+            }  
+            if(resa === null || resa === undefined){
+                return res.send(200, resa);
             }
             if(req.user.profile == resa.teacher || req.user.profile == resa.student || req.user.role == 'admin'){
                 if(req.user.profile == resa.teacher){

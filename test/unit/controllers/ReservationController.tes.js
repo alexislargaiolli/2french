@@ -1,6 +1,7 @@
 var assert = require('assert'),
     should = require('should'),
-    request = require('supertest');
+    request = require('supertest'),
+    Reservation = require('../../../api/controllers/ReservationController');
 
 /**
  * Created by alex on 26/10/15.
@@ -155,6 +156,16 @@ describe('ReservationController', function () {
                         done();
                     });
             });
+        });
+
+        describe('#getResaCount', function () { 
+
+            it('should return the number of reservation between two dates', function(done){
+                Reservation.find({},function(err, reservations){
+                    reservations.should.have.length(0);
+                });
+            });
+
         });
     });
 });

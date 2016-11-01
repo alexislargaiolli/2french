@@ -49,7 +49,9 @@ module.exports = function (grunt) {
                 '30.js': 'angular-carousel/dist/angular-carousel.js',
                 '32.js': 'angular-dynamic-locale/dist/tmhDynamicLocale.js',
                 '33.js': 'angular-svg-round-progressbar/build/roundProgress.js',
-                '34.js': '../libs/multipleDatePicker.js'
+                '34.js': '../libs/multipleDatePicker.js',
+                '35.js' : 'chart.js/dist/Chart.min.js',
+                '36.js' : 'angular-chart.js/dist/angular-chart.min.js'
             }
         },
         cssLibs: {
