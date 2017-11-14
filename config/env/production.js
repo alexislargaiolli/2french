@@ -36,16 +36,16 @@ module.exports = {
     },
 
     email: {
-        service: 'Postmark',
+        service: 'gmail',
         auth: {
-            user: '3cf353ad-1e6b-4fb9-b6bb-cd9168af4f30',
-            pass: '3cf353ad-1e6b-4fb9-b6bb-cd9168af4f30'
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PWD
         },
         from: 'notification@toofrench.net',
         templateDir: 'views/emailTemplates'
     },
 
-    grunt:{
-        hookTimeout : 50000
+    grunt: {
+        hookTimeout: 50000
     }
 };
