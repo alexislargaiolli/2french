@@ -77,7 +77,11 @@ module.exports = {
     },
 
     userEndTour: function (req, res) {
-        User.update({id: req.user.id}, {tour: true}).exec(function (err, data) {
+        User.update({
+            id: req.user.id
+        }, {
+            tour: true
+        }).exec(function (err, data) {
             if (err) {
                 return res.serverError(err);
             } else {
@@ -89,7 +93,11 @@ module.exports = {
     userChangeLocale: function (req, res) {
         var locale = req.allParams().locale;
         if (['fr', 'en', 'es'].indexOf(locale) >= 0) {
-            User.update({id: req.user.id}, {defaultLocale: locale}).exec(function (err, data) {
+            User.update({
+                id: req.user.id
+            }, {
+                defaultLocale: locale
+            }).exec(function (err, data) {
                 if (err) {
                     return res.serverError(err);
                 } else {
@@ -100,7 +108,9 @@ module.exports = {
     },
 
     notificationSettings: function (req, res) {
-        NotificationSettings.findOne({owner: req.user.id}).exec(function (err, settings) {
+        NotificationSettings.findOne({
+            owner: req.user.id
+        }).exec(function (err, settings) {
             if (err) {
                 return res.serverError(err);
             }
@@ -110,7 +120,9 @@ module.exports = {
 
     updateNotificationSettings: function (req, res) {
         var settings = req.allParams().settings;
-        NotificationSettings.update({owner: req.user.id}, {
+        NotificationSettings.update({
+            owner: req.user.id
+        }, {
             newReservation: settings.newReservation,
             reservationValidated: settings.reservationValidated,
             reservationCanceled: settings.reservationCanceled,
@@ -129,7 +141,9 @@ module.exports = {
     changePassword: function (req, res) {
         var oldPass = req.allParams().old;
         var newPass = req.allParams().new;
-        Passport.findOne({user: req.user.id}).exec(function (err, passport) {
+        Passport.findOne({
+            user: req.user.id
+        }).exec(function (err, passport) {
             if (oldPass) {
                 passport.validatePassword(oldPass, function (err, result) {
                     if (err) {
@@ -145,8 +159,7 @@ module.exports = {
                                 if (err.code === 'E_VALIDATION') {
                                     sails.log.info('invalid password');
                                     return res.send(500, req.__('Error.Passport.Password.Invalid.minlength', 8));
-                                }
-                                else{
+                                } else {
                                     return res.send(500, 'reset.password.error');
                                 }
                             }
@@ -167,7 +180,9 @@ module.exports = {
         if (!email) {
             return res.send(500, req.__('reset.password.error'));
         }
-        User.findOne({email: email}).exec(function (err, user) {
+        User.findOne({
+            email: email
+        }).exec(function (err, user) {
             if (err) {
                 sails.log.error(err);
                 return res.send(500, req.__('reset.password.error'));
@@ -187,6 +202,7 @@ module.exports = {
                     }
                     sails.services['mail'].forgottenPassword(token, email, function (err) {
                         if (err) {
+                            sails.log.error(err);
                             return res.res.send(500, req.__('reset.password.success'));
                         }
                         res.send(200, req.__('reset.password.success'));
@@ -199,7 +215,12 @@ module.exports = {
 
     checkResetToken: function (req, res) {
         var token = req.allParams().token;
-        User.findOne({resetPasswordToken: token, resetPasswordExpires: {$gt: new Date(Date.now())}}, function (err, user) {
+        User.findOne({
+            resetPasswordToken: token,
+            resetPasswordExpires: {
+                $gt: new Date(Date.now())
+            }
+        }, function (err, user) {
             if (!user) {
                 return res.send(500, req.__('reset.password.expired'));
             }
@@ -214,40 +235,42 @@ module.exports = {
         if (password && passwordConfirm) {
             if (password != passwordConfirm) {
                 return req.send(500, req.__('reset.password.password.not.match'));
-            }
-            else {
+            } else {
                 User.findOne({
                     resetPasswordToken: token,
-                    resetPasswordExpires: {$gt: new Date(Date.now())}
+                    resetPasswordExpires: {
+                        $gt: new Date(Date.now())
+                    }
                 }, function (err, user) {
                     if (!user) {
                         return res.send(500, req.__('reset.password.expired'));
                     }
 
-                    Passport.findOne({user: user.id}).exec(function (err, passport) {
-                        if(err){
+                    Passport.findOne({
+                        user: user.id
+                    }).exec(function (err, passport) {
+                        if (err) {
                             return res.send(500, 'reset.password.error');
                         }
-                        if(!passport){
+                        if (!passport) {
                             return res.send(500, 'reset.password.error');
                         }
                         passport.password = password;
-                        passport.save(function(err){
+                        passport.save(function (err) {
                             if (err) {
                                 if (err.code === 'E_VALIDATION') {
                                     sails.log.info('invalid password');
                                     return res.send(500, req.__('Error.Passport.Password.Invalid.minlength', 8));
-                                }
-                                else{
+                                } else {
                                     return res.send(500, 'reset.password.error');
                                 }
                             }
-                            sails.services['mail'].resetPasswordConfirm(user.id, function(){
+                            sails.services['mail'].resetPasswordConfirm(user.id, function () {
 
                             });
                             user.resetPasswordToken = null;
                             user.resetPasswordExpires = null;
-                            user.save(function(err){
+                            user.save(function (err) {
 
                             });
                             return res.send(200, req.__('user.change.password.success'));
@@ -260,5 +283,3 @@ module.exports = {
         }
     }
 };
-
-
