@@ -203,7 +203,7 @@ module.exports = {
                     sails.services['mail'].forgottenPassword(token, email, function (err) {
                         if (err) {
                             sails.log.error(err);
-                            return res.res.send(500, req.__('reset.password.success'));
+                            return res.send(500, req.__('reset.password.success'));
                         }
                         res.send(200, req.__('reset.password.success'));
                     });

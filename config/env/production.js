@@ -36,10 +36,10 @@ module.exports = {
     },
 
     email: {
-        service: 'gmail',
+        service: 'Mailgun',
         auth: {
-            user: process.env.EMAIL_USER,
-            pass: process.env.EMAIL_PWD
+            user: process.env.MAILGUN_SMTP_LOGIN,
+            pass: process.env.MAILGUN_SMTP_PASSWORD
         },
         from: 'notification@toofrench.net',
         templateDir: 'views/emailTemplates'
