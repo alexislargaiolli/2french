@@ -9,6 +9,7 @@ module.exports.email = {
         pass: process.env.MAILGUN_SMTP_PASSWORD
     },
     from: 'message@toofrench.net',
-    templateDir: 'views/emailTemplates'
-    //testMode : true,
+    templateDir: 'views/emailTemplates',
+    testMode: false,
+    ssl: true
 };
