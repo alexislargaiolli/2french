@@ -12,11 +12,11 @@ function sendContactForm(user, callback) {
 /* Reservation */
 
 function sendReservationCreated(reservationId) {
-    Reservation.findOne({id: reservationId}).populate('student').populate('teacher').exec(function (err, reservation) {
+    Reservation.findOne({ id: reservationId }).populate('student').populate('teacher').exec(function (err, reservation) {
         if (err) {
             sails.log.error(err);
         } else {
-            NotificationSettings.findOrCreate({owner: reservation.teacher.owner}, {owner: reservation.teacher.owner}).populate('owner').exec(function (err, settings) {
+            NotificationSettings.findOrCreate({ owner: reservation.teacher.owner }, { owner: reservation.teacher.owner }).populate('owner').exec(function (err, settings) {
                 if (err) {
                     sails.log.error(err);
                 }
@@ -26,15 +26,15 @@ function sendReservationCreated(reservationId) {
                     var subject = sails.__({
                         phrase: 'mail.resa.created.subject',
                         locale: locale
-                    }, {name: reservation.student.firstname});
+                    }, { name: reservation.student.firstname });
 
                     var content = sails.__({
                         phrase: 'mail.resa.created.content',
                         locale: locale
                     }, {
-                        name: reservation.student.firstname,
-                        link: 'https://toofrench.herokuapp.com/#/planning'
-                    });
+                            name: reservation.student.firstname,
+                            link: 'https://toofrench.herokuapp.com/#/planning'
+                        });
                     sails.hooks.email.send(
                         'general',
                         {
@@ -54,7 +54,7 @@ function sendReservationCreated(reservationId) {
                 }
             });
 
-            NotificationSettings.findOrCreate({owner: reservation.student.owner}, {owner: reservation.student.owner}).populate('owner').exec(function (err, settings) {
+            NotificationSettings.findOrCreate({ owner: reservation.student.owner }, { owner: reservation.student.owner }).populate('owner').exec(function (err, settings) {
                 if (err) {
                     sails.log.error(err);
                 }
@@ -64,15 +64,15 @@ function sendReservationCreated(reservationId) {
                     var subject = sails.__({
                         phrase: 'mail.resa.created.student.subject',
                         locale: locale
-                    }, {name: reservation.teacher.firstname});
+                    }, { name: reservation.teacher.firstname });
 
                     var content = sails.__({
                         phrase: 'mail.resa.created.student.content',
                         locale: locale
                     }, {
-                        name: reservation.teacher.firstname,
-                        link: 'https://toofrench.herokuapp.com/#/planning'
-                    });
+                            name: reservation.teacher.firstname,
+                            link: 'https://toofrench.herokuapp.com/#/planning'
+                        });
                     sails.hooks.email.send(
                         'general',
                         {
@@ -97,11 +97,11 @@ function sendReservationCreated(reservationId) {
 }
 
 function sendReservationValidated(reservationId) {
-    Reservation.findOne({id: reservationId}).populate('student').populate('teacher').exec(function (err, reservation) {
+    Reservation.findOne({ id: reservationId }).populate('student').populate('teacher').exec(function (err, reservation) {
         if (err) {
             sails.log.error(err);
         } else {
-            NotificationSettings.findOrCreate({owner: reservation.student.owner}, {owner: reservation.student.owner}).populate('owner').exec(function (err, settings) {
+            NotificationSettings.findOrCreate({ owner: reservation.student.owner }, { owner: reservation.student.owner }).populate('owner').exec(function (err, settings) {
                 if (err) {
                     sails.log.error(err);
                 }
@@ -111,15 +111,15 @@ function sendReservationValidated(reservationId) {
                     var subject = sails.__({
                         phrase: 'mail.resa.validated.subject',
                         locale: locale
-                    }, {name: reservation.teacher.firstname});
+                    }, { name: reservation.teacher.firstname });
 
                     var content = sails.__({
                         phrase: 'mail.resa.validated.content',
                         locale: locale
                     }, {
-                        name: reservation.teacher.firstname,
-                        link: 'https://toofrench.herokuapp.com/#/planning'
-                    });
+                            name: reservation.teacher.firstname,
+                            link: 'https://toofrench.herokuapp.com/#/planning'
+                        });
                     sails.hooks.email.send(
                         'general',
                         {
@@ -139,7 +139,7 @@ function sendReservationValidated(reservationId) {
                 }
             });
 
-            NotificationSettings.findOrCreate({owner: reservation.teacher.owner}, {owner: reservation.teacher.owner}).populate('owner').exec(function (err, settings) {
+            NotificationSettings.findOrCreate({ owner: reservation.teacher.owner }, { owner: reservation.teacher.owner }).populate('owner').exec(function (err, settings) {
                 if (err) {
                     sails.log.error(err);
                 }
@@ -149,15 +149,15 @@ function sendReservationValidated(reservationId) {
                     var subject = sails.__({
                         phrase: 'mail.resa.validated.student.subject',
                         locale: locale
-                    }, {name: reservation.student.firstname});
+                    }, { name: reservation.student.firstname });
 
                     var content = sails.__({
                         phrase: 'mail.resa.validated.student.content',
                         locale: locale
                     }, {
-                        name: reservation.student.firstname,
-                        link: 'https://toofrench.herokuapp.com/#/planning'
-                    });
+                            name: reservation.student.firstname,
+                            link: 'https://toofrench.herokuapp.com/#/planning'
+                        });
                     sails.hooks.email.send(
                         'general',
                         {
@@ -181,11 +181,11 @@ function sendReservationValidated(reservationId) {
 }
 
 function sendReservationCanceled(reservationId) {
-    Reservation.findOne({id: reservationId}).populate('student').populate('teacher').exec(function (err, reservation) {
+    Reservation.findOne({ id: reservationId }).populate('student').populate('teacher').exec(function (err, reservation) {
         if (err) {
             sails.log.error(err);
         } else {
-            NotificationSettings.findOrCreate({owner: reservation.student.owner}, {owner: reservation.student.owner}).populate('owner').exec(function (err, settings) {
+            NotificationSettings.findOrCreate({ owner: reservation.student.owner }, { owner: reservation.student.owner }).populate('owner').exec(function (err, settings) {
                 if (err) {
                     sails.log.error(err);
                 }
@@ -195,15 +195,15 @@ function sendReservationCanceled(reservationId) {
                     var subject = sails.__({
                         phrase: 'mail.resa.canceled.subject',
                         locale: locale
-                    }, {name: reservation.teacher.firstname});
+                    }, { name: reservation.teacher.firstname });
 
                     var content = sails.__({
                         phrase: 'mail.resa.canceled.content',
                         locale: locale
                     }, {
-                        name: reservation.teacher.firstname,
-                        link: 'https://toofrench.herokuapp.com/#/planning'
-                    });
+                            name: reservation.teacher.firstname,
+                            link: 'https://toofrench.herokuapp.com/#/planning'
+                        });
                     sails.hooks.email.send(
                         'general',
                         {
@@ -223,7 +223,7 @@ function sendReservationCanceled(reservationId) {
                 }
             });
 
-            NotificationSettings.findOrCreate({owner: reservation.teacher.owner}, {owner: reservation.teacher.owner}).populate('owner').exec(function (err, settings) {
+            NotificationSettings.findOrCreate({ owner: reservation.teacher.owner }, { owner: reservation.teacher.owner }).populate('owner').exec(function (err, settings) {
                 if (err) {
                     sails.log.error(err);
                 }
@@ -233,15 +233,15 @@ function sendReservationCanceled(reservationId) {
                     var subject = sails.__({
                         phrase: 'mail.resa.canceled.subject',
                         locale: locale
-                    }, {name: reservation.student.firstname});
+                    }, { name: reservation.student.firstname });
 
                     var content = sails.__({
                         phrase: 'mail.resa.canceled.content',
                         locale: locale
                     }, {
-                        name: reservation.student.firstname,
-                        link: 'https://toofrench.herokuapp.com/#/planning'
-                    });
+                            name: reservation.student.firstname,
+                            link: 'https://toofrench.herokuapp.com/#/planning'
+                        });
                     sails.hooks.email.send(
                         'general',
                         {
@@ -265,11 +265,11 @@ function sendReservationCanceled(reservationId) {
 }
 
 function sendReservationRefused(reservationId) {
-    Reservation.findOne({id: reservationId}).populate('student').populate('teacher').exec(function (err, reservation) {
+    Reservation.findOne({ id: reservationId }).populate('student').populate('teacher').exec(function (err, reservation) {
         if (err) {
             sails.log.error(err);
         } else {
-            NotificationSettings.findOrCreate({owner: reservation.student.owner}, {owner: reservation.student.owner}).populate('owner').exec(function (err, settings) {
+            NotificationSettings.findOrCreate({ owner: reservation.student.owner }, { owner: reservation.student.owner }).populate('owner').exec(function (err, settings) {
                 if (err) {
                     sails.log.error(err);
                 }
@@ -279,15 +279,15 @@ function sendReservationRefused(reservationId) {
                     var subject = sails.__({
                         phrase: 'mail.resa.refused.subject',
                         locale: locale
-                    }, {name: reservation.teacher.firstname});
+                    }, { name: reservation.teacher.firstname });
 
                     var content = sails.__({
                         phrase: 'mail.resa.refused.content',
                         locale: locale
                     }, {
-                        name: reservation.teacher.firstname,
-                        link: 'https://toofrench.herokuapp.com/#/planning'
-                    });
+                            name: reservation.teacher.firstname,
+                            link: 'https://toofrench.herokuapp.com/#/planning'
+                        });
                     sails.hooks.email.send(
                         'general',
                         {
@@ -311,8 +311,8 @@ function sendReservationRefused(reservationId) {
 }
 
 function sendProfileValidated(userId) {
-    NotificationSettings.findOrCreate({owner: userId}, {owner: userId}).populate('owner').exec(function (err, settings) {
-        Profile.findOne({'owner': userId}).exec(function (err, profile) {
+    NotificationSettings.findOrCreate({ owner: userId }, { owner: userId }).populate('owner').exec(function (err, settings) {
+        Profile.findOne({ 'owner': userId }).exec(function (err, profile) {
             if (err) {
                 sails.log.error(err);
             }
@@ -352,8 +352,8 @@ function sendProfileValidated(userId) {
 }
 
 function sendDiplomaValidated(userId) {
-    NotificationSettings.findOrCreate({owner: userId}, {owner: userId}).populate('owner').exec(function (err, settings) {
-        Profile.findOne({'owner': userId}).exec(function (err, profile) {
+    NotificationSettings.findOrCreate({ owner: userId }, { owner: userId }).populate('owner').exec(function (err, settings) {
+        Profile.findOne({ 'owner': userId }).exec(function (err, profile) {
             if (err) {
                 sails.log.error(err);
             }
@@ -403,16 +403,16 @@ function sendReviewAdded(user, reservation, review) {
 /* Message */
 
 function sendMessageReceived(userId, senderId, messageContent) {
-    NotificationSettings.findOrCreate({owner: userId}, {owner: userId}).populate('owner').exec(function (err, settings) {
+    NotificationSettings.findOrCreate({ owner: userId }, { owner: userId }).populate('owner').exec(function (err, settings) {
         if (err) {
             sails.log.error(err);
         }
         else if (settings.newMessage) {
-            Profile.findOne({owner: userId}).exec(function (err, userP) {
+            Profile.findOne({ owner: userId }).exec(function (err, userP) {
                 if (err) {
                     return sails.log.error(err);
                 }
-                Profile.findOne({owner: senderId}).exec(function (err, senderP) {
+                Profile.findOne({ owner: senderId }).exec(function (err, senderP) {
                     if (err) {
                         return sails.log.error(err);
                     }
@@ -420,7 +420,7 @@ function sendMessageReceived(userId, senderId, messageContent) {
                     var subject = sails.__({
                         phrase: 'mail.message.new.subject',
                         locale: locale
-                    }, {name: senderP.firstname});
+                    }, { name: senderP.firstname });
                     sails.hooks.email.send(
                         'message',
                         {
@@ -446,7 +446,7 @@ function sendMessageReceived(userId, senderId, messageContent) {
 
 function forgottenPassword(token, email, next) {
 
-    User.findOne({email: email}).exec(function (err, user) {
+    User.findOne({ email: email }).exec(function (err, user) {
         if (err) {
             sails.log.error(err);
             return next(err);
@@ -457,13 +457,13 @@ function forgottenPassword(token, email, next) {
             phrase: 'mail.forgotten.password.subject',
             locale: locale
         });
-        var link = "https://toofrench.herokuapp.com/#/resetPassword/" + token;
+        var link = "https://www.toofrench.net/#/resetPassword/" + token;
         var content = sails.__({
             phrase: 'mail.forgotten.password.content',
             locale: locale
         }, {
-            link: link
-        });
+                link: link
+            });
         sails.hooks.email.send(
             'forgottenPassword',
             {
@@ -485,7 +485,7 @@ function forgottenPassword(token, email, next) {
 }
 
 function resetPasswordConfirm(userId, next) {
-    User.findOne({id: userId}).exec(function (err, user) {
+    User.findOne({ id: userId }).exec(function (err, user) {
         if (err) {
             sails.log.error(err);
             return next(err);
@@ -501,7 +501,7 @@ function resetPasswordConfirm(userId, next) {
             phrase: 'mail.forgotten.confirm.content',
             locale: locale
         });
-        Profile.findOne({id: user.profile}).exec(function (err, profile) {
+        Profile.findOne({ id: user.profile }).exec(function (err, profile) {
             if (err) {
                 sails.log.error(err);
                 return next(err);
@@ -539,5 +539,5 @@ module.exports = {
     forgottenPassword: forgottenPassword,
     resetPasswordConfirm: resetPasswordConfirm,
     sendProfileValidated: sendProfileValidated,
-    sendDiplomaValidated:sendDiplomaValidated
+    sendDiplomaValidated: sendDiplomaValidated
 }
