@@ -8,7 +8,7 @@ module.exports.email = {
         user: process.env.MAILGUN_SMTP_LOGIN,
         pass: process.env.MAILGUN_SMTP_PASSWORD
     },
-    from: 'notification@toofrench.net',
+    from: 'message@toofrench.net',
     templateDir: 'views/emailTemplates'
     //testMode : true,
 };
